@@ -6,7 +6,6 @@ namespace Wirtualnik.XF.ViewModels
     {
         public MainPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            Title = "Main Page";
         }
     }
 }

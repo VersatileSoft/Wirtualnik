@@ -4,7 +4,6 @@ using Wirtualnik.XF.ViewModels;
 using Wirtualnik.XF.Views;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Essentials.Interfaces;
-using Xamarin.Forms;
 
 namespace Wirtualnik.XF
 {
@@ -18,14 +17,13 @@ namespace Wirtualnik.XF
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage").ConfigureAwait(false);
+            await NavigationService.NavigateAsync("MainPage").ConfigureAwait(false);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
-            containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
         }
     }

@@ -1,8 +1,10 @@
-﻿<ContentPage x:Class="Wirtualnik.XF.Views.MainPage"
+﻿<ContentPage x:Class="Wirtualnik.XF.Views.MainPage" x:DataType="viewmodels:MainPageViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="{Binding Title}">
+    xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
+    BackgroundColor="White">
+
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
+        <Label Text="Welcome to Wirtualnik!" />
     </StackLayout>
 </ContentPage>

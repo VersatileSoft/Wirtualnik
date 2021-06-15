@@ -1,6 +1,8 @@
-﻿namespace Wirtualnik.XF.Views
+﻿using Xamarin.Forms;
+
+namespace Wirtualnik.XF.Views
 {
-    public partial class MainPage
+    public partial class MainPage : ContentPage
     {
         public MainPage()
         {

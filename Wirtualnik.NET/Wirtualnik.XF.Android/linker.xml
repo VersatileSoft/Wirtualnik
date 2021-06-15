@@ -10,6 +10,7 @@
     </type>
   </assembly>
 
+  <assembly fullname="Wirtualnik" />
   <assembly fullname="Prism" />
   <assembly fullname="Prism.Forms" />
   <assembly fullname="Prism.DryIoc.Forms" />
