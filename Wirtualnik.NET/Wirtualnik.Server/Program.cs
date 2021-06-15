@@ -9,13 +9,13 @@ using Wirtualnik.Data;
 
 namespace Wirtualnik.Server
 {
-    public class Program
+    public static class Program
     {
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
-            using var scope = host.Services.CreateScope();
+            /*using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
             try
@@ -31,7 +31,7 @@ namespace Wirtualnik.Server
             {
                 logger.LogError(ex, "An error occurred while migrating or seeding the database.");
                 throw;
-            }
+            }*/
 
             await host.RunAsync().ConfigureAwait(false);
         }

@@ -10,9 +10,11 @@ namespace Wirtualnik.Server
         public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<WirtualnikDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("LocalTestDatabaseConnection"), // LocalTestDatabaseConnection, DockerConnection
+                options.UseInMemoryDatabase("Test")
+                
+            /*options.UseSqlServer(configuration.GetConnectionString("LocalTestDatabaseConnection"), // LocalTestDatabaseConnection, DockerConnection
                     b => b.EnableRetryOnFailure()
-                )
+                )*/
             );
         }
     }
