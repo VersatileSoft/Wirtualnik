@@ -17,9 +17,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build Wirtualnik/Wirtualnik.NET/Wirtualnik.sln --no-restore
+      
+    # We don't have test for now.
+    # - name: Test run: dotnet test --no-build --verbosity normal
