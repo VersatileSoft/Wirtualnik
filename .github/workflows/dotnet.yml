@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 5.0.x
         
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Wirtualnik/Wirtualnik.NET/Wirtualnik.sln 
       
     - name: Build
       run: dotnet build Wirtualnik/Wirtualnik.NET/Wirtualnik.sln --no-restore
