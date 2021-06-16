@@ -22,7 +22,7 @@ jobs:
       run: dotnet restore /home/runner/work/Wirtualnik/Wirtualnik.NET/Wirtualnik.sln
       
     - name: Build
-      run: dotnet build /home/runner/work/Wirtualnik/Wirtualnik.NET/Wirtualnik.sln --no-restore
+      run: dotnet build /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.NET/Wirtualnik.sln --no-restore
       
     # We don't have test for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
