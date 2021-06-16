@@ -19,10 +19,10 @@ jobs:
         dotnet-version: 5.0.x
         
     - name: Restore dependencies
-      run: dotnet restore Wirtualnik/Wirtualnik.NET/Wirtualnik.sln 
+      run: dotnet restore /home/runner/work/Wirtualnik/Wirtualnik.NET/Wirtualnik.sln
       
     - name: Build
-      run: dotnet build Wirtualnik/Wirtualnik.NET/Wirtualnik.sln --no-restore
+      run: dotnet build /home/runner/work/Wirtualnik/Wirtualnik.NET/Wirtualnik.sln --no-restore
       
     # We don't have test for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
