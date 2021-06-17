@@ -1,4 +1,4 @@
-name: Check .NET project building
+name: .NET projects building
 
 # Eventually this script should run after the PR is created and commit is sent.
 on:
