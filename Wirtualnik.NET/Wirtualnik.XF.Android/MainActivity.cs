@@ -1,7 +1,8 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Views;
+using AndroidX.Core.View;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Essentials;
@@ -12,13 +13,17 @@ namespace Wirtualnik.XF.Droid
     [Activity(MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        private OSAppTheme lastTheme;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
+            SetTheme(Resource.Style.MainTheme);
+
+            Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
+            Android.Glide.Forms.Init(this, debug: true);
+            FormsMaterial.Init(this, savedInstanceState);
+            UserDialogs.Init(this);
 
             LoadApplication(new App(new AndroidInitializer()));
 
@@ -35,14 +40,7 @@ namespace Wirtualnik.XF.Droid
         public void SetStatusBarColor()
         {
             var currentTheme = Xamarin.Forms.Application.Current.RequestedTheme;
-
-            if (lastTheme == currentTheme)
-            {
-                return;
-            }
-
-            var color = currentTheme == OSAppTheme.Light ? Android.Graphics.Color.ParseColor("#e0e0e0") : Android.Graphics.Color.ParseColor("#303030");
-
+            var color = currentTheme == OSAppTheme.Light ? Android.Graphics.Color.White : Android.Graphics.Color.DarkGray;
             var window = Platform.CurrentActivity.Window;
 
             if (window is null)
@@ -50,8 +48,6 @@ namespace Wirtualnik.XF.Droid
                 return;
             }
 
-            window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            window.ClearFlags(WindowManagerFlags.TranslucentStatus);
             window.SetStatusBarColor(color);
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -59,15 +55,9 @@ namespace Wirtualnik.XF.Droid
                 window.SetNavigationBarColor(color);
             }
 
-            const StatusBarVisibility statusBarVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar
-                | (StatusBarVisibility)SystemUiFlags.LightNavigationBar;
-            //window.DecorView.SystemUiVisibility = currentTheme == OSAppTheme.Light ? statusBarVisibility : 0;
-
-            var lol = currentTheme == OSAppTheme.Light ? (int)statusBarVisibility : 0;
-
-            window.DecorView.WindowInsetsController?.SetSystemBarsAppearance(lol, (int)SystemUiFlags.LightStatusBar);
-
-            lastTheme = currentTheme;
+            using var controller = WindowCompat.GetInsetsController(window, window.DecorView.RootView);
+            controller.AppearanceLightStatusBars = currentTheme == OSAppTheme.Light;
+            controller.AppearanceLightNavigationBars = currentTheme == OSAppTheme.Light;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

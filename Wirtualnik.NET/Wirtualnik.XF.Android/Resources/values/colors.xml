@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="icon_foreground">#31344b</color>
-  <color name="icon_background">#e0e0e0</color>
+  <color name="icon_foreground">@android:color/white</color>
+  <color name="icon_background">#c90043</color>
 
-  <color name="colorPrimary">#31344b</color>
-  <color name="colorPrimaryDark">#31344b</color>
-  <color name="colorAccent">#31344b</color>
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#FF4081</color>
 </resources>

@@ -1,10 +1,11 @@
-name: .NET
+name: Check .NET project building
 
+# Eventually this script should run after the PR is created and commit is sent.
 on:
   push:
-    branches: [ develop ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ develop ]
+    branches: [ main, develop ]
 
 jobs:
   build:
@@ -28,11 +29,37 @@ jobs:
       with:
         dotnet-version: 5.0.x
         
-    - name: Restore dependencies
-      run: dotnet restore Wirtualnik.NET/Wirtualnik.sln
+    # We need to use NuGet because Xamarin doesn't like dotnet restore
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
+        
+    - name: Run NuGet Restore
+    - run: nuget restore Wirtualnik.NET/Wirtualnik.sln
+
+    - name: Build Wirtualnik.Data
+      run: dotnet build Wirtualnik.NET/Wirtualnik.Data/Wirtualnik.Data.csproj --configuration Release --no-restore
       
-    - name: Build
-      run: dotnet build Wirtualnik.NET/Wirtualnik.sln --no-restore
+    - name: Build Wirtualnik.Repository
+      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Repository/Wirtualnik.Repository.csproj --configuration Release --no-restore
       
-    # We don't have test for now.
+    - name: Build Wirtualnik.Server
+      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Server/Wirtualnik.Server.csproj --configuration Release --no-restore
+      
+    - name: Build Wirtualnik.Shared
+      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Shared/Wirtualnik.Shared.csproj --configuration Release --no-restore
+      
+    - name: Build Wirtualnik.XF
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF/Wirtualnik.XF.csproj
+      
+    - name: Wirtualnik.XF.Android
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.Android/Wirtualnik.XF.Android.csproj
+      
+      # We don't have macOS machine locally, so building iOS app is pointless.
+    # - name: Build Wirtualnik.XF.iOS
+    #  run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.iOS/Wirtualnik.XF.iOS.csproj
+      
+      # We don't have tests for now.
     # - name: Test run: dotnet test --no-build --verbosity normal

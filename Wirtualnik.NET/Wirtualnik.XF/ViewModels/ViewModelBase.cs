@@ -7,13 +7,6 @@ namespace Wirtualnik.XF.ViewModels
     {
         protected INavigationService NavigationService { get; }
 
-        private string? _title;
-        public string? Title
-        {
-            get => _title;
-            set => SetProperty(ref _title, value);
-        }
-
         public ViewModelBase(INavigationService navigationService)
         {
             NavigationService = navigationService;

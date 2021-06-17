@@ -4,26 +4,19 @@
   <style name="MainTheme" parent="MainTheme.Base">
     <item name="android:forceDarkAllowed">false</item>
 
-    <item name="android:colorEdgeEffect">@color/icon_foreground</item>
+    <item name="android:colorEdgeEffect">@android:color/white</item>
 
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-    <!-- Set theme colors from https://aka.ms/material-colors -->
-
-    <!--<item name="android:windowActionBar">true</item>
-    <item name="android:windowNoTitle">false</item>-->
   </style>
 
-  <style name="SplashScreenTheme" parent="MainTheme.Base">
-    <item name="android:windowActionBar">false</item>
-    <item name="android:windowNoTitle">true</item>
-
+  <style name="SplashScreenTheme" parent="MainTheme">
     <item name="android:windowBackground">@drawable/splash_screen</item>
-    <item name="android:statusBarColor">@color/icon_background</item>
-    <item name="android:windowLightStatusBar">true</item>
-    <item name="android:navigationBarColor" tools:targetApi="o">@color/icon_background</item>
+    <item name="android:statusBarColor">#FA6954</item>
+    <item name="android:windowLightStatusBar">false</item>
+    <item name="android:navigationBarColor" tools:targetApi="o">#F8216E</item>
     <item name="android:navigationBarColor">@android:color/black</item>
-    <item name="android:windowLightNavigationBar">true</item>
+    <item name="android:windowLightNavigationBar">false</item>
   </style>
 </resources>
