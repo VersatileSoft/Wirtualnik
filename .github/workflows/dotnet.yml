@@ -37,7 +37,7 @@ jobs:
         nuget-version: '5.x'
         
     - name: Run NuGet Restore
-    - run: nuget restore Wirtualnik.NET/Wirtualnik.sln
+      run: nuget restore Wirtualnik.NET/Wirtualnik.sln
 
     - name: Build Wirtualnik.Data
       run: dotnet build Wirtualnik.NET/Wirtualnik.Data/Wirtualnik.Data.csproj --configuration Release --no-restore
