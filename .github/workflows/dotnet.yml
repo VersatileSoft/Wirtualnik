@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ develop ]
+    branches: [ main, develop ]
 
 jobs:
   build:
@@ -29,10 +29,10 @@ jobs:
         dotnet-version: 5.0.x
         
     - name: Restore dependencies
-      run: dotnet restore Wirtualnik.NET/Wirtualnik.sln
+      run: msbuild Wirtualnik.NET/Wirtualnik.sln
       
     - name: Build
-      run: dotnet build Wirtualnik.NET/Wirtualnik.sln --no-restore
+      run: msbuild Wirtualnik.NET/Wirtualnik.sln --no-restore
       
     # We don't have test for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
