@@ -32,7 +32,7 @@ jobs:
       run: msbuild Wirtualnik.NET/Wirtualnik.sln
       
     - name: Build
-      run: msbuild Wirtualnik.NET/Wirtualnik.sln --no-restore
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.sln
       
     # We don't have test for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
