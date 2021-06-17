@@ -27,7 +27,7 @@ jobs:
     - name: Perform Scan
       uses: ShiftLeftSecurity/scan-action@master
       env:
-        WORKSPACE: ""
+        WORKSPACE: "Wirtualnik.Frontend"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SCAN_AUTO_BUILD: true
       with:
