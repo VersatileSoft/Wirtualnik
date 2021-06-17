@@ -11,7 +11,7 @@ namespace Wirtualnik.Server
         {
             services.AddDbContext<WirtualnikDbContext>(options =>
                 options.UseInMemoryDatabase("Test")
-                
+
             /*options.UseSqlServer(configuration.GetConnectionString("LocalTestDatabaseConnection"), // LocalTestDatabaseConnection, DockerConnection
                     b => b.EnableRetryOnFailure()
                 )*/
