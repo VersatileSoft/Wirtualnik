@@ -1,7 +1,13 @@
 name: Daily code format check
 on:
+  push:
+    branches: [ main ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ main ]
   schedule:
-    - cron: '20 6 * * 3' #0 0 * * * # Every day at midnight (UTC)
+    - cron: '20 6 * * 3'
+    
 jobs:
   dotnet-format:
     runs-on: windows-latest
