@@ -50,11 +50,11 @@ jobs:
     - name: Build Wirtualnik.XF
       run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF/Wirtualnik.XF.csproj
       
-    - name: Build Wirtualnik.Android
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.Android/Wirtualnik.XF.Android.csproj
+    - name: Wirtualnik.XF.Android
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.Android/Wirtualnik.XF.Android.csproj
       
-    - name: Build Wirtualnik.iOS
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.iOS/Wirtualnik.XF.Android.csproj
+    - name: Build Wirtualnik.XF.iOS
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.iOS/Wirtualnik.XF.iOS.csproj
       
     # We don't have test for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
