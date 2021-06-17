@@ -8,10 +8,21 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
         
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Set default Xamarin SDK versions
+      run: |
+        $VM_ASSETS/select-xamarin-sdk-v2.sh --mono=6.12 --ios=14.10
+    
+    - name: Set default Xcode 12.3
+      run: |
+        XCODE_ROOT=/Applications/Xcode_12.3.0.app
+        echo "MD_APPLE_SDK_ROOT=$XCODE_ROOT" >> $GITHUB_ENV
+        sudo xcode-select -s $XCODE_ROOT
+        
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
