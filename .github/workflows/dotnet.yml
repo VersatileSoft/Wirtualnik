@@ -51,10 +51,10 @@ jobs:
       run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF/Wirtualnik.XF.csproj
       
     - name: Build Wirtualnik.Android
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.Android/Wirtualnik.Android.csproj
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.Android/Wirtualnik.XF.Android.csproj
       
     - name: Build Wirtualnik.iOS
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.iOS/Wirtualnik.iOS.csproj
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.iOS/Wirtualnik.XF.Android.csproj
       
     # We don't have test for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
