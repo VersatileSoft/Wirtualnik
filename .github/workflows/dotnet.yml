@@ -35,9 +35,26 @@ jobs:
         nuget-version: '5.x'
     - run: nuget restore Wirtualnik.NET/Wirtualnik.sln
 
+    - name: Build Wirtualnik.Data
+      run: dotnet build Wirtualnik.NET/Wirtualnik.Data/Wirtualnik.Data.csproj --configuration Release --no-restore
       
-    - name: Build
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.sln
+    - name: Build Wirtualnik.Repository
+      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Repository/Wirtualnik.Repository.csproj --configuration Release --no-restore
+      
+    - name: Build Wirtualnik.Server
+      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Server/Wirtualnik.Server.csproj --configuration Release --no-restore
+      
+    - name: Build Wirtualnik.Shared
+      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Shared/Wirtualnik.Shared.csproj --configuration Release --no-restore
+      
+    - name: Build Wirtualnik.XF
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF/Wirtualnik.XF.csproj
+      
+    - name: Build Wirtualnik.Android
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.Android/Wirtualnik.Android.csproj
+      
+    - name: Build Wirtualnik.iOS
+      run: msbuild -restore Wirtualnik.NET/Wirtualnik.iOS/Wirtualnik.iOS.csproj
       
     # We don't have test for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
