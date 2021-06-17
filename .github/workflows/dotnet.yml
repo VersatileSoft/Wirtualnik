@@ -1,5 +1,6 @@
-name: .NET
+name: Check .NET project building
 
+# Eventually this script should run after the PR is created and commit is sent.
 on:
   push:
     branches: [ main, develop ]
@@ -28,11 +29,14 @@ jobs:
       with:
         dotnet-version: 5.0.x
         
-    - name: Setup NuGet.exe
+    # We need to use NuGet because Xamarin doesn't like dotnet restore
+    - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
       with:
         nuget-api-key: ${{ secrets.NuGetAPIKey }}
         nuget-version: '5.x'
+        
+    - name: Run NuGet Restore
     - run: nuget restore Wirtualnik.NET/Wirtualnik.sln
 
     - name: Build Wirtualnik.Data
@@ -53,8 +57,9 @@ jobs:
     - name: Wirtualnik.XF.Android
       run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.Android/Wirtualnik.XF.Android.csproj
       
-    - name: Build Wirtualnik.XF.iOS
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.iOS/Wirtualnik.XF.iOS.csproj
+      # We don't have macOS machine locally, so building iOS app is pointless.
+    # - name: Build Wirtualnik.XF.iOS
+    #  run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.iOS/Wirtualnik.XF.iOS.csproj
       
-    # We don't have test for now.
+      # We don't have tests for now.
     # - name: Test run: dotnet test --no-build --verbosity normal
