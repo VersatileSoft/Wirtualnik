@@ -28,8 +28,13 @@ jobs:
       with:
         dotnet-version: 5.0.x
         
-    - name: Restore dependencies
-      run: msbuild Wirtualnik.NET/Wirtualnik.sln
+    - name: Setup NuGet.exe
+      uses: NuGet/setup-nuget@v1.0.5
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
+    - run: nuget restore Wirtualnik.NET/Wirtualnik.sln
+
       
     - name: Build
       run: msbuild -restore Wirtualnik.NET/Wirtualnik.sln
