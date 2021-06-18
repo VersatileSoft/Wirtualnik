@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="icon_foreground">#f23d3d</color>
+  <color name="icon_background">#191919</color>
+  
+  <color name="colorPrimary">#222222</color>
+  <color name="colorPrimaryDark">#191919</color>
+  <color name="colorAccent">#f23d3d</color>
+</resources>

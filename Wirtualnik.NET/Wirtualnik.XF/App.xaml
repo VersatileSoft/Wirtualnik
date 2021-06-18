@@ -3,6 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="http://prismlibrary.com">
     <Application.Resources>
-        <!--  Application resource dictionary  -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Values/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Values/FontIcons.xaml" />
+                <!--<styles:PageStyle />-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

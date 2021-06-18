@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--  Light Colors  -->
+    <Color x:Key="BackgroundColorLight">#f3f3f3</Color>
+    <Color x:Key="CellBackgroundColorLight">#f9f9f9</Color>
+    <Color x:Key="ContrastColorLight">#000000</Color>
+    <Color x:Key="MediumContrastColorLight">#595b59</Color>
+    <Color x:Key="LowContrastColorLight">#929495</Color>
+    <Color x:Key="RedShadowColorLight">#e22c2c</Color>
+    <Color x:Key="BlueShadowColorLight">#1e8cf2</Color>
+    <Color x:Key="AccentColorLight">#f23d3d</Color>
+
+    <!--  Dark Colors  -->
+    <Color x:Key="BackgroundColorDark">#191919</Color>
+    <Color x:Key="CellBackgroundColorDark">#222222</Color>
+    <Color x:Key="ContrastColorDark">#f1f1f1</Color>
+    <Color x:Key="MediumContrastColorDark">#acacac</Color>
+    <Color x:Key="LowContrastColorDark">#888888</Color>
+    <Color x:Key="RedShadowColorDark">#e22c2c</Color>
+    <Color x:Key="BlueShadowColorDark">#1e8cf2</Color>
+    <Color x:Key="AccentColorDark">#f23d3d</Color>
+
+</ResourceDictionary>

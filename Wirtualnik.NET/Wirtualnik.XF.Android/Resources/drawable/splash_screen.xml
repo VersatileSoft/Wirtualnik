@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
             android:opacity="opaque">
 
-  <item android:drawable="@drawable/icon_background"/>
+  <item android:drawable="@color/icon_background"/>
 
   <item android:drawable="@drawable/icon_foreground"
         android:gravity="center"

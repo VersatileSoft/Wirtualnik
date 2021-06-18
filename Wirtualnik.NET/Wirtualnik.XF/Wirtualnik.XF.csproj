@@ -3,6 +3,18 @@
   <PropertyGroup>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Poppins-Bold.ttf" />
+    <None Remove="Resources\Fonts\Poppins-Light.ttf" />
+    <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
+    <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\Poppins-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Poppins-Light.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Poppins-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Poppins-SemiBold.ttf" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
@@ -26,8 +38,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Styles\" />
-    <Folder Include="Resources\" />
+    <EmbeddedResource Update="Styles\Values\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Values\FontIcons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

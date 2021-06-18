@@ -82,6 +82,9 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <LinkDescription Include="linker.xml" />
+    <AndroidEnvironment Include="GarbageCollector.config" />
+    <ProguardConfiguration Include="proguard.cfg" />
+    <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,12 +96,7 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\*.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\*.png" />
     <AndroidResource Include="Resources\values\*.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AndroidEnvironment Include="GarbageCollector.config" />
-    <ProguardConfiguration Include="proguard.cfg" />
-    <None Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\values-night\*.xml" />
   </ItemGroup>
 
   <ItemGroup>

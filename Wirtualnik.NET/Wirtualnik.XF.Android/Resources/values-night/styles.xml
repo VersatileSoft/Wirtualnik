@@ -13,8 +13,8 @@
   <style name="SplashScreenTheme" parent="MainTheme">
     <item name="android:windowBackground">@drawable/splash_screen</item>
     <item name="android:statusBarColor">@color/icon_background</item>
-    <item name="android:windowLightStatusBar">true</item>
-    <item name="android:navigationBarColor" >@color/icon_background</item>
-    <item name="android:windowLightNavigationBar">true</item>
+    <item name="android:windowLightStatusBar">false</item>
+    <item name="android:navigationBarColor">@color/icon_background</item>
+    <item name="android:windowLightNavigationBar">false</item>
   </style>
 </resources>

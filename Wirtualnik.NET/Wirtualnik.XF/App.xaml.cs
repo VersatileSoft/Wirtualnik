@@ -16,6 +16,7 @@ namespace Wirtualnik.XF
         protected override async void OnInitialized()
         {
             InitializeComponent();
+            Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
 
             await NavigationService.NavigateAsync("MainPage").ConfigureAwait(false);
         }

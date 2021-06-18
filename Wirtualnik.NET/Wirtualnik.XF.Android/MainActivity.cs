@@ -40,7 +40,7 @@ namespace Wirtualnik.XF.Droid
         public void SetStatusBarColor()
         {
             var currentTheme = Xamarin.Forms.Application.Current.RequestedTheme;
-            var color = currentTheme == OSAppTheme.Light ? Android.Graphics.Color.White : Android.Graphics.Color.DarkGray;
+            var color = currentTheme == OSAppTheme.Light ? ColorConverters.FromHex("#f3f3f3").ToPlatformColor() : ColorConverters.FromHex("#191919").ToPlatformColor();
             var window = Platform.CurrentActivity.Window;
 
             if (window is null)
