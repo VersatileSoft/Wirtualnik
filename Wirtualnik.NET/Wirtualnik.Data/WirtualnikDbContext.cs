@@ -6,9 +6,7 @@ namespace Wirtualnik.Data
     public class WirtualnikDbContext : DbContext
     {
         public WirtualnikDbContext(DbContextOptions<WirtualnikDbContext> options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        { }
 
         public virtual DbSet<Processor>? Processors { get; set; }
         public virtual DbSet<Mainboard>? Mainboards { get; set; }

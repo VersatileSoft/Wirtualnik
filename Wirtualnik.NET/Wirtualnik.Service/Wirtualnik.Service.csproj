@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wirtualnik.Data\Wirtualnik.Data.csproj" />
+    <ProjectReference Include="..\Wirtualnik.Repository\Wirtualnik.Repository.csproj" />
+    <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

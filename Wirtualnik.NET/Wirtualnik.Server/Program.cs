@@ -1,44 +1,81 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Web;
 using System;
-using System.Threading.Tasks;
-using Wirtualnik.Data;
+using System.Collections.Generic;
+using System.IO;
+using Wirtualnik.Server.Extensions.Logging;
 
 namespace Wirtualnik.Server
 {
     public static class Program
     {
-        public static async Task Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
+        public static Logger? Logger { get; set; }
 
-            /*using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        #region Main()
+        public static void Main(string[] args)
+        {
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? Environments.Development;
+
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("secret.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .AddCommandLine(args)
+                .Build();
+
+            Logger = NLogBuilder
+                .ConfigureNLog(LoggingConfigurationFactory.Create("nlog.config", config))
+                .GetCurrentClassLogger();
+
             try
             {
-                var dbContext = services.GetRequiredService<WirtualnikDbContext>();
-                logger.Log(LogLevel.Information, "Connection string is: " + dbContext.Database.GetConnectionString());
-                if (dbContext.Database.IsSqlServer())
-                {
-                    dbContext.Database.Migrate();
-                }
+                Logger.Debug("Starting Web Host");
+
+                CreateWebHostBuilder(config).Build().Run();
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while migrating or seeding the database.");
-                throw;
-            }*/
-
-            await host.RunAsync().ConfigureAwait(false);
+                Logger.Fatal(ex, "Host terminated unexpectedly: " + ex.Message);
+            }
+            finally
+            {
+                LogManager.Shutdown();
+            }
         }
+        #endregion
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
+        #region CreateWebHostBuilder()
+        public static IWebHostBuilder CreateWebHostBuilder(IConfigurationRoot config)
         {
-            return Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+            return new WebHostBuilder()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseWebRoot(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
+                .UseConfiguration(config)
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                })
+                .UseNLog()
+                .UseDefaultServiceProvider(o =>
+                {
+                    o.ValidateScopes = false;
+                })
+                .UseKestrel((builderContext, options) =>
+                {
+                    options.Configure(builderContext.Configuration.GetSection("Kestrel"));
+                    options.Limits.MaxRequestBodySize = int.MaxValue;
+                    options.AddServerHeader = false;
+
+                })
+                .UseIIS()
+                .CaptureStartupErrors(true)
+                .UseStartup<Startup>();
         }
+        #endregion
     }
 }
