@@ -2,7 +2,7 @@
 using Wirtualnik.Data.Models;
 using Wirtualnik.Repository.Interfaces;
 using Wirtualnik.Server.Interfaces;
-using Wirtualnik.Server.Services.Base;
+using Wirtualnik.Services.Base;
 using Wirtualnik.Shared.Models;
 
 namespace Wirtualnik.Server.Services
