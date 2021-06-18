@@ -28,6 +28,9 @@
     "css-what": "5.0.1",
     "normalize-url": "6.0.1",
     "nuxt": "^2.15.7",
+    "nuxt-mq": "^2.0.2",
+    "vue-class-component": "^7.2.6",
+    "vue-property-decorator": "^9.1.2",
     "yarn-audit-fix": "^6.3.2"
   },
   "devDependencies": {
@@ -51,7 +54,7 @@
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.1",
     "sass": "^1.35.1",
-    "sass-loader": "^12.1.0",
+    "sass-loader": "^10.1.1",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",

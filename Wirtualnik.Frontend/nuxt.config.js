@@ -36,10 +36,26 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    [
+      'nuxt-mq',
+      {
+        // Default breakpoint for SSR
+        defaultBreakpoint: 'sm',
+        breakpoints: {
+          xs: 450,
+          sm: 800,
+          md: 1100,
+          lg: 1400,
+          xl: Infinity,
+        },
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: 'http://wirtualnik.pl',
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
