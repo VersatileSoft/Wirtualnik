@@ -1,4 +1,4 @@
-import Vue from 'Vue'
+import Vue from 'vue'
 
 Vue.mixin({
   computed: {
@@ -9,7 +9,7 @@ Vue.mixin({
       return ['sm', 'md'].includes(this.$mq as string)
     },
     mobile() {
-      return ['xs', 'sm', 'md'].includes(this.$mq as string)
+      return ['xs', 'sm'].includes(this.$mq as string)
     },
     laptop() {
       return ['lg'].includes(this.$mq as string)
