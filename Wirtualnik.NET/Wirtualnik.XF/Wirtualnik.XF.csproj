@@ -24,6 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="Sentry.Xamarin.Forms" Version="1.0.3" />
     <PackageReference Include="Sharpnado.Shadows" Version="1.2.0" />
     <PackageReference Include="Xamarin.Plugin.SharedTransitions" Version="2.4.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0-pre2" />
