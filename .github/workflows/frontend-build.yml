@@ -1,0 +1,26 @@
+name: Forntend project building
+
+# Eventually this script should run after the PR is created and commit is sent.
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+        
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install dependencies
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install Wirtualnik.Frontend # will run `yarn install` command
+      
+      - name: Build Wirtualnik.Frontend
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build Wirtualnik.Frontend # will run `yarn build` command
+      
