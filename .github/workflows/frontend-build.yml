@@ -1,4 +1,4 @@
-name: Forntend project building
+name: Frontend project building
 
 # Eventually this script should run after the PR is created and commit is sent.
 on:
@@ -23,7 +23,10 @@ jobs:
         working-directory: ./Wirtualnik.Frontend
         run: yarn install
       
-      - name: Build Wirtualnik.Frontend
+      - name: Build Wirtualnik.Frontend in debug
         working-directory: ./Wirtualnik.Frontend
-        run: yarn build
+        run: yarn dev
       
+     # - name: Build Wirtualnik.Frontend
+     #   working-directory: ./Wirtualnik.Frontend
+     #   run: yarn build
