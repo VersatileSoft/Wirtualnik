@@ -14,8 +14,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
-
+  css: ['@/assets/scss/main.scss'],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/vueMq.ts'],
 
@@ -66,4 +65,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // enable loading bar
+  loading: {
+    height: '3px',
+    continuous: true,
+    throttle: 0,
+  },
 }
