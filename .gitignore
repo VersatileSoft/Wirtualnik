@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 Wirtualnik.Frontend/.vscode
 Wirtualnik.NET/Wirtualnik.Server/secret.json
+Wirtualnik.NET/Wirtualnik.Server/wwwroot

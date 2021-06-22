@@ -20,6 +20,7 @@ using Autofac;
 using Wirtualnik.Repository;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using Wirtualnik.Server.Extensions.Swagger;
 
 namespace Wirtualnik.Server
 {
@@ -66,7 +67,7 @@ namespace Wirtualnik.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSwaggerGen();
-
+            services.AddSpaStaticFiles(o => o.RootPath = "wwwroot");
             var builder = new ContainerBuilder();
             builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<ServiceModule>();
@@ -92,9 +93,7 @@ namespace Wirtualnik.Server
                 app.UseHsts();
             }
 
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wirtualnik"));
+            app.UseExtSwagger();
 
             app.UseHttpsRedirection();
             //app.UseBlazorFrameworkFiles();
@@ -111,6 +110,10 @@ namespace Wirtualnik.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
+
+            app.UseSpaStaticFiles();
+            app.UseSpa(spa => spa.Options.SourcePath = env.WebRootPath);
+
             mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
         }
