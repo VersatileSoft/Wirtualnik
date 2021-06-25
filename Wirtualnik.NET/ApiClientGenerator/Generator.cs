@@ -11,17 +11,18 @@ namespace ApiClientGenerator
     [Generator]
     public class Generator : ISourceGenerator
     {
-        const string Destination = "D:\\Projekty\\Wirtualnik\\Wirtualnik.NET\\Wirtualnik.Shared\\ApiClient\\Generated";
         public void Initialize(GeneratorInitializationContext context) { }
         public void Execute(GeneratorExecutionContext context)
         {
-            Directory.CreateDirectory(Destination);
+            var dest = Path.GetFullPath(Path.Combine(context.Compilation.SyntaxTrees.First().FilePath, @"..\..\Wirtualnik.Shared\ApiClient\Generated"));
+
+            Directory.CreateDirectory(dest);
             foreach (var controller in context.Compilation.SyntaxTrees.GetControllers())
             {
                 string code = GenerateInterface(controller);
-                File.WriteAllText(Destination + $"\\I{controller.Identifier.Text.Replace("Controller", "Client")}.cs", code);
+                File.WriteAllText(dest + $"\\I{controller.Identifier.Text.Replace("Controller", "Client")}.cs", code);
                 code = GenerateImplementation(controller);
-                File.WriteAllText(Destination + $"\\{controller.Identifier.Text.Replace("Controller", "Client")}.cs", code);
+                File.WriteAllText(dest + $"\\{controller.Identifier.Text.Replace("Controller", "Client")}.cs", code);
             }
         }
 
