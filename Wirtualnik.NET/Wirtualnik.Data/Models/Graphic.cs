@@ -1,8 +1,8 @@
-﻿using Wirtualnik.Data.Models.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wirtualnik.Data.Models
 {
-    public class Graphic : EntityBase
+    public class Graphic : Product
     {
         public string? Chipset { get; set; }
         public string? SlotType { get; set; }
@@ -17,5 +17,6 @@ namespace Wirtualnik.Data.Models
         public string? Lenght { get; set; }
         public string? Width { get; set; }
         public bool RGB { get; set; }
+
     }
 }

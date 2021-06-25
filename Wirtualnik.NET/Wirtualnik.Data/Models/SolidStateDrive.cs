@@ -1,8 +1,8 @@
-﻿using Wirtualnik.Data.Models.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wirtualnik.Data.Models
 {
-    public class SolidStateDrive : EntityBase
+    public class SolidStateDrive : Product
     {
         public string? Capacity { get; set; }
         public string? Size { get; set; }

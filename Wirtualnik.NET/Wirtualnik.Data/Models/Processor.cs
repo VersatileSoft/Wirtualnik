@@ -1,14 +1,14 @@
-﻿using Wirtualnik.Data.Models.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wirtualnik.Data.Models
 {
-    public class Processor : EntityBase
+    public class Processor : Product
     {
-        public string? Score_DesktopPerf { get; set; }
-        public string? Score_GamingPerf { get; set; }
-        public string? Score_ProPerf { get; set; }
-        public string? Score_CinebenchSingle { get; set; }
-        public string? Score_CinebenchMulti { get; set; }
+        public string? ScoreDesktopPerf { get; set; }
+        public string? ScoreGamingPerf { get; set; }
+        public string? ScoreProPerf { get; set; }
+        public string? ScoreCinebenchSingle { get; set; }
+        public string? ScoreCinebenchMulti { get; set; }
         public string? CacheL1 { get; set; }
         public string? CacheL2 { get; set; }
         public string? CacheL3 { get; set; }

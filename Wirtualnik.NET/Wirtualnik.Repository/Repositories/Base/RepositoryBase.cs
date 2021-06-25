@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Data;
-using Wirtualnik.Data.Models.Base;
+using Wirtualnik.Data.Models;
 using Wirtualnik.Repository.Interfaces.Base;
 
 namespace Wirtualnik.Repository.Repositories.Base

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Wirtualnik.Data.Models.Base;
+using Wirtualnik.Data.Models;
 using Wirtualnik.Repository.Interfaces.Base;
 using Wirtualnik.Server.Interfaces.Base;
 
@@ -21,13 +21,13 @@ namespace Wirtualnik.Services.Base
         public async Task CreateAsync(TModel value)
         {
             var entity = _mapper.Map<TEntity>(value);
-            await _repositoryBase.CreateAsync(entity).ConfigureAwait(false);      
+            await _repositoryBase.CreateAsync(entity).ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(int id)
         {
             var entity = await _repositoryBase.ByIdAsync(id).ConfigureAwait(false);
-            await _repositoryBase.DeleteAsync(entity).ConfigureAwait(false); 
+            await _repositoryBase.DeleteAsync(entity).ConfigureAwait(false);
         }
 
         public async Task<TModel> ByIdAsync(int id)

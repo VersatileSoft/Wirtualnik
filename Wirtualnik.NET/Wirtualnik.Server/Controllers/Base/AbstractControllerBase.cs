@@ -14,32 +14,32 @@ namespace Wirtualnik.Server.Controllers.Base
             _serviceBase = serviceBase;
         }
 
-        [HttpGet(CrudPaths.AllPath)]
-        public Task<IEnumerable<TModel>> AllAsync()
+        [HttpGet("all")]
+        public virtual Task<IEnumerable<TModel>> AllAsync()
         {
             return _serviceBase.AllAsync();
         }
 
-        [HttpGet(CrudPaths.ByIdPath)]
-        public Task<TModel> ByIdAsync(int id)
+        [HttpGet("{id}")]
+        public virtual Task<TModel> ByIdAsync(int id)
         {
             return _serviceBase.ByIdAsync(id);
         }
 
-        [HttpPost(CrudPaths.CreatePath)]
-        public Task CreateAsync([FromBody] TModel value)
+        [HttpPost]
+        public virtual Task CreateAsync([FromBody] TModel value)
         {
             return _serviceBase.CreateAsync(value);
         }
 
-        [HttpPut(CrudPaths.UpdatePath)]
-        public Task UpdateAsync(int id, [FromBody] TModel value)
+        [HttpPut("{id}")]
+        public virtual Task UpdateAsync(int id, [FromBody] TModel value)
         {
             return _serviceBase.UpdateAsync(id, value);
         }
 
-        [HttpDelete(CrudPaths.DeletePath)]
-        public Task DeleteAsync(int id)
+        [HttpDelete("{id}")]
+        public virtual Task DeleteAsync(int id)
         {
             return _serviceBase.DeleteAsync(id);
         }

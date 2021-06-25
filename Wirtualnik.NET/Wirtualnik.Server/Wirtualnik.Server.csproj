@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ApiClientGenerator\ApiClientGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssemby="false"/>
     <ProjectReference Include="..\Wirtualnik.Data\Wirtualnik.Data.csproj" />
     <ProjectReference Include="..\Wirtualnik.Repository\Wirtualnik.Repository.csproj" />
     <ProjectReference Include="..\Wirtualnik.Service\Wirtualnik.Service.csproj" />

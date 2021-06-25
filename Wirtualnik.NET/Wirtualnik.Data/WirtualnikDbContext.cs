@@ -13,5 +13,22 @@ namespace Wirtualnik.Data
         public virtual DbSet<Memory>? Memories { get; set; }
         public virtual DbSet<HardDisk>? HardDisks { get; set; }
         public virtual DbSet<SolidStateDrive>? SolidStateDrives { get; set; }
+        public virtual DbSet<Shop>? Shops { get; set; }
+        public virtual DbSet<Product>? Products { get; set; }
+
+
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<ProductShop>().HasKey(q => new { q.ProductId, q.ShopId });
+
+            builder.Entity<Product>()
+                .HasMany(t => t.Shops)
+                .WithMany(t => t.Products)
+                .UsingEntity<ProductShop>(
+                    j => j.HasOne(o => o.Shop).WithMany(c => c.ProductShops),
+                    j => j.HasOne(o => o.Product).WithMany(o => o.ProductShops));
+        }
     }
 }

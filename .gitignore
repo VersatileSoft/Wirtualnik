@@ -351,3 +351,4 @@ MigrationBackup/
 Wirtualnik.Frontend/.vscode
 Wirtualnik.NET/Wirtualnik.Server/secret.json
 Wirtualnik.NET/Wirtualnik.Server/wwwroot
+Wirtualnik.NET/Wirtualnik.Shared/ApiClient/Generated

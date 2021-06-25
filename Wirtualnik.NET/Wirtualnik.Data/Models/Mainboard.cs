@@ -1,8 +1,8 @@
-﻿using Wirtualnik.Data.Models.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wirtualnik.Data.Models
 {
-    public class Mainboard : EntityBase
+    public class Mainboard : Product
     {
         public string? Chipset { get; set; }
         public string? Socket { get; set; }

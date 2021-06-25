@@ -1,8 +1,8 @@
-﻿using Wirtualnik.Data.Models.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wirtualnik.Data.Models
 {
-    public class Memory : EntityBase
+    public class Memory : Product
     {
         public string? Type { get; set; }
         public string? ModuleHeight { get; set; }

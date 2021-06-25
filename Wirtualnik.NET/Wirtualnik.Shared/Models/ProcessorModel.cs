@@ -12,18 +12,11 @@
         public string? Description { get; set; }
 
         public string? Warranty { get; set; }
-        public bool Shop_Morele_isAvailable { get; set; }
-        public string? Shop_Morele_CleanLink { get; set; }
-        public string? Shop_Morele_RefLink { get; set; }
-        public bool Shop_Xkom_isAvailable { get; set; }
-        public string? Shop_Xkom_CleanLink { get; set; }
-        public string? Shop_Xkom_RefLink { get; set; }
-        public bool IsArchived { get; set; }
-        public string? Score_DesktopPerf { get; set; }
-        public string? Score_GamingPerf { get; set; }
-        public string? Score_ProPerf { get; set; }
-        public string? Score_CinebenchSingle { get; set; }
-        public string? Score_CinebenchMulti { get; set; }
+        public string? ScoreDesktopPerf { get; set; }
+        public string? ScoreGamingPerf { get; set; }
+        public string? ScoreProPerf { get; set; }
+        public string? ScoreCinebenchSingle { get; set; }
+        public string? ScoreCinebenchMulti { get; set; }
         public string? CacheL1 { get; set; }
         public string? CacheL2 { get; set; }
         public string? CacheL3 { get; set; }
@@ -40,5 +33,7 @@
         public bool Unlocked { get; set; }
         public string? IGPU { get; set; }
         public string? Cooler { get; set; }
+        public bool Archived { get; set; }
+        public string? Picture { get; set; }
     }
 }
