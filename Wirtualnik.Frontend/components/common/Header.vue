@@ -9,32 +9,58 @@
       <nuxt-link to="/" class="page-header__components-link">
         <span class="las la-plus"></span>
       </nuxt-link>
-       <nuxt-link to="#" class="page-header__components-link">
+      <nuxt-link to="#" class="page-header__components-link">
         <span class="las la-thumbs-up"></span>
       </nuxt-link>
-       <nuxt-link to="#" class="page-header__components-link">
+      <nuxt-link to="#" class="page-header__components-link">
         <span class="las la-heart"></span>
       </nuxt-link>
-       <nuxt-link to="#" class="page-header__components-link">
+      <nuxt-link to="#" class="page-header__components-link">
         <span class="las la-cloud"></span>
       </nuxt-link>
-       <nuxt-link to="#" class="page-header__components-link">
+      <nuxt-link to="#" class="page-header__components-link">
         <span class="las la-balance-scale-left"></span>
       </nuxt-link>
     </div>
     <div class="page-header__extras">
       <div class="page-header__extras-basket">
-        <nuxt-link to="#" class="page-header__components-link page-header__basket">
+        <nuxt-link
+          to="#"
+          class="page-header__components-link page-header__basket"
+        >
           <span class="las la-shopping-cart"></span>
           <sub>342,23 PLN</sub>
         </nuxt-link>
       </div>
-      <button class="btn-flat">
+      <button class="btn-flat" @click="toggleMenu">
         <span class="las la-bars"></span>
       </button>
     </div>
+    <PopupMenu :is-menu-opened="menuOpened" @menuClosed="menuOpened = false" />
   </header>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import PopupMenu from '@/components/common/PopupMenu.vue'
+@Component({
+  name: 'Header',
+  components: {
+    PopupMenu,
+  },
+})
+export default class Header extends Vue {
+  private menuOpened: boolean = false
+
+  public toggleMenu(): void {
+    this.menuOpened = !this.menuOpened
+  }
+
+  public menuClosed(): void {
+    this.menuOpened = false
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .page-header{
@@ -61,37 +87,15 @@
   }
   &__brand-logo-link {
     text-transform: uppercase;
-    color: #f23d3d;
+    color: var(--red);
   }
   &__components{
     display: none;
-    .nuxt-link-active {
-      color: red;
-      position: relative;
-      -webkit-text-stroke: 1px red;
-      &::after{
-        display: block;
-        position: absolute;
-        content: '';
-        width: 85%;
-        height: 3px;
-        border-radius: 5px 5px 0 0;
-        bottom: -8px;
-        background-color: red;
-        left: 8%;
-      }
-    }
     @include for-tablet-landscape-up {
       display: flex;
       align-items: center;
       justify-content: center;
     }
-  }
-  &__extras{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-left: auto;
   }
   &__components-link{
     margin: 3px;
@@ -113,5 +117,21 @@
       font-weight: normal;
     }
   }
+  .nuxt-link-active {
+    color: red;
+    position: relative;
+    -webkit-text-stroke: 1px var(--red);
+    &::after{
+      display: block;
+      position: absolute;
+      content: '';
+      width: 85%;
+      height: 3px;
+      border-radius: 5px 5px 0 0;
+      bottom: -8px;
+      background-color: var(--red);
+      left: 8%;
+    }
+}
 }
 </style>

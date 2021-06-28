@@ -3,6 +3,28 @@
   box-sizing: border-box;
 }
 
+//scroll styles
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--ltgray);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--white);
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gray3)
+}
+
 html,body{
   margin: 0;
   padding: 0;
@@ -54,4 +76,11 @@ ul{
   justify-content: center;
   align-items: center;
   user-select: none;
+}
+
+.page-header__extras{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
 }
