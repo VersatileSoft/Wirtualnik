@@ -27,8 +27,8 @@ namespace ApiClientGenerator
             return result;
         }
 
-        public static string GetModelType(this ClassDeclarationSyntax controller) =>
-            controller.BaseList.Types.FirstOrDefault(t => t.ToString().Contains("AbstractControllerBase")).ToString().Split('<', '>')[1];
+        public static string? GetModelType(this ClassDeclarationSyntax controller) =>
+            controller.BaseList?.Types.FirstOrDefault(t => t.ToString().Contains("AbstractControllerBase"))?.ToString().Split('<', '>')[1];
 
         public static string InterfaceName(this ClassDeclarationSyntax controller) =>
             $"I{controller.Identifier.Text.Replace("Controller", "Client")}";
@@ -38,6 +38,5 @@ namespace ApiClientGenerator
 
         public static IEnumerable<MethodDeclarationSyntax> GetMethods(this ClassDeclarationSyntax controller) =>
             controller.ChildNodes().Where(m => m.IsKind(SyntaxKind.MethodDeclaration)).Cast<MethodDeclarationSyntax>();
-
     }
 }

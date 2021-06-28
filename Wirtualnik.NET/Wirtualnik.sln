@@ -146,6 +146,7 @@ Global
 		{6645BDDE-A91E-4277-99DA-6265E471BD11}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
 		{6645BDDE-A91E-4277-99DA-6265E471BD11}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{6645BDDE-A91E-4277-99DA-6265E471BD11}.Debug|iPhone.Build.0 = Debug|iPhone
+		{6645BDDE-A91E-4277-99DA-6265E471BD11}.Debug|iPhone.Deploy.0 = Debug|iPhone
 		{6645BDDE-A91E-4277-99DA-6265E471BD11}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{6645BDDE-A91E-4277-99DA-6265E471BD11}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{6645BDDE-A91E-4277-99DA-6265E471BD11}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator

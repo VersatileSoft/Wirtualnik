@@ -46,7 +46,7 @@ namespace ApiClientGenerator
         public void StartLine() => content.Append(new string('\t', indentLevel));
         public override string ToString() => content.ToString();
 
-        class ScopeTracker : IDisposable
+        private class ScopeTracker : IDisposable
         {
             public ScopeTracker(CodeWriter parent)
             {
@@ -59,7 +59,5 @@ namespace ApiClientGenerator
                 Parent.EndScope();
             }
         }
-
-        
     }
 }

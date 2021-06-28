@@ -1,9 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ApiClientGenerator
@@ -54,13 +52,13 @@ namespace ApiClientGenerator
 
         private string GenerateImplementation(ClassDeclarationSyntax controller)
         {
-            string controllerPath = "";
+            string? controllerPath = "";
             foreach (var t in controller.AttributeLists)
             {
                 var route = t.Attributes.FirstOrDefault(a => a.Name.ToString() == "Route");
-                if (route is not null)
+                if (route?.ArgumentList is not null)
                 {
-                    controllerPath = route.ArgumentList.Arguments.FirstOrDefault().ToString();
+                    controllerPath = route.ArgumentList.Arguments.FirstOrDefault()?.ToString();
                     break;
                 }
             }
@@ -82,7 +80,6 @@ namespace ApiClientGenerator
 
                     using (code.BeginScope($"public {controller.ClassName()}(HttpClient client) : base(client)"))
                     {
-
                     }
 
                     code.AppendLine();

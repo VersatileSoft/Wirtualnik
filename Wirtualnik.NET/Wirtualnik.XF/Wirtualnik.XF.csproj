@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="../Targets/Wirtualnik.Standard.targets" />
+  <Import Project="../Targets/Wirtualnik.DotnetStandard.targets" />
+
   <PropertyGroup>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
@@ -24,8 +25,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="RestSharp" Version="106.11.7" />
-    <PackageReference Include="Sentry.Xamarin.Forms" Version="1.0.3" />
+    <PackageReference Include="Scrutor" Version="3.3.0" />
+    <PackageReference Include="Sentry.Xamarin.Forms" Version="1.1.0" />
     <PackageReference Include="Sharpnado.Shadows" Version="1.2.0" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
     <PackageReference Include="Xamarin.Plugin.SharedTransitions" Version="2.4.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0-pre2" />
     <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="1.2.0-pre2" />
