@@ -43,7 +43,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator'
+import { ThemeMutations } from '@/enums/storeEnums'
 @Component({
   name: 'PopupMenu',
 })
@@ -53,21 +54,25 @@ export default class PopupMenu extends Vue {
   })
   private isMenuOpened: boolean
 
-  @Emit('menuClosed')
-  public closeMenu(event: Event): Event {
-    return event
+  private get theme(): string {
+    return this.$store.state.theme.theme
   }
 
   public head() {
     return {
       bodyAttrs: {
-        class: 'new-class',
+        'data-theme': this.theme,
       },
     }
   }
 
+  @Emit('menuClosed')
+  public closeMenu(event: Event): Event {
+    return event
+  }
+
   public themeChange(): void {
-    this.head()
+    this.theme === 'light' ? this.$store.commit(`theme/${ThemeMutations.CHANGE_THEME}`, 'dark') : this.$store.commit(`theme/${ThemeMutations.CHANGE_THEME}`, 'light')
   }
 }
 </script>
@@ -116,6 +121,7 @@ export default class PopupMenu extends Vue {
     background-color: var(--white);
     color: var(--black);
     border-radius: 10px;
+    cursor: pointer;
     transition: 0.15s ease-out;
   }
 }
