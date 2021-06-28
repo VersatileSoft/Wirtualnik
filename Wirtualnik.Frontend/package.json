@@ -26,9 +26,13 @@
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.14.0",
     "css-what": "5.0.1",
+    "lodash": "^4.17.21",
+    "luxon": "^1.27.0",
     "normalize-url": "6.0.1",
     "nuxt": "^2.15.7",
+    "nuxt-i18n": "^6.27.1",
     "nuxt-mq": "^2.0.2",
+    "vee-validate": "2.2.15",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
     "yarn-audit-fix": "^6.3.2"
