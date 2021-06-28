@@ -7,16 +7,35 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Wirtualnik',
+    bodyAttrs: {
+      'data-theme': 'light',
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: true,
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,300;1,600&display=swap',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['@/assets/scss/main.scss'],
+  css: ['@/assets/scss/main.scss', '@/assets/scss/_mixins.scss'],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/vueMq.ts'],
 
@@ -29,6 +48,8 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    // style resources
+    '@nuxtjs/style-resources',
     // i18n library
     // [
     //   'nuxt-i18n',
@@ -49,6 +70,10 @@ export default {
     //   },
     // ],
   ],
+
+  styleResources: {
+    scss: ['@/assets/scss/_mixins.scss'],
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -71,6 +96,10 @@ export default {
       },
     ],
   ],
+
+  generate: {
+    fallback: '404.html',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

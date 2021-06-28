@@ -1,11 +1,87 @@
+//global styles
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+//scroll styles
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--ltgray);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--white);
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gray3)
+}
+
 html,body{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   min-height: 100vh;
+  background-color: var(--background);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
 
 #__nuxt, #__layout, .app
 {
   min-height: 100vh
+}
+
+.container{
+  width: 100%;
+  min-width: 300px;
+  max-width: 1280px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+a{
+  display: inline-block;
+  text-decoration: none;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+//controls styles
+
+.btn-flat {
+  background-color: var(--white);
+  color: var(--black);
+  font-size: 20px;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  border-radius: 50%;
+  transition: .15s ease-out;
+  overflow: hidden;
+  margin-left: 8px;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+}
+
+.page-header__extras{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
 }

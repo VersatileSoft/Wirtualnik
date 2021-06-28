@@ -1,7 +1,9 @@
 <template>
-  <div class="app">
+  <div class="app container">
     <Header />
-    <nuxt />
+    <div class="page-content">
+      <nuxt />
+    </div>
   </div>
 </template>
 
@@ -17,3 +19,12 @@ import Header from '@/components/common/Header.vue'
 })
 export default class DefaultLayout extends Vue {}
 </script>
+
+<style lang="scss" scoped>
+  .page-content {
+    padding-top: 65px;
+    @include for-tablet-landscape-up {
+      padding-top: 0;
+    }
+  }
+</style>
