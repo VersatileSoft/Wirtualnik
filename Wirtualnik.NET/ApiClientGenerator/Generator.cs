@@ -14,7 +14,7 @@ namespace ApiClientGenerator
         public void Initialize(GeneratorInitializationContext context) { }
         public void Execute(GeneratorExecutionContext context)
         {
-            var dest = Path.GetFullPath(Path.Combine(context.Compilation.SyntaxTrees.First().FilePath, @"..\..\Wirtualnik.Shared\ApiClient\Generated"));
+            var dest = Path.GetFullPath(Path.Combine(context.Compilation.SyntaxTrees.FirstOrDefault(f => Path.GetFileName(f.FilePath) == "Program.cs").FilePath, @"..\..\Wirtualnik.Shared\ApiClient\Generated"));
 
             Directory.CreateDirectory(dest);
             foreach (var controller in context.Compilation.SyntaxTrees.GetControllers())
