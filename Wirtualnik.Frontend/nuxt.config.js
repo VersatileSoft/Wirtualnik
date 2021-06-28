@@ -1,10 +1,12 @@
+// import i18n from './config/i18n'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Wirtualnik.Public',
+    title: 'Wirtualnik',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -27,6 +29,25 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    // i18n library
+    // [
+    //   'nuxt-i18n',
+    //   {
+    //     vueI18nLoader: true,
+    //     defaultLocale: 'pl',
+    //     locales: [
+    //       {
+    //         code: 'pl',
+    //         name: 'Polish',
+    //       },
+    //       {
+    //         code: 'en',
+    //         name: 'English',
+    //       },
+    //     ],
+    //     vueI18n: i18n,
+    //   },
+    // ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
