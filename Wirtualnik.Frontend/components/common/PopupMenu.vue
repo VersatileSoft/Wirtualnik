@@ -52,7 +52,7 @@ export default class PopupMenu extends Vue {
   @Prop({
     default: false,
   })
-  private isMenuOpened: boolean
+  private isMenuOpened: boolean = false
 
   private get theme(): string {
     return this.$store.state.theme.theme
