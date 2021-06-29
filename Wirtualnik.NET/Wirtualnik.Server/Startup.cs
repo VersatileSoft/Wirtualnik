@@ -1,6 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,7 @@ using System.Diagnostics;
 using System.Reflection;
 using Wirtualnik.Data;
 using Wirtualnik.Repository;
+using Wirtualnik.Server.Extensions.Hangfire;
 using Wirtualnik.Server.Extensions.Middlewares;
 using Wirtualnik.Server.Extensions.Swagger;
 
@@ -54,6 +57,8 @@ namespace Wirtualnik.Server
                 options.UseNpgsql(connectionString);
             });
 
+            services.RegisterHangfire(Configuration);
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -81,19 +86,20 @@ namespace Wirtualnik.Server
             {
                 app.UseMiddleware<ExceptionMiddleware>();
             }
-
+            
             app.UseExtSwagger();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseMiddleware<ApiLoggingMiddleware>();
+            app.ConfigureHangfire(Configuration);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
-
+            
             app.UseSpaStaticFiles();
             app.UseSpa(spa => spa.Options.SourcePath = env.WebRootPath);
 
