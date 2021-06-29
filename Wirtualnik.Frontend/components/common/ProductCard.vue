@@ -134,7 +134,7 @@
     height: 0;
     position: relative;
     bottom: 5px;
-    right: -30px;
+    right: -38px;
     text-align: right;
   }
 }
