@@ -26,6 +26,7 @@ export default class DefaultLayout extends Vue {}
 <style lang="scss" scoped>
 .page-content {
   padding: 65px 10px 0 10px;
+  overflow: hidden;
   @include for-tablet-landscape-up {
     padding-top: 0;
   }

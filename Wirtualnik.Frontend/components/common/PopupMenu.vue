@@ -84,7 +84,7 @@ export default class PopupMenu extends Vue {
   display: none;
   position: absolute;
   top: 0;
-  z-index: 2;
+  z-index: 10;
   border-radius: 0 0 15px 15px;
   padding: 0 10px 5px;
   background-color: var(--ltgray);
