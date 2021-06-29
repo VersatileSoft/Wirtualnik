@@ -1,5 +1,5 @@
 <template>
- <div class="user-menu" :class="{ 'menu-opened': isMenuOpened }">
+  <div class="user-menu" :class="{ 'menu-opened': isMenuOpened }">
     <section class="user-menu__header">
       <h3>Hej Maksymilian!</h3>
       <div class="page-header__extras">
@@ -72,13 +72,15 @@ export default class PopupMenu extends Vue {
   }
 
   public themeChange(): void {
-    this.theme === 'light' ? this.$store.commit(`theme/${ThemeMutations.CHANGE_THEME}`, 'dark') : this.$store.commit(`theme/${ThemeMutations.CHANGE_THEME}`, 'light')
+    this.theme === 'light'
+      ? this.$store.commit(`theme/${ThemeMutations.CHANGE_THEME}`, 'dark')
+      : this.$store.commit(`theme/${ThemeMutations.CHANGE_THEME}`, 'light')
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.user-menu{
+.user-menu {
   display: none;
   position: absolute;
   top: 0;
@@ -111,7 +113,7 @@ export default class PopupMenu extends Vue {
     margin: 0;
     line-height: 100%;
   }
-  &__items-link{
+  &__items-link {
     display: flex;
     align-items: center;
     flex: 1 1 50%;
@@ -131,15 +133,15 @@ export default class PopupMenu extends Vue {
   box-shadow: var(--gloworange);
   color: var(--white);
 }
-.menu-opened{
+.menu-opened {
   display: block;
   z-index: 2;
 }
-.icon{
+.icon {
   font-size: 32px;
   margin-right: 8px;
 }
-.bell-ring{
+.bell-ring {
   transform-origin: 50% 4px;
   -moz-transform-origin: 50% 4px;
   -webkit-transform-origin: 50% 4px;
@@ -215,8 +217,10 @@ export default class PopupMenu extends Vue {
   }
 
   43% {
-    transform: rotate(0); }
+    transform: rotate(0);
+  }
   100% {
-    transform: rotate(0); }
+    transform: rotate(0);
+  }
 }
 </style>
