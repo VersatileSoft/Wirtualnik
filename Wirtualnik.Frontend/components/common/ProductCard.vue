@@ -30,9 +30,9 @@
 .product-card {
   max-height: 455px;
   max-width: 269px;
+  flex: 1 1 42%;
   min-width: 240px;
   padding: 12px;
-  position: relative;
   background: linear-gradient(
     0deg,
     var(--white) 0%,
@@ -132,10 +132,21 @@
     margin: 0 0 -6px auto;
     width: 42px;
     height: 0;
-    position: absolute;
-    bottom: 10px;
-    right: 12px;
+    position: relative;
+    bottom: 5px;
+    right: -30px;
     text-align: right;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 </style>
