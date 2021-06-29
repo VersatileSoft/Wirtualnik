@@ -25,7 +25,7 @@ export default {
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,300;1,600&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,900;1,300;1,600&display=swap',
       },
       {
         rel: 'stylesheet',
