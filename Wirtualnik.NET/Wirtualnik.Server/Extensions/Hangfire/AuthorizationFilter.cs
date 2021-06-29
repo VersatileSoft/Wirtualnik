@@ -64,7 +64,6 @@ namespace Wirtualnik.Server.Extensions.Hangfire
         }
         #endregion
 
-        #region Challenge()
         private bool Challenge(HttpContext context)
         {
             context.Response.StatusCode = 401;

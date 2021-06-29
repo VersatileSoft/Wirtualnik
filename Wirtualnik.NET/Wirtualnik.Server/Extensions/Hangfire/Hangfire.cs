@@ -1,29 +1,20 @@
 ﻿using Hangfire;
-using Hangfire.Dashboard;
 using Hangfire.MemoryStorage;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Scrutor;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
 
 namespace Wirtualnik.Server.Extensions.Hangfire
 {
-
-
     public static class HangfireExtensions
     {
         public static IServiceCollection RegisterHangfire(this IServiceCollection services, IConfiguration config)
         {
             var settings = new HangfireSettings(config);
-
 
             services.AddHangfire(config =>
             {
@@ -38,7 +29,6 @@ namespace Wirtualnik.Server.Extensions.Hangfire
 
             });
 
-
             services.AddHangfireServer();
             services.RegisterScheduledJobs();
             services.AddScoped<IJobScheduler, HangfireJobScheduler>();
@@ -49,8 +39,6 @@ namespace Wirtualnik.Server.Extensions.Hangfire
         {
             var settings = new HangfireSettings(config);
 
-
-            // Dashboard
             app.MapWhen(x => x.Request.Path.Value.StartsWith(settings.Dashboard.Path), builder =>
             {
                 builder.UseHangfireDashboard(settings.Dashboard.Path, new DashboardOptions()
@@ -88,5 +76,4 @@ namespace Wirtualnik.Server.Extensions.Hangfire
             return services;
         }
     }
-
 }
