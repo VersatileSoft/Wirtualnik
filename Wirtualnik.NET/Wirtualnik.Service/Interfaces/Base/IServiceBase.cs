@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Wirtualnik.Data.Models;
 
-namespace Wirtualnik.Server.Interfaces.Base
+namespace Wirtualnik.Service.Interfaces.Base
 {
-    public interface IServiceBase<TModel>
+    public interface IServiceBase
     {
-        Task<IEnumerable<TModel>> AllAsync();
-        Task<TModel> ByIdAsync(int id);
-        Task CreateAsync(TModel value);
-        Task UpdateAsync(int id, TModel value);
-        Task DeleteAsync(int id);
+        Task<TEntity> CreateAsync<TEntity>(TEntity entity) where TEntity : EntityBase;
+        Task<TEntity> FindAsync<TEntity>(long id) where TEntity : EntityBase;
+        Task<TEntity> RemoveAsync<TEntity>(TEntity entity) where TEntity : EntityBase;
+        Task<int> SaveChangesAsync();
+        Task<TEntity> UpdateAsync<TEntity>(TEntity entity) where TEntity : EntityBase;
     }
 }

@@ -1,8 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using Hangfire;
-using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -65,7 +63,6 @@ namespace Wirtualnik.Server
             services.AddSwaggerGen();
             services.AddSpaStaticFiles(o => o.RootPath = "wwwroot");
             var builder = new ContainerBuilder();
-            builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<ServiceModule>();
             builder.Populate(services);
 
@@ -86,7 +83,7 @@ namespace Wirtualnik.Server
             {
                 app.UseMiddleware<ExceptionMiddleware>();
             }
-            
+
             app.UseExtSwagger();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -99,7 +96,7 @@ namespace Wirtualnik.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
-            
+
             app.UseSpaStaticFiles();
             app.UseSpa(spa => spa.Options.SourcePath = env.WebRootPath);
 

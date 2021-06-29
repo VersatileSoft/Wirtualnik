@@ -2,6 +2,7 @@
   <Import Project="../Targets/Wirtualnik.Dotnet.targets" />
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.24" />
     <PackageReference Include="Hangfire.Console" Version="1.4.2" />
@@ -24,7 +25,6 @@
 	<!-- Enable only when generating api client(slows down inteliSense)-->
 	<!-- <ProjectReference Include="..\ApiClientGenerator\ApiClientGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssemby="false"/> -->
     <ProjectReference Include="..\Wirtualnik.Data\Wirtualnik.Data.csproj" />
-    <ProjectReference Include="..\Wirtualnik.Repository\Wirtualnik.Repository.csproj" />
     <ProjectReference Include="..\Wirtualnik.Service\Wirtualnik.Service.csproj" />
     <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj" />
   </ItemGroup>

@@ -1,55 +1,62 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
-using Wirtualnik.Repository.Interfaces.Base;
-using Wirtualnik.Server.Interfaces.Base;
+using Wirtualnik.Service.Interfaces.Base;
 
-namespace Wirtualnik.Services.Base
+namespace Wirtualnik.Service.Services.Base
 {
-    public abstract class ServiceBase<TModel, TEntity> : IServiceBase<TModel> where TEntity : EntityBase
+    public abstract class ServiceBase : IServiceBase
     {
-        private readonly IRepositoryBase<TEntity> _repositoryBase;
-        private readonly IMapper _mapper;
+        protected WirtualnikDbContext Context { get; }
+        protected IMapper Mapper { get; }
 
-        protected ServiceBase(IRepositoryBase<TEntity> repositoryBase, IMapper mapper)
+        protected ServiceBase(WirtualnikDbContext context, IMapper mapper)
         {
-            _repositoryBase = repositoryBase;
-            _mapper = mapper;
+            Context = context;
+            Mapper = mapper;
         }
 
-        public async Task CreateAsync(TModel value)
+        public virtual async Task<TEntity> FindAsync<TEntity>(long id) where TEntity : EntityBase
         {
-            var entity = _mapper.Map<TEntity>(value);
-            await _repositoryBase.CreateAsync(entity).ConfigureAwait(false);
+            return await Context.FindAsync<TEntity>(id);
         }
 
-        public async Task DeleteAsync(int id)
+        public virtual async Task<TEntity> CreateAsync<TEntity>(TEntity entity) where TEntity : EntityBase
         {
-            var entity = await _repositoryBase.ByIdAsync(id).ConfigureAwait(false);
-            await _repositoryBase.DeleteAsync(entity).ConfigureAwait(false);
+            await Context.AddAsync<TEntity>(entity);
+            await SaveChangesAsync();
+
+            return entity;
         }
 
-        public async Task<TModel> ByIdAsync(int id)
+        public virtual async Task<TEntity> UpdateAsync<TEntity>(TEntity entity) where TEntity : EntityBase
         {
-            var entity = await _repositoryBase.ByIdAsync(id).ConfigureAwait(false);
+            if (entity is null)
+                throw new System.Exception();
 
-            return _mapper.Map<TModel>(entity);
+            if (Context.Entry(entity).State == EntityState.Detached)
+            {
+                Context.Update(entity);
+            }
+
+            await SaveChangesAsync();
+            return entity;
         }
 
-        public async Task<IEnumerable<TModel>> AllAsync()
+        public virtual async Task<TEntity> RemoveAsync<TEntity>(TEntity entity) where TEntity : EntityBase
         {
-            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TModel>>(await _repositoryBase.AllAsync().ConfigureAwait(false));
+            if (entity is null)
+                throw new System.Exception();
+            Context.Remove(entity);
+            await SaveChangesAsync();
+            return entity;
         }
 
-        public async Task UpdateAsync(int id, TModel value)
+        public Task<int> SaveChangesAsync()
         {
-            var entity = await _repositoryBase.ByIdAsync(id).ConfigureAwait(false);
-
-            _mapper.Map(value, entity);
-            entity.Id = id;
-
-            await _repositoryBase.UpdateAsync(entity).ConfigureAwait(false);
+            return Context.SaveChangesAsync();
         }
     }
 }

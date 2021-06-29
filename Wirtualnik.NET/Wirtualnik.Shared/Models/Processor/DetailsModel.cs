@@ -1,8 +1,11 @@
-﻿namespace Wirtualnik.Shared.Models
-{
-    public class ProcessorModel
-    {
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace Wirtualnik.Shared.Models.Processor
+{
+    public class DetailsModel
+    {
         public string? EAN { get; set; }
         public string? ShortCode { get; set; }
         public string? Manufacturer { get; set; }
