@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Wirtualnik.Server.Controllers.Base;
 using Wirtualnik.Server.Interfaces;
-using Wirtualnik.Shared;
 using Wirtualnik.Shared.Models;
-using System.Threading.Tasks;
 
 namespace Wirtualnik.Server.Controllers
 {

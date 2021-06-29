@@ -1,25 +1,20 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
-using Wirtualnik.Data;
 using System.Reflection;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
-using System.Text.Encodings.Web;
-using System.Security.Claims;
-using Microsoft.EntityFrameworkCore.Design;
-using Autofac;
+using Wirtualnik.Data;
 using Wirtualnik.Repository;
-using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
+using Wirtualnik.Server.Extensions.Middlewares;
 using Wirtualnik.Server.Extensions.Swagger;
 
 namespace Wirtualnik.Server
@@ -28,7 +23,7 @@ namespace Wirtualnik.Server
     {
         public ILoggerFactory LoggerFactory { get; }
         public AppSettings AppSettings { get; }
-
+        public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration, ILoggerFactory loggerFactory)
         {
@@ -37,10 +32,6 @@ namespace Wirtualnik.Server
             AppSettings = new AppSettings(Configuration);
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(AppSettings);
@@ -77,33 +68,25 @@ namespace Wirtualnik.Server
 
             return container.Resolve<IServiceProvider>();
         }
-            
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMapper mapper)
         {
+            app.UseMiddleware<RequestTimeMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseWebAssemblyDebugging();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
+                app.UseMiddleware<ExceptionMiddleware>();
             }
 
             app.UseExtSwagger();
-
             app.UseHttpsRedirection();
-            //app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
-
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
+            app.UseMiddleware<ApiLoggingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
@@ -115,7 +98,6 @@ namespace Wirtualnik.Server
             app.UseSpa(spa => spa.Options.SourcePath = env.WebRootPath);
 
             mapper.ConfigurationProvider.AssertConfigurationIsValid();
-
         }
     }
 
@@ -124,7 +106,19 @@ namespace Wirtualnik.Server
         public WirtualnikDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<WirtualnikDbContext>();
-            optionsBuilder.UseNpgsql("host=localhost;port=5432;database=wirtualnik;user id=postgres;password=wozniak231");
+
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("secret.json")
+                .Build();
+
+            var connectionString = config.GetConnectionString("DefaultDatabase");
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ArgumentNullException(nameof(connectionString));
+            }
+            optionsBuilder.UseNpgsql(connectionString);
 
             return new WirtualnikDbContext(optionsBuilder.Options);
         }
