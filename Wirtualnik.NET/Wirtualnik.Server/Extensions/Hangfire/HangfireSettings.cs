@@ -17,7 +17,7 @@ using System.Text;
 namespace Wirtualnik.Server.Extensions.Hangfire
 {
 
-#region AuthorizationFilter
+    #region AuthorizationFilter
     #endregion
 
     public class HangfireSettings
