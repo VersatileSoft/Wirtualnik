@@ -86,7 +86,7 @@ namespace Wirtualnik.Server
             {
                 app.UseMiddleware<ExceptionMiddleware>();
             }
-            
+
             app.UseExtSwagger();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -99,7 +99,7 @@ namespace Wirtualnik.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
-            
+
             app.UseSpaStaticFiles();
             app.UseSpa(spa => spa.Options.SourcePath = env.WebRootPath);
 

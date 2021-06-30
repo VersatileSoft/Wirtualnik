@@ -15,7 +15,7 @@ namespace Wirtualnik.Data.Models
         public string? Warranty { get; set; }
         public string? Picture { get; set; }
         public bool Archived { get; set; }
-        public virtual ICollection<ProductShop>? ProductShops{ get; set; }
-        public virtual ICollection<Shop>? Shops{ get; set; }
+        public virtual ICollection<ProductShop>? ProductShops { get; set; }
+        public virtual ICollection<Shop>? Shops { get; set; }
     }
 }

@@ -1,13 +1,13 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Wirtualnik.Shared.ApiClient
 {
-	public abstract class AbstractClient<TModel> : IAbstractClient<TModel>
+    public abstract class AbstractClient<TModel> : IAbstractClient<TModel>
     {
         protected abstract string ControllerPath { get; }
 
