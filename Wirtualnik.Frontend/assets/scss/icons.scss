@@ -1,0 +1,74 @@
+@font-face {
+  font-family: icomoon;
+  src: url('../fonts/icomoon.ttf') format('truetype'),
+    url(../fonts/icomoon.woff?idrd2p) format('woff'),
+    url(../fonts/icomoon.svg?idrd2p#icomoon) format('svg');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+[class^='icon-'],
+[class*=' icon-'] {
+  font-family: icomoon !important;
+  speak: never;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-intel:before {
+  content: '\e90e';
+  font-size: 32px;
+}
+.icon-nvidia:before {
+  content: '\e90a';
+  color: #76b900;
+  font-size: 32px;
+}
+.icon-amd:before {
+  content: '\e910';
+  font-size: 32px;
+}
+.icon-summary:before {
+  content: '\e909';
+  font-size: 32px;
+}
+.icon-cooler:before {
+  content: '\e900';
+  font-size: 32px;
+}
+.icon-cpu:before {
+  content: '\e901';
+  font-size: 32px;
+}
+.icon-gpu:before {
+  content: '\e902';
+  font-size: 32px;
+}
+.icon-hdd:before {
+  content: '\e903';
+  font-size: 32px;
+}
+.icon-motherboard:before {
+  content: '\e904';
+  font-size: 32px;
+}
+.icon-psu:before {
+  content: '\e905';
+  font-size: 32px;
+}
+.icon-ram:before {
+  content: '\e906';
+  font-size: 32px;
+}
+.icon-ssd:before {
+  content: '\e907';
+  font-size: 32px;
+}
+.icon-case:before {
+  content: '\e908';
+  font-size: 32px;
+}
