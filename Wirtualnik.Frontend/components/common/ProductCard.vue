@@ -28,8 +28,6 @@
 
 <style lang="scss">
 .product-card {
-  max-height: 455px;
-  max-width: 269px;
   flex: 1 1 42%;
   min-width: 240px;
   padding: 12px;
@@ -54,14 +52,6 @@
       rgba(255, 255, 255, 0) 70%
     );
   }
-  &__card-image img {
-    display: block;
-    max-width: 95%;
-    max-height: 210px;
-    margin: 0 auto;
-    object-fit: cover;
-    transition: all 0.2s ease-out;
-  }
   &__card-title {
     margin-top: 10px;
     h2 {
@@ -84,13 +74,14 @@
       margin-left: 5px;
     }
   }
+  &__quote {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 7px 0;
+  }
   &__product-short-specs {
     color: var(--gray6);
-    p {
-      font-size: 14px;
-      margin: 0.5em 0 0.5em 0;
-      line-height: 1;
-    }
   }
   &__card-controls {
     display: flex;
@@ -137,16 +128,15 @@
     right: -38px;
     text-align: right;
   }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 10px 0);
+  p {
+    font-size: 14px;
+    margin: 0.5em 0 0.5em 0;
+    line-height: 1;
   }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+  a {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: var(--gray3);
   }
 }
 </style>

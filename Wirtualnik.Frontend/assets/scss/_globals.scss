@@ -92,6 +92,7 @@ ul {
   font-size: 20px;
   cursor: pointer;
   text-align: center;
+  color: var(--black);
   border: 1px solid var(--gray1);
   margin: 5px 0;
   transition: all 0.15s ease-out;
@@ -109,4 +110,14 @@ ul {
   align-items: center;
   justify-content: flex-end;
   margin-left: auto;
+}
+
+.product-card__card-image img,
+.week-best__image img {
+  display: block;
+  max-width: 95%;
+  max-height: 210px;
+  margin: 0 auto;
+  object-fit: cover;
+  transition: all 0.2s ease-out;
 }
