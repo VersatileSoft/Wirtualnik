@@ -4,7 +4,7 @@
       <nuxt-link
         v-for="(link, index) in linksArray"
         :key="index"
-        :to="{ path: '#', params: { part: link.part } }"
+        :to="{ name: 'c-part', params: { part: link.part } }"
         class="bottom-nav__components-link"
       >
         <i :class="link.iconName"></i>
@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { NavLinkOptionsModel } from '@/interfaces/GlobalInterfcaes'
+import { NavLinkOptionsModel } from '@/interfaces/GlobalInterfaces'
 @Component({
   name: 'BottomNavbar',
 })
@@ -68,19 +68,19 @@ export default class BottomNavbar extends Vue {
     display: flex;
     flex-direction: column;
     color: var(--gray3);
+    &.nuxt-link-exact-active {
+      color: #ff2b4d !important;
+      background: linear-gradient(
+        0deg,
+        rgba(255, 0, 0, 1) 3%,
+        rgba(255, 255, 255, 0) 3%
+      );
+    }
     span {
       font-size: 15px;
       font-weight: normal;
       white-space: nowrap;
     }
-  }
-  .nuxt-link-active {
-    color: #ff2b4d !important;
-    background: linear-gradient(
-      0deg,
-      rgba(255, 0, 0, 1) 3%,
-      rgba(255, 255, 255, 0) 3%
-    );
   }
 }
 </style>

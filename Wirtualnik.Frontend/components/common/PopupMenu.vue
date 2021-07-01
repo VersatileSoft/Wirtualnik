@@ -128,7 +128,7 @@ export default class PopupMenu extends Vue {
   }
 }
 
-.nuxt-link-active {
+.nuxt-link-exact-active {
   background: var(--orange);
   box-shadow: var(--gloworange);
   color: var(--white);

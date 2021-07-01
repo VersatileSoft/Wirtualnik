@@ -7,7 +7,7 @@
     </h1>
     <div class="page-header__components">
       <nuxt-link
-        :to="{ name: 'c-part', params: { part: 'cpu ' } }"
+        :to="{ name: 'c-part', params: { part: 'cpu' } }"
         class="page-header__components-link"
       >
         <span class="las la-plus"></span>
@@ -109,6 +109,22 @@ export default class Header extends Vue {
     border-radius: 10px;
     transition: all 0.1s ease-out;
     color: var(--gray2);
+    &.nuxt-link-exact-active {
+      color: red;
+      position: relative;
+      -webkit-text-stroke: 1px var(--red);
+      &::after {
+        display: block;
+        position: absolute;
+        content: '';
+        width: 85%;
+        height: 3px;
+        border-radius: 5px 5px 0 0;
+        bottom: -8px;
+        background-color: var(--red);
+        left: 8%;
+      }
+    }
   }
   &__basket {
     display: flex;
@@ -118,22 +134,6 @@ export default class Header extends Vue {
     & > sub {
       font-size: 12.5px;
       font-weight: normal;
-    }
-  }
-  .nuxt-link-active {
-    color: red;
-    position: relative;
-    -webkit-text-stroke: 1px var(--red);
-    &::after {
-      display: block;
-      position: absolute;
-      content: '';
-      width: 85%;
-      height: 3px;
-      border-radius: 5px 5px 0 0;
-      bottom: -8px;
-      background-color: var(--red);
-      left: 8%;
     }
   }
 }
