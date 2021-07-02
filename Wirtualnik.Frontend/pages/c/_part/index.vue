@@ -7,14 +7,14 @@
       <template #cards>
         <ProductCard>
           <template #image>
-            <img src="~/assets/images/ryzen_3_3100-box.png" />
+            <img src="~/assets/images/cpu/ryzen_3_3100-box.png" />
           </template>
           <template #title>
             <h2>AMD Ryzen 3 1200</h2>
           </template>
           <template #price>
             <h4>495.00 PLN</h4>
-            <img src="~/assets/images/morele-sygnet.png" />
+            <img src="~/assets/images/shop/morele-sygnet.png" />
           </template>
           <template #specs>
             <p>4 rdzenie, 4 wątki</p>
@@ -40,14 +40,14 @@
         </ProductCard>
         <ProductCard>
           <template #image>
-            <img src="~/assets/images/ryzen_3_3100-box.png" />
+            <img src="~/assets/images/cpu/ryzen_3_3100-box.png" />
           </template>
           <template #title>
             <h2>AMD Ryzen 3 1200</h2>
           </template>
           <template #price>
             <h4>495.00 PLN</h4>
-            <img src="~/assets/images/morele-sygnet.png" />
+            <img src="~/assets/images/shop/morele-sygnet.png" />
           </template>
           <template #specs>
             <p>4 rdzenie, 4 wątki</p>
@@ -73,14 +73,14 @@
         </ProductCard>
         <ProductCard>
           <template #image>
-            <img src="~/assets/images/ryzen_3_3100-box.png" />
+            <img src="~/assets/images/cpu/ryzen_3_3100-box.png" />
           </template>
           <template #title>
             <h2>AMD Ryzen 3 1200</h2>
           </template>
           <template #price>
             <h4>495.00 PLN</h4>
-            <img src="~/assets/images/morele-sygnet.png" />
+            <img src="~/assets/images/shop/morele-sygnet.png" />
           </template>
           <template #specs>
             <p>4 rdzenie, 4 wątki</p>

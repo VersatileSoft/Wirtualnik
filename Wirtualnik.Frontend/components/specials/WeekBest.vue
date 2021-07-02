@@ -48,6 +48,7 @@
   transition: all 0.2s ease-out;
   color: var(--black);
   height: max-content;
+  margin-bottom: 60px !important;
   &::before {
     content: '👑 WIRTUALNIK TYGODNIA';
     color: var(--white);
