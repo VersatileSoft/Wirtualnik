@@ -34,8 +34,8 @@
   background: linear-gradient(
     0deg,
     var(--white) 0%,
-    var(--white) 50%,
-    var(--transparent) 80%
+    var(--transparent) 50%,
+    var(--white) 80%
   );
   border-radius: 15px;
   box-shadow: var(--shadowcard);
@@ -124,7 +124,7 @@
     width: 42px;
     height: 0;
     position: relative;
-    bottom: 5px;
+    bottom: -5px;
     right: -38px;
     text-align: right;
   }

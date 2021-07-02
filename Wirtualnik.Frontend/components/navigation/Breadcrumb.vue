@@ -5,7 +5,9 @@
       :key="idx"
       :class="{ indicator: !isLast(idx) }"
     >
-      <nuxt-link :to="crud.route" class="crumb">{{ crud.name }}</nuxt-link>
+      <nuxt-link :to="{ name: crud.route }" class="crumb">
+        {{ crud.name }}
+      </nuxt-link>
     </li>
   </ul>
 </template>
@@ -22,7 +24,9 @@ interface CrumbDetail {
   name: 'BreadCrumb',
 })
 export default class Breadcrumb extends Vue {
-  private breadCrumbs: CrumbDetail[] = []
+  private breadCrumbs: CrumbDetail[] = [
+    { name: 'Wirtualnik.pl', route: 'index' },
+  ]
 
   public isLast(crumbIdx: number): boolean {
     return this.breadCrumbs.length - 1 === crumbIdx
@@ -33,7 +37,7 @@ export default class Breadcrumb extends Vue {
 <style lang="scss" scoped>
 .bread-track {
   display: flex;
-  margin-top: 10px;
+  margin: 15px 0 15px 10px;
 }
 .crumb {
   color: var(--gray4);
