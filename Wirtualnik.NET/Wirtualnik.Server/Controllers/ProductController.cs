@@ -12,7 +12,12 @@ using Wirtualnik.Shared.Models.Product;
 
 namespace Wirtualnik.Server.Controllers
 {
-    public abstract class ProductController<TEntity, TFilter, TListItemModel, TDetailsModel, TCreateModel> : ControllerBase where TEntity : Product where TFilter : ProductFilter
+    public abstract class ProductController<TEntity, TFilter, TListItemModel, TDetailsModel, TCreateModel> : ControllerBase 
+        where TEntity : Product 
+        where TFilter : ProductFilter
+        where TListItemModel : class
+        where TDetailsModel: class
+
     {
         private readonly IMapper _mapper;
         private readonly IProductService<TEntity, TFilter> _productService;

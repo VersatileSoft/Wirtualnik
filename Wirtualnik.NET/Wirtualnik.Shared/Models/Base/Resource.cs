@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Wirtualnik.Shared.Models.Base
 {
-    public class Resource<T> : Statement
+    public class Resource<T> : Statement where T : class
     {
         public T? Result { get; set; }
         public dynamic Meta { get; set; }
@@ -30,7 +30,7 @@ namespace Wirtualnik.Shared.Models.Base
 
     public static class TResource
     {
-        public static Resource<T> FromT<T>(T data)
+        public static Resource<T> FromT<T>(T data) where T : class
         {
             return new Resource<T>(data);
         }
