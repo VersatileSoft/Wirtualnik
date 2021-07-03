@@ -60,7 +60,7 @@ namespace Wirtualnik.Server
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options => options.CustomSchemaIds(type => type.ToString()));
             services.AddSpaStaticFiles(o => o.RootPath = "wwwroot");
             var builder = new ContainerBuilder();
             builder.RegisterModule<ServiceModule>();

@@ -6,15 +6,15 @@ using Wirtualnik.Data.Models;
 using Wirtualnik.Server.Interfaces;
 using Wirtualnik.Service.Interfaces;
 using Wirtualnik.Shared.Models.Base;
-using Wirtualnik.Shared.Models.Processor;
+using Wirtualnik.Shared.Models.Graphic;
 
 namespace Wirtualnik.Server.Controllers
 {
     [ApiController]
-    [Route("api/processor")]
-    public class ProcessorController : ProductController<Processor, FilterModel, ListItemModel, DetailsModel, CreateModel>
+    [Route("api/graphic")]
+    public class GraphicController : ProductController<Graphic, FilterModel, ListItemModel, DetailsModel, CreateModel>
     {
-        public ProcessorController(IProcessorService productService, IMapper mapper) : base(productService, mapper)
+        public GraphicController(IGraphicService productService, IMapper mapper) : base(productService, mapper)
         {
         }
     }

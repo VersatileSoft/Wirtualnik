@@ -15,6 +15,7 @@ namespace Wirtualnik.Data
         public virtual DbSet<SolidStateDrive>? SolidStateDrives { get; set; }
         public virtual DbSet<Shop>? Shops { get; set; }
         public virtual DbSet<Product>? Products { get; set; }
+        public virtual DbSet<Graphic>? Graphics { get; set; }
 
 
 

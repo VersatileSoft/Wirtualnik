@@ -10,7 +10,7 @@ using Wirtualnik.Data;
 namespace Wirtualnik.Data.Migrations
 {
     [DbContext(typeof(WirtualnikDbContext))]
-    [Migration("20210624194605_Init")]
+    [Migration("20210703130618_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,56 @@ namespace Wirtualnik.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shops");
+                });
+
+            modelBuilder.Entity("Wirtualnik.Data.Models.Graphic", b =>
+                {
+                    b.HasBaseType("Wirtualnik.Data.Models.Product");
+
+                    b.Property<string>("BaseCoreFreq")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BoostCoreFreq")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Chipset")
+                        .HasColumnType("text")
+                        .HasColumnName("Graphic_Chipset");
+
+                    b.Property<string>("EightPinPower")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Lenght")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MemAmount")
+                        .HasColumnType("text")
+                        .HasColumnName("Graphic_MemAmount");
+
+                    b.Property<string>("MemFreq")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MemType")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("RGB")
+                        .HasColumnType("boolean")
+                        .HasColumnName("Graphic_RGB");
+
+                    b.Property<string>("SixPinPower")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SlotType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TDP")
+                        .HasColumnType("text")
+                        .HasColumnName("Graphic_TDP");
+
+                    b.Property<string>("Width")
+                        .HasColumnType("text");
+
+                    b.HasDiscriminator().HasValue("Graphic");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.HardDisk", b =>

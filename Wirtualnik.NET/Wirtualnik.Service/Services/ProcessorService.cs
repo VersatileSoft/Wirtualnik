@@ -1,29 +1,25 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
 using Wirtualnik.Server.Interfaces;
-using Wirtualnik.Service.Services.Base;
 using Wirtualnik.Shared.Models.Processor;
 
 namespace Wirtualnik.Service.Services
 {
-    public class ProcessorService : ServiceBase, IProcessorService
+    public class ProcessorService : ProductService<Processor, FilterModel>, IProcessorService
     {
         public ProcessorService(WirtualnikDbContext context, IMapper mapper) : base(context, mapper)
         { }
 
-        public Task<Processor> CreateAsync(CreateModel model)
+        protected override void Filter(IQueryable<Processor> query, FilterModel filter)
         {
-            var processor = Mapper.Map<Processor>(model);
-            return CreateAsync(processor);
-        }
+            base.Filter(query, filter);
 
-        public async Task<IEnumerable<Processor>> GetProcessorsAsync()
-        {
-            return await Context.Processors.ToListAsync();
+            if (!string.IsNullOrEmpty(filter.BaseFrequency))
+            {
+                query = query.Where(p => p.BaseFrequency == filter.BaseFrequency);
+            }
         }
     }
 }
