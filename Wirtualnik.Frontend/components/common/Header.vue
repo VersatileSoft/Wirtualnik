@@ -1,12 +1,15 @@
 <template>
   <header class="page-header">
     <h1 class="page-header__brand-logo">
-      <nuxt-link to="/" class="page-header__brand-logo-link">
+      <nuxt-link :to="{ name: 'index' }" class="page-header__brand-logo-link">
         Wirtualnik
       </nuxt-link>
     </h1>
     <div class="page-header__components">
-      <nuxt-link to="/" class="page-header__components-link">
+      <nuxt-link
+        :to="{ name: 'c-part', params: { part: 'cpu' } }"
+        class="page-header__components-link"
+      >
         <span class="las la-plus"></span>
       </nuxt-link>
       <nuxt-link to="#" class="page-header__components-link">
@@ -63,7 +66,7 @@ export default class Header extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.page-header{
+.page-header {
   background-color: var(--semitransparent);
   padding: 0 15px;
   height: 65px;
@@ -89,7 +92,7 @@ export default class Header extends Vue {
     text-transform: uppercase;
     color: var(--red);
   }
-  &__components{
+  &__components {
     display: none;
     @include for-tablet-landscape-up {
       display: flex;
@@ -97,7 +100,7 @@ export default class Header extends Vue {
       justify-content: center;
     }
   }
-  &__components-link{
+  &__components-link {
     margin: 3px;
     font-weight: bold;
     font-size: 24px;
@@ -106,8 +109,24 @@ export default class Header extends Vue {
     border-radius: 10px;
     transition: all 0.1s ease-out;
     color: var(--gray2);
+    &.nuxt-link-exact-active {
+      color: red;
+      position: relative;
+      -webkit-text-stroke: 1px var(--red);
+      &::after {
+        display: block;
+        position: absolute;
+        content: '';
+        width: 85%;
+        height: 3px;
+        border-radius: 5px 5px 0 0;
+        bottom: -8px;
+        background-color: var(--red);
+        left: 8%;
+      }
+    }
   }
-  &__basket{
+  &__basket {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,21 +136,5 @@ export default class Header extends Vue {
       font-weight: normal;
     }
   }
-  .nuxt-link-active {
-    color: red;
-    position: relative;
-    -webkit-text-stroke: 1px var(--red);
-    &::after{
-      display: block;
-      position: absolute;
-      content: '';
-      width: 85%;
-      height: 3px;
-      border-radius: 5px 5px 0 0;
-      bottom: -8px;
-      background-color: var(--red);
-      left: 8%;
-    }
-}
 }
 </style>

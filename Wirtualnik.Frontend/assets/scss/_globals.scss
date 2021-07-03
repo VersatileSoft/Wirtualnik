@@ -84,14 +84,14 @@ ul {
 }
 
 .btn-circle {
-  width: 20px;
-  width: 45px;
+  width: 41px;
   border-radius: 100%;
   background-color: var(--white);
-  padding: 10px;
+  padding: 8px;
   font-size: 20px;
   cursor: pointer;
   text-align: center;
+  color: var(--black);
   border: 1px solid var(--gray1);
   margin: 5px 0;
   transition: all 0.15s ease-out;
@@ -100,7 +100,50 @@ ul {
 .btn-green {
   &:hover {
     color: green;
-    border: 1px solid rgba(24, 222, 87, 0.4);
+    border: 1px solid rgba(125, 226, 157, 0.4);
+  }
+}
+
+.btn-light {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--white);
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: 0;
+  color: var(--black);
+  transition: all 0.15s ease-out;
+  margin: 2px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: var(--shadow20);
+    filter: var(--focus);
+  }
+}
+
+.btn-miniprice {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--gray6);
+  border: 0;
+  width: 57px;
+  height: 48px;
+  transition: 0.1s ease-out;
+  background-color: var(--transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  & a {
+    text-decoration: none !important;
+  }
+  & img {
+    max-height: 16px;
+    margin-bottom: 0.2rem;
+  }
+  &:not(:last-child) {
+    border-right: 1px solid var(--gray2);
   }
 }
 
@@ -109,4 +152,14 @@ ul {
   align-items: center;
   justify-content: flex-end;
   margin-left: auto;
+}
+
+.product-card__card-image img,
+.week-best__image img {
+  display: block;
+  max-width: 95%;
+  max-height: 210px;
+  margin: 0 auto;
+  object-fit: cover;
+  transition: all 0.2s ease-out;
 }
