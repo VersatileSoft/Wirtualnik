@@ -4,10 +4,10 @@ using Wirtualnik.Data.Models;
 using Wirtualnik.Service.Interfaces;
 using Wirtualnik.Service.Interfaces.Base;
 using Wirtualnik.Shared.Models.Base;
-using Wirtualnik.Shared.Models.Processor;
+using Wirtualnik.Shared.Models.HardDisk;
 
 namespace Wirtualnik.Server.Interfaces
 {
-    public interface IProcessorService : IProductService<Processor, FilterModel>
+    public interface IHardDiskService : IProductService<HardDisk, FilterModel>
     { }
 }

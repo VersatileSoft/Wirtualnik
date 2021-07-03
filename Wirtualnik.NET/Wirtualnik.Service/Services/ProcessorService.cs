@@ -1,16 +1,25 @@
 ﻿using AutoMapper;
+using System.Linq;
+using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
-using Wirtualnik.Repository.Interfaces;
 using Wirtualnik.Server.Interfaces;
-using Wirtualnik.Services.Base;
-using Wirtualnik.Shared.Models;
+using Wirtualnik.Shared.Models.Processor;
 
-namespace Wirtualnik.Server.Services
+namespace Wirtualnik.Service.Services
 {
-    public class ProcessorService : ServiceBase<ProcessorModel, Processor>, IProcessorService
+    public class ProcessorService : ProductService<Processor, FilterModel>, IProcessorService
     {
-        public ProcessorService(IProcessorRepository customerRepository, IMapper mapper) : base(customerRepository, mapper)
+        public ProcessorService(WirtualnikDbContext context, IMapper mapper) : base(context, mapper)
+        { }
+
+        protected override void Filter(IQueryable<Processor> query, FilterModel filter)
         {
+            base.Filter(query, filter);
+
+            if (!string.IsNullOrEmpty(filter.BaseFrequency))
+            {
+                query = query.Where(p => p.BaseFrequency == filter.BaseFrequency);
+            }
         }
     }
 }

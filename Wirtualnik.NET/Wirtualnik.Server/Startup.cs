@@ -1,8 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using Hangfire;
-using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -62,10 +60,9 @@ namespace Wirtualnik.Server
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options => options.CustomSchemaIds(type => type.ToString()));
             services.AddSpaStaticFiles(o => o.RootPath = "wwwroot");
             var builder = new ContainerBuilder();
-            builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<ServiceModule>();
             builder.Populate(services);
 
