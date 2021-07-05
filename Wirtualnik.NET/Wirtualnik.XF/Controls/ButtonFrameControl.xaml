@@ -1,0 +1,22 @@
+﻿<Frame x:Class="Wirtualnik.XF.Controls.ButtonFrameControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    WidthRequest="32"
+    HeightRequest="32"
+    Padding="0"
+    xct:TouchEffect.NativeAnimation="True"
+    BackgroundColor="Transparent"
+    BorderColor="{AppThemeBinding Light={StaticResource LowContrastColorLight},
+                                  Dark={StaticResource LowContrastColorDark}}"
+    CornerRadius="16">
+    <Frame.Content>
+        <Label x:Name="iconLabel"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            FontFamily="la-solid"
+            FontSize="18"
+            TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                        Dark={StaticResource ContrastColorDark}}" />
+    </Frame.Content>
+</Frame>

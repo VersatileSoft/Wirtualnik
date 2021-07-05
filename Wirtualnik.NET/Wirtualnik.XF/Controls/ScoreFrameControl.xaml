@@ -1,0 +1,30 @@
+﻿<Frame x:Class="Wirtualnik.XF.Controls.ScoreFrameControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Padding="0">
+    <Frame.Background>
+        <RadialGradientBrush>
+            <GradientStop x:Name="gradientStop" Offset="0.1" />
+            <GradientStop Offset="1.0" Color="Transparent" />
+        </RadialGradientBrush>
+    </Frame.Background>
+
+    <Frame.Content>
+        <Label x:Name="scoreLabel"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            HorizontalTextAlignment="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span x:Name="spanTitle"
+                        FontFamily="PoppinsRegular"
+                        FontSize="12" />
+                    <Span Text="&#x0a;" />
+                    <Span x:Name="spanScore"
+                        FontFamily="PoppinsBold"
+                        FontSize="16" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </Frame.Content>
+</Frame>

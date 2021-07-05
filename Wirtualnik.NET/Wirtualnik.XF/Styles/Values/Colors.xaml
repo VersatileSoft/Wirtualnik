@@ -2,22 +2,35 @@
 
     <!--  Light Colors  -->
     <Color x:Key="BackgroundColorLight">#f3f3f3</Color>
+    <Color x:Key="DarkBackgroundColorLight">#efefef</Color>
+    <Color x:Key="LightBackgroundColorLight">#ffffff</Color>
     <Color x:Key="CellBackgroundColorLight">#f9f9f9</Color>
     <Color x:Key="ContrastColorLight">#000000</Color>
     <Color x:Key="MediumContrastColorLight">#595b59</Color>
     <Color x:Key="LowContrastColorLight">#929495</Color>
-    <Color x:Key="RedShadowColorLight">#e22c2c</Color>
-    <Color x:Key="BlueShadowColorLight">#1e8cf2</Color>
-    <Color x:Key="AccentColorLight">#f23d3d</Color>
+    <Color x:Key="TabUnselectedColorLight">#d8d8d8</Color>
+
+    <Color x:Key="RedShadowColorLight">#33e22c2c</Color>
+    <Color x:Key="BlueShadowColorLight">#331e8cf2</Color>
+    <Color x:Key="RedAccentColorLight">#f23d3d</Color>
+    <Color x:Key="BlueAccentColorLight">#1e8cf2</Color>
 
     <!--  Dark Colors  -->
     <Color x:Key="BackgroundColorDark">#191919</Color>
+    <Color x:Key="DarkBackgroundColorDark">#151515</Color>
+    <Color x:Key="LightBackgroundColorDark">#232323</Color>
     <Color x:Key="CellBackgroundColorDark">#222222</Color>
     <Color x:Key="ContrastColorDark">#f1f1f1</Color>
     <Color x:Key="MediumContrastColorDark">#acacac</Color>
     <Color x:Key="LowContrastColorDark">#888888</Color>
-    <Color x:Key="RedShadowColorDark">#e22c2c</Color>
-    <Color x:Key="BlueShadowColorDark">#1e8cf2</Color>
-    <Color x:Key="AccentColorDark">#f23d3d</Color>
+    <Color x:Key="TabUnselectedColorDark">#5a5a5a</Color>
 
+    <Color x:Key="RedShadowColorDark">#33e22c2c</Color>
+    <Color x:Key="BlueShadowColorDark">#331e8cf2</Color>
+    <Color x:Key="RedAccentColorDark">#f23d3d</Color>
+    <Color x:Key="BlueAccentColorDark">#1e8cf2</Color>
+
+
+    <Color x:Key="AccentColor">#f5af39</Color>
+    <Color x:Key="DarkAccentColor">#f5af39</Color>
 </ResourceDictionary>
