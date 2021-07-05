@@ -1,7 +1,6 @@
 ﻿using Bimber.Extensions;
 using Prism.Navigation;
 using System.Threading.Tasks;
-using Wirtualnik.Shared.Models;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Wirtualnik.XF.ViewModels
@@ -11,12 +10,12 @@ namespace Wirtualnik.XF.ViewModels
         public int remainingItemsThreshold { get; set; } = 1;
         public bool IsLoaded { get; set; }
 
-        public SafeObservableCollection<ProcessorModel> ProductList { get; set; }
+        public SafeObservableCollection<int> ProductList { get; set; }
         //public DelegateCommand<ProcessorModel> NavigateProductCommand { get; set; }
         public AsyncCommand LoadMoreItemsCommand { get; set; }
         public ProductListPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            ProductList = new SafeObservableCollection<ProcessorModel>();
+            ProductList = new SafeObservableCollection<int>();
 
             LoadMoreItemsCommand = new AsyncCommand(() => LoadMoreData(), allowsMultipleExecutions: false);
 
@@ -43,11 +42,9 @@ namespace Wirtualnik.XF.ViewModels
 
             for (int i = 0; i < 128; i++)
             {
-                ProcessorModel processorModel = new ProcessorModel();
-                ProductList.Add(processorModel);
+                ProductList.Add(i);
             }
 
-            RaisePropertyChanged("ProductList");
             IsLoaded = true;
         }
 
@@ -61,8 +58,7 @@ namespace Wirtualnik.XF.ViewModels
 
             for (int i = 0; i < 64; i++)
             {
-                ProcessorModel processorModel = new ProcessorModel();
-                ProductList.Add(processorModel);
+                ProductList.Add(i);
             }
 
             return Task.CompletedTask;
