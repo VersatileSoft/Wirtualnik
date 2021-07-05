@@ -8,15 +8,29 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    assignees:
+      - "kcrg"
+    reviewers:
+      - "kcrg"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
     directory: "/Wirtualnik.Frontend"
     schedule:
       interval: "daily"
+    assignees:
+      - "Nexi77"
+    reviewers:
+      - "Nexi77"
 
   # Maintain dependencies for NuGet
   - package-ecosystem: "nuget"
     directory: "/Wirtualnik.NET"
     schedule:
       interval: "daily"
+    assignees:
+      - "kcrg"
+      - "misiek231"
+    reviewers:
+      - "kcrg"
+      - "misiek231"
