@@ -1,18 +1,21 @@
 ﻿<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!--  Tabbed Icons  -->
-    <x:String x:Key="TasksIcon">&#xE9D5;</x:String>
-    <x:String x:Key="AboutIcon">&#xE822;</x:String>
+    <!--  Product Cell Icons (la-regular)  -->
+    <x:String x:Key="BalanceIcon">&#xF24E;</x:String>
+    <x:String x:Key="AddToCartIcon">&#xF217;</x:String>
 
-    <!--  CheckBox Icons  -->
-    <x:String x:Key="CheckIcon">&#xE73A;</x:String>
-    <x:String x:Key="UncheckIcon">&#xE739;</x:String>
 
-    <!--  Other Icons  -->
-    <x:String x:Key="SaveIcon">&#xE105;</x:String>
-    <x:String x:Key="EditIcon">&#xE104;</x:String>
-    <x:String x:Key="DeleteIcon">&#xE107;</x:String>
-    <x:String x:Key="AddIcon">&#xE109;</x:String>
+    <!--  Menu Icons (la-regular)  -->
+    <x:String x:Key="MenuIcon">&#xF0C9;</x:String>
+    <x:String x:Key="CloseIcon">&#xF00D;</x:String>
+    <x:String x:Key="BellIcon">&#xF0F3;</x:String>
+    <x:String x:Key="CloudIcon">&#xF0C2;</x:String>
+    <x:String x:Key="SettingsIcon">&#xF013;</x:String>
+    <x:String x:Key="BugIcon">&#xF188;</x:String>
+    <x:String x:Key="LogOutIcon">&#xF2F5;</x:String>
+    <x:String x:Key="AddIcon">&#xF067;</x:String>
+    <x:String x:Key="LikeIcon">&#xF164;</x:String>
+    <x:String x:Key="HeartIcon">&#xF004;</x:String>
+    <x:String x:Key="BalanceLeftIcon">&#xF515;</x:String>
 
-    <x:String x:Key="BackIcon">&#xE72B;</x:String>
 </ResourceDictionary>

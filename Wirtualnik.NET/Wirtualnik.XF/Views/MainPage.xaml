@@ -1,142 +1,23 @@
 ﻿<ContentPage x:Class="Wirtualnik.XF.Views.MainPage" x:DataType="viewmodels:MainPageViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:sh="http://sharpnado.com"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
-                                      Dark={StaticResource BackgroundColorDark}}">
+                                      Dark={StaticResource BackgroundColorDark}}"
+    ControlTemplate="{StaticResource PageTemplate}"
+    NavigationPage.HasNavigationBar="False">
 
-    <CollectionView ItemsSource="{Binding ProductList}">
-        <CollectionView.ItemsLayout>
-            <GridItemsLayout
-                HorizontalItemSpacing="2"
-                Orientation="Vertical"
-                Span="2"
-                VerticalItemSpacing="2" />
-        </CollectionView.ItemsLayout>
-
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <ContentView>
-                    <Frame
-                        Margin="4"
-                        Padding="4"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
-                                                          Dark={StaticResource CellBackgroundColorDark}}"
-                        CornerRadius="12"
-                        HasShadow="True">
-                        <StackLayout Padding="8" Spacing="0">
-                            <sh:Shadows
-                                Padding="4,12"
-                                CornerRadius="100"
-                                Shades="{sh:SingleShade Offset='0, 0',
-                                                        Opacity=0.2,
-                                                        Color=Orange,
-                                                        BlurRadius=100}">
-                                <Image
-                                    HeightRequest="100"
-                                    xct:TouchEffect.AnimationDuration="200"
-                                    xct:TouchEffect.PressedScale="1.2"
-                                    Source="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png" />
-                            </sh:Shadows>
-
-                            <Label
-                                Margin="0,8,0,0"
-                                FontFamily="PoppinsBold"
-                                FontSize="16"
-                                Text="AMD Ryzen 3 1200"
-                                TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
-                                                            Dark={StaticResource ContrastColorDark}}" />
-                            <Label
-                                FontFamily="PoppinsRegular"
-                                FontSize="12"
-                                Text="495.00 PLN"
-                                TextColor="{AppThemeBinding Light={StaticResource LowContrastColorLight},
-                                                            Dark={StaticResource LowContrastColorDark}}" />
-
-                            <Label
-                                Margin="0,8,0,0"
-                                FontFamily="PoppinsRegular"
-                                FontSize="12"
-                                Text="4 rdzenie, 4 wątkowaaaaaa"
-                                TextColor="{AppThemeBinding Light={StaticResource MediumContrastColorLight},
-                                                            Dark={StaticResource MediumContrastColorDark}}" />
-                            <Label
-                                FontFamily="PoppinsRegular"
-                                FontSize="12"
-                                Text="Socket AM4"
-                                TextColor="{AppThemeBinding Light={StaticResource MediumContrastColorLight},
-                                                            Dark={StaticResource MediumContrastColorDark}}" />
-                            <Label
-                                FontFamily="PoppinsRegular"
-                                FontSize="12"
-                                Text="65W"
-                                TextColor="{AppThemeBinding Light={StaticResource MediumContrastColorLight},
-                                                            Dark={StaticResource MediumContrastColorDark}}" />
-
-                            <Grid Margin="0,8,0,0" ColumnDefinitions="40*,40*,20*">
-                                <sh:Shadows CornerRadius="100" Shades="{sh:SingleShade Opacity=0.2, Color=#e22c2c, BlurRadius=100}">
-                                    <Label
-                                        HorizontalOptions="Center"
-                                        FontFamily="PoppinsRegular"
-                                        HorizontalTextAlignment="Center"
-                                        TextColor="{AppThemeBinding Light={StaticResource RedShadowColorLight},
-                                                                    Dark={StaticResource RedShadowColorDark}}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Gaming&#x0a;" />
-                                                <Span FontFamily="PoppinsBold" Text="123" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                </sh:Shadows>
-
-                                <sh:Shadows
-                                    Grid.Column="1"
-                                    CornerRadius="100"
-                                    Shades="{sh:SingleShade Opacity=0.2,
-                                                            Color=#1e8cf2,
-                                                            BlurRadius=100}">
-                                    <Label
-                                        HorizontalOptions="Center"
-                                        FontFamily="PoppinsRegular"
-                                        HorizontalTextAlignment="Center"
-                                        TextColor="{AppThemeBinding Light={StaticResource BlueShadowColorLight},
-                                                                    Dark={StaticResource BlueShadowColorDark}}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Pro&#x0a;" />
-                                                <Span FontFamily="PoppinsBold" Text="93" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                </sh:Shadows>
-                            </Grid>
-                        </StackLayout>
-                    </Frame>
-                </ContentView>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-
-        <CollectionView.Footer>
-            <StackLayout Padding="16">
-                <ActivityIndicator IsRunning="True" Color="{AppThemeBinding Light={StaticResource AccentColorLight}, Dark={StaticResource AccentColorDark}}" />
-                <Label
-                    HorizontalOptions="Center"
-                    Text="Ładuję więcej produktów"
-                    TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
-                                                Dark={StaticResource ContrastColorDark}}" />
-            </StackLayout>
-        </CollectionView.Footer>
-
-        <CollectionView.EmptyView>
+    <ContentPage.Content>
+        <StackLayout
+            Margin="0,128"
+            Padding="64"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            BackgroundColor="#33FF52D5">
             <Label
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                Text="Nic tu nie ma :c"
-                TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
-                                            Dark={StaticResource ContrastColorDark}}" />
-        </CollectionView.EmptyView>
-    </CollectionView>
+                FontAttributes="Bold"
+                Text="This view should be UNDER the burger menu"
+                TextColor="White" />
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
