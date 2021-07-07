@@ -48,7 +48,7 @@ namespace Wirtualnik.Shared.Models
 
         private void GraphicMap()
         {
-            CreateMap<Graphic.CreateModel, Data.Models.Graphic> ()
+            CreateMap<Graphic.CreateModel, Data.Models.Graphic>()
                 .ForMember(o => o.Id, k => k.Ignore())
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())
@@ -56,7 +56,7 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.UpdateDate, k => k.Ignore())
                 .ReverseMap();
 
-            CreateMap<Graphic.ListItemModel, Data.Models.Graphic> ()
+            CreateMap<Graphic.ListItemModel, Data.Models.Graphic>()
                 .ForMember(o => o.Id, k => k.Ignore())
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())
@@ -64,7 +64,7 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.UpdateDate, k => k.Ignore())
                 .ReverseMap();
 
-            CreateMap<Graphic.DetailsModel, Data.Models.Graphic> ()
+            CreateMap<Graphic.DetailsModel, Data.Models.Graphic>()
                 .ForMember(o => o.Id, k => k.Ignore())
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())
@@ -75,7 +75,7 @@ namespace Wirtualnik.Shared.Models
 
         private void HardDiskMap()
         {
-            CreateMap<HardDisk.CreateModel, Data.Models.HardDisk> ()
+            CreateMap<HardDisk.CreateModel, Data.Models.HardDisk>()
                 .ForMember(o => o.Id, k => k.Ignore())
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())
@@ -83,7 +83,7 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.UpdateDate, k => k.Ignore())
                 .ReverseMap();
 
-            CreateMap<HardDisk.ListItemModel, Data.Models.HardDisk> ()
+            CreateMap<HardDisk.ListItemModel, Data.Models.HardDisk>()
                 .ForMember(o => o.Id, k => k.Ignore())
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())
@@ -91,7 +91,7 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.UpdateDate, k => k.Ignore())
                 .ReverseMap();
 
-            CreateMap<HardDisk.DetailsModel, Data.Models.HardDisk> ()
+            CreateMap<HardDisk.DetailsModel, Data.Models.HardDisk>()
                 .ForMember(o => o.Id, k => k.Ignore())
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())

@@ -21,7 +21,7 @@ namespace Wirtualnik.Service.Services
         {
             base.Filter(query, filter);
 
-           
+
         }
     }
 }
