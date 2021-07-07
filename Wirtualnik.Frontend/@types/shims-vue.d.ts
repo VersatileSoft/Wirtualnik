@@ -12,3 +12,6 @@ declare module 'global' {
     // Global properties (Vue.) can be declared on the `VueConstructor` interface
   }
 }
+declare interface Window {
+  fbAsyncInit: () => any
+}
