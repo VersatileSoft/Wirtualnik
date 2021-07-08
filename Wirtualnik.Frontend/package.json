@@ -59,7 +59,7 @@
     "eslint-plugin-vue": "^7.13.0",
     "fibers": "^5.0.0",
     "husky": "^7.0.1",
-    "jest": "^27.0.4",
+    "jest": "^27.0.6",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.2",
     "sass": "^1.35.1",
