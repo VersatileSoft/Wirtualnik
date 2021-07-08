@@ -4,8 +4,7 @@ using Android.Content.PM;
 using Android.Graphics.Drawables;
 using Android.OS;
 using AndroidX.Core.View;
-using Prism;
-using Prism.Ioc;
+using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -16,9 +15,20 @@ namespace Wirtualnik.XF.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            SentryXamarin.Init(options =>
+            {
+                options.Dsn = "https://6d41b18b43a74862b64c0239985b9ee8@o866902.ingest.sentry.io/5823541";
+#if DEBUG
+                options.Debug = true;
+                options.TracesSampleRate = 0;
+#endif
+#if RELEASE
+                options.TracesSampleRate = 1.0;
+#endif
+                options.AddXamarinFormsIntegration();
+            });
 
-            SetTheme(Resource.Style.MainTheme);
+            base.OnCreate(savedInstanceState);
 
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
@@ -26,7 +36,7 @@ namespace Wirtualnik.XF.Droid
             FormsMaterial.Init(this, savedInstanceState);
             UserDialogs.Init(this);
 
-            LoadApplication(new App(new AndroidInitializer()));
+            LoadApplication(new App());
 
             SetTheme(Resource.Style.MainTheme);
         }
@@ -67,14 +77,6 @@ namespace Wirtualnik.XF.Droid
             Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    public class AndroidInitializer : IPlatformInitializer
-    {
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            // Register any platform specific implementations
         }
     }
 }

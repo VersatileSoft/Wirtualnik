@@ -2,8 +2,4 @@
   <assembly fullname="System.Runtime.Serialization">
     <namespace fullname="System.Runtime.Serialization" />
   </assembly>
-
-  <assembly fullname="DryIoc">
-    <type fullname="*" />
-  </assembly>
 </linker>

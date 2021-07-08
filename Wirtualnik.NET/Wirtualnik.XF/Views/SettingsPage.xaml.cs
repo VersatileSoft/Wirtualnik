@@ -2,9 +2,9 @@
 
 namespace Wirtualnik.XF.Views
 {
-    public partial class ProductPage : ContentView
+    public partial class SettingsPage : ContentView
     {
-        public ProductPage()
+        public SettingsPage()
         {
             InitializeComponent();
         }

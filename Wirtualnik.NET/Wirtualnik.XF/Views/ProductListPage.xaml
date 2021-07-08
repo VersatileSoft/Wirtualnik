@@ -1,19 +1,26 @@
-﻿<ContentPage x:Class="Wirtualnik.XF.Views.ProductListPage" x:DataType="viewmodels:ProductListPageViewModel"
+﻿<ContentView x:Class="Wirtualnik.XF.Views.ProductListPage" x:DataType="viewmodels:ProductListPageViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cells="clr-namespace:Wirtualnik.XF.Controls.Cells"
-    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
     xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
                                       Dark={StaticResource BackgroundColorDark}}"
-    ControlTemplate="{StaticResource PageTemplate}"
     NavigationPage.HasNavigationBar="False">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Effects>
+        <xct:LifecycleEffect Loaded="LifecycleEffect_Loaded" />
+    </ContentView.Effects>
 
-    <StackLayout>
+    <Grid>
         <CollectionView x:Name="collectionView"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
             ItemSizingStrategy="MeasureFirstItem"
             ItemsSource="{Binding ProductList}"
             RemainingItemsThreshold="{Binding remainingItemsThreshold}"
@@ -39,6 +46,7 @@
                     Padding="0,24"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
+                    IsVisible="{Binding IsLoaded}"
                     Spacing="8">
                     <ActivityIndicator
                         IsRunning="True"
@@ -65,7 +73,27 @@
             </CollectionView.EmptyView>
         </CollectionView>
 
-        <!--<CollectionView x:Name="collectionView2"
+        <StackLayout
+            Padding="0,24"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center"
+            IsVisible="{Binding IsLoaded, Converter={StaticResource InvertedBoolConverter}}"
+            Spacing="8">
+            <ActivityIndicator
+                IsRunning="True"
+                Visual="Material"
+                Color="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                        Dark={StaticResource RedAccentColorDark}}" />
+            <Label
+                HorizontalOptions="Center"
+                FontFamily="PoppinsRegular"
+                Text="Ładuję listę produktów"
+                TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                            Dark={StaticResource ContrastColorDark}}" />
+        </StackLayout>
+    </Grid>
+
+    <!--<CollectionView x:Name="collectionView2"
             HeightRequest="240"
             ItemSizingStrategy="MeasureFirstItem"
             ItemsSource="{Binding ProductList}">
@@ -95,5 +123,4 @@
                                                 Dark={StaticResource ContrastColorDark}}" />
             </CollectionView.EmptyView>
         </CollectionView>-->
-    </StackLayout>
-</ContentPage>
+</ContentView>

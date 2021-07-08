@@ -1,8 +1,7 @@
-﻿<prism:PrismApplication x:Class="Wirtualnik.XF.App"
+﻿<Application x:Class="Wirtualnik.XF.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:prism="http://prismlibrary.com"
-    xmlns:templates="clr-namespace:Wirtualnik.XF.Controls.Templates">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!--  xmlns:templates="clr-namespace:Wirtualnik.XF.Controls.Templates"  -->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,7 +10,7 @@
                 <!--<styles:PageStyle />-->
             </ResourceDictionary.MergedDictionaries>
 
-            <templates:PageTemplate x:Key="PageTemplate" />
+            <!--<templates:PageTemplate x:Key="PageTemplate" />-->
         </ResourceDictionary>
     </Application.Resources>
-</prism:PrismApplication>
+</Application>

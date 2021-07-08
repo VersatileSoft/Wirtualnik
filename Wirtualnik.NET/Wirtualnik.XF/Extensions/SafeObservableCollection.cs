@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
 
-namespace Bimber.Extensions
+namespace Wirtualnik.Extensions
 {
     /// <summary>
     /// Based on https://github.com/tamirdresher/WinRTThreadSafeObservableCollection
@@ -73,7 +73,6 @@ namespace Bimber.Extensions
                 Add(item);
             }
 
-            //Raise the property change!
             this.OnPropertyChanged(new PropertyChangedEventArgs("Count"));
             this.OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
             this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));

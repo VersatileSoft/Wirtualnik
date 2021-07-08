@@ -1,42 +1,15 @@
-﻿using Prism.Mvvm;
-using Prism.Navigation;
-using System.Threading.Tasks;
-using Wirtualnik.XF.Views;
-using Xamarin.CommunityToolkit.ObjectModel;
+﻿using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Wirtualnik.XF.ViewModels
 {
-    public class ViewModelBase : BindableBase, IInitialize, INavigationAware, IDestructible
+    public class ViewModelBase : ObservableObject
     {
-        protected INavigationService NavigationService { get; }
+        private bool isBusy;
+        public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); }
 
-        public AsyncCommand NavigateToProductListCommand { get; }
-        public ViewModelBase(INavigationService navigationService)
+        public ViewModelBase()
         {
-            NavigationService = navigationService;
-
-            NavigateToProductListCommand = new AsyncCommand(async () => await NavigateAsync().ConfigureAwait(false), allowsMultipleExecutions: false);
-        }
-
-        private async Task NavigateAsync()
-        {
-            await NavigationService.NavigateAsync(nameof(ProductListPage), useModalNavigation: false).ConfigureAwait(false);
-        }
-
-        public virtual void Initialize(INavigationParameters parameters)
-        {
-        }
-
-        public virtual void OnNavigatedFrom(INavigationParameters parameters)
-        {
-        }
-
-        public virtual void OnNavigatedTo(INavigationParameters parameters)
-        {
-        }
-
-        public virtual void Destroy()
-        {
+            isBusy = true;
         }
     }
 }

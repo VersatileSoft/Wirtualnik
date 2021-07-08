@@ -24,7 +24,6 @@
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -42,7 +41,6 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>portable</DebugType>
@@ -64,7 +62,6 @@
     <AndroidLinkTool>r8</AndroidLinkTool>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="glidex.forms">
       <Version>2.1.0.470</Version>
@@ -79,7 +76,6 @@
       <Version>1.2.1</Version>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Java.Interop" />
     <Reference Include="Mono.Android" />
@@ -88,7 +84,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,7 +93,6 @@
     <ProguardConfiguration Include="proguard.cfg" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\*.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\*.xml" />
@@ -110,7 +104,6 @@
     <AndroidResource Include="Resources\values\*.xml" />
     <AndroidResource Include="Resources\values-night\*.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Wirtualnik.XF\Wirtualnik.XF.csproj">
       <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
