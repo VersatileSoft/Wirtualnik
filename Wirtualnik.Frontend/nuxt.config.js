@@ -47,10 +47,7 @@ export default {
     '@/assets/scss/icons.scss',
   ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '@/plugins/vueMq.ts',
-    { src: '@/plugins/fbSdk.ts', mode: 'client' },
-  ],
+  plugins: ['@/plugins/vueMq.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

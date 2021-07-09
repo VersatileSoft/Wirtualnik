@@ -1980,11 +1980,6 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/facebook-js-sdk@^3.3.3":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@types/facebook-js-sdk/-/facebook-js-sdk-3.3.3.tgz#7d6e21edb05ec34434fa8043288e3efd4adf0a15"
-  integrity sha512-eLWOjOpf0BOkCTIhTZq4O8vYD52ee5+PQ1uwbM/eh9nns6aLXO2YHsP1PqnvBiJzlUV8X7VcynlToJDziysynQ==
-
 "@types/file-loader@5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@types/file-loader/-/file-loader-5.0.0.tgz#c7d06c14a8fc0224661e9a29c4035ba47db826df"
