@@ -163,3 +163,12 @@ ul {
   object-fit: cover;
   transition: all 0.2s ease-out;
 }
+
+// reusable styles
+.quick-filters {
+  color: var(--gray4);
+  text-align: center;
+  background-color: var(--ltgray);
+  border-radius: 15px;
+  padding: 10px 0;
+}
