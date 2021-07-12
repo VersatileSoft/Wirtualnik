@@ -1,6 +1,8 @@
+using Microsoft.Extensions.DependencyInjection;
 using Prism;
 using Prism.Ioc;
 using Sentry;
+using Wirtualnik.Shared.ApliClient;
 using Wirtualnik.XF.ViewModels;
 using Wirtualnik.XF.Views;
 using Xamarin.Essentials.Implementation;
@@ -65,10 +67,17 @@ namespace Wirtualnik.XF
             //var check1 = containerRegistry.IsRegistered(typeof(IProcessorClient));
             //var check2 = containerRegistry.IsRegistered(typeof(IShopClient));
 
+            var services = new ServiceCollection();
+
+            services.RegisterClients();
+
+            // containerRegistry.Populate(services); // TODO somehow populate IServiceCollection into IContainerRegistry
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ProductListPage, ProductListPageViewModel>();
             containerRegistry.RegisterForNavigation<ProductPage>();
+
+
         }
     }
 }

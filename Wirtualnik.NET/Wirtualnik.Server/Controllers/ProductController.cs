@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
@@ -34,7 +36,7 @@ namespace Wirtualnik.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Resource<TDetailsModel>>> Fetch(long id)
+        public async Task<ActionResult<Resource<TDetailsModel>>> Fetch(Guid id)
         {
             var model = await _productService.FindAsync<TEntity>(id);
 
@@ -45,6 +47,7 @@ namespace Wirtualnik.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create(TCreateModel model)
         {
             var dbModel = _mapper.Map<TEntity>(model);
@@ -53,10 +56,24 @@ namespace Wirtualnik.Server.Controllers
             return CreatedAtAction(nameof(this.Fetch), this.GetType().Name.Replace("Controller", ""), new { Id = contract.Id }, _mapper.Map<TDetailsModel>(contract));
         }
 
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Update(Guid id, TCreateModel model)
+        {
+            var entity = await _productService.FindAsync<TEntity>(id);
+
+            if (entity == null)
+                return NotFound();
+
+            var result = _mapper.Map(model, entity);
+
+            await _productService.UpdateAsync(result);
+
+            return Accepted();
+        }
+
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             var entity = await _productService.FindAsync<TEntity>(id);
 
