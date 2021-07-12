@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wirtualnik.Shared.Models.Product
+﻿namespace Wirtualnik.Shared.Models.Product
 {
     public class ProductFilter
     {

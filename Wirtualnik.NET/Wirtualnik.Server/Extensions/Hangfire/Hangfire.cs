@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 using System;
 using System.Linq;
+using Wirtualnik.Server.Extensions.Settings;
 
 namespace Wirtualnik.Server.Extensions.Hangfire
 {

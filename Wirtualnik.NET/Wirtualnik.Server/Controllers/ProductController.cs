@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
 using Wirtualnik.Service.Interfaces;
@@ -12,11 +10,11 @@ using Wirtualnik.Shared.Models.Product;
 
 namespace Wirtualnik.Server.Controllers
 {
-    public abstract class ProductController<TEntity, TFilter, TListItemModel, TDetailsModel, TCreateModel> : ControllerBase 
-        where TEntity : Product 
+    public abstract class ProductController<TEntity, TFilter, TListItemModel, TDetailsModel, TCreateModel> : ControllerBase
+        where TEntity : Product
         where TFilter : ProductFilter
         where TListItemModel : class
-        where TDetailsModel: class
+        where TDetailsModel : class
 
     {
         private readonly IMapper _mapper;
