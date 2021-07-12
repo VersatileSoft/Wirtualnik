@@ -1,0 +1,157 @@
+﻿<Grid x:Class="Wirtualnik.XF.Controls.Cells.ProductVerticalCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.XF.Controls"
+    xmlns:nalesnik="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:styles="clr-namespace:Wirtualnik.XF.Styles"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Padding="8,4,4,4">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:ProductCellStyle />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+
+    <BoxView
+        HeightRequest="24"
+        VerticalOptions="End"
+        CornerRadius="0,0,12,12"
+        Color="Green" />
+
+    <nalesnik:PancakeView
+        Margin="0,0,0,1"
+        Padding="0"
+        BackgroundGradientEndPoint="1,1"
+        BackgroundGradientStartPoint="1,0"
+        CornerRadius="12">
+        <nalesnik:PancakeView.BackgroundGradientStops>
+            <nalesnik:GradientStopCollection>
+                <nalesnik:GradientStop Offset="0.1" Color="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
+                <nalesnik:GradientStop Offset="0.4" Color="{AppThemeBinding Light={StaticResource CellBackgroundColorLight}, Dark={StaticResource CellBackgroundColorDark}}" />
+            </nalesnik:GradientStopCollection>
+        </nalesnik:PancakeView.BackgroundGradientStops>
+
+        <Grid
+            Padding="8,0"
+            ColumnDefinitions="58,58,*"
+            ColumnSpacing="0"
+            RowDefinitions="120,24,16,80,64"
+            RowSpacing="0">
+            <!--  Product Image  -->
+            <!--<BoxView Grid.ColumnSpan="3" BackgroundColor="Pink" />-->
+
+            <Frame
+                Grid.ColumnSpan="3"
+                Margin="0,0"
+                Padding="0,8"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill">
+                <Frame.Background>
+                    <RadialGradientBrush Radius="0.4">
+                        <GradientStop Offset="0.1" Color="#33ff9900" />
+                        <GradientStop Offset="1.0" Color="Transparent" />
+                    </RadialGradientBrush>
+                </Frame.Background>
+
+                <Image
+                    Grid.ColumnSpan="3"
+                    Margin="8"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    Aspect="AspectFit"
+                    IsOpaque="True"
+                    Source="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png" />
+            </Frame>
+
+            <!--  Product Description  -->
+            <!--<BoxView
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                BackgroundColor="Plum" />-->
+
+            <Label
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource ProductTitleLabelStyle}" />
+
+
+            <!--<BoxView
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
+                BackgroundColor="Bisque" />-->
+
+            <Label
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource ProductPriceLabelStyle}" />
+
+            <!--<BoxView
+                Grid.Row="3"
+                Grid.ColumnSpan="3"
+                BackgroundColor="DarkGoldenrod" />-->
+
+            <Label
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Margin="0,8,0,0"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource ProductSpecLabelStyle}"
+                Text="4 rdzenie, 4 wątki&#10;Socket AM4&#10;65W" />
+
+            <!--  Product Score  -->
+            <!--<BoxView Grid.Row="4" BackgroundColor="LightPink" />-->
+
+            <controls:ScoreFrameControl
+                Grid.Row="4"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                ScoreColor="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                             Dark={StaticResource RedAccentColorDark}}"
+                ScoreTitle="Gaming"
+                ScoreValue="123" />
+
+            <!--<BoxView
+                Grid.Row="4"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                BackgroundColor="LightBlue" />-->
+
+            <controls:ScoreFrameControl
+                Grid.Row="4"
+                Grid.Column="1"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                ScoreColor="{AppThemeBinding Light={StaticResource BlueAccentColorLight},
+                                             Dark={StaticResource BlueAccentColorDark}}"
+                ScoreTitle="Pro"
+                ScoreValue="93" />
+
+            <!--  Product Buttons  -->
+            <!--<BoxView
+                Grid.Row="3"
+                Grid.Column="2"
+                BackgroundColor="WhiteSmoke" />-->
+
+            <controls:ButtonFrameControl
+                Grid.Row="3"
+                Grid.Column="2"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Glyph="{StaticResource BalanceIcon}" />
+
+            <!--<BoxView
+                Grid.Row="4"
+                Grid.Column="2"
+                BackgroundColor="WhiteSmoke" />-->
+
+            <controls:ButtonFrameControl
+                Grid.Row="4"
+                Grid.Column="2"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Glyph="{StaticResource AddToCartIcon}" />
+        </Grid>
+    </nalesnik:PancakeView>
+</Grid>

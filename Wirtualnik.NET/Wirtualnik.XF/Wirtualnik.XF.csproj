@@ -4,50 +4,80 @@
   <PropertyGroup>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="Resources\Fonts\Poppins-Bold.ttf" />
-    <None Remove="Resources\Fonts\Poppins-Light.ttf" />
-    <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
-    <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Fonts\Poppins-Bold.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Poppins-Light.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Poppins-Regular.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Poppins-SemiBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\*.ttf" />
+    <EmbeddedResource Include="Resources\IconFonts\*.ttf" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="RestSharp" Version="106.11.7" />
-    <PackageReference Include="Scrutor" Version="3.3.0" />
     <PackageReference Include="Sentry.Xamarin.Forms" Version="1.1.0" />
     <PackageReference Include="Sharpnado.Shadows" Version="1.2.0" />
-    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="Xamanimation" Version="1.3.0" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Skeleton" Version="2.0.0" />
     <PackageReference Include="Xamarin.Plugin.SharedTransitions" Version="2.4.0" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0-pre2" />
-    <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="1.2.0-pre2" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
     <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2012">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj" />
+    <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\ButtonFrameControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\Cells\ProductVerticalCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\MenuButtonFrameControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\ScoreFrameControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\Templates\PageTemplate.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\ProductCellStyle.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Styles\Values\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Styles\Values\FontIcons.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ProductPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\Cells\ProductHorizontalCell.xaml.cs">
+      <DependentUpon>ProductHorizontalCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProductListPage.xaml.cs">
+      <DependentUpon>ProductListPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

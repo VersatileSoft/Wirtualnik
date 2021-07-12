@@ -313,11 +313,4 @@ export default class StartingPage extends Vue {
   height: 100%;
   flex: 1 60%;
 }
-.quick-filters {
-  color: var(--gray4);
-  text-align: center;
-  background-color: var(--ltgray);
-  border-radius: 15px;
-  padding: 10px 0;
-}
 </style>

@@ -1,4 +1,5 @@
-// import i18n from './config/i18n'
+import path from 'path'
+import fs from 'fs'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -14,6 +15,14 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
+    ],
+    script: [
+      {
+        src: 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v11.0',
+        async: true,
+        crossorigin: 'anonymous',
+        nonce: 'fqQMlKDG',
+      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -49,25 +58,8 @@ export default {
     '@nuxt/typescript-build',
     // style resources
     '@nuxtjs/style-resources',
-    // i18n library
-    // [
-    //   'nuxt-i18n',
-    //   {
-    //     vueI18nLoader: true,
-    //     defaultLocale: 'pl',
-    //     locales: [
-    //       {
-    //         code: 'pl',
-    //         name: 'Polish',
-    //       },
-    //       {
-    //         code: 'en',
-    //         name: 'English',
-    //       },
-    //     ],
-    //     vueI18n: i18n,
-    //   },
-    // ],
+    // dotenv
+    '@nuxtjs/dotenv',
   ],
 
   styleResources: {
@@ -120,5 +112,13 @@ export default {
     height: '3px',
     continuous: true,
     throttle: 0,
+  },
+
+  // configure server
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt')),
+    },
   },
 }

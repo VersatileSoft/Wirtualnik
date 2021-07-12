@@ -1,0 +1,32 @@
+﻿<Frame x:Class="Wirtualnik.XF.Controls.MenuButtonFrameControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Padding="0"
+    xct:TouchEffect.NativeAnimation="True"
+    BackgroundColor="{AppThemeBinding Light={StaticResource LightBackgroundColorLight},
+                                      Dark={StaticResource LightBackgroundColorDark}}"
+    CornerRadius="8"
+    HasShadow="False">
+    <Frame.Content>
+        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="0">
+            <Label x:Name="glyphLabel"
+                Margin="8,0,4,0"
+                VerticalOptions="Center"
+                FontFamily="la-solid"
+                FontSize="28"
+                Text="&#xF188;"
+                TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                            Dark={StaticResource ContrastColorDark}}" />
+            <Label x:Name="textLabel"
+                Grid.Column="1"
+                Margin="0,3,0,0"
+                VerticalOptions="Center"
+                FontFamily="PoppinsRegular"
+                FontSize="11"
+                MaxLines="2"
+                TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                            Dark={StaticResource ContrastColorDark}}" />
+        </Grid>
+    </Frame.Content>
+</Frame>
