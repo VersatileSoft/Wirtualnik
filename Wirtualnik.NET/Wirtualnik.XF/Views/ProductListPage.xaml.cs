@@ -17,6 +17,11 @@ namespace Wirtualnik.XF.Views
                 return;
             }
 
+            if (viewModel.IsLoaded)
+            {
+                return;
+            }
+
             await viewModel.LoadedCommand.ExecuteAsync().ConfigureAwait(false);
         }
     }

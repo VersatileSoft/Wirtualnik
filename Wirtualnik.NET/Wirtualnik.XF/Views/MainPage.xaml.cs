@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DryIoc;
+using System;
 using Wirtualnik.Extensions;
 using Wirtualnik.XF.Controls;
 using Wirtualnik.XF.ViewModels;
@@ -11,42 +12,46 @@ namespace Wirtualnik.XF.Views
     {
         private bool isMenuOpened;
 
+        private SafeObservableCollection<View> pageList = new();
+
         public MainPage()
         {
             InitializeComponent();
+
+            BindingContext = App.Container.Resolve(typeof(MainPageViewModel));
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            var pageList = new SafeObservableCollection<View>();
+            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
+            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
+            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
+            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
 
-            pageList.Add(new LazyView<SettingsPage>());
-            pageList.Add(new LazyView<ProductPage>());
-            pageList.Add(new LazyView<ProductPage>());
-            pageList.Add(new LazyView<ProductPage>());
-
-            pageList.Add(new CustomLazyView<ProductListPage>(typeof(ProductListPageViewModel)));
+            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
 
             contentCarouselView.ItemsSource = pageList;
         }
 
         private void tabView_SelectionChanged(object sender, TabSelectionChangedEventArgs e)
         {
-            contentCarouselView.ScrollTo(tabView.SelectedIndex);
+            contentCarouselView.ScrollTo(tabView.SelectedIndex, animate: true);
+
+            //await contentCarouselView.CurrentItem.LoadViewAsync().ConfigureAwait(false);
         }
 
         private async void contentCarouselView_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
         {
-            var view = (BaseLazyView)contentCarouselView.CurrentItem;
+            var view = (BaseLazyView)e.CurrentItem;
 
             if (view.IsLoaded)
             {
                 return;
             }
 
-            await view.LoadViewAsync().ConfigureAwait(false);
+            await view.LoadViewAsync();
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -74,8 +79,11 @@ namespace Wirtualnik.XF.Views
             }
             menuButton.Text = closeIcon.ToString();
 
-            menuBackgroundGrid.FadeTo(1, 300, Easing.CubicOut);
-            menuPancakeView.TranslateTo(0, 0, 300, Easing.CubicOut);
+            menuBackgroundGrid.FadeTo(1, 200, Easing.CubicOut);
+            menuPancakeView.TranslateTo(0, 0, 200, Easing.CubicOut);
+
+            //actionBar.Border = new Xamarin.Forms.PancakeView.Border() { Color = Color.Gray, Thickness = 1 };
+            //actionBar.Shadow = null;
 
             menuBackgroundGrid.InputTransparent = false;
             isMenuOpened = true;
@@ -89,8 +97,11 @@ namespace Wirtualnik.XF.Views
             }
             menuButton.Text = menuIcon.ToString();
 
-            menuBackgroundGrid.FadeTo(0, 300, Easing.CubicIn);
-            menuPancakeView.TranslateTo(0, -300, 300, Easing.CubicIn);
+            menuBackgroundGrid.FadeTo(0, 200, Easing.CubicIn);
+            menuPancakeView.TranslateTo(0, -300, 200, Easing.CubicIn);
+
+            //actionBar.Shadow = new Xamarin.Forms.PancakeView.DropShadow() { Color = Color.Black };
+            //actionBar.Border = null;
 
             menuBackgroundGrid.InputTransparent = true;
             isMenuOpened = false;

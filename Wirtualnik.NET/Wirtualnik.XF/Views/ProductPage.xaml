@@ -12,7 +12,7 @@
 
     <ContentView.Content>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Label Text="JAPIERDOLE" />
+            <Label Text="Hello to ProductPage!" />
         </StackLayout>
     </ContentView.Content>
 </ContentView>

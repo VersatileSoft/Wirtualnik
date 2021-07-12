@@ -10,7 +10,6 @@ namespace Wirtualnik.XF.ViewModels
         public bool IsLoaded { get; set; }
 
         public SafeObservableCollection<int> ProductList { get; set; }
-        //public DelegateCommand<ProcessorModel> NavigateProductCommand { get; set; }
         public AsyncCommand LoadMoreItemsCommand { get; set; }
         public AsyncCommand LoadedCommand { get; set; }
         public ProductListPageViewModel()
@@ -20,12 +19,6 @@ namespace Wirtualnik.XF.ViewModels
             LoadMoreItemsCommand = new AsyncCommand(() => LoadMoreData(), allowsMultipleExecutions: false);
 
             LoadedCommand = new AsyncCommand(() => LoadData(), allowsMultipleExecutions: false);
-
-            //NavigateProductCommand = new DelegateCommand<ProcessorModel>(async (selectedDog) =>
-            //{
-            //    var navParam = new NavigationParameters { { nameof(selectedDog), selectedDog } };
-            //    await navigationService.NavigateAsync(nameof(ProductPage), navParam);
-            //});
         }
 
         private Task LoadData()
@@ -35,8 +28,9 @@ namespace Wirtualnik.XF.ViewModels
                 return Task.CompletedTask;
             }
 
-            for (int i = 0; i < 128; i++)
+            for (int i = 0; i < 6; i++)
             {
+                //await Task.Delay(75 / (i+1));
                 ProductList.Add(i);
             }
 
@@ -57,7 +51,7 @@ namespace Wirtualnik.XF.ViewModels
                 return Task.CompletedTask;
             }
 
-            for (int i = 0; i < 64; i++)
+            for (int i = 0; i < 12; i++)
             {
                 ProductList.Add(i);
             }

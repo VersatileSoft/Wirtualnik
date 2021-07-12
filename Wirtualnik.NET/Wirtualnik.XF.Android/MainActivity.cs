@@ -32,7 +32,7 @@ namespace Wirtualnik.XF.Droid
 
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
-            Android.Glide.Forms.Init(this, debug: true);
+            Android.Glide.Forms.Init(this, debug: false);
             FormsMaterial.Init(this, savedInstanceState);
             UserDialogs.Init(this);
 
