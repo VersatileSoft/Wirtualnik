@@ -10,9 +10,4 @@
     </type>
   </assembly>
 
-  <assembly fullname="Prism" />
-  <assembly fullname="Prism.Forms" />
-  <assembly fullname="Prism.DryIoc.Forms" />
-  <assembly fullname="DryIoc" />
-
 </linker>

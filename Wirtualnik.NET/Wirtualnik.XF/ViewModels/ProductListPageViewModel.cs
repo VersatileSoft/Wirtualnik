@@ -1,6 +1,5 @@
-﻿using Bimber.Extensions;
-using Prism.Navigation;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Wirtualnik.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Wirtualnik.XF.ViewModels
@@ -13,11 +12,14 @@ namespace Wirtualnik.XF.ViewModels
         public SafeObservableCollection<int> ProductList { get; set; }
         //public DelegateCommand<ProcessorModel> NavigateProductCommand { get; set; }
         public AsyncCommand LoadMoreItemsCommand { get; set; }
-        public ProductListPageViewModel(INavigationService navigationService) : base(navigationService)
+        public AsyncCommand LoadedCommand { get; set; }
+        public ProductListPageViewModel()
         {
             ProductList = new SafeObservableCollection<int>();
 
             LoadMoreItemsCommand = new AsyncCommand(() => LoadMoreData(), allowsMultipleExecutions: false);
+
+            LoadedCommand = new AsyncCommand(() => LoadData(), allowsMultipleExecutions: false);
 
             //NavigateProductCommand = new DelegateCommand<ProcessorModel>(async (selectedDog) =>
             //{
@@ -26,18 +28,11 @@ namespace Wirtualnik.XF.ViewModels
             //});
         }
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            LoadData();
-        }
-
-        private void LoadData()
+        private Task LoadData()
         {
             if (IsLoaded)
             {
-                return;
+                return Task.CompletedTask;
             }
 
             for (int i = 0; i < 128; i++)
@@ -46,10 +41,16 @@ namespace Wirtualnik.XF.ViewModels
             }
 
             IsLoaded = true;
+            return Task.CompletedTask;
         }
 
         private Task LoadMoreData()
         {
+            if (!IsLoaded)
+            {
+                return Task.CompletedTask;
+            }
+
             if (ProductList.Count >= 2048)
             {
                 remainingItemsThreshold = -1;

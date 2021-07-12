@@ -1,0 +1,9 @@
+﻿<ContentView x:Class="Wirtualnik.XF.Views.SettingsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentView.Content>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Text="Hello to SettingsPage!" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

@@ -1,83 +1,33 @@
-using Microsoft.Extensions.DependencyInjection;
-using Prism;
-using Prism.Ioc;
-using Sentry;
-using Wirtualnik.Shared.ApliClient;
+using DryIoc;
+using Wirtualnik.XF.Services;
 using Wirtualnik.XF.ViewModels;
 using Wirtualnik.XF.Views;
-using Xamarin.Essentials.Implementation;
-using Xamarin.Essentials.Interfaces;
 using Xamarin.Forms;
 
 namespace Wirtualnik.XF
 {
-    public partial class App
+    public partial class App : Application
     {
-        public App(IPlatformInitializer initializer) : base(initializer)
-        {
-        }
+        public static Container Container { get; } = new Container();
 
-        protected override async void OnInitialized()
+        public App()
         {
-            SentryXamarin.Init(options =>
-            {
-                options.Dsn = "https://6d41b18b43a74862b64c0239985b9ee8@o866902.ingest.sentry.io/5823541";
-#if DEBUG
-                options.Debug = true;
-                options.TracesSampleRate = 0;
-#endif
-#if RELEASE
-                options.TracesSampleRate = 1.0;
-#endif
-                options.AddXamarinFormsIntegration();
-            });
-
+            InitializeIoC();
             InitializeComponent();
             Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
 
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(ProductListPage)}").ConfigureAwait(false);
+            MainPage = new MainPage();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        public static void InitializeIoC()
         {
-            containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
+            Container.RegisterMany<ViewModelModule>();
 
-            //Need another approach, reflection is too expensive
-
-            //var stopwatch = new Stopwatch();
-            //stopwatch.Start();
-
-            // Register generated services
-            //const string nameSpace = "Wirtualnik.Shared.ApiClient.Generated";
-
-            //var ass = Assembly.Load("Wirtualnik.Shared").GetTypes().Where(type => type.Namespace == nameSpace
-            //&& type.GetInterface($"I{type.Name}") != null).Select(type => new { Service = type.GetInterface($"I{type.Name}"), Implementation = type });
-
-            //foreach (var reg in ass)
-            //{
-            //    containerRegistry.Register(reg.Service, reg.Implementation);
-            //}
-
-            //containerRegistry.Register<IProcessorClient, ProcessorClient>();
-            //containerRegistry.Register<IShopClient, ShopClient>();
-
-            //stopwatch.Stop();
-            //var time = stopwatch.ElapsedMilliseconds;
-
-            //var check1 = containerRegistry.IsRegistered(typeof(IProcessorClient));
-            //var check2 = containerRegistry.IsRegistered(typeof(IShopClient));
-
-            var services = new ServiceCollection();
-
-            services.RegisterClients();
-
-            // containerRegistry.Populate(services); // TODO somehow populate IServiceCollection into IContainerRegistry
-            containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
-            containerRegistry.RegisterForNavigation<ProductListPage, ProductListPageViewModel>();
-            containerRegistry.RegisterForNavigation<ProductPage>();
-
-
+            // Resolve all registered modules and call Load on them
+            foreach (var module in Container.ResolveMany<IDryIocModule>())
+            {
+                module.Load(Container);
+            }
         }
     }
 }

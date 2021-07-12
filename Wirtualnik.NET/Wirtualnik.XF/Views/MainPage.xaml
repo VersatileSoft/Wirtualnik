@@ -1,23 +1,296 @@
 ﻿<ContentPage x:Class="Wirtualnik.XF.Views.MainPage" x:DataType="viewmodels:MainPageViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.XF.Controls"
+    xmlns:nalesnik="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:sh="http://sharpnado.com"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
                                       Dark={StaticResource BackgroundColorDark}}"
-    ControlTemplate="{StaticResource PageTemplate}"
     NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Content>
-        <StackLayout
-            Margin="0,128"
-            Padding="64"
-            HorizontalOptions="Center"
-            VerticalOptions="Start"
-            BackgroundColor="#33FF52D5">
-            <Label
-                FontAttributes="Bold"
-                Text="This view should be UNDER the burger menu"
-                TextColor="White" />
-        </StackLayout>
+        <Grid
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            RowDefinitions="40,*"
+            RowSpacing="1">
+
+            <!--  Content  -->
+            <CarouselView x:Name="contentCarouselView"
+                Grid.Row="1"
+                CurrentItemChanged="contentCarouselView_CurrentItemChanged"
+                HorizontalScrollBarVisibility="Never"
+                IsScrollAnimated="True"
+                IsSwipeEnabled="False"
+                Loop="False"
+                VerticalScrollBarVisibility="Never">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="ContentView">
+                        <ContentView Content="{Binding Content}" />
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <!--  Burger UI  -->
+            <Grid x:Name="menuBackgroundGrid"
+                Grid.RowSpan="2"
+                Margin="0"
+                BackgroundColor="#4D000000"
+                CascadeInputTransparent="False"
+                InputTransparent="True"
+                Opacity="0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+
+            <nalesnik:PancakeView x:Name="menuPancakeView"
+                Grid.RowSpan="2"
+                Margin="0,48,0,0"
+                Padding="12,8,12,0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand"
+                BackgroundColor="{AppThemeBinding Light={StaticResource DarkBackgroundColorLight},
+                                                  Dark={StaticResource DarkBackgroundColorDark}}"
+                CornerRadius="0"
+                InputTransparent="False"
+                TranslationY="-300">
+                <nalesnik:PancakeView.Shadow>
+                    <nalesnik:DropShadow BlurRadius="8" Color="{AppThemeBinding Light={StaticResource ContrastColorLight}, Dark={StaticResource ContrastColorDark}}" />
+                </nalesnik:PancakeView.Shadow>
+                <nalesnik:PancakeView.Resources>
+                    <ControlTemplate x:Key="TabItemTemplate">
+                        <ContentView Padding="4">
+                            <Label
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"
+                                VerticalTextAlignment="Center"
+                                FontFamily="la-solid"
+                                FontSize="26"
+                                HorizontalTextAlignment="Center"
+                                Text="{TemplateBinding Text}"
+                                TextColor="{TemplateBinding TextColor}">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{TemplateBinding IsSelected}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="TextColor" Value="{TemplateBinding TextColorSelected}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </ContentView>
+                    </ControlTemplate>
+                </nalesnik:PancakeView.Resources>
+
+
+                <Grid RowDefinitions="48,Auto">
+                    <Label
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        FontFamily="PoppinsBold"
+                        FontSize="18"
+                        MaxLines="2"
+                        Text="Hej Maksymilian!"
+                        TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                                    Dark={StaticResource ContrastColorDark}}" />
+
+                    <xct:AvatarView
+                        WidthRequest="36"
+                        HeightRequest="36"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        xct:TouchEffect.NativeAnimation="True"
+                        CornerRadius="18"
+                        Source="https://wirtualnik.pl/static/img/user.jpg" />
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="*,*,*,*,*,*"
+                        RowDefinitions="52,48,Auto">
+                        <sh:Shadows
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            CornerRadius="8"
+                            Shades="{sh:SingleShade Offset='0, 2',
+                                                    Opacity=0.2,
+                                                    Color={StaticResource AccentColor}}">
+                            <Frame
+                                Padding="8,0"
+                                xct:TouchEffect.AnimationDuration="250"
+                                xct:TouchEffect.PressedBackgroundColor="{StaticResource DarkAccentColor}"
+                                BackgroundColor="{StaticResource AccentColor}"
+                                CornerRadius="8">
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Label x:Name="BellIcon"
+                                        VerticalOptions="Center"
+                                        FontFamily="la-solid"
+                                        FontSize="28"
+                                        Text="{StaticResource BellIcon}"
+                                        TextColor="Black">
+                                        <!--<Label.Effects>
+                                            <xct:LifecycleEffect Loaded="LifecycleEffect_Loaded" />
+                                        </Label.Effects>-->
+                                    </Label>
+                                    <Label
+                                        Margin="4,3,0,0"
+                                        VerticalOptions="Center"
+                                        FontFamily="PoppinsRegular"
+                                        FontSize="11"
+                                        TextColor="Black">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="Powiadomienia&#x0a;" />
+                                                    <Span Text="(4)" />
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </Frame>
+                        </sh:Shadows>
+
+                        <controls:MenuButtonFrameControl
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            Grid.ColumnSpan="3"
+                            Glyph="{StaticResource CloudIcon}"
+                            Text="Twoje Wirtualniki&#x0a;(333)" />
+
+                        <controls:MenuButtonFrameControl
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Glyph="{StaticResource SettingsIcon}"
+                            Text="Ustawienia" />
+
+                        <controls:MenuButtonFrameControl
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            Glyph="{StaticResource BugIcon}"
+                            Text="Zgłoś błąd / sugestie" />
+
+                        <controls:MenuButtonFrameControl
+                            Grid.Row="1"
+                            Grid.Column="4"
+                            Grid.ColumnSpan="2"
+                            Glyph="{StaticResource LogOutIcon}"
+                            Text="Wyloguj się" />
+
+                        <!--<BoxView Grid.Row="2" Grid.ColumnSpan="6" />-->
+                        <xct:TabView x:Name="tabView"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="6"
+                            IsSwipeEnabled="False"
+                            SelectionChanged="tabView_SelectionChanged"
+                            TabIndicatorWidth="64"
+                            TabStripHeight="42"
+                            TabStripPlacement="Bottom">
+                            <xct:TabView.TabIndicatorView>
+                                <BoxView
+                                    HeightRequest="1"
+                                    HorizontalOptions="Center"
+                                    BackgroundColor="Red"
+                                    CornerRadius="6,0" />
+                            </xct:TabView.TabIndicatorView>
+
+                            <xct:TabViewItem x:Name="tabViewItem"
+                                xct:TouchEffect.NativeAnimation="True"
+                                ControlTemplate="{StaticResource TabItemTemplate}"
+                                Text="{StaticResource AddIcon}"
+                                TextColor="{AppThemeBinding Light={StaticResource TabUnselectedColorLight},
+                                                            Dark={StaticResource TabUnselectedColorDark}}"
+                                TextColorSelected="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                                                    Dark={StaticResource RedAccentColorDark}}" />
+
+                            <xct:TabViewItem
+                                xct:TouchEffect.NativeAnimation="True"
+                                ControlTemplate="{StaticResource TabItemTemplate}"
+                                Text="{StaticResource LikeIcon}"
+                                TextColor="{AppThemeBinding Light={StaticResource TabUnselectedColorLight},
+                                                            Dark={StaticResource TabUnselectedColorDark}}"
+                                TextColorSelected="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                                                    Dark={StaticResource RedAccentColorDark}}" />
+
+                            <xct:TabViewItem
+                                xct:TouchEffect.NativeAnimation="True"
+                                ControlTemplate="{StaticResource TabItemTemplate}"
+                                Text="{StaticResource HeartIcon}"
+                                TextColor="{AppThemeBinding Light={StaticResource TabUnselectedColorLight},
+                                                            Dark={StaticResource TabUnselectedColorDark}}"
+                                TextColorSelected="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                                                    Dark={StaticResource RedAccentColorDark}}" />
+
+                            <xct:TabViewItem
+                                xct:TouchEffect.NativeAnimation="True"
+                                ControlTemplate="{StaticResource TabItemTemplate}"
+                                Text="{StaticResource CloudIcon}"
+                                TextColor="{AppThemeBinding Light={StaticResource TabUnselectedColorLight},
+                                                            Dark={StaticResource TabUnselectedColorDark}}"
+                                TextColorSelected="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                                                    Dark={StaticResource RedAccentColorDark}}" />
+
+                            <xct:TabViewItem
+                                xct:TouchEffect.NativeAnimation="True"
+                                ControlTemplate="{StaticResource TabItemTemplate}"
+                                Text="{StaticResource BalanceLeftIcon}"
+                                TextColor="{AppThemeBinding Light={StaticResource TabUnselectedColorLight},
+                                                            Dark={StaticResource TabUnselectedColorDark}}"
+                                TextColorSelected="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                                                    Dark={StaticResource RedAccentColorDark}}" />
+                        </xct:TabView>
+                    </Grid>
+                </Grid>
+            </nalesnik:PancakeView>
+
+            <!--  TODO: Make border visible only when menu is visible, otherwise shadow should be visible  -->
+            <!--  Action bar  -->
+            <nalesnik:PancakeView x:Name="actionBar"
+                Margin="-1,-9,-1,0"
+                Padding="12,8"
+                BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
+                                                  Dark={StaticResource CellBackgroundColorDark}}"
+                CornerRadius="0"
+                TranslationY="8">
+                <nalesnik:PancakeView.Border>
+                    <nalesnik:Border Thickness="1" Color="{AppThemeBinding Light={StaticResource TabUnselectedColorLight}, Dark={StaticResource TabUnselectedColorDark}}" />
+                </nalesnik:PancakeView.Border>
+                <!--<nalesnik:PancakeView.Shadow>
+                    <nalesnik:DropShadow BlurRadius="8" Color="{AppThemeBinding Light={StaticResource ContrastColorLight}, Dark={StaticResource ContrastColorDark}}" />
+                </nalesnik:PancakeView.Shadow>-->
+
+                <Grid>
+                    <Label
+                        Margin="0,2,0,0"
+                        VerticalTextAlignment="End"
+                        FontFamily="PoppinsBold"
+                        FontSize="18"
+                        Text="WIRTUALNIK"
+                        TextColor="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                                    Dark={StaticResource RedAccentColorDark}}" />
+
+                    <Button x:Name="menuButton"
+                        WidthRequest="36"
+                        HeightRequest="36"
+                        Padding="8"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackgroundColorLight},
+                                                          Dark={StaticResource LightBackgroundColorDark}}"
+                        Clicked="menuButton_Clicked"
+                        CornerRadius="18"
+                        FontFamily="la-solid"
+                        FontSize="18"
+                        Text="{StaticResource MenuIcon}"
+                        TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                                    Dark={StaticResource ContrastColorDark}}" />
+                </Grid>
+            </nalesnik:PancakeView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
