@@ -1,16 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Wirtualnik.Server.Extensions.Settings;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
+using Wirtualnik.Server.Extensions.Settings;
 
 namespace Wirtualnik.Server.Extensions.Authentication
 {
@@ -78,12 +76,12 @@ namespace Wirtualnik.Server.Extensions.Authentication
                 var admin = new ApplicationUser
                 {
                     UserName = authSettings?.AdminUser?.Email ?? "admin@admin.pl",
-                    Email = authSettings?.AdminUser?.Email ??  "admin@admin.pl",
+                    Email = authSettings?.AdminUser?.Email ?? "admin@admin.pl",
                     Name = "Admin Admin"
                 };
 
                 var result = await UserManager.CreateAsync(admin, authSettings?.AdminUser?.Password ?? "admin");
-                
+
                 if (result.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(admin, "Admin");

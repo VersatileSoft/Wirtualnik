@@ -2,9 +2,6 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Wirtualnik.Repository;
 
 namespace Wirtualnik.Server.Extensions.Autofac

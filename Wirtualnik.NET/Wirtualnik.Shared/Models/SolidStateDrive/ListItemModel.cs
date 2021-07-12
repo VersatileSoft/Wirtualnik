@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wirtualnik.Shared.Models.SolidStateDrive
+﻿namespace Wirtualnik.Shared.Models.SolidStateDrive
 {
     public class ListItemModel
     {

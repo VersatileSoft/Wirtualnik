@@ -38,7 +38,7 @@ namespace Wirtualnik.Server.Extensions.Database
                 options.Password.RequiredLength = 2;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequiredUniqueChars = 0;      
+                options.Password.RequiredUniqueChars = 0;
             })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<WirtualnikDbContext>();

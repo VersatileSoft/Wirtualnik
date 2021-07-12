@@ -1,5 +1,3 @@
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,9 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using Wirtualnik.Data;
-using Wirtualnik.Repository;
 using Wirtualnik.Server.Extensions.Authentication;
 using Wirtualnik.Server.Extensions.Autofac;
 using Wirtualnik.Server.Extensions.Database;

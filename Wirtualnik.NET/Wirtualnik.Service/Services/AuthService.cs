@@ -37,20 +37,20 @@ namespace Wirtualnik.Service.Services
                 return new LoginResult
                 {
                     Success = false,
-                    Errors = new[] {"User not logged in"}
+                    Errors = new[] { "User not logged in" }
                 };
             }
 
             var user = await _userManager.FindByEmailAsync(email);
 
-            if(user is null)
+            if (user is null)
             {
                 user = new ApplicationUser
                 {
                     Email = email,
                     UserName = email,
                     Name = claims?.FindFirst(ClaimTypes.Name)?.Value,
-                    
+
                 };
 
                 var result = await _userManager.CreateAsync(user);
@@ -69,7 +69,7 @@ namespace Wirtualnik.Service.Services
                 }
             }
 
-            if(!await _userManager.IsInRoleAsync(user, "Member"))
+            if (!await _userManager.IsInRoleAsync(user, "Member"))
             {
                 await _userManager.AddToRoleAsync(user, "Member");
                 user = await _userManager.FindByEmailAsync(email);
@@ -112,8 +112,8 @@ namespace Wirtualnik.Service.Services
             };
 
             var token = await GenerateToken(user);
-            
-            if(token is null)
+
+            if (token is null)
             {
                 _logger.LogError($"Token generation failed for user: { user.Email }. Provider: Password login");
             }
@@ -129,7 +129,7 @@ namespace Wirtualnik.Service.Services
         {
             var roles = await GetUserRoles(user);
 
-            if(roles is null)
+            if (roles is null)
             {
                 _logger.LogError($"User:{user.Email}, is not assigned to any role");
                 return null;
