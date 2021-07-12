@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wirtualnik.Shared.Models.HardDisk
+﻿namespace Wirtualnik.Shared.Models.HardDisk
 {
     public class DetailsModel
     {

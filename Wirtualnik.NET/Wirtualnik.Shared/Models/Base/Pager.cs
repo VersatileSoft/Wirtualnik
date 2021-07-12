@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
+using Refit;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 
 namespace Wirtualnik.Shared.Models.Base
 {
@@ -19,6 +18,7 @@ namespace Wirtualnik.Shared.Models.Base
         private string order;
         private int totalRows;
 
+        [AliasAs("index")]
         [FromQuery(Name = "index")]
         [JsonProperty(PropertyName = "index")]
         public virtual int PageIndex
@@ -45,6 +45,7 @@ namespace Wirtualnik.Shared.Models.Base
         }
 
         #region PageSize
+        [AliasAs("size")]
         [FromQuery(Name = "size")]
         [JsonProperty(PropertyName = "size")]
         public virtual int PageSize
@@ -59,6 +60,7 @@ namespace Wirtualnik.Shared.Models.Base
             }
         }
 
+        [AliasAs("sort")]
         [FromQuery(Name = "sort")]
         [JsonProperty(PropertyName = "sort")]
         public virtual string Sort
@@ -73,6 +75,7 @@ namespace Wirtualnik.Shared.Models.Base
             }
         }
 
+        [AliasAs("order")]
         [FromQuery(Name = "order")]
         [JsonProperty(PropertyName = "order")]
         public virtual string Order

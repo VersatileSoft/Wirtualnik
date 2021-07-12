@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
-using Wirtualnik.Server.Interfaces;
 using Wirtualnik.Service.Interfaces;
-using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Mainboard;
 
 namespace Wirtualnik.Server.Controllers

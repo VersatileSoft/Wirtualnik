@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Wirtualnik.Data.Models
+﻿namespace Wirtualnik.Data.Models
 {
     public class Graphic : Product
     {

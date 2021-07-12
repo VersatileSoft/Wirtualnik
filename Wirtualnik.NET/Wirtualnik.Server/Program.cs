@@ -7,10 +7,10 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Wirtualnik.Data;
+using Wirtualnik.Server.Extensions.Authentication;
 using Wirtualnik.Server.Extensions.Logging;
 
 namespace Wirtualnik.Server
@@ -44,6 +44,7 @@ namespace Wirtualnik.Server
                 var dbContext = services.GetRequiredService<WirtualnikDbContext>();
                 Logger.Log(NLog.LogLevel.Info, "Connection string is: " + dbContext.Database.GetConnectionString());
                 dbContext.Database.Migrate();
+                await services.InitializeAuth(config);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
@@ -18,7 +19,7 @@ namespace Wirtualnik.Service.Services.Base
             Mapper = mapper;
         }
 
-        public virtual async Task<TEntity> FindAsync<TEntity>(long id) where TEntity : EntityBase
+        public virtual async Task<TEntity> FindAsync<TEntity>(Guid id) where TEntity : EntityBase
         {
             return await Context.FindAsync<TEntity>(id);
         }
