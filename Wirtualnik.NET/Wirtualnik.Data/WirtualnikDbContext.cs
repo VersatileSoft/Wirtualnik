@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Wirtualnik.Data.Models;
 
 namespace Wirtualnik.Data
 {
-    public class WirtualnikDbContext : DbContext
+    public class WirtualnikDbContext : IdentityDbContext<ApplicationUser>
     {
         public WirtualnikDbContext(DbContextOptions<WirtualnikDbContext> options) : base(options)
         { }
@@ -22,6 +24,10 @@ namespace Wirtualnik.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            base.OnModelCreating(builder);
+            //builder.Entity<Product>().Property(e => e.Id).ValueGeneratedOnAdd();
+            //builder.Entity<Product>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
             builder.Entity<ProductShop>().HasKey(q => new { q.ProductId, q.ShopId });
 
             builder.Entity<Product>()

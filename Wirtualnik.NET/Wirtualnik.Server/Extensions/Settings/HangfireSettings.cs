@@ -14,7 +14,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace Wirtualnik.Server.Extensions.Hangfire
+namespace Wirtualnik.Server.Extensions.Settings
 {
 
     #region AuthorizationFilter
@@ -27,7 +27,7 @@ namespace Wirtualnik.Server.Extensions.Hangfire
 
         public HangfireSettings(IConfiguration configuration)
         {
-            configuration.GetSection("Hangfire").Bind(this);
+            configuration.Bind(nameof(HangfireSettings), this);
         }
 
         public class DashboardSettings
