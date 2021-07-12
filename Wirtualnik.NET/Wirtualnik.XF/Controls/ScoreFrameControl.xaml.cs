@@ -46,7 +46,7 @@ namespace Wirtualnik.XF.Controls
             else if (propertyName == ScoreColorProperty.PropertyName)
             {
                 scoreLabel.TextColor = ScoreColor;
-                gradientStop.Color = ScoreColor.MultiplyAlpha(0.2);
+                gradientStop.Color = ScoreColor.MultiplyAlpha(0.1);
             }
         }
     }

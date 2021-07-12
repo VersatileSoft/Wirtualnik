@@ -10,6 +10,9 @@
                 <!--<styles:PageStyle />-->
             </ResourceDictionary.MergedDictionaries>
 
+            <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
             <!--<templates:PageTemplate x:Key="PageTemplate" />-->
         </ResourceDictionary>
     </Application.Resources>

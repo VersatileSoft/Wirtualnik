@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cells="clr-namespace:Wirtualnik.XF.Controls.Cells"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
-    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
                                       Dark={StaticResource BackgroundColorDark}}"
@@ -41,7 +40,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
-            <CollectionView.Footer>
+            <!--<CollectionView.Footer>
                 <StackLayout
                     Padding="0,24"
                     HorizontalOptions="Center"
@@ -60,9 +59,9 @@
                         TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
                                                     Dark={StaticResource ContrastColorDark}}" />
                 </StackLayout>
-            </CollectionView.Footer>
+            </CollectionView.Footer>-->
 
-            <CollectionView.EmptyView>
+            <!--<CollectionView.EmptyView>
                 <Label
                     VerticalTextAlignment="Center"
                     FontFamily="PoppinsRegular"
@@ -70,10 +69,10 @@
                     Text="Nic tu nie ma :c"
                     TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
                                                 Dark={StaticResource ContrastColorDark}}" />
-            </CollectionView.EmptyView>
+            </CollectionView.EmptyView>-->
         </CollectionView>
 
-        <StackLayout
+        <!--<StackLayout
             Padding="0,24"
             HorizontalOptions="Fill"
             VerticalOptions="Center"
@@ -90,7 +89,7 @@
                 Text="Ładuję listę produktów"
                 TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
                                             Dark={StaticResource ContrastColorDark}}" />
-        </StackLayout>
+        </StackLayout>-->
     </Grid>
 
     <!--<CollectionView x:Name="collectionView2"

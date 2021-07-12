@@ -2,14 +2,13 @@
 <resources>
   <style name="MainTheme" parent="MainTheme.Base">
     <item name="android:forceDarkAllowed">false</item>
-
     <item name="android:colorEdgeEffect">#000000</item>
-
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <!--<item name="android:windowTranslucentStatus">true</item>-->
   <style name="SplashScreenTheme" parent="MainTheme">
     <item name="android:windowBackground">@drawable/splash_screen</item>
     <item name="android:statusBarColor">@color/icon_background</item>

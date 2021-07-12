@@ -7,6 +7,8 @@ namespace Wirtualnik.XF.ViewModels
     {
         public void Load(IRegistrator builder)
         {
+            builder.Register<LoginPageViewModel>();
+            builder.Register<MainPageViewModel>();
             builder.Register<ProductListPageViewModel>();
         }
     }

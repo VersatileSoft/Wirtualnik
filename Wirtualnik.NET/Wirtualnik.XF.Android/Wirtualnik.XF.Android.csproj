@@ -21,7 +21,6 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <Nullable>enable</Nullable>
-    <WarningsAsErrors>nullable</WarningsAsErrors>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -60,7 +59,9 @@
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidLinkTool>r8</AndroidLinkTool>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidSupportedAbis />
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="glidex.forms">
@@ -70,10 +71,7 @@
       <Version>4.7.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Core">
-      <Version>1.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.AndroidX.RecyclerView">
-      <Version>1.2.1</Version>
+      <Version>1.6.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -85,8 +83,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoginCallbackActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\TabViewCarouselViewRenderer.cs" />
     <LinkDescription Include="linker.xml" />
     <AndroidEnvironment Include="GarbageCollector.config" />
     <AndroidAotProfile Include="custom.aprof" />
@@ -96,11 +96,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\*.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\*.xml" />
-    <AndroidResource Include="Resources\mipmap-hdpi\*png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\*.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\*.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\*.png" />
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\*.png" />
     <AndroidResource Include="Resources\values\*.xml" />
     <AndroidResource Include="Resources\values-night\*.xml" />
   </ItemGroup>
@@ -111,7 +106,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\MoreleLogo.png" />
+    <Folder Include="Resources\mipmap-hdpi\" />
+    <Folder Include="Resources\mipmap-mdpi\" />
+    <Folder Include="Resources\mipmap-xhdpi\" />
+    <Folder Include="Resources\mipmap-xxhdpi\" />
+    <Folder Include="Resources\mipmap-xxxhdpi\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

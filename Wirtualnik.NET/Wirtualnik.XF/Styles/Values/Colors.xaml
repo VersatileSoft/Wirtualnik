@@ -20,6 +20,7 @@
     <Color x:Key="DarkBackgroundColorDark">#151515</Color>
     <Color x:Key="LightBackgroundColorDark">#232323</Color>
     <Color x:Key="CellBackgroundColorDark">#222222</Color>
+    <Color x:Key="HighContrastColorDark">#ffffff</Color>
     <Color x:Key="ContrastColorDark">#f1f1f1</Color>
     <Color x:Key="MediumContrastColorDark">#acacac</Color>
     <Color x:Key="LowContrastColorDark">#888888</Color>

@@ -34,6 +34,19 @@
 	<string>1.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1</string>
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLName</key>
+      <string>xamarinessentials</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>xamarinessentials</string>
+      </array>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+    </dict>
+  </array>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>UIApplicationSceneManifest</key>

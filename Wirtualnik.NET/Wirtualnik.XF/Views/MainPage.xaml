@@ -103,8 +103,8 @@
                         HorizontalOptions="End"
                         VerticalOptions="Center"
                         xct:TouchEffect.NativeAnimation="True"
-                        CornerRadius="18"
-                        Source="https://wirtualnik.pl/static/img/user.jpg" />
+                        CornerRadius="20"
+                        Source="https://avatars.githubusercontent.com/u/7996711?s=60" />
 
                     <Grid
                         Grid.Row="1"
@@ -165,6 +165,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
+                            xct:TouchEffect.Command="{Binding NavigateToSettingsCommand}"
                             Glyph="{StaticResource SettingsIcon}"
                             Text="Ustawienia" />
 
@@ -179,6 +180,7 @@
                             Grid.Row="1"
                             Grid.Column="4"
                             Grid.ColumnSpan="2"
+                            xct:TouchEffect.Command="{Binding LogOutCommand}"
                             Glyph="{StaticResource LogOutIcon}"
                             Text="Wyloguj się" />
 
@@ -266,8 +268,8 @@
 
                 <Grid>
                     <Label
-                        Margin="0,2,0,0"
-                        VerticalTextAlignment="End"
+                        Margin="0,4,0,0"
+                        VerticalOptions="Center"
                         FontFamily="PoppinsBold"
                         FontSize="18"
                         Text="WIRTUALNIK"
@@ -279,7 +281,7 @@
                         HeightRequest="36"
                         Padding="8"
                         HorizontalOptions="End"
-                        VerticalOptions="End"
+                        VerticalOptions="Center"
                         BackgroundColor="{AppThemeBinding Light={StaticResource LightBackgroundColorLight},
                                                           Dark={StaticResource LightBackgroundColorDark}}"
                         Clicked="menuButton_Clicked"
