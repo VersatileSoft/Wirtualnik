@@ -18,17 +18,6 @@
             RowDefinitions="40,*"
             RowSpacing="0">
 
-            <!--<sh:HorizontalListView  x:Name="contentCarouselView"
-                Grid.Row="1"
-                ItemSpacing="8"
-                ListLayout="Carousel"
-                SnapStyle="Center">
-                <sh:HorizontalListView.ItemTemplate>
-                    <DataTemplate x:DataType="ContentView">
-                        <ContentView Content="{Binding Content}" />
-                    </DataTemplate>
-                </sh:HorizontalListView.ItemTemplate>
-            </sh:HorizontalListView>-->
             <!--  Content  -->
             <controls:TabViewCarouselView x:Name="contentCarouselView"
                 Grid.Row="1"
@@ -145,11 +134,7 @@
                                         FontFamily="la-solid"
                                         FontSize="28"
                                         Text="{StaticResource BellIcon}"
-                                        TextColor="Black">
-                                        <!--<Label.Effects>
-                                            <xct:LifecycleEffect Loaded="LifecycleEffect_Loaded" />
-                                        </Label.Effects>-->
-                                    </Label>
+                                        TextColor="Black" />
                                     <Label
                                         Margin="4,3,0,0"
                                         VerticalOptions="Center"
@@ -199,7 +184,6 @@
                             Glyph="{StaticResource LogOutIcon}"
                             Text="Wyloguj się" />
 
-                        <!--<BoxView Grid.Row="2" Grid.ColumnSpan="6" />-->
                         <xct:TabView x:Name="tabView"
                             Grid.Row="2"
                             Grid.ColumnSpan="6"
