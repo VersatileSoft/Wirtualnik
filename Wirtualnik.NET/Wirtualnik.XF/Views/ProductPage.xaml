@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:nalesnik="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sh="http://sharpnado.com"
-    xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
     xmlns:styles="clr-namespace:Wirtualnik.XF.Styles"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},

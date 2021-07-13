@@ -14,24 +14,27 @@
         <Grid
             HorizontalOptions="Fill"
             VerticalOptions="Fill"
+            CompressedLayout.IsHeadless="True"
             RowDefinitions="40,*"
-            RowSpacing="1">
+            RowSpacing="0">
 
             <!--  Content  -->
-            <CarouselView x:Name="contentCarouselView"
+            <controls:TabViewCarouselView x:Name="contentCarouselView"
                 Grid.Row="1"
-                CurrentItemChanged="contentCarouselView_CurrentItemChanged"
+                CurrentItemChangedCommand="{Binding CurrentItemChangedCommand}"
+                CurrentItemChangedCommandParameter="{Binding CurrentItem, Source={x:Reference contentCarouselView}}"
                 HorizontalScrollBarVisibility="Never"
                 IsScrollAnimated="True"
                 IsSwipeEnabled="False"
+                ItemsSource="{Binding ViewsList}"
                 Loop="False"
                 VerticalScrollBarVisibility="Never">
-                <CarouselView.ItemTemplate>
+                <controls:TabViewCarouselView.ItemTemplate>
                     <DataTemplate x:DataType="ContentView">
-                        <ContentView Content="{Binding Content}" />
+                        <ContentView CompressedLayout.IsHeadless="True" Content="{Binding Content}" />
                     </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
+                </controls:TabViewCarouselView.ItemTemplate>
+            </controls:TabViewCarouselView>
 
             <!--  Burger UI  -->
             <Grid x:Name="menuBackgroundGrid"
@@ -56,7 +59,7 @@
                                                   Dark={StaticResource DarkBackgroundColorDark}}"
                 CornerRadius="0"
                 InputTransparent="False"
-                TranslationY="-300">
+                TranslationY="-250">
                 <nalesnik:PancakeView.Shadow>
                     <nalesnik:DropShadow BlurRadius="8" Color="{AppThemeBinding Light={StaticResource ContrastColorLight}, Dark={StaticResource ContrastColorDark}}" />
                 </nalesnik:PancakeView.Shadow>
@@ -86,7 +89,7 @@
                 </nalesnik:PancakeView.Resources>
 
 
-                <Grid RowDefinitions="48,Auto">
+                <Grid CompressedLayout.IsHeadless="True" RowDefinitions="48,Auto">
                     <Label
                         HorizontalOptions="Start"
                         VerticalOptions="Center"
@@ -109,6 +112,7 @@
                     <Grid
                         Grid.Row="1"
                         ColumnDefinitions="*,*,*,*,*,*"
+                        CompressedLayout.IsHeadless="True"
                         RowDefinitions="52,48,Auto">
                         <sh:Shadows
                             Grid.Row="0"
@@ -130,11 +134,7 @@
                                         FontFamily="la-solid"
                                         FontSize="28"
                                         Text="{StaticResource BellIcon}"
-                                        TextColor="Black">
-                                        <!--<Label.Effects>
-                                            <xct:LifecycleEffect Loaded="LifecycleEffect_Loaded" />
-                                        </Label.Effects>-->
-                                    </Label>
+                                        TextColor="Black" />
                                     <Label
                                         Margin="4,3,0,0"
                                         VerticalOptions="Center"
@@ -184,7 +184,6 @@
                             Glyph="{StaticResource LogOutIcon}"
                             Text="Wyloguj się" />
 
-                        <!--<BoxView Grid.Row="2" Grid.ColumnSpan="6" />-->
                         <xct:TabView x:Name="tabView"
                             Grid.Row="2"
                             Grid.ColumnSpan="6"
@@ -266,7 +265,7 @@
                     <nalesnik:DropShadow BlurRadius="8" Color="{AppThemeBinding Light={StaticResource ContrastColorLight}, Dark={StaticResource ContrastColorDark}}" />
                 </nalesnik:PancakeView.Shadow>-->
 
-                <Grid>
+                <Grid CompressedLayout.IsHeadless="True">
                     <Label
                         Margin="0,4,0,0"
                         VerticalOptions="Center"

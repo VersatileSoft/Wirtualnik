@@ -4,8 +4,8 @@
     xmlns:controls="clr-namespace:Wirtualnik.XF.Controls"
     xmlns:nalesnik="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:styles="clr-namespace:Wirtualnik.XF.Styles"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    Padding="8,4">
+    Padding="8,4"
+    CompressedLayout.IsHeadless="True">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -37,6 +37,7 @@
             Padding="8,0"
             ColumnDefinitions="58,58,*"
             ColumnSpacing="0"
+            CompressedLayout.IsHeadless="True"
             RowDefinitions="120,24,16,80,64"
             RowSpacing="0">
             <!--  Product Image  -->

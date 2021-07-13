@@ -1,15 +1,15 @@
-﻿using DryIoc;
-using Wirtualnik.XF.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Wirtualnik.XF.ViewModels
 {
-    public class ViewModelModule : IDryIocModule
+    public static class ViewModelModule
     {
-        public void Load(IRegistrator builder)
+        public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
-            builder.Register<LoginPageViewModel>();
-            builder.Register<MainPageViewModel>();
-            builder.Register<ProductListPageViewModel>();
+            services.AddTransient<LoginPageViewModel>();
+            services.AddTransient<MainPageViewModel>();
+            services.AddTransient<ProductListViewModel>();
+            return services;
         }
     }
 }

@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Wirtualnik.XF.Controls"
     xmlns:nalesnik="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:sh="http://sharpnado.com"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
@@ -12,7 +11,7 @@
     <!--  https://github.com/xamarin/Essentials/blob/develop/Samples/Samples/ViewModel/WebAuthenticatorViewModel.cs  -->
 
     <ContentPage.Content>
-        <Grid RowDefinitions="20*,80*">
+        <Grid CompressedLayout.IsHeadless="True" RowDefinitions="20*,80*">
             <Label
                 Margin="0,2,0,0"
                 HorizontalOptions="Center"

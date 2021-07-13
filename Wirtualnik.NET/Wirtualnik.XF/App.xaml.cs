@@ -1,5 +1,6 @@
-using DryIoc;
-using Wirtualnik.XF.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using Wirtualnik.Shared.ApiClient;
 using Wirtualnik.XF.Services.Implementations;
 using Wirtualnik.XF.ViewModels;
 using Wirtualnik.XF.Views;
@@ -10,15 +11,17 @@ namespace Wirtualnik.XF
 {
     public partial class App : Application
     {
-        public static Container Container { get; } = new Container(rules => rules
-            .WithFactorySelector(Rules.SelectLastRegisteredFactory()));
+        protected static IServiceProvider? ServiceProvider { get; set; }
 
-        public App()
+        public static ViewModelBase? GetViewModel<TViewModel>() where TViewModel : ViewModelBase => ServiceProvider?.GetService<TViewModel>();
+
+        public App(Action<IServiceCollection>? addPlatformServices = null)
         {
-            InitializeIoC();
+            InitializeIoC(addPlatformServices);
             InitializeComponent();
             Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
-            Sharpnado.MaterialFrame.Initializer.Initialize(false, false);
+            //Sharpnado.MaterialFrame.Initializer.Initialize(true, true);
+            //Sharpnado.HorizontalListView.Initializer.Initialize(true, true);
         }
 
         protected override async void OnStart()
@@ -38,16 +41,17 @@ namespace Wirtualnik.XF
             base.OnStart();
         }
 
-        public static void InitializeIoC()
+        private void InitializeIoC(Action<IServiceCollection>? addPlatformServices = null)
         {
-            Container.RegisterMany<ViewModelModule>();
-            Container.RegisterMany<ServiceModule>();
+            var services = new ServiceCollection();
 
-            // Resolve all registered modules and call Load on them
-            foreach (var module in Container.ResolveMany<IDryIocModule>())
-            {
-                module.Load(Container);
-            }
+            addPlatformServices?.Invoke(services);
+
+            services.RegisterViewModels();
+            services.RegisterServices();
+            services.RegisterClients();
+
+            ServiceProvider = services.BuildServiceProvider();
         }
     }
 }

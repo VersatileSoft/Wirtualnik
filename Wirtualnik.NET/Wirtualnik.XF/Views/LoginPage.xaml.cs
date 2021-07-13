@@ -1,5 +1,4 @@
-﻿using DryIoc;
-using Wirtualnik.XF.ViewModels;
+﻿using Wirtualnik.XF.ViewModels;
 using Xamarin.Forms;
 
 namespace Wirtualnik.XF.Views
@@ -10,7 +9,7 @@ namespace Wirtualnik.XF.Views
         {
             InitializeComponent();
 
-            BindingContext = App.Container.Resolve(typeof(LoginPageViewModel));
+            BindingContext = App.GetViewModel<LoginPageViewModel>();
         }
     }
 }

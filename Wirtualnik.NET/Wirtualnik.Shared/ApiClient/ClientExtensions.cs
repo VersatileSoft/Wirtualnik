@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Refit;
+using System;
 
-namespace Wirtualnik.Shared.ApliClient
+namespace Wirtualnik.Shared.ApiClient
 {
     public static class ClientExtensions
     {

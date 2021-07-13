@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Refit;
+using System;
 using System.Threading.Tasks;
-using Refit;
 using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Product;
 
-namespace Wirtualnik.Shared.ApliClient
+namespace Wirtualnik.Shared.ApiClient
 {
     public interface IProductClient<TDetailsModel, TFilter, TListItemModel, TCreateModel>
         where TFilter : ProductFilter
@@ -14,10 +12,10 @@ namespace Wirtualnik.Shared.ApliClient
         where TDetailsModel : class
     {
         [Get("")]
-        public Task<Pagination<Resource<TListItemModel>>> Search([Query] Pager pager, [Query] TFilter filter);
+        public Task<ApiResponse<Pagination<Resource<TListItemModel>>>> Search([Query] Pager pager, [Query] TFilter filter);
 
         [Get("/{id}")]
-        public Task<Resource<TDetailsModel>> Fetch(Guid id);
+        public Task<ApiResponse<Resource<TDetailsModel>>> Fetch(Guid id);
 
         [Post("")]
         public Task Create(TCreateModel model);

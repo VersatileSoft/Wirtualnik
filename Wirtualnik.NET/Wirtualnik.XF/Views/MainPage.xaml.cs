@@ -1,7 +1,4 @@
-﻿using DryIoc;
-using System;
-using Wirtualnik.Extensions;
-using Wirtualnik.XF.Controls;
+﻿using System;
 using Wirtualnik.XF.ViewModels;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
@@ -12,46 +9,17 @@ namespace Wirtualnik.XF.Views
     {
         private bool isMenuOpened;
 
-        private SafeObservableCollection<View> pageList = new();
-
         public MainPage()
         {
             InitializeComponent();
 
-            BindingContext = App.Container.Resolve(typeof(MainPageViewModel));
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
-            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
-            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
-            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
-
-            pageList.Add(new CustomLazyView<ProductListPage, ProductListPageViewModel>());
-
-            contentCarouselView.ItemsSource = pageList;
+            BindingContext = App.GetViewModel<MainPageViewModel>();
         }
 
         private void tabView_SelectionChanged(object sender, TabSelectionChangedEventArgs e)
         {
+            // https://github.com/xamarin/Xamarin.Forms/issues/8718
             contentCarouselView.ScrollTo(tabView.SelectedIndex, animate: true);
-
-            //await contentCarouselView.CurrentItem.LoadViewAsync().ConfigureAwait(false);
-        }
-
-        private async void contentCarouselView_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
-        {
-            var view = (BaseLazyView)e.CurrentItem;
-
-            if (view.IsLoaded)
-            {
-                return;
-            }
-
-            await view.LoadViewAsync();
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -98,7 +66,7 @@ namespace Wirtualnik.XF.Views
             menuButton.Text = menuIcon.ToString();
 
             menuBackgroundGrid.FadeTo(0, 200, Easing.CubicIn);
-            menuPancakeView.TranslateTo(0, -300, 200, Easing.CubicIn);
+            menuPancakeView.TranslateTo(0, -250, 200, Easing.CubicIn);
 
             //actionBar.Shadow = new Xamarin.Forms.PancakeView.DropShadow() { Color = Color.Black };
             //actionBar.Border = null;

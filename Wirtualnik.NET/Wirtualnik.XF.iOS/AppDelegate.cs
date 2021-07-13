@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using Microsoft.Extensions.DependencyInjection;
 using Sentry;
 using UIKit;
 using Xamarin.Forms;
@@ -26,7 +27,7 @@ namespace Wirtualnik.XF.iOS
             Forms.Init();
             FormsMaterial.Init();
             Xamarin.Forms.Nuke.FormsHandler.Init(debug: true);
-            LoadApplication(new App());
+            LoadApplication(new App(AddPlatformServices));
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }
@@ -37,6 +38,10 @@ namespace Wirtualnik.XF.iOS
                 return true;
 
             return base.OpenUrl(app, url, options);
+        }
+
+        private static void AddPlatformServices(IServiceCollection services)
+        {
         }
 
         public override bool ContinueUserActivity(UIApplication application, NSUserActivity userActivity, UIApplicationRestorationHandler completionHandler)

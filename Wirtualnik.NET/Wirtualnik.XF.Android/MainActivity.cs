@@ -4,6 +4,7 @@ using Android.Content.PM;
 using Android.Graphics.Drawables;
 using Android.OS;
 using AndroidX.Core.View;
+using Microsoft.Extensions.DependencyInjection;
 using Sentry;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -36,7 +37,7 @@ namespace Wirtualnik.XF.Droid
             FormsMaterial.Init(this, savedInstanceState);
             UserDialogs.Init(this);
 
-            LoadApplication(new App());
+            LoadApplication(new App(AddPlatformServices));
 
             SetTheme(Resource.Style.MainTheme);
         }
@@ -70,6 +71,10 @@ namespace Wirtualnik.XF.Droid
             using var controller = WindowCompat.GetInsetsController(window, window.DecorView.RootView);
             controller.AppearanceLightStatusBars = currentTheme == OSAppTheme.Light;
             controller.AppearanceLightNavigationBars = currentTheme == OSAppTheme.Light;
+        }
+
+        private static void AddPlatformServices(IServiceCollection services)
+        {
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

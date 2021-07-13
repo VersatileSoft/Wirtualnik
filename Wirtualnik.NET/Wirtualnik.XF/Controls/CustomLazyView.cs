@@ -1,12 +1,11 @@
-﻿using DryIoc;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.ObjectModel;
+﻿using System.Threading.Tasks;
+using Wirtualnik.XF.ViewModels;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace Wirtualnik.XF.Controls
 {
-    public class CustomLazyView<TView, TViewModel> : BaseLazyView where TView : View, new() where TViewModel : ObservableObject
+    public class CustomLazyView<TView, TViewModel> : BaseLazyView where TView : View, new() where TViewModel : ViewModelBase
     {
         public override async ValueTask LoadViewAsync()
         {
@@ -21,10 +20,11 @@ namespace Wirtualnik.XF.Controls
             // stupid way to get rid of smoll hangs 
             await Task.Delay(100);
 
-            ObservableObject? viewModel = App.Container.Resolve(typeof(TViewModel)) as ObservableObject;
+            ViewModelBase? viewModel = App.GetViewModel<TViewModel>();
             Content = new TView { BindingContext = viewModel };
 
             SetIsLoaded(true);
+
             return;
         }
     }

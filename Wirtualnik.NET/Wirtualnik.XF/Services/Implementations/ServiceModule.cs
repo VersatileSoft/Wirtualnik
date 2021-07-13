@@ -1,13 +1,14 @@
-﻿using DryIoc;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Wirtualnik.XF.Services.Implementations
 {
-    public class ServiceModule : IDryIocModule
+    public static class ServiceModule
     {
-        public void Load(IRegistrator builder)
+        public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            builder.Register<IAuthenticationService, AuthenticationService>();
-            builder.Register<INavigationService, NavigationService>();
+            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
+            return services;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Wirtualnik.Shared.Models.Auth;
 
-namespace Wirtualnik.Shared.ApliClient
+namespace Wirtualnik.Shared.ApiClient
 {
     public interface IAuthClient
     {
