@@ -1,5 +1,2 @@
 <linker>
-  <assembly fullname="System.Runtime.Serialization">
-    <namespace fullname="System.Runtime.Serialization" />
-  </assembly>
 </linker>

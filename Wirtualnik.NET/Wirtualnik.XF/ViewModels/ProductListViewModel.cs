@@ -4,7 +4,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Wirtualnik.XF.ViewModels
 {
-    public class ProductListPageViewModel : ViewModelBase
+    public class ProductListViewModel : ViewModelBase
     {
         public int remainingItemsThreshold { get; set; } = 1;
         public bool IsLoaded { get; set; }
@@ -12,7 +12,7 @@ namespace Wirtualnik.XF.ViewModels
         public SafeObservableCollection<int> ProductList { get; set; }
         public AsyncCommand LoadMoreItemsCommand { get; set; }
         public AsyncCommand LoadedCommand { get; set; }
-        public ProductListPageViewModel()
+        public ProductListViewModel()
         {
             ProductList = new SafeObservableCollection<int>();
 

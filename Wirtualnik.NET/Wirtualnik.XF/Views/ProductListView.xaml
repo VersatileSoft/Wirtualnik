@@ -1,22 +1,21 @@
-﻿<ContentView x:Class="Wirtualnik.XF.Views.ProductListPage" x:DataType="viewmodels:ProductListPageViewModel"
+﻿<ContentView x:Class="Wirtualnik.XF.Views.ProductListView" x:DataType="viewmodels:ProductListViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cells="clr-namespace:Wirtualnik.XF.Controls.Cells"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
-                                      Dark={StaticResource BackgroundColorDark}}"
-    NavigationPage.HasNavigationBar="False">
-    <ContentView.Resources>
+                                      Dark={StaticResource BackgroundColorDark}}">
+    <!--<ContentView.Resources>
         <ResourceDictionary>
             <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
-    </ContentView.Resources>
+    </ContentView.Resources>-->
     <ContentView.Effects>
         <xct:LifecycleEffect Loaded="LifecycleEffect_Loaded" />
     </ContentView.Effects>
 
-    <Grid>
+    <Grid CompressedLayout.IsHeadless="True">
         <CollectionView x:Name="collectionView"
             HorizontalOptions="Fill"
             VerticalOptions="Fill"

@@ -14,24 +14,38 @@
         <Grid
             HorizontalOptions="Fill"
             VerticalOptions="Fill"
+            CompressedLayout.IsHeadless="True"
             RowDefinitions="40,*"
-            RowSpacing="1">
+            RowSpacing="0">
 
-            <!--  Content  -->
-            <CarouselView x:Name="contentCarouselView"
+            <!--<sh:HorizontalListView  x:Name="contentCarouselView"
                 Grid.Row="1"
-                CurrentItemChanged="contentCarouselView_CurrentItemChanged"
-                HorizontalScrollBarVisibility="Never"
-                IsScrollAnimated="True"
-                IsSwipeEnabled="False"
-                Loop="False"
-                VerticalScrollBarVisibility="Never">
-                <CarouselView.ItemTemplate>
+                ItemSpacing="8"
+                ListLayout="Carousel"
+                SnapStyle="Center">
+                <sh:HorizontalListView.ItemTemplate>
                     <DataTemplate x:DataType="ContentView">
                         <ContentView Content="{Binding Content}" />
                     </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
+                </sh:HorizontalListView.ItemTemplate>
+            </sh:HorizontalListView>-->
+            <!--  Content  -->
+            <controls:TabViewCarouselView x:Name="contentCarouselView"
+                Grid.Row="1"
+                CurrentItemChangedCommand="{Binding CurrentItemChangedCommand}"
+                CurrentItemChangedCommandParameter="{Binding CurrentItem, Source={x:Reference contentCarouselView}}"
+                HorizontalScrollBarVisibility="Never"
+                IsScrollAnimated="True"
+                IsSwipeEnabled="False"
+                ItemsSource="{Binding ViewsList}"
+                Loop="False"
+                VerticalScrollBarVisibility="Never">
+                <controls:TabViewCarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="ContentView">
+                        <ContentView CompressedLayout.IsHeadless="True" Content="{Binding Content}" />
+                    </DataTemplate>
+                </controls:TabViewCarouselView.ItemTemplate>
+            </controls:TabViewCarouselView>
 
             <!--  Burger UI  -->
             <Grid x:Name="menuBackgroundGrid"
@@ -56,7 +70,7 @@
                                                   Dark={StaticResource DarkBackgroundColorDark}}"
                 CornerRadius="0"
                 InputTransparent="False"
-                TranslationY="-300">
+                TranslationY="-250">
                 <nalesnik:PancakeView.Shadow>
                     <nalesnik:DropShadow BlurRadius="8" Color="{AppThemeBinding Light={StaticResource ContrastColorLight}, Dark={StaticResource ContrastColorDark}}" />
                 </nalesnik:PancakeView.Shadow>
@@ -86,7 +100,7 @@
                 </nalesnik:PancakeView.Resources>
 
 
-                <Grid RowDefinitions="48,Auto">
+                <Grid CompressedLayout.IsHeadless="True" RowDefinitions="48,Auto">
                     <Label
                         HorizontalOptions="Start"
                         VerticalOptions="Center"
@@ -109,6 +123,7 @@
                     <Grid
                         Grid.Row="1"
                         ColumnDefinitions="*,*,*,*,*,*"
+                        CompressedLayout.IsHeadless="True"
                         RowDefinitions="52,48,Auto">
                         <sh:Shadows
                             Grid.Row="0"
@@ -266,7 +281,7 @@
                     <nalesnik:DropShadow BlurRadius="8" Color="{AppThemeBinding Light={StaticResource ContrastColorLight}, Dark={StaticResource ContrastColorDark}}" />
                 </nalesnik:PancakeView.Shadow>-->
 
-                <Grid>
+                <Grid CompressedLayout.IsHeadless="True">
                     <Label
                         Margin="0,4,0,0"
                         VerticalOptions="Center"
