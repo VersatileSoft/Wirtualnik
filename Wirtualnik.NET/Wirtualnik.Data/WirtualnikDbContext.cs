@@ -9,17 +9,11 @@ namespace Wirtualnik.Data
         public WirtualnikDbContext(DbContextOptions<WirtualnikDbContext> options) : base(options)
         { }
 
-        public virtual DbSet<Processor>? Processors { get; set; }
-        public virtual DbSet<Mainboard>? Mainboards { get; set; }
-        public virtual DbSet<Memory>? Memories { get; set; }
-        public virtual DbSet<HardDisk>? HardDisks { get; set; }
-        public virtual DbSet<SolidStateDrive>? SolidStateDrives { get; set; }
         public virtual DbSet<Shop>? Shops { get; set; }
         public virtual DbSet<Product>? Products { get; set; }
-        public virtual DbSet<Graphic>? Graphics { get; set; }
-
-
-
+        public virtual DbSet<Property>? Properties { get; set; }
+        public virtual DbSet<PropertyType>? PropertyTypes { get; set; }
+        public virtual DbSet<ProductType>? ProductTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
 using Wirtualnik.Service.Interfaces;
@@ -12,55 +12,75 @@ using Wirtualnik.Shared.Models.Product;
 
 namespace Wirtualnik.Server.Controllers
 {
-    public abstract class ProductController<TEntity, TFilter, TListItemModel, TDetailsModel, TCreateModel> : ControllerBase
-        where TEntity : Product
-        where TFilter : ProductFilter
-        where TListItemModel : class
-        where TDetailsModel : class
-
+    [ApiController]
+    [Route("api/product")]
+    public class ProductController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IProductService<TEntity, TFilter> _productService;
-        protected ProductController(IProductService<TEntity, TFilter> productService, IMapper mapper)
+        private readonly IProductService _productService;
+        public ProductController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<Pagination<Resource<TListItemModel>>>> Search([FromQuery] Pager pager, [FromQuery] TFilter filter)
+        public async Task<ActionResult<Pagination<Resource<ListItemModel>>>> Search([FromQuery] Pager pager, [FromQuery] Dictionary<string, string> filter)
         {
-            var list = _mapper.Map<List<TListItemModel>>(await _productService.GetProductsAsync(pager, filter)).ConvertAll(p => TResource.FromT(p));
-
+            var list = _mapper.Map<List<ListItemModel>>(await _productService.GetProductsAsync(pager, filter)).ConvertAll(p => TResource.FromT(p));
             return TPagination.FromT(list, pager.TotalRows);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Resource<TDetailsModel>>> Fetch(Guid id)
+        [HttpGet("{publicId}")]
+        public async Task<ActionResult<Resource<DetailsModel>>> Fetch(string publicId)
         {
-            var model = await _productService.FindAsync<TEntity>(id);
+            var model = await _productService.Fetch(publicId);
 
             if (model is null)
                 return NotFound();
 
-            return TResource.FromT(_mapper.Map<TDetailsModel>(model));
+            return TResource.FromT(_mapper.Map<DetailsModel>(model));
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Create(TCreateModel model)
+        public async Task<ActionResult> Create(CreateModel model)
         {
-            var dbModel = _mapper.Map<TEntity>(model);
-            var contract = await _productService.CreateAsync(dbModel);
-
-            return CreatedAtAction(nameof(this.Fetch), this.GetType().Name.Replace("Controller", ""), new { Id = contract.Id }, _mapper.Map<TDetailsModel>(contract));
+            var product = _mapper.Map<Product>(model);
+            product = await _productService.CreateAsync(product);
+            product = await _productService.Fetch(product.PublicId);
+            return CreatedAtAction(nameof(this.Fetch), this.GetType().Name.Replace("Controller", ""), new { publicId = product.PublicId }, _mapper.Map<DetailsModel>(product));
         }
 
-        [HttpPut("{id}")]
+        [HttpPost("type")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Update(Guid id, TCreateModel model)
+        public async Task<ActionResult> CreateProductType(string name, string[] properties)
         {
-            var entity = await _productService.FindAsync<TEntity>(id);
+            ProductType productType = new ProductType
+            {
+                Name = name,
+                ProductProperties = properties.Select(p => new PropertyType { Name = p }).ToList()
+            };
+
+            await _productService.CreateAsync(productType);
+
+            return Ok();
+        }
+
+        [HttpGet("type")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> GetAllProductTypes()
+        {
+            List<ProductTypeModel> types = await _productService.GetAllProductTypes();
+
+            return Ok(types);
+        }
+
+        [HttpPut("{publicId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Update(string publicId, CreateModel model)
+        {
+            var entity = await _productService.Fetch(publicId);
 
             if (entity == null)
                 return NotFound();
@@ -72,10 +92,10 @@ namespace Wirtualnik.Server.Controllers
             return Accepted();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(Guid id)
+        [HttpDelete("{publicId}")]
+        public async Task<ActionResult> Delete(string publicId)
         {
-            var entity = await _productService.FindAsync<TEntity>(id);
+            var entity = await _productService.Fetch(publicId);
 
             if (entity == null)
                 return NotFound();

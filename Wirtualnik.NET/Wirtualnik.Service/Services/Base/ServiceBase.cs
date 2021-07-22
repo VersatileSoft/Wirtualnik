@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
@@ -58,6 +59,11 @@ namespace Wirtualnik.Service.Services.Base
         public Task<int> SaveChangesAsync()
         {
             return Context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> AllAsync<TEntity>() where TEntity : EntityBase
+        {
+            return await Context.Set<TEntity>().ToListAsync();
         }
     }
 }

@@ -9,34 +9,18 @@ using System.Linq.Expressions;
 
 namespace Wirtualnik.Shared.Models.Base
 {
-    [BindRequired]
     public class Pager
     {
         private int pageIndex;
         private int pageSize;
-        private string sort;
-        private string order;
+        private string? order;
         private int totalRows;
 
-        [AliasAs("index")]
-        [FromQuery(Name = "index")]
-        [JsonProperty(PropertyName = "index")]
-        public virtual int PageIndex
+        public int PageIndex
         {
             get
             {
-                if (pageIndex < TotalPages)
-                {
-                    return pageIndex;
-                }
-                else if (TotalPages > 0)
-                {
-                    return TotalPages;
-                }
-                else
-                {
-                    return 1;
-                }
+                return pageIndex > 0 ? pageIndex : 1;
             }
             set
             {
@@ -44,15 +28,11 @@ namespace Wirtualnik.Shared.Models.Base
             }
         }
 
-        #region PageSize
-        [AliasAs("size")]
-        [FromQuery(Name = "size")]
-        [JsonProperty(PropertyName = "size")]
-        public virtual int PageSize
+        public int PageSize
         {
             get
             {
-                return pageSize;
+                return pageSize > 0 ? pageSize : 10;
             }
             set
             {
@@ -60,29 +40,13 @@ namespace Wirtualnik.Shared.Models.Base
             }
         }
 
-        [AliasAs("sort")]
-        [FromQuery(Name = "sort")]
-        [JsonProperty(PropertyName = "sort")]
-        public virtual string Sort
-        {
-            get
-            {
-                return sort;
-            }
-            set
-            {
-                sort = value;
-            }
-        }
+        public string? Sort { get; set; }
 
-        [AliasAs("order")]
-        [FromQuery(Name = "order")]
-        [JsonProperty(PropertyName = "order")]
-        public virtual string Order
+        public string Order
         {
             get
             {
-                return order;
+                return order ?? "DESC";
             }
             set
             {
@@ -91,7 +55,7 @@ namespace Wirtualnik.Shared.Models.Base
         }
 
         [BindNever]
-        public virtual int TotalRows
+        public int TotalRows
         {
             get
             {
@@ -103,65 +67,20 @@ namespace Wirtualnik.Shared.Models.Base
             }
         }
 
-        [BindNever]
-        public virtual int TotalPages
-        {
-            get
-            {
-                if (PageSize > 0)
-                    return Convert.ToInt32(Math.Ceiling((double)TotalRows / PageSize));
-                else
-                    return 0;
-            }
-        }
-
-        [BindNever]
-        public virtual int Offset
-        {
-            get
-            {
-                return (PageIndex - 1) * PageSize;
-            }
-        }
-
-        public Pager() : this(1, 20, "Id", "ASC")
-        {
-        }
-
-        public Pager(Pager pager)
-        {
-            totalRows = pager.totalRows;
-            pageIndex = pager.pageIndex;
-            pageSize = pager.pageSize;
-            sort = pager.sort;
-            order = pager.order;
-        }
-
-        public Pager(int pageIndex, int pageSize = 20, string sort = "Id", string order = "ASC")
-        {
-            TotalRows = Int32.MaxValue;
-            PageIndex = pageIndex;
-            PageSize = pageSize;
-            Sort = sort;
-            Order = order;
-            this.sort = sort;
-            this.order = order;
-        }
-        #endregion
+        public int TotalPages => PageSize > 0 ? Convert.ToInt32(Math.Ceiling((double)TotalRows / PageSize)) : 0;
     }
 
-    public static partial class PagerExtensions
+    public static class PagerExtensions
     {
-        #region Paginate()
         public static IQueryable<TModel> Paginate<TModel>(this IQueryable<TModel> query, Pager pager) where TModel : class
         {
             // Count
             pager.TotalRows = query.Count();
 
             // Sort
-            if (!String.IsNullOrEmpty(pager.Sort))
+            if (!string.IsNullOrEmpty(pager.Sort))
             {
-                if (OrderingMethodFinder.OrderMethodExists(query.Expression))
+                if (IsOrdered(query))
                 {
                     query = (query as IOrderedQueryable<TModel>).ThenBy($"{pager.Sort} {pager.Order}");
                 }
@@ -173,41 +92,13 @@ namespace Wirtualnik.Shared.Models.Base
 
             // Pager
             return query
-                .Skip<TModel>(pager.Offset)
+                .Skip<TModel>((pager.PageIndex - 1) * pager.PageSize)
                 .Take<TModel>(pager.PageSize);
         }
-        #endregion
-    }
-
-    internal class OrderingMethodFinder : ExpressionVisitor
-    {
-        bool orderingMethodFound = false;
-
-        #region VisitMethodCall()
-        protected override Expression VisitMethodCall(MethodCallExpression node)
+     
+        private static bool IsOrdered<T>(IQueryable<T> queryable)
         {
-            var name = node.Method.Name;
-
-            if (node.Method.DeclaringType == typeof(Queryable) && (
-                name.StartsWith("OrderBy", StringComparison.Ordinal) ||
-                name.StartsWith("ThenBy", StringComparison.Ordinal)))
-            {
-                orderingMethodFound = true;
-            }
-
-            return base.VisitMethodCall(node);
+            return queryable.Expression.Type == typeof(IOrderedQueryable<T>);
         }
-        #endregion
-
-        #region OrderMethodExists()
-        public static bool OrderMethodExists(Expression expression)
-        {
-            var visitor = new OrderingMethodFinder();
-
-            visitor.Visit(expression);
-
-            return visitor.orderingMethodFound;
-        }
-        #endregion
     }
 }
