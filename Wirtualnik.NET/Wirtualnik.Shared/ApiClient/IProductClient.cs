@@ -1,30 +1,28 @@
 ﻿using Refit;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Product;
 
 namespace Wirtualnik.Shared.ApiClient
 {
-    public interface IProductClient<TDetailsModel, TFilter, TListItemModel, TCreateModel>
-        where TFilter : ProductFilter
-        where TListItemModel : class
-        where TDetailsModel : class
+    public interface IProductClient
     {
         [Get("")]
-        public Task<ApiResponse<Pagination<Resource<TListItemModel>>>> Search([Query] Pager pager, [Query] TFilter filter);
+        public Task<Pagination<Resource<ListItemModel>>> Search([Query] Pager pager, [Query] Dictionary<string, string> filter);
 
-        [Get("/{id}")]
-        public Task<ApiResponse<Resource<TDetailsModel>>> Fetch(Guid id);
+        [Get("/{publicId}")]
+        public Task<Resource<DetailsModel>> Fetch(string publicId);
 
         [Post("")]
-        public Task Create(TCreateModel model);
+        public Task Create(CreateModel model);
 
-        [Put("/{id}")]
-        public Task Update(Guid id, TCreateModel model);
+        [Put("/{publicId}")]
+        public Task Update(string publicId, CreateModel model);
 
-        [Delete("/{id}")]
-        public Task Delete(Guid id);
+        [Delete("/{publicId}")]
+        public Task Delete(string publicId);
 
     }
 }

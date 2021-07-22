@@ -15,20 +15,6 @@ namespace Wirtualnik.Shared.ApiClient
             services.AddRefitClient<IAuthClient>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(AuthUrl));
 
-            services.AddRefitClient<IGraphicClient>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{ApiUrl}/graphic"));
-
-            services.AddRefitClient<IHardDiskClient>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{ApiUrl}/hard_disk"));
-
-            services.AddRefitClient<IMainboardClient>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{ApiUrl}/mainboard"));
-
-            services.AddRefitClient<IProcessorClient>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{ApiUrl}/processor"));
-
-            services.AddRefitClient<ISolidStateDriveClient>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri($"{ApiUrl}/solid_state_drive"));
             return services;
         }
     }

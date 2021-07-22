@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
+using Wirtualnik.Shared.Models.Product;
 
 namespace Wirtualnik.Shared.Models
 {
@@ -6,174 +9,37 @@ namespace Wirtualnik.Shared.Models
     {
         public AutoMapperProfile()
         {
-            ProcessorMap();
-            GraphicMap();
-            HardDiskMap();
-            MainboardMap();
-            MemoryMap();
-            SolidStateDriveMap();
+            ProductMap();
         }
 
-        private void ProcessorMap()
+        private void ProductMap()
         {
-            CreateMap<Processor.CreateModel, Data.Models.Processor>()
-                .ForMember(o => o.Id, k => k.Ignore())
+            CreateMap<CreateModel, Data.Models.Product>()
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())
+                .ForMember(o => o.Id, k => k.Ignore())
                 .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
+                .ForMember(o => o.ProductType, k => k.Ignore())
+                .ForMember(o => o.UpdateDate, k => k.Ignore());
 
-            CreateMap<Processor.ListItemModel, Data.Models.Processor>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
+            CreateMap<Data.Models.Product, DetailsModel>()
+                .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name));
 
-            CreateMap<Processor.DetailsModel, Data.Models.Processor>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-        }
+            CreateMap<Data.Models.Product, ListItemModel>()
+               .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name));
 
-        private void GraphicMap()
-        {
-            CreateMap<Graphic.CreateModel, Data.Models.Graphic>()
+            CreateMap<KeyValuePair<int, string>, Data.Models.Property>()
+                .ForMember(o => o.PropertyTypeId, k => k.MapFrom(m => m.Key))
+                .ForMember(o => o.Value, k => k.MapFrom(m => m.Value))
+                .ForMember(o => o.ProductId, k => k.Ignore())
+                .ForMember(o => o.Product, k => k.Ignore())
+                .ForMember(o => o.PropertyType, k => k.Ignore())
                 .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
                 .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
+                .ForMember(o => o.UpdateDate, k => k.Ignore());
 
-            CreateMap<Graphic.ListItemModel, Data.Models.Graphic>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<Graphic.DetailsModel, Data.Models.Graphic>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-        }
-
-        private void HardDiskMap()
-        {
-            CreateMap<HardDisk.CreateModel, Data.Models.HardDisk>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<HardDisk.ListItemModel, Data.Models.HardDisk>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<HardDisk.DetailsModel, Data.Models.HardDisk>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-        }
-
-        private void MainboardMap()
-        {
-            CreateMap<Mainboard.CreateModel, Data.Models.Mainboard>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<Mainboard.ListItemModel, Data.Models.Mainboard>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<Mainboard.DetailsModel, Data.Models.Mainboard>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-        }
-
-        private void MemoryMap()
-        {
-            CreateMap<Memory.CreateModel, Data.Models.Memory>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<Memory.ListItemModel, Data.Models.Memory>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<Memory.DetailsModel, Data.Models.Memory>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-        }
-
-        private void SolidStateDriveMap()
-        {
-            CreateMap<SolidStateDrive.CreateModel, Data.Models.SolidStateDrive>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<SolidStateDrive.ListItemModel, Data.Models.SolidStateDrive>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
-
-            CreateMap<SolidStateDrive.DetailsModel, Data.Models.SolidStateDrive>()
-                .ForMember(o => o.Id, k => k.Ignore())
-                .ForMember(o => o.ProductShops, k => k.Ignore())
-                .ForMember(o => o.Shops, k => k.Ignore())
-                .ForMember(o => o.CreateDate, k => k.Ignore())
-                .ForMember(o => o.UpdateDate, k => k.Ignore())
-                .ReverseMap();
+            CreateMap<Data.Models.Property, KeyValuePair<string, string>>()
+                .ConstructUsing(kvp => new KeyValuePair<string, string>(kvp.PropertyType.Name, kvp.Value));
         }
     }
 }

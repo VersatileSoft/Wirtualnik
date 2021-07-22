@@ -12,24 +12,46 @@ using Wirtualnik.Shared.Models.Product;
 
 namespace Wirtualnik.Service.Services
 {
-    public class ProductService<TEntity, TFilter> : ServiceBase, IProductService<TEntity, TFilter> where TEntity : Product where TFilter : ProductFilter
+    public class ProductService : ServiceBase, IProductService
     {
         public ProductService(WirtualnikDbContext context, IMapper mapper) : base(context, mapper)
         { }
 
-        public async Task<IEnumerable<TEntity>> GetProductsAsync(Pager pager, TFilter filter)
+        public Task<Product> Fetch(string publicId)
         {
-            var query = Context.Set<TEntity>().AsQueryable();
-            Filter(query, filter);
-            return await query.Paginate(pager).ToListAsync();
+            return Context.Products.Include(p => p.Properties).ThenInclude(p => p.PropertyType).Include(p => p.ProductType).FirstOrDefaultAsync(p => p.PublicId == publicId);
         }
 
-        protected virtual void Filter(IQueryable<TEntity> query, TFilter filter)
+        public async Task<List<ProductTypeModel>> GetAllProductTypes()
         {
-            if (!string.IsNullOrEmpty(filter.Name))
+            return await Context.ProductTypes.Include(t => t.ProductProperties).Select(p => new ProductTypeModel
             {
-                query = query.Where(p => filter.Name.Contains(p.Name ?? ""));
+                Id = p.Id,
+                Name = p.Name,
+                PropertyTypes = p.ProductProperties.Select(t => new KeyValuePair<int, string>(t.Id, t.Name)).ToList()
+            }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ListItemModel>> GetProductsAsync(Pager pager, Dictionary<string, string> filter)
+        {
+            var query = Context.Products.Include(p => p.Properties).ThenInclude(p => p.PropertyType).Include(p => p.ProductType).AsQueryable();
+
+            if (filter.TryGetValue("ProductTypeId", out string stringValue) && int.TryParse(stringValue, out int value) )
+                query = query.Where(p => p.ProductTypeId == value);
+
+            foreach(var property in filter)
+            {
+                query = query.Where(product => product.Properties.Any(prop => prop.PropertyType.Name == property.Key) ?
+                product.Properties.Single(prop => prop.PropertyType.Name == property.Key).Value == property.Value : true);
             }
+
+            return Mapper.Map<List<ListItemModel>>(await query.Paginate(pager).ToListAsync());
+
+        }
+
+        public Task<bool> UpdateAsync(CreateModel model)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
