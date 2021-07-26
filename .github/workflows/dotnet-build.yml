@@ -14,9 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Set default Xamarin SDK versions
-      run: |
-        $VM_ASSETS/select-xamarin-sdk-v2.sh --mono=6.12 --android=11.3
+    # https://github.com/mono/mono/issues/20250
+    #- name: Set default Xamarin SDK versions
+    #  run: |
+    #    $VM_ASSETS/select-xamarin-sdk-v2.sh --mono=6.12 --android=11.3
     
     #- name: Set default Xcode 12.3
     #  run: |
@@ -56,11 +57,11 @@ jobs:
     - name: Build Wirtualnik.Shared
       run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Shared/Wirtualnik.Shared.csproj --configuration Release --no-restore
       
-    - name: Build Wirtualnik.XF
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF/Wirtualnik.XF.csproj
+    #- name: Build Wirtualnik.XF
+    #  run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF/Wirtualnik.XF.csproj
       
-    - name: Wirtualnik.XF.Android
-      run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.Android/Wirtualnik.XF.Android.csproj
+    #- name: Wirtualnik.XF.Android
+    #  run: msbuild -restore Wirtualnik.NET/Wirtualnik.XF.Android/Wirtualnik.XF.Android.csproj
       
       # We don't have macOS machine locally, so building iOS app is pointless.
     # - name: Build Wirtualnik.XF.iOS
