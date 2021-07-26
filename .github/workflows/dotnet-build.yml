@@ -42,8 +42,8 @@ jobs:
     - name: Build Wirtualnik.Data
       run: dotnet build Wirtualnik.NET/Wirtualnik.Data/Wirtualnik.Data.csproj --configuration Release --no-restore
       
-    - name: Build Wirtualnik.Repository
-      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Repository/Wirtualnik.Repository.csproj --configuration Release --no-restore
+    - name: Build Wirtualnik.Service
+      run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Service/Wirtualnik.Service.csproj --configuration Release --no-restore
       
     - name: Build Wirtualnik.Server
       run: dotnet build -restore Wirtualnik.NET/Wirtualnik.Server/Wirtualnik.Server.csproj --configuration Release --no-restore
