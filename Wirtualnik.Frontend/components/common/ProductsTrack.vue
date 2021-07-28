@@ -25,11 +25,8 @@ export default class ProductsHorizontalTrack extends Vue {}
     h2 {
       background-image: linear-gradient(69deg, var(--red), var(--orange));
       font-weight: 600;
-      background-clip: text;
       -webkit-background-clip: text;
-      -moz-background-clip: text;
       -webkit-text-fill-color: transparent;
-      -moz-text-fill-color: transparent;
     }
   }
   &__cards {
