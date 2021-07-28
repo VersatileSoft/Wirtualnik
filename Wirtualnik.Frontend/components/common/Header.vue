@@ -71,7 +71,7 @@ export default class Header extends Vue {
   padding: 0 15px;
   height: 65px;
   backdrop-filter: blur(50px);
-  border-bottom: 1px solid (--gray1);
+  border-bottom: 1px solid var(--gray1);
   margin: 0 0 20px;
   position: fixed;
   width: 100%;

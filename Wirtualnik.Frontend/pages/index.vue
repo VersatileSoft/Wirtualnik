@@ -286,7 +286,7 @@ import VerticalCard from '@/components/common/VerticalCard.vue'
 })
 export default class StartingPage extends Vue {
   public scrollIntoView(section: string): void {
-    let offsetTop = 0
+    let offsetTop: number
     if (section === 'promo') {
       const promo = this.$refs.promo as HTMLDivElement
       offsetTop = promo.offsetTop - 60
