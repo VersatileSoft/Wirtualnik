@@ -16,7 +16,7 @@ namespace Wirtualnik.Shared.ApiClient
 
         [Headers("Authorization: Bearer")]
         [Post("")]
-        public Task Create([Body]CreateModel model);
+        public Task Create([Body] CreateModel model);
 
         [Headers("Authorization: Bearer")]
         [Put("/{publicId}")]

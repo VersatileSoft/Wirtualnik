@@ -5,12 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Wirtualnik.Data;
 using Wirtualnik.Service.Extensions;
 using Wirtualnik.Service.Interfaces;
-using Wirtualnik.Service.Interfaces.Base;
 using Wirtualnik.Service.Services.Base;
 
 namespace Wirtualnik.Service.Services

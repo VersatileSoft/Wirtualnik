@@ -7,7 +7,7 @@ namespace Wirtualnik.Shared.ApiClient
 {
     public static class ClientExtensions
     {
-        private const string BaseUrl = "https://localhost";
+        private const string BaseUrl = "https://zlcn.pro";
         private static readonly string AuthUrl = $"{BaseUrl}/auth";
         private static readonly string ApiUrl = $"{BaseUrl}/api";
 
@@ -18,8 +18,8 @@ namespace Wirtualnik.Shared.ApiClient
 
             var builder = services.AddRefitClient<IProductClient>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(ApiUrl + "/product"));
-            
-            if(delegatingHandler != null)
+
+            if (delegatingHandler != null)
                 builder.AddHttpMessageHandler(delegatingHandler);
 
             builder = services.AddRefitClient<IFilesClient>()

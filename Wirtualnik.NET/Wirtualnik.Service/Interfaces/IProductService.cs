@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
 using Wirtualnik.Service.Interfaces.Base;

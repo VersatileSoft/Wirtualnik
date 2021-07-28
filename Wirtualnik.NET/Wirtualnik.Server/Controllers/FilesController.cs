@@ -29,8 +29,7 @@ namespace Wirtualnik.Server.Controllers
         public async Task<ActionResult> Create(string publicId, [FromForm] List<IFormFile> images)
         {
             await _filesService.SaveImages(images.ToList(), publicId);
-
-            return CreatedAtAction(nameof(ProductController.Fetch), this.GetType().Name.Replace("Controller", ""), new { publicId = publicId }, new DetailsModel());
+            return CreatedAtAction(nameof(ProductController.Fetch), "product", new { publicId = publicId }, new DetailsModel());
         }
     }
 }

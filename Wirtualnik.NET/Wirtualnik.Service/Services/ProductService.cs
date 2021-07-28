@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
-using Wirtualnik.Service.Extensions;
 using Wirtualnik.Service.Interfaces;
 using Wirtualnik.Service.Services.Base;
 using Wirtualnik.Shared.Models.Base;

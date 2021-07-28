@@ -1,20 +1,10 @@
 ﻿using Microsoft.Win32;
 using Refit;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Wirtualnik.Shared.ApiClient;
 using Wirtualnik.Shared.Models.Auth;
 using Wirtualnik.Shared.Models.Product;
@@ -47,7 +37,7 @@ namespace Wirtualnik.Admin
 
             Token = tokenModel.Token;
 
-            if(!string.IsNullOrEmpty(Token))
+            if (!string.IsNullOrEmpty(Token))
             {
                 InfoLabel.Content = "Login ok";
             }
@@ -126,7 +116,7 @@ namespace Wirtualnik.Admin
             foreach (var file in files)
             {
                 file.Value.Dispose();
-            } 
+            }
         }
 
         private void ItemTypesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
