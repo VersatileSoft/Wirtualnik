@@ -14,6 +14,5 @@ namespace Wirtualnik.Service.Interfaces
         Task<bool> UpdateAsync(CreateModel model);
         Task<Product> Fetch(string publicId);
         Task<List<ProductTypeModel>> GetAllProductTypes();
-        Task SaveImages(List<IFormFile> images, int id);
     }
 }

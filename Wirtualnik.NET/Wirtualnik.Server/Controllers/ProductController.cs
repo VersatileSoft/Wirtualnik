@@ -42,13 +42,13 @@ namespace Wirtualnik.Server.Controllers
             return _mapper.Map<DetailsModel>(model);
         }
 
+        [DisableRequestSizeLimit]
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Create([FromForm] CreateModel model, [FromForm] List<IFormFile> images)
+        public async Task<ActionResult> Create([FromBody] CreateModel model)
         {
             var product = _mapper.Map<Product>(model);
-            product = await _productService.CreateAsync(product);
-            await _productService.SaveImages(images.ToList(), product.Id);
+            await _productService.CreateAsync(product);
             product = await _productService.Fetch(product.PublicId);
 
             return CreatedAtAction(nameof(this.Fetch), this.GetType().Name.Replace("Controller", ""), new { publicId = product.PublicId }, _mapper.Map<DetailsModel>(product));

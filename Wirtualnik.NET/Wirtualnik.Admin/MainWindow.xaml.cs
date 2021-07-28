@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Refit;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,24 +27,25 @@ namespace Wirtualnik.Admin
     public partial class MainWindow : Window
     {
         public static string? Token;
+        public IEnumerable<string> SelectedFiles { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            
+            SelectedFiles = new List<string>();
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             var auth = (IAuthClient)App.Services.GetService(typeof(IAuthClient));
-            var tokenModel = auth.LoginAsync(new LoginModel
+            var tokenModel = await auth.LoginAsync(new LoginModel
             {
                 Email = Login.Text,
                 Password = Password.Text
             });
 
-            Token = tokenModel?.Result?.Token;
+            Token = tokenModel.Token;
 
             if(!string.IsNullOrEmpty(Token))
             {
@@ -55,9 +59,9 @@ namespace Wirtualnik.Admin
             var products = (IProductClient)App.Services.GetService(typeof(IProductClient));
             var types = await products.GetAllProductTypes();
 
-            if (types == null) return;
+            if (!types.IsSuccessStatusCode) return;
 
-            foreach (var prod in types)
+            foreach (var prod in types.Content)
             {
                 ItemTypesList.Items.Add(prod);
             }
@@ -72,21 +76,21 @@ namespace Wirtualnik.Admin
             var pro = (IProductClient)App.Services.GetService(typeof(IProductClient));
             var types = await products.GetAllProductTypes();
             ItemTypesList.Items.Clear();
-            if (types == null) return;
+            if (!types.IsSuccessStatusCode) return;
 
-            foreach (var prod in types)
+            foreach (var prod in types.Content)
             {
                 ItemTypesList.Items.Add(prod);
             }
         }
 
-        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        private async void AddProduct_Click(object sender, RoutedEventArgs e)
         {
             var products = (IProductClient)App.Services.GetService(typeof(IProductClient));
 
             List<KeyValuePair<int, string>> props = new List<KeyValuePair<int, string>>();
 
-            foreach(var item in Props.Children)
+            foreach (var item in Props.Children)
             {
                 var panel = item as StackPanel;
                 var id = int.Parse(panel.Uid);
@@ -105,7 +109,24 @@ namespace Wirtualnik.Admin
                 Properties = props
             };
 
-            products.Create(model);
+            await products.Create(model);
+
+            var filesClient = (IFilesClient)App.Services.GetService(typeof(IFilesClient));
+
+            var files = new List<StreamPart>();
+
+            foreach (var path in SelectedFiles)
+            {
+                FileStream file = new FileStream(path, FileMode.Open);
+                files.Add(new StreamPart(file, System.IO.Path.GetFileName(file.Name)));
+            }
+
+            await filesClient.Create(model.PublicId, files);
+
+            foreach (var file in files)
+            {
+                file.Value.Dispose();
+            } 
         }
 
         private void ItemTypesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -138,6 +159,20 @@ namespace Wirtualnik.Admin
 
                 Props.Children.Add(stack);
             }
+        }
+
+        private void AddFiles_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedFiles = new List<string>();
+
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.DefaultExt = ".png"; // Required file extension 
+            fileDialog.Filter = "Images (.png)|*.png";
+            fileDialog.Multiselect = true;
+
+            fileDialog.ShowDialog();
+
+            SelectedFiles = fileDialog.FileNames.ToArray();
         }
     }
 }
