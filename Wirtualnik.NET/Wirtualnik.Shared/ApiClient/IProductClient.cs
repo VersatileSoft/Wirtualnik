@@ -9,14 +9,14 @@ namespace Wirtualnik.Shared.ApiClient
     public interface IProductClient
     {
         [Get("")]
-        public Task<Pagination<ListItemModel>> Search([Query] Pager pager, [Query] Dictionary<string, string> filter);
+        public Task<ApiResponse<Pagination<ListItemModel>>> Search([Query] Pager pager, [Query] Dictionary<string, string> filter);
 
         [Get("/{publicId}")]
-        public Task<DetailsModel> Fetch(string publicId);
+        public Task<ApiResponse<DetailsModel>> Fetch(string publicId);
 
         [Headers("Authorization: Bearer")]
         [Post("")]
-        public Task Create(CreateModel model);
+        public Task Create([Body]CreateModel model);
 
         [Headers("Authorization: Bearer")]
         [Put("/{publicId}")]
@@ -32,6 +32,6 @@ namespace Wirtualnik.Shared.ApiClient
 
         [Get("/type")]
         [Headers("Authorization: Bearer")]
-        public Task<List<ProductTypeModel>> GetAllProductTypes();
+        public Task<ApiResponse<List<ProductTypeModel>>> GetAllProductTypes();
     }
 }

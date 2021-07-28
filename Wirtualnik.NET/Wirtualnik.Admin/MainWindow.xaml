@@ -32,6 +32,7 @@
         </StackPanel>
         <Button x:Name="AddType" Content="Dodaj typ produktu" HorizontalAlignment="Left" Margin="28,422,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="AddType_Click"/>
         <Button x:Name="AddProduct" Content="Dodaj produkt" HorizontalAlignment="Left" Margin="774,232,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="AddProduct_Click"/>
+        <Button x:Name="AddFiles" Content="Didaj zdjęcia" HorizontalAlignment="Left" Margin="759,122,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="AddFiles_Click"/>
 
     </Grid>
 </Window>
