@@ -36,10 +36,10 @@ namespace Wirtualnik.Service.Services
         {
             var query = Context.Products.Include(p => p.Properties).ThenInclude(p => p.PropertyType).Include(p => p.ProductType).AsQueryable();
 
-            if (filter.TryGetValue("ProductTypeId", out string stringValue) && int.TryParse(stringValue, out int value) )
+            if (filter.TryGetValue("ProductTypeId", out string stringValue) && int.TryParse(stringValue, out int value))
                 query = query.Where(p => p.ProductTypeId == value);
 
-            foreach(var property in filter)
+            foreach (var property in filter)
             {
                 query = query.Where(product => product.Properties.Any(prop => prop.PropertyType.Name == property.Key) ?
                 product.Properties.Single(prop => prop.PropertyType.Name == property.Key).Value == property.Value : true);

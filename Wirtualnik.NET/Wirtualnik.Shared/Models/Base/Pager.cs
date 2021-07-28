@@ -95,7 +95,7 @@ namespace Wirtualnik.Shared.Models.Base
                 .Skip<TModel>((pager.PageIndex - 1) * pager.PageSize)
                 .Take<TModel>(pager.PageSize);
         }
-     
+
         private static bool IsOrdered<T>(IQueryable<T> queryable)
         {
             return queryable.Expression.Type == typeof(IOrderedQueryable<T>);
