@@ -3,7 +3,7 @@ using System.Dynamic;
 
 namespace Wirtualnik.Shared.Models.Base
 {
-    public class Pagination<T> : Statement
+    public class Pagination<T>
     {
         public int TotalRows { get; set; }
         public IEnumerable<T> Items { get; set; }

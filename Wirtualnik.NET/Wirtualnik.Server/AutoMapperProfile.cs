@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Wirtualnik.Shared.Models.Product;
 
@@ -18,15 +19,18 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.ProductShops, k => k.Ignore())
                 .ForMember(o => o.Shops, k => k.Ignore())
                 .ForMember(o => o.Id, k => k.Ignore())
+                .ForMember(o => o.Images, k => k.Ignore())
                 .ForMember(o => o.CreateDate, k => k.Ignore())
                 .ForMember(o => o.ProductType, k => k.Ignore())
                 .ForMember(o => o.UpdateDate, k => k.Ignore());
 
             CreateMap<Data.Models.Product, DetailsModel>()
-                .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name));
+                .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name))
+                .ForMember(o => o.Images, k => k.MapFrom<DetailsImagesResolver>());
 
             CreateMap<Data.Models.Product, ListItemModel>()
-               .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name));
+               .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name))
+               .ForMember(o => o.Image, k => k.MapFrom<ListImagesResolver>());
 
             CreateMap<KeyValuePair<int, string>, Data.Models.Property>()
                 .ForMember(o => o.PropertyTypeId, k => k.MapFrom(m => m.Key))
@@ -40,6 +44,29 @@ namespace Wirtualnik.Shared.Models
 
             CreateMap<Data.Models.Property, KeyValuePair<string, string>>()
                 .ConstructUsing(kvp => new KeyValuePair<string, string>(kvp.PropertyType.Name, kvp.Value));
+        }
+    }
+
+    public class DetailsImagesResolver : IValueResolver<Data.Models.Product, DetailsModel, List<string>>
+    {
+        public List<string> Resolve(Data.Models.Product source, DetailsModel destination, List<string> destMember, ResolutionContext context)
+        {
+            return source.Images
+                .Where(i => i.Width == 200 && i.Height == 200)
+                .OrderByDescending(i => i.Main)
+                .Select(i => Path.Combine("static", "img", "p", i.FileName))
+                .ToList();
+        }
+    }
+
+    public class ListImagesResolver : IValueResolver<Data.Models.Product, ListItemModel, string?>
+    {
+        public string? Resolve(Data.Models.Product source, ListItemModel destination, string? destMember, ResolutionContext context)
+        {
+            return source.Images
+                .Where(i => i.Width == 200 && i.Height == 200 && i.Main)
+                .Select(i => Path.Combine("static", "img", "p", i.FileName))
+                .FirstOrDefault();
         }
     }
 }

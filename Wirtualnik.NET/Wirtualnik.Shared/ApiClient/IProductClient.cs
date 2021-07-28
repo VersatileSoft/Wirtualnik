@@ -1,5 +1,4 @@
 ﻿using Refit;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Shared.Models.Base;
@@ -10,10 +9,10 @@ namespace Wirtualnik.Shared.ApiClient
     public interface IProductClient
     {
         [Get("")]
-        public Task<Pagination<Resource<ListItemModel>>> Search([Query] Pager pager, [Query] Dictionary<string, string> filter);
+        public Task<Pagination<ListItemModel>> Search([Query] Pager pager, [Query] Dictionary<string, string> filter);
 
         [Get("/{publicId}")]
-        public Task<Resource<DetailsModel>> Fetch(string publicId);
+        public Task<DetailsModel> Fetch(string publicId);
 
         [Post("")]
         public Task Create(CreateModel model);

@@ -14,6 +14,7 @@ namespace Wirtualnik.Data
         public virtual DbSet<Property>? Properties { get; set; }
         public virtual DbSet<PropertyType>? PropertyTypes { get; set; }
         public virtual DbSet<ProductType>? ProductTypes { get; set; }
+        public virtual DbSet<Image>? Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,6 +30,10 @@ namespace Wirtualnik.Data
                 .UsingEntity<ProductShop>(
                     j => j.HasOne(o => o.Shop).WithMany(c => c.ProductShops),
                     j => j.HasOne(o => o.Product).WithMany(o => o.ProductShops));
+
+            builder.Entity<Product>()
+                .HasIndex(p => p.PublicId)
+                .IsUnique();
         }
     }
 }

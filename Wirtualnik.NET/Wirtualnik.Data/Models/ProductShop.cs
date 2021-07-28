@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wirtualnik.Data.Models
+﻿namespace Wirtualnik.Data.Models
 {
     public class ProductShop
     {
