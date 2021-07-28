@@ -71,7 +71,7 @@ namespace Wirtualnik.Server.Controllers
 
         [HttpGet("type")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> GetAllProductTypes()
+        public async Task<ActionResult<List<ProductTypeModel>>> GetAllProductTypes()
         {
             List<ProductTypeModel> types = await _productService.GetAllProductTypes();
 

@@ -1,0 +1,37 @@
+﻿<Window x:Class="Wirtualnik.Admin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wirtualnik.Admin"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="564" Width="953">
+    <Grid Margin="0,0,0,-6">
+        <Label Content="Logowanie" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Login" HorizontalAlignment="Left" Margin="24,41,0,0" Text="admin@admin.pl" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="24,64,0,0" Text="admin" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Zaloguj" HorizontalAlignment="Left" Margin="24,87,0,0" VerticalAlignment="Top" Click="LoginButton_Click"/>
+        <Label Content="Dodaj typ produktu&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="134" Height="30"/>
+        <Label Content="Nazwa&#xD;&#xA;" HorizontalAlignment="Left" Margin="12,145,0,0" VerticalAlignment="Top" Height="29"/>
+        <Label Content="Właściwości&#xD;&#xA;(oddzielone przecinkiem)" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" Height="48" Width="151"/>
+        <TextBox x:Name="ProductTypeName" HorizontalAlignment="Left" Margin="86,151,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ProductTypeProps" HorizontalAlignment="Left" Margin="12,227,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="164"/>
+        <Label Content="Dodaj produkt&#xD;&#xA;" HorizontalAlignment="Left" Margin="443,36,0,0" VerticalAlignment="Top" Width="116" Height="37"/>
+        <ComboBox x:Name="ItemTypesList" Height="30" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,39,233,0" DisplayMemberPath="Name" SelectionChanged="ItemTypesList_SelectionChanged"/>
+        <Label Content="IDpubliczne&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="465,87,0,0" VerticalAlignment="Top" Height="29"/>
+        <TextBox x:Name="prodIdPubl" HorizontalAlignment="Left" Margin="559,89,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="EAN&#xD;&#xA;" HorizontalAlignment="Left" Margin="465,120,0,0" VerticalAlignment="Top" Height="29"/>
+        <TextBox x:Name="ProdEAN" HorizontalAlignment="Left" Margin="559,122,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Name&#xD;&#xA;" HorizontalAlignment="Left" Margin="465,154,0,0" VerticalAlignment="Top" Height="29"/>
+        <TextBox x:Name="ProdName" HorizontalAlignment="Left" Margin="559,156,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Opis&#xD;&#xA;" HorizontalAlignment="Left" Margin="465,192,0,0" VerticalAlignment="Top" Height="29"/>
+        <TextBox x:Name="Description" HorizontalAlignment="Left" Margin="559,194,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="43"/>
+        <Label x:Name="InfoLabel" Content="Info label" HorizontalAlignment="Left" Margin="258,41,0,0" VerticalAlignment="Top" Height="41" Width="115"/>
+        <StackPanel x:Name="Props" Margin="476,259,33,10" Orientation="Vertical">
+
+        </StackPanel>
+        <Button x:Name="AddType" Content="Dodaj typ produktu" HorizontalAlignment="Left" Margin="28,422,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="AddType_Click"/>
+        <Button x:Name="AddProduct" Content="Dodaj produkt" HorizontalAlignment="Left" Margin="774,232,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="AddProduct_Click"/>
+
+    </Grid>
+</Window>
