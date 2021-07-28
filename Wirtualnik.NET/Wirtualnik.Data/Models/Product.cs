@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Wirtualnik.Data.Models
 {
@@ -15,6 +14,7 @@ namespace Wirtualnik.Data.Models
         public virtual ICollection<ProductShop> ProductShops { get; set; }
         public virtual ICollection<Shop> Shops { get; set; }
         public virtual ICollection<Property> Properties { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
         public virtual ProductType ProductType { get; set; }
     }
 }

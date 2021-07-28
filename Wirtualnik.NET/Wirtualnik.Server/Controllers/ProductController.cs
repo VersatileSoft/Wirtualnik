@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,30 +25,32 @@ namespace Wirtualnik.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Pagination<Resource<ListItemModel>>>> Search([FromQuery] Pager pager, [FromQuery] Dictionary<string, string> filter)
+        public async Task<ActionResult<Pagination<ListItemModel>>> Search([FromQuery] Pager pager, [FromQuery] Dictionary<string, string> filter)
         {
-            var list = _mapper.Map<List<ListItemModel>>(await _productService.GetProductsAsync(pager, filter)).ConvertAll(p => TResource.FromT(p));
+            var list = _mapper.Map<List<ListItemModel>>(await _productService.GetProductsAsync(pager, filter));
             return TPagination.FromT(list, pager.TotalRows);
         }
 
         [HttpGet("{publicId}")]
-        public async Task<ActionResult<Resource<DetailsModel>>> Fetch(string publicId)
+        public async Task<ActionResult<DetailsModel>> Fetch(string publicId)
         {
             var model = await _productService.Fetch(publicId);
 
             if (model is null)
                 return NotFound();
 
-            return TResource.FromT(_mapper.Map<DetailsModel>(model));
+            return _mapper.Map<DetailsModel>(model);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Create(CreateModel model)
+        public async Task<ActionResult> Create([FromForm] CreateModel model, [FromForm] List<IFormFile> images)
         {
             var product = _mapper.Map<Product>(model);
             product = await _productService.CreateAsync(product);
+            await _productService.SaveImages(images.ToList(), product.Id);
             product = await _productService.Fetch(product.PublicId);
+
             return CreatedAtAction(nameof(this.Fetch), this.GetType().Name.Replace("Controller", ""), new { publicId = product.PublicId }, _mapper.Map<DetailsModel>(product));
         }
 
