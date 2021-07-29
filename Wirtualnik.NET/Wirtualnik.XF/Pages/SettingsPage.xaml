@@ -1,0 +1,104 @@
+﻿<ContentPage x:Class="Wirtualnik.XF.Pages.SettingsPage" x:DataType="pagemodels:SettingsPageModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cells="clr-namespace:Wirtualnik.XF.Controls.Settings"
+    xmlns:pagemodels="clr-namespace:Wirtualnik.XF.PageModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentPage.Content>
+        <Grid
+            CompressedLayout.IsHeadless="True"
+            RowDefinitions="46,*"
+            RowSpacing="0">
+            <Frame
+                Padding="12,8"
+                BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
+                                                  Dark={StaticResource CellBackgroundColorDark}}"
+                CornerRadius="0">
+                <Grid>
+                    <Label
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        FontFamily="PoppinsBold"
+                        FontSize="18"
+                        Text="Ustawienia"
+                        TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                                    Dark={StaticResource ContrastColorDark}}" />
+
+                    <Label
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        xct:TouchEffect.AnimationDuration="150"
+                        xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                        xct:TouchEffect.Command="{Binding GoBackCommand}"
+                        xct:TouchEffect.PressedOpacity="0.5"
+                        FontFamily="PoppinsRegular"
+                        Text="Gotowe"
+                        TextColor="#f84d60" />
+                </Grid>
+            </Frame>
+
+            <ScrollView Grid.Row="1">
+                <StackLayout Padding="0" Spacing="8">
+                    <Label
+                        Margin="12,16,0,0"
+                        FontFamily="PoppinsRegular"
+                        FontSize="12"
+                        Text="USTAWIENIA KONTA"
+                        TextColor="{AppThemeBinding Light={StaticResource LowContrastColorLight},
+                                                    Dark={StaticResource LowContrastColorDark}}" />
+
+                    <StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource LightBackgroundColorLight}, Dark={StaticResource LightBackgroundColorDark}}" Spacing="0">
+
+                        <cells:SettingCell
+                            Title="Ut enim ad minima"
+                            Description="Nemo enim ipsam"
+                            IsTopSeparatorVisible="False" />
+                        <cells:SettingCell Title="Lorem ipsum dolor" Description="Sed ut perspiciatis" />
+                        <cells:SettingCell Title="At vero eos et accusamus" Description="Quis autem vel" />
+                        <cells:SettingCell Title="Et harum quidem" />
+
+                    </StackLayout>
+                    <Label
+                        Margin="12,0,0,0"
+                        FontFamily="PoppinsRegular"
+                        FontSize="11"
+                        LineHeight="1.3"
+                        Text="At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores."
+                        TextColor="{AppThemeBinding Light={StaticResource LowContrastColorLight},
+                                                    Dark={StaticResource LowContrastColorDark}}" />
+
+                    <Label
+                        Margin="12,8,0,0"
+                        FontFamily="PoppinsRegular"
+                        FontSize="12"
+                        Text="INNE"
+                        TextColor="{AppThemeBinding Light={StaticResource LowContrastColorLight},
+                                                    Dark={StaticResource LowContrastColorDark}}" />
+                    <StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource LightBackgroundColorLight}, Dark={StaticResource LightBackgroundColorDark}}" Spacing="0">
+                        <StackLayout
+                            HeightRequest="48"
+                            Padding="12,0,0,0"
+                            Orientation="Horizontal">
+                            <Label
+                                Margin="0,4,0,0"
+                                VerticalOptions="Center"
+                                FontFamily="PoppinsRegular"
+                                FontSize="16"
+                                Text="Ciemny motyw"
+                                TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                                            Dark={StaticResource ContrastColorDark}}" />
+                            <Switch
+                                Margin="0,0,12,0"
+                                HorizontalOptions="EndAndExpand"
+                                VerticalOptions="Center"
+                                IsEnabled="True"
+                                IsToggled="True"
+                                Visual="Material" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

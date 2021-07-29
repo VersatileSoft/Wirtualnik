@@ -1,9 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using TinyMvvm.IoC;
 using Wirtualnik.Shared.ApiClient;
+using Wirtualnik.XF.PageModels;
+using Wirtualnik.XF.Pages;
+using Wirtualnik.XF.Services;
 using Wirtualnik.XF.Services.Implementations;
-using Wirtualnik.XF.ViewModels;
-using Wirtualnik.XF.Views;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -13,7 +16,8 @@ namespace Wirtualnik.XF
     {
         protected static IServiceProvider? ServiceProvider { get; set; }
 
-        public static ViewModelBase? GetViewModel<TViewModel>() where TViewModel : ViewModelBase => ServiceProvider?.GetService<TViewModel>();
+        public static ObservableObject? GetPageViewModel<TViewModel>() where TViewModel : ObservableObject => Resolver.Resolve<TViewModel>();
+        //public static ObservableObject? GetViewModel(Type viewModelType) => ServiceProvider?.GetRequiredService(viewModelType) as ObservableObject;
 
         public App(Action<IServiceCollection>? addPlatformServices = null)
         {
@@ -28,15 +32,18 @@ namespace Wirtualnik.XF
         {
             string token = await SecureStorage.GetAsync("oauth_token").ConfigureAwait(false);
 
-            if (string.IsNullOrEmpty(token))
-            {
-                MainPage = new LoginPage();
-            }
-            else
-            {
-                // https://github.com/xamarin/Xamarin.Forms/issues/11993
-                MainPage = new NavigationPage(new MainPage());
-            }
+            // https://github.com/xamarin/Xamarin.Forms/issues/11993
+            MainPage = new AppShellPage(); //new NavigationPage(new MainPage());
+
+            //if (string.IsNullOrEmpty(token))
+            //{
+            //    MainPage = new LoginPage();
+            //}
+            //else
+            //{
+            //    // https://github.com/xamarin/Xamarin.Forms/issues/11993
+            //    MainPage = new NavigationPage(new MainPage());
+            //}
 
             base.OnStart();
         }
@@ -45,13 +52,17 @@ namespace Wirtualnik.XF
         {
             var services = new ServiceCollection();
 
+            services.RegisterClients();
+
             addPlatformServices?.Invoke(services);
 
             services.RegisterViewModels();
             services.RegisterServices();
-            services.RegisterClients();
 
             ServiceProvider = services.BuildServiceProvider();
+
+            var resolver = new MicrosoftDIResolver(ServiceProvider);
+            Resolver.SetResolver(resolver);
         }
     }
 }

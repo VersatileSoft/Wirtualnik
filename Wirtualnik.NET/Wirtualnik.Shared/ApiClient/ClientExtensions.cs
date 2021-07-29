@@ -7,7 +7,7 @@ namespace Wirtualnik.Shared.ApiClient
 {
     public static class ClientExtensions
     {
-        private const string BaseUrl = "https://zlcn.pro";
+        private const string BaseUrl = "https://api.zlcn.pro";
         private static readonly string AuthUrl = $"{BaseUrl}/auth";
         private static readonly string ApiUrl = $"{BaseUrl}/api";
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Wirtualnik.XF.Views;
+using Wirtualnik.XF.Pages;
 using Xamarin.Essentials;
 
 namespace Wirtualnik.XF.Services.Implementations
@@ -16,7 +16,6 @@ namespace Wirtualnik.XF.Services.Implementations
             this.navigationService = navigationService;
         }
 
-        //https://github.com/xamarin/Essentials/issues/1845
         public async Task<bool> SignInAsync(string? scheme)
         {
             var authToken = string.Empty;
@@ -31,7 +30,7 @@ namespace Wirtualnik.XF.Services.Implementations
                 else
                 {
                     var authUrl = new Uri(authenticationUrl + scheme);
-                    var callbackUrl = new Uri("xamarinessentials://"); //$"{AppInfo.PackageName}://");
+                    var callbackUrl = new Uri($"{AppInfo.PackageName}://");
 
                     result = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl).ConfigureAwait(false);
                 }

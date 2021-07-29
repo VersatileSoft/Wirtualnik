@@ -6,6 +6,8 @@ using Android.OS;
 using AndroidX.Core.View;
 using Microsoft.Extensions.DependencyInjection;
 using Sentry;
+using Wirtualnik.XF.Droid.Services;
+using Wirtualnik.XF.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -52,29 +54,31 @@ namespace Wirtualnik.XF.Droid
         public void SetStatusBarColor()
         {
             var currentTheme = Xamarin.Forms.Application.Current.RequestedTheme;
-            var color = currentTheme == OSAppTheme.Light ? ColorConverters.FromHex("#f9f9f9").ToPlatformColor() : ColorConverters.FromHex("#222222").ToPlatformColor();
-            var window = Platform.CurrentActivity.Window;
+            var barsColor = currentTheme == OSAppTheme.Light ? ColorConverters.FromHex("#f9f9f9").ToPlatformColor() : ColorConverters.FromHex("#222222").ToPlatformColor();
+            var backgroundColor = currentTheme == OSAppTheme.Light ? ColorConverters.FromHex("#f3f3f3").ToPlatformColor() : ColorConverters.FromHex("#191919").ToPlatformColor();
+            //var window = Platform.CurrentActivity.Window;
 
-            if (window is null)
+            if (this.Window is null)
             {
                 return;
             }
 
-            window.SetBackgroundDrawable(new ColorDrawable(color));
-            window.SetStatusBarColor(color);
+            this.Window.SetBackgroundDrawable(new ColorDrawable(backgroundColor)); //this.ApplicationContext.GetDrawable(Resource.Drawable.splash_screen));
+            this.Window.SetStatusBarColor(barsColor);
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-                window.SetNavigationBarColor(color);
+                this.Window.SetNavigationBarColor(barsColor);
             }
 
-            using var controller = WindowCompat.GetInsetsController(window, window.DecorView.RootView);
+            using var controller = WindowCompat.GetInsetsController(this.Window, this.Window.DecorView.RootView);
             controller.AppearanceLightStatusBars = currentTheme == OSAppTheme.Light;
             controller.AppearanceLightNavigationBars = currentTheme == OSAppTheme.Light;
         }
 
         private static void AddPlatformServices(IServiceCollection services)
         {
+            services.AddSingleton<IEnviroment, Enviroment>();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

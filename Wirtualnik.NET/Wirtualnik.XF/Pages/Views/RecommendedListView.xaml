@@ -1,0 +1,17 @@
+﻿<mvvm:ShellViewBase x:Class="Wirtualnik.XF.Views.RecommendedListView" x:DataType="viewmodels:RecommendedListViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
+    xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
+    x:TypeArguments="viewmodels:RecommendedListViewModel"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                      Dark={StaticResource BackgroundColorDark}}">
+    <ContentPage.Content>
+        <Grid>
+            <Label
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Text="Welcome to RecommendedListView!" />
+        </Grid>
+    </ContentPage.Content>
+</mvvm:ShellViewBase>

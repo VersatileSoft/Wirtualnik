@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -8,23 +9,66 @@ namespace Wirtualnik.XF.Services.Implementations
     {
         public Task NavigateToAsync<TPage>() where TPage : Page, new()
         {
-            return MainThread.InvokeOnMainThreadAsync(() =>
-                Application.Current.MainPage.Navigation.PushAsync(new TPage())
+            return MainThread.InvokeOnMainThreadAsync(async () =>
+                await App.Current.MainPage.Navigation.PushAsync(new TPage())
             );
         }
 
-        public Task PopAsync()
+        public Task NavigateToAsync(Type? pageType)
         {
-            return MainThread.InvokeOnMainThreadAsync(() =>
-                Application.Current.MainPage.Navigation.PopAsync()
+            if (pageType is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            return MainThread.InvokeOnMainThreadAsync(async () =>
+                await App.Current.MainPage.Navigation.PushAsync((Page)Activator.CreateInstance(pageType))
+            );
+        }
+
+        public Task NavigateToAsModalAsync<TPage>() where TPage : Page, new()
+        {
+            return MainThread.InvokeOnMainThreadAsync(async () =>
+                await App.Current.MainPage.Navigation.PushModalAsync(new TPage())
+            );
+        }
+
+        public Task NavigateToAsModalAsync(Type? pageType)
+        {
+            if (pageType is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            return MainThread.InvokeOnMainThreadAsync(async () =>
+                await App.Current.MainPage.Navigation.PushModalAsync((Page)Activator.CreateInstance(pageType))
+            );
+        }
+
+        public Task GoBackAsync()
+        {
+            if (IsModal())
+            {
+                return MainThread.InvokeOnMainThreadAsync(async () =>
+                    await App.Current.MainPage.Navigation.PopModalAsync()
+                );
+            }
+
+            return MainThread.InvokeOnMainThreadAsync(async () =>
+                await App.Current.MainPage.Navigation.PopAsync()
             );
         }
 
         public void SetMainPage<TPage>() where TPage : Page, new()
         {
-            MainThread.InvokeOnMainThreadAsync(() =>
-                Application.Current.MainPage = new NavigationPage(new TPage())
+            MainThread.BeginInvokeOnMainThread(() =>
+                App.Current.MainPage = new NavigationPage(new TPage())
             );
+        }
+
+        private bool IsModal()
+        {
+            return App.Current.MainPage.Navigation.ModalStack.Count > 0;
         }
     }
 }

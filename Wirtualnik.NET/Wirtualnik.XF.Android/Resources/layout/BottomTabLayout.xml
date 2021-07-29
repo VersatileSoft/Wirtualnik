@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout 
+        android:id="@+id/bottomtab.navarea"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_marginBottom="56dp"
+        android:layout_gravity="fill"
+        android:layout_weight="0" />
+
+    <!--app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"  app:layout_behavior="com.versatilesoftware.wirtualnik.BottomNavigationViewBehavior"-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomtab.tabbar"
+        android:theme="@style/Widget.MaterialComponents.BottomNavigationView"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
