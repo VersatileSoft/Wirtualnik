@@ -10,8 +10,9 @@
                 <!--<styles:PageStyle />-->
             </ResourceDictionary.MergedDictionaries>
 
-            <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
-                <Setter Property="BackgroundColor" Value="Transparent" />
+            <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+                <Setter Property="NavigationPage.HasNavigationBar" Value="False" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
             </Style>
             <!--<templates:PageTemplate x:Key="PageTemplate" />-->
         </ResourceDictionary>

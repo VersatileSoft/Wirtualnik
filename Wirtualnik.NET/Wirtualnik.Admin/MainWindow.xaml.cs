@@ -16,7 +16,7 @@ namespace Wirtualnik.Admin
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static string? Token;
+        public static string Token;
         public IEnumerable<string> SelectedFiles { get; set; }
 
         public MainWindow()
@@ -29,13 +29,22 @@ namespace Wirtualnik.Admin
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             var auth = (IAuthClient)App.Services.GetService(typeof(IAuthClient));
-            var tokenModel = await auth.LoginAsync(new LoginModel
-            {
-                Email = Login.Text,
-                Password = Password.Text
-            });
 
-            Token = tokenModel.Token;
+            try
+            {
+                var tokenModel = await auth.LoginAsync(new LoginModel
+                {
+                    Email = Login.Text,
+                    Password = Password.Text
+                });
+
+                Token = tokenModel.Token;
+            }
+            catch (ApiException ex)
+            {
+                MessageBox.Show(ex.StackTrace, ex.Message);
+                return;
+            }
 
             if (!string.IsNullOrEmpty(Token))
             {
@@ -99,7 +108,15 @@ namespace Wirtualnik.Admin
                 Properties = props
             };
 
-            await products.Create(model);
+            try
+            {
+                await products.Create(model);
+            }
+            catch (ApiException ex)
+            {
+                MessageBox.Show(ex.StackTrace, ex.Message);
+                return;
+            }
 
             var filesClient = (IFilesClient)App.Services.GetService(typeof(IFilesClient));
 
@@ -111,7 +128,15 @@ namespace Wirtualnik.Admin
                 files.Add(new StreamPart(file, System.IO.Path.GetFileName(file.Name)));
             }
 
-            await filesClient.Create(model.PublicId, files);
+            try
+            {
+                await filesClient.Create(model.PublicId, files);
+            }
+            catch (ApiException ex)
+            {
+                MessageBox.Show(ex.StackTrace, ex.Message);
+                return;
+            }
 
             foreach (var file in files)
             {

@@ -1,0 +1,14 @@
+﻿<ContentPage x:Class="Wirtualnik.XF.Pages.SearchPage" x:DataType="pagemodels:SearchPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pagemodels="clr-namespace:Wirtualnik.XF.Pages">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Text="Welcome to SearchPage!" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

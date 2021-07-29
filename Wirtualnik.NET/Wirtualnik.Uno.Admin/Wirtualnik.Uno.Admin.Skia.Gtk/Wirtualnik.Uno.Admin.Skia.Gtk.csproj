@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+    <OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup Condition="exists('..\Wirtualnik.Uno.Admin.UWP')">
+    <EmbeddedResource Include="..\Wirtualnik.Uno.Admin.UWP\Package.appxmanifest" LogicalName="Package.appxmanifest" />
+    <Content Include="..\Wirtualnik.Uno.Admin.UWP\Assets\StoreLogo.png" Link="Assets\StoreLogo.png" />
+    <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Include="..\Wirtualnik.Uno.Admin.Shared\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Include="Uno.UI.Skia.Gtk" Version="3.9.1" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="3.9.1" Condition="'$(Configuration)'=='Debug'" />
+  </ItemGroup>
+  <Import Project="..\Wirtualnik.Uno.Admin.Shared\Wirtualnik.Uno.Admin.Shared.projitems" Label="Shared" />
+</Project>

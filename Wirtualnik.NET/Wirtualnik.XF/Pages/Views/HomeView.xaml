@@ -1,0 +1,131 @@
+﻿<mvvm:ShellViewBase x:Class="Wirtualnik.XF.Views.HomeView" x:DataType="viewmodels:HomeViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.XF.Controls"
+    xmlns:mvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
+    xmlns:nalesnik="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:styles="clr-namespace:Wirtualnik.XF.Styles"
+    xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
+    xmlns:views="clr-namespace:Wirtualnik.XF.Views"
+    x:TypeArguments="viewmodels:HomeViewModel">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView x:Name="collectionView"
+                HeightRequest="150"
+                Margin="0,24"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                ItemSizingStrategy="MeasureFirstItem"
+                ItemsSource="{Binding ProductList}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="8" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <nalesnik:PancakeView
+                            Margin="0"
+                            Padding="0"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            BackgroundGradientEndPoint="1,1"
+                            BackgroundGradientStartPoint="1,0"
+                            CornerRadius="12">
+                            <nalesnik:PancakeView.BackgroundGradientStops>
+                                <nalesnik:GradientStopCollection>
+                                    <nalesnik:GradientStop Offset="0.1" Color="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
+                                    <nalesnik:GradientStop Offset="0.4" Color="{AppThemeBinding Light={StaticResource CellBackgroundColorLight}, Dark={StaticResource CellBackgroundColorDark}}" />
+                                </nalesnik:GradientStopCollection>
+                            </nalesnik:PancakeView.BackgroundGradientStops>
+
+                            <Grid
+                                HorizontalOptions="FillAndExpand"
+                                ColumnDefinitions="38,38,38,38,38,38,42"
+                                ColumnSpacing="0"
+                                RowDefinitions="80*, 32*"
+                                RowSpacing="0">
+                                <Grid.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.MergedDictionaries>
+                                            <styles:ProductCellStyle />
+                                        </ResourceDictionary.MergedDictionaries>
+                                    </ResourceDictionary>
+                                </Grid.Resources>
+
+                                <!--<BoxView Grid.ColumnSpan="3" Color="AliceBlue" />-->
+                                <Frame
+                                    Grid.ColumnSpan="3"
+                                    Margin="0,0"
+                                    Padding="0,8"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill">
+                                    <Frame.Background>
+                                        <RadialGradientBrush Radius="0.47">
+                                            <GradientStop Offset="0.1" Color="#26ff9900" />
+                                            <GradientStop Offset="1.0" Color="Transparent" />
+                                        </RadialGradientBrush>
+                                    </Frame.Background>
+
+                                    <Image
+                                        Grid.ColumnSpan="3"
+                                        Margin="0"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill"
+                                        Aspect="AspectFit"
+                                        IsOpaque="True"
+                                        Source="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png" />
+                                </Frame>
+
+                                <!--<BoxView
+                                    Grid.Column="3"
+                                    Grid.ColumnSpan="4"
+                                    Color="Maroon" />-->
+                                <StackLayout
+                                    Grid.Column="3"
+                                    Grid.ColumnSpan="4"
+                                    Spacing="0">
+                                    <Label Style="{StaticResource ProductTitleLabelStyle}" />
+
+
+                                    <Label Style="{StaticResource ProductPriceLabelStyle}" />
+
+                                    <Label
+                                        Margin="0,2,0,0"
+                                        HorizontalOptions="FillAndExpand"
+                                        Style="{StaticResource ProductSpecLabelStyle}"
+                                        Text="4 rdzenie, 4 wątki&#10;Socket AM4&#10;65W" />
+                                </StackLayout>
+
+                                <!--<BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="6"
+                                    Color="Aqua" />-->
+
+                                <!--<BoxView
+                                    Grid.Row="1"
+                                    Grid.Column="6"
+                                    Color="LightPink" />-->
+
+                                <controls:ButtonFrameControl
+                                    Grid.Row="0"
+                                    Grid.Column="6"
+                                    Margin="0,0,0,4"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="End"
+                                    Glyph="{StaticResource AddToCartIcon}" />
+
+                                <controls:ButtonFrameControl
+                                    Grid.Row="1"
+                                    Grid.Column="6"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    Glyph="{StaticResource DoubleArrowRightIcon}" />
+                            </Grid>
+                        </nalesnik:PancakeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</mvvm:ShellViewBase>

@@ -8,6 +8,9 @@ namespace Wirtualnik.XF.Services.Implementations
         {
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
+
+            services.AddSingleton<IProductService, ProductService>();
+
             return services;
         }
     }
