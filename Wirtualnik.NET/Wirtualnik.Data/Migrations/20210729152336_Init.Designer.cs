@@ -10,7 +10,7 @@ using Wirtualnik.Data;
 namespace Wirtualnik.Data.Migrations
 {
     [DbContext(typeof(WirtualnikDbContext))]
-    [Migration("20210719183434_Init")]
+    [Migration("20210729152336_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,6 +218,42 @@ namespace Wirtualnik.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Wirtualnik.Data.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Main")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Width")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("Wirtualnik.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -254,6 +290,11 @@ namespace Wirtualnik.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("PublicId")
+                        .IsUnique();
 
                     b.ToTable("Products");
                 });
@@ -444,6 +485,28 @@ namespace Wirtualnik.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Wirtualnik.Data.Models.Image", b =>
+                {
+                    b.HasOne("Wirtualnik.Data.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Wirtualnik.Data.Models.Product", b =>
+                {
+                    b.HasOne("Wirtualnik.Data.Models.ProductType", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductType");
+                });
+
             modelBuilder.Entity("Wirtualnik.Data.Models.ProductShop", b =>
                 {
                     b.HasOne("Wirtualnik.Data.Models.Product", "Product")
@@ -495,6 +558,8 @@ namespace Wirtualnik.Data.Migrations
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Product", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("ProductShops");
 
                     b.Navigation("Properties");

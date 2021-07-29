@@ -41,11 +41,21 @@ namespace Wirtualnik.Server
             services.AddRazorPages();
             services.AddExtSwagger();
             services.AddSpaStaticFiles(o => o.RootPath = "wwwroot");
+            services.AddCors(s =>
+            {
+                s.AddPolicy("allow", k =>
+                {
+                    k.AllowAnyMethod();
+                    k.AllowAnyHeader();
+                    k.AllowAnyOrigin();
+                });
+            });
             return services.ConfigureAutofac();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMapper mapper)
         {
+            app.UseCors("allow");
             app.UseMiddleware<RequestTimeMiddleware>();
 
             if (env.IsDevelopment())

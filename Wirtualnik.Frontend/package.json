@@ -24,6 +24,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
+    "axios": "^0.21.1",
     "core-js": "^3.14.0",
     "css-what": "5.0.1",
     "lodash": "^4.17.21",
