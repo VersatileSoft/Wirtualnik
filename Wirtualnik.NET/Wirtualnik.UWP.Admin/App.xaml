@@ -1,0 +1,15 @@
+﻿<Application x:Class="Wirtualnik.UWP.Admin.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:local="using:Wirtualnik.UWP.Admin">
+    <Application.Resources>
+        <controls:XamlControlsResources>
+            <controls:XamlControlsResources.MergedDictionaries>
+                <ResourceDictionary>
+                    <Color x:Key="SystemAccentColor">#f23d3d</Color>
+                </ResourceDictionary>
+            </controls:XamlControlsResources.MergedDictionaries>
+        </controls:XamlControlsResources>
+    </Application.Resources>
+</Application>

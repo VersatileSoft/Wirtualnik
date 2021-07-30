@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  IgnorableNamespaces="uap mp uap5">
+
+  <Identity
+    Name="2b584003-f7bd-4d44-ae1c-9cca6b689f4c"
+    Publisher="CN=Kacpe"
+    Version="0.2.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="2b584003-f7bd-4d44-ae1c-9cca6b689f4c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>Wirtualnik.UWP.Admin</DisplayName>
+    <PublisherDisplayName>Kacpe</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Wirtualnik.UWP.Admin.App">
+      <uap:VisualElements
+        DisplayName="Wirtualnik Admin"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="Wirtualnik.UWP.Admin"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Wirtualnik Admin" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen uap5:Optional="true" Image="Assets\SplashScreen.png"  BackgroundColor="#f23d3d"/>
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <uap:Capability Name="picturesLibrary"/>
+  </Capabilities>
+</Package>

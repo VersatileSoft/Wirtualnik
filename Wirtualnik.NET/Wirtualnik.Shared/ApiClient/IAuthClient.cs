@@ -7,6 +7,6 @@ namespace Wirtualnik.Shared.ApiClient
     public interface IAuthClient
     {
         [Post("/login")]
-        public Task<LoginResult> LoginAsync(LoginModel model);
+        public Task<ApiResponse<LoginResult>> LoginAsync(LoginModel model);
     }
 }
