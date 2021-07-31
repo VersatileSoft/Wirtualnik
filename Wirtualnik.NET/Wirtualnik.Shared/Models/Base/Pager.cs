@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 
@@ -49,6 +50,7 @@ namespace Wirtualnik.Shared.Models.Base
             }
         }
 
+        [BindNever]
         public int TotalRows
         {
             get

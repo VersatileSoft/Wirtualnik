@@ -6,9 +6,7 @@
     <Application.Resources>
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
-                <ResourceDictionary>
-                    <Color x:Key="SystemAccentColor">#f23d3d</Color>
-                </ResourceDictionary>
+
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>
     </Application.Resources>

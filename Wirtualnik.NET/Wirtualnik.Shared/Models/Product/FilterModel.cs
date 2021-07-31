@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Wirtualnik.Shared.Models.Product
 {
@@ -6,6 +7,7 @@ namespace Wirtualnik.Shared.Models.Product
     {
         public int? ProductTypeId { get; set; }
 
+        [FromQuery]
         public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
     }
 }
