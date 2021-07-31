@@ -1,0 +1,310 @@
+﻿<Page x:Class="Wirtualnik.UWP.Admin.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Wirtualnik.UWP.Admin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <NavigationView IsPaneOpen="False" PaneDisplayMode="LeftCompact">
+        <NavigationView.Content>
+            <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <Grid Padding="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="336" />
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            Margin="16,16,0,0"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Left"
+                            Text="Logowanie"
+                            TextDecorations="Underline"
+                            VerticalAlignment="Top" />
+
+                        <TextBlock x:Name="InfoLabel"
+                            Margin="0,16"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top" />
+
+                        <TextBox x:Name="Login"
+                            Margin="16,0"
+                            Header="Login"
+                            PlaceholderText="Enter your e-mail"
+                            Text="admin@admin.pl"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Top" />
+                        <PasswordBox x:Name="Password"
+                            Margin="16,0"
+                            Header="Hasło"
+                            IsPasswordRevealButtonEnabled="True"
+                            Password="admin"
+                            PlaceholderText="Enter your password"
+                            VerticalAlignment="Top" />
+
+                        <Button
+                            Grid.ColumnSpan="2"
+                            Margin="16,0"
+                            Click="LoginButton_Click"
+                            Content="Zaloguj"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource AccentButtonStyle}"
+                            VerticalAlignment="Top" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Spacing="8">
+                        <TextBlock
+                            Margin="16"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Left"
+                            Text="Dodaj typ produktu"
+                            TextDecorations="Underline"
+                            VerticalAlignment="Top" />
+                        <TextBox x:Name="ProductTypeName"
+                            Margin="16,0"
+                            Header="Product type name"
+                            HorizontalAlignment="Stretch"
+                            PlaceholderText="Processor"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Top" />
+                        <TextBox x:Name="ProductTypeProps"
+                            Margin="16,0"
+                            AcceptsReturn="True"
+                            Header="Właściwości&#x0a;(oddzielone enterem)"
+                            HorizontalAlignment="Stretch"
+                            IsSpellCheckEnabled="False"
+                            PlaceholderText="Cores&#x0a;Threads&#x0a;L3 Cache"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Top" />
+
+                        <Button x:Name="AddType"
+                            Height="44"
+                            Margin="16,0"
+                            Click="AddType_Click"
+                            Content="Dodaj typ produktu"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource AccentButtonStyle}"
+                            VerticalAlignment="Top" />
+                    </StackPanel>
+
+                    <ScrollViewer
+                        Grid.Column="2"
+                        MaxHeight="1100"
+                        VerticalAlignment="Top">
+                        <StackPanel Padding="0,0,16,0" Spacing="8">
+                            <TextBlock
+                                Margin="16"
+                                FontSize="22"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Left"
+                                Text="Dodaj produkt"
+                                TextDecorations="Underline"
+                                VerticalAlignment="Top" />
+
+                            <ComboBox x:Name="itemTypesList"
+                                Margin="16,0"
+                                DisplayMemberPath="Name"
+                                Header="Product type"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="You must choose something"
+                                SelectionChanged="ItemTypesList_SelectionChanged" />
+
+                            <TextBox x:Name="prodManufacturer"
+                                Margin="16,0"
+                                Header="Manufacturer"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="AMD"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
+                            <TextBox x:Name="prodName"
+                                Margin="16,0"
+                                Header="Full name"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="AMD Ryzen 5 3600"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
+                            <TextBox x:Name="prodIdPubl"
+                                Margin="16,0"
+                                Header="ID (short code / url)"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="amd_ryzen_5_3600"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
+                            <TextBox x:Name="description"
+                                Margin="16,0"
+                                AcceptsReturn="True"
+                                Header="Description"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="Procesor AMD Ryzen 5 3600 cechuje się..."
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
+                            <TextBox x:Name="prodEAN"
+                                Margin="16,0"
+                                Header="EAN"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="8592978177560"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
+                            <TextBlock Margin="16,0" Text="Images&#x0a;(25px, 50px, 100px, 200px, 400px, 1000px)" />
+
+                            <FlipView x:Name="flipView"
+                                MaxHeight="286"
+                                Margin="16,0"
+                                BorderBrush="Black"
+                                BorderThickness="1">
+                                <FlipView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Image Source="{Binding Source}" />
+                                            <TextBlock Text="{Binding Path}" VerticalAlignment="Top" />
+                                            <TextBlock
+                                                HorizontalAlignment="Right"
+                                                Text="{Binding Resolution}"
+                                                VerticalAlignment="Bottom" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </FlipView.ItemTemplate>
+                            </FlipView>
+
+
+                            <Button x:Name="AddFiles"
+                                Margin="16,0"
+                                Click="AddFiles_Click"
+                                Content="Add images"
+                                HorizontalAlignment="Stretch"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Top" />
+
+                            <TextBlock Margin="16,0" Text="Color (grandient under main image)" />
+                            <muxc:SplitButton x:Name="myColorButton"
+                                Margin="16,0"
+                                HorizontalAlignment="Stretch">
+                                <Border x:Name="CurrentColor"
+                                    Width="220"
+                                    Height="32"
+                                    Background="{Binding SelectedValue, ElementName=colorPickerGridView}"
+                                    CornerRadius="4">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding SelectedValue, ElementName=colorPickerGridView}"
+                                        VerticalAlignment="Center" />
+                                </Border>
+                                <muxc:SplitButton.Flyout>
+                                    <Flyout Placement="Top">
+                                        <StackPanel>
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                HorizontalAlignment="Center"
+                                                Text="All of those color will be sent with 15% opacity." />
+                                            <GridView x:Name="colorPickerGridView" SelectedIndex="0">
+                                                <GridView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <ItemsWrapGrid MaximumRowsOrColumns="3" />
+                                                    </ItemsPanelTemplate>
+                                                </GridView.ItemsPanel>
+                                                <GridView.Items>
+                                                    <!--  Orange  -->
+                                                    <x:String>#f06928</x:String>
+                                                    <!--  Red  -->
+                                                    <x:String>#f31818</x:String>
+                                                    <!--  Rose  -->
+                                                    <x:String>#f31892</x:String>
+                                                    <!--  Violet  -->
+                                                    <x:String>#d118f3</x:String>
+                                                    <!--  Deep Blue  -->
+                                                    <x:String>#2f18f3</x:String>
+                                                    <!--  Light Blue  -->
+                                                    <x:String>#1884f3</x:String>
+                                                    <!--  Turkus  -->
+                                                    <x:String>#18f3de</x:String>
+                                                    <!--  Lime  -->
+                                                    <x:String>#18f383</x:String>
+                                                    <!--  Green  -->
+                                                    <x:String>#18f31e</x:String>
+                                                    <!--  Yellow  -->
+                                                    <x:String>#f0f318</x:String>
+                                                    <!--  Gold  -->
+                                                    <x:String>#f1e991</x:String>
+                                                </GridView.Items>
+
+                                                <GridView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Border
+                                                                Width="64"
+                                                                Height="48"
+                                                                Margin="8"
+                                                                Background="{Binding}"
+                                                                CornerRadius="4">
+                                                                <TextBlock
+                                                                    HorizontalAlignment="Center"
+                                                                    Text="{Binding}"
+                                                                    VerticalAlignment="Center" />
+                                                            </Border>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </GridView.ItemTemplate>
+                                            </GridView>
+                                        </StackPanel>
+                                    </Flyout>
+                                </muxc:SplitButton.Flyout>
+                            </muxc:SplitButton>
+
+                            <Button x:Name="AddProduct"
+                                Height="64"
+                                Margin="16,0"
+                                Click="AddProduct_Click"
+                                Content="Send product"
+                                HorizontalAlignment="Stretch"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Top" />
+
+                            <TextBlock x:Name="AddProductStatusText" Text="Status" />
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <ScrollViewer
+                        Grid.Column="3"
+                        MaxHeight="1000"
+                        VerticalAlignment="Top">
+                        <StackPanel x:Name="Props"
+                            Padding="16"
+                            Orientation="Vertical"
+                            Spacing="8" />
+                    </ScrollViewer>
+
+                    <StackPanel
+                        Grid.Column="4"
+                        Orientation="Vertical"
+                        Spacing="8">
+                        <TextBlock
+                            Margin="16"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Left"
+                            Text="Item cell preview [WIP]"
+                            VerticalAlignment="Top" />
+
+
+
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </NavigationView.Content>
+    </NavigationView>
+
+</Page>
