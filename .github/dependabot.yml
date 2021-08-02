@@ -19,9 +19,9 @@ updates:
     schedule:
       interval: "daily"
     assignees:
-      - "Nexi77"
+      - "ErgoAsh"
     reviewers:
-      - "Nexi77"
+      - "ErgoAsh"
 
   # Maintain dependencies for NuGet
   - package-ecosystem: "nuget"
