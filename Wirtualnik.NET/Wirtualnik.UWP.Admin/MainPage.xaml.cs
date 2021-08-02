@@ -177,15 +177,12 @@ namespace Wirtualnik.UWP.Admin
             {
                 await ShowContentDialog(ex.Message, ex.StackTrace);
                 AddProductStatusText.Text = "Nie działa";
+                files.Clear();
                 return;
             }
 
-            foreach (var file in files)
-            {
-                file.Value.Dispose();
-            }
-
             AddProductStatusText.Text = "Działa";
+            files.Clear();
         }
 
         private void ItemTypesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
