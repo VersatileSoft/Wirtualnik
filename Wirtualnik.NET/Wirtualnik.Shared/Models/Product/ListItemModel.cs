@@ -11,6 +11,7 @@ namespace Wirtualnik.Shared.Models.Product
         public string EAN { get; set; } = "";
         public string Description { get; set; } = "";
         public string? Image { get; set; } = "";
+        public string Manufacturer { get; set; } = "";
         public IEnumerable<KeyValuePair<string, string>> Properties { get; set; } = new List<KeyValuePair<string, string>>();
     }
 }

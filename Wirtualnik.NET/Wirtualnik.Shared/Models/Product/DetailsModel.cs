@@ -10,6 +10,7 @@ namespace Wirtualnik.Shared.Models.Product
         public string PublicId { get; set; } = "";
         public string EAN { get; set; } = "";
         public string Description { get; set; } = "";
+        public string Manufacturer { get; set; } = "";
         public List<string> Images { get; set; } = new List<string>();
         public List<KeyValuePair<string, string>> Properties { get; set; } = new List<KeyValuePair<string, string>>();
     }

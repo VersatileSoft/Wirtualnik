@@ -19,12 +19,13 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <PackageCertificateThumbprint>7FA307C47BA71BCDC8871D3F2670CFF9AE292DA1</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>2449947D0966BA750B71E5ACE98610F27735861E</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateKeyFile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>

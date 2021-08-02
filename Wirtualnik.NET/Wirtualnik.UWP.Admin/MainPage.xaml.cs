@@ -199,8 +199,8 @@ namespace Wirtualnik.UWP.Admin
             {
                 Props.Children.Add(new TextBox
                 {
-                    TabIndex = prop.Key,
-                    Header = prop.Value,
+                    TabIndex = prop.Id,
+                    Header = prop.Name,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     VerticalAlignment = VerticalAlignment.Top,
                     Width = 124

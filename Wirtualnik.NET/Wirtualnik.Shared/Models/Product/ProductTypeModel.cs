@@ -6,6 +6,7 @@ namespace Wirtualnik.Shared.Models.Product
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
-        public IEnumerable<KeyValuePair<int, string>> PropertyTypes { get; set; } = new List<KeyValuePair<int, string>>();
+        public IEnumerable<PropertyModel> PropertyTypes { get; set; } = new List<PropertyModel>();
+        public string PublicId { get; set; } = "";
     }
 }
