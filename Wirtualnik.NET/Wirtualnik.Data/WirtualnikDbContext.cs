@@ -34,6 +34,14 @@ namespace Wirtualnik.Data
             builder.Entity<Product>()
                 .HasIndex(p => p.PublicId)
                 .IsUnique();
+
+            builder.Entity<ProductType>()
+                .HasIndex(p => p.PublicId)
+                .IsUnique();
+
+            builder.Entity<ProductType>()
+                .HasIndex(p => p.Name)
+                .IsUnique();
         }
     }
 }

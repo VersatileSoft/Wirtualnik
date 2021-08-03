@@ -55,6 +55,7 @@ namespace Wirtualnik.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
+                    PublicId = table.Column<string>(type: "text", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -197,7 +198,9 @@ namespace Wirtualnik.Data.Migrations
                     EAN = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Manufacturer = table.Column<string>(type: "text", nullable: false),
                     Archived = table.Column<bool>(type: "boolean", nullable: false),
+                    Color = table.Column<string>(type: "text", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -220,6 +223,9 @@ namespace Wirtualnik.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductTypeId = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
+                    ShowInFilter = table.Column<bool>(type: "boolean", nullable: false),
+                    ShowInCell = table.Column<bool>(type: "boolean", nullable: false),
+                    ShowInCart = table.Column<bool>(type: "boolean", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -373,6 +379,18 @@ namespace Wirtualnik.Data.Migrations
                 name: "IX_ProductShop_ShopId",
                 table: "ProductShop",
                 column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductTypes_Name",
+                table: "ProductTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductTypes_PublicId",
+                table: "ProductTypes",
+                column: "PublicId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_ProductId",

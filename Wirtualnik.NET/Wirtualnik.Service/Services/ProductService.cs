@@ -28,12 +28,19 @@ namespace Wirtualnik.Service.Services
 
         public async Task<List<ProductTypeModel>> GetAllProductTypes()
         {
-            return await Context.ProductTypes.Include(t => t.ProductProperties).Select(p => new ProductTypeModel
+            return await Context.ProductTypes.Include(t => t.ProductProperties.OrderBy(p => p.Name)).Select(p => new ProductTypeModel
             {
                 Id = p.Id,
                 Name = p.Name,
-                PublicId = p.publicId,
-                PropertyTypes = p.ProductProperties.Select(t => new PropertyModel { Name = t.Name, Id = t.Id })
+                PublicId = p.PublicId,
+                PropertyTypes = p.ProductProperties.Select(t => new PropertyModel 
+                {
+                    Name = t.Name, 
+                    Id = t.Id, 
+                    ShowInCart = t.ShowInCart, 
+                    ShowInCell = t.ShowInCell, 
+                    ShowInFilter = t.ShowInFilter 
+                })
             }).ToListAsync();
         }
 
@@ -46,7 +53,7 @@ namespace Wirtualnik.Service.Services
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(typePublicId))
-                query = query.Where(p => p.ProductType.publicId == typePublicId);
+                query = query.Where(p => p.ProductType.PublicId == typePublicId);
 
             foreach (var property in filter)
             {

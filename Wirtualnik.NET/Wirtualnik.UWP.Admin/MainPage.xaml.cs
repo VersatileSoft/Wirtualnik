@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
@@ -91,19 +92,35 @@ namespace Wirtualnik.UWP.Admin
         {
             var products = (IProductClient)App.Services.GetService(typeof(IProductClient));
 
-            List<string> cleanStrings = new List<string>();
+            ProductTypeModel model = new ProductTypeModel();
 
-            //Remove empty strings, duplicates, trim, replace multiple spaces to one space and split to array by enters
-            foreach (var dirtyString in ProductTypeProps.Text.Split('\r').Where(x => !string.IsNullOrWhiteSpace(x)))
+            model.Name = ProductTypeName.Text;
+            model.PublicId = ProductTypePublicId.Text;
+            var propertyTypes = new List<PropertyModel>();
+            foreach (var niceInput in ProductTypeProps.Children)
             {
-                var cleanString = Regex.Replace(dirtyString, @"\s+", " ");
-                cleanStrings.Add(cleanString.Trim());
+                var stack = niceInput as StackPanel;
+
+                var name = stack.Children[0] as TextBox;
+
+                var checksStack = stack.Children[1] as StackPanel;
+
+                var list = checksStack.Children[0] as CheckBox;
+                var filters = checksStack.Children[1] as CheckBox;
+                var cart = checksStack.Children[2] as CheckBox;
+                propertyTypes.Add(new PropertyModel
+                {
+                    Name = name.Text,
+                    ShowInCart = cart.IsChecked ?? false,
+                    ShowInCell = list.IsChecked ?? false,
+                    ShowInFilter = list.IsChecked ?? false
+                });
             }
-            var test = cleanStrings.Distinct().ToArray();
+            model.PropertyTypes = propertyTypes;
 
             try
             {
-                await products.CreateProductType(ProductTypeName.Text, test);
+                await products.CreateProductType(model);
             }
             catch (Exception ex)
             {
@@ -138,6 +155,13 @@ namespace Wirtualnik.UWP.Admin
                 props.Add(new KeyValuePair<int, string>(id, value));
             }
 
+            if((ProductTypeModel)itemTypesList.SelectedItem is null)
+            {
+                await ShowContentDialog("Nie wybrano typu produktu", "");
+                return;
+            }
+            
+
             CreateModel model = new CreateModel
             {
                 Archived = false,
@@ -146,7 +170,9 @@ namespace Wirtualnik.UWP.Admin
                 Name = prodName.Text,
                 ProductTypeId = ((ProductTypeModel)itemTypesList.SelectedItem).Id,
                 PublicId = prodIdPubl.Text,
-                Properties = props
+                Properties = props,
+                Manufacturer = prodManufacturer.Text,
+                Color = CurrentColor.Text
             };
 
             try
@@ -195,7 +221,7 @@ namespace Wirtualnik.UWP.Admin
             }
 
             Props.Children.Clear();
-            foreach (var prop in model.PropertyTypes)
+            foreach (var prop in model.PropertyTypes.OrderBy(p => p.Name))
             {
                 Props.Children.Add(new TextBox
                 {
@@ -252,6 +278,50 @@ namespace Wirtualnik.UWP.Admin
 
             await errorDialog.ShowAsync();
             return;
+        }
+
+        private void AddPropertyTypeInput_Click(object sender, RoutedEventArgs e)
+        {
+            var stack = new StackPanel
+            {
+                Margin = new Thickness(16, 0, 16, 0),
+            };
+
+            stack.Children.Add(new TextBox
+            {
+                PlaceholderText = "Cores"
+            });
+
+            var checksStack = new StackPanel
+            {
+                Orientation = Orientation.Horizontal
+            };
+
+            checksStack.Children.Add(new CheckBox
+            {
+                Margin = new Thickness(0, 0, -30, 0),
+                Content = "Lista"
+            });
+            checksStack.Children.Add(new CheckBox
+            {
+                Margin = new Thickness(0, 0, -30, 0),
+                Content = "Filtry"
+            }); 
+            checksStack.Children.Add(new CheckBox
+            {
+                Margin = new Thickness(0),
+                Content = "Koszyk"
+            });
+
+            stack.Children.Add(checksStack);
+
+            ProductTypeProps.Children.Add(stack);
+        }
+
+        private void RemovePropertyTypeInput_Click(object sender, RoutedEventArgs e)
+        {
+            if(ProductTypeProps.Children.Count > 0)
+                ProductTypeProps.Children.RemoveAt(ProductTypeProps.Children.Count - 1);
         }
     }
 }

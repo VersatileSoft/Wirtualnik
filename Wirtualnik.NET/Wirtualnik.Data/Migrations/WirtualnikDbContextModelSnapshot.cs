@@ -262,6 +262,10 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<bool>("Archived")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -342,14 +346,20 @@ namespace Wirtualnik.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("publicId")
+                    b.Property<string>("PublicId")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("PublicId")
+                        .IsUnique();
 
                     b.ToTable("ProductTypes");
                 });

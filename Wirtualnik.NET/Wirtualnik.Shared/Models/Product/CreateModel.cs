@@ -11,6 +11,7 @@ namespace Wirtualnik.Shared.Models.Product
         public string Description { get; set; } = "";
         public string Manufacturer { get; set; } = "";
         public bool Archived { get; set; }
+        public string Color { get; set; } = "";
         public List<KeyValuePair<int, string>> Properties { get; set; } = new List<KeyValuePair<int, string>>();
     }
 }

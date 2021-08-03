@@ -60,7 +60,7 @@ namespace Wirtualnik.Server.Controllers
             ProductType productType = new ProductType
             {
                 Name = model.Name,
-                publicId = model.PublicId,
+                PublicId = model.PublicId,
                 ProductProperties = model.PropertyTypes.Select(p => new PropertyType
                 {
                     Name = p.Name,

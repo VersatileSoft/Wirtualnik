@@ -12,6 +12,7 @@ namespace Wirtualnik.Shared.Models.Product
         public string Description { get; set; } = "";
         public string? Image { get; set; } = "";
         public string Manufacturer { get; set; } = "";
+        public string Color { get; set; } = "";
         public IEnumerable<KeyValuePair<string, string>> Properties { get; set; } = new List<KeyValuePair<string, string>>();
     }
 }

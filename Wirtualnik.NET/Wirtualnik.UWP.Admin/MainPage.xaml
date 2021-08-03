@@ -30,13 +30,8 @@
                             TextDecorations="Underline"
                             VerticalAlignment="Top" />
 
-                        <TextBlock x:Name="InfoLabel"
-                            Margin="0,16"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top" />
-
                         <TextBox x:Name="Login"
-                            Margin="16,0"
+                            Margin="16,16,16,0"
                             Header="Login"
                             PlaceholderText="Enter your e-mail"
                             Text="admin@admin.pl"
@@ -58,6 +53,12 @@
                             HorizontalAlignment="Stretch"
                             Style="{StaticResource AccentButtonStyle}"
                             VerticalAlignment="Top" />
+                        
+                        <TextBlock x:Name="InfoLabel"
+                            Margin="0,16"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top" />
+                        
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Spacing="8">
@@ -76,15 +77,48 @@
                             PlaceholderText="Processor"
                             TextWrapping="Wrap"
                             VerticalAlignment="Top" />
-                        <TextBox x:Name="ProductTypeProps"
+                        
+                        <TextBox x:Name="ProductTypePublicId"
                             Margin="16,0"
-                            AcceptsReturn="True"
-                            Header="Właściwości&#x0a;(oddzielone enterem)"
+                            Header="ID (short code / url)"
                             HorizontalAlignment="Stretch"
-                            IsSpellCheckEnabled="False"
-                            PlaceholderText="Cores&#x0a;Threads&#x0a;L3 Cache"
+                            PlaceholderText="cpu"
                             TextWrapping="Wrap"
                             VerticalAlignment="Top" />
+                        
+                        <TextBlock
+                            Margin="16,16,0,0"
+                            HorizontalAlignment="Left"
+                            Text="Właściwości"
+                            VerticalAlignment="Top" />
+
+                        <StackPanel x:Name="ProductTypeProps" />
+
+                        <StackPanel Orientation="Horizontal" >
+                            <Button x:Name="AddPropertyTypeInput"
+                            Height="44"
+                            Width="44"
+                            Margin="16,0,10,0"
+                            Click="AddPropertyTypeInput_Click"
+                            Content="+"
+                            HorizontalAlignment="Left"
+                            CornerRadius="100"
+                            Style="{StaticResource AccentButtonStyle}"
+                            VerticalAlignment="Top" />
+
+                            <Button x:Name="RemovePropertyTypeInput"
+                            Height="44"
+                            Width="44"
+                            Click="RemovePropertyTypeInput_Click"
+                            Content="-"
+                            CornerRadius="100"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource AccentButtonStyle}"
+                            VerticalAlignment="Top" />
+
+                        </StackPanel>
+                        
+                        
 
                         <Button x:Name="AddType"
                             Height="44"
@@ -193,12 +227,12 @@
                             <muxc:SplitButton x:Name="myColorButton"
                                 Margin="16,0"
                                 HorizontalAlignment="Stretch">
-                                <Border x:Name="CurrentColor"
+                                <Border 
                                     Width="220"
                                     Height="32"
                                     Background="{Binding SelectedValue, ElementName=colorPickerGridView}"
                                     CornerRadius="4">
-                                    <TextBlock
+                                    <TextBlock x:Name="CurrentColor"
                                         HorizontalAlignment="Center"
                                         Text="{Binding SelectedValue, ElementName=colorPickerGridView}"
                                         VerticalAlignment="Center" />
@@ -298,9 +332,6 @@
                             HorizontalAlignment="Left"
                             Text="Item cell preview [WIP]"
                             VerticalAlignment="Top" />
-
-
-
                     </StackPanel>
                 </Grid>
             </ScrollViewer>

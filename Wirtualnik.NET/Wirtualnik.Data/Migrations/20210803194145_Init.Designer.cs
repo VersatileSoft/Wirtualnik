@@ -10,7 +10,7 @@ using Wirtualnik.Data;
 namespace Wirtualnik.Data.Migrations
 {
     [DbContext(typeof(WirtualnikDbContext))]
-    [Migration("20210729152336_Init")]
+    [Migration("20210803194145_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -264,6 +264,10 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<bool>("Archived")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -272,6 +276,10 @@ namespace Wirtualnik.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("EAN")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -340,10 +348,20 @@ namespace Wirtualnik.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("PublicId")
+                        .IsUnique();
 
                     b.ToTable("ProductTypes");
                 });
@@ -396,6 +414,15 @@ namespace Wirtualnik.Data.Migrations
 
                     b.Property<int>("ProductTypeId")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("ShowInCart")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ShowInCell")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ShowInFilter")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
