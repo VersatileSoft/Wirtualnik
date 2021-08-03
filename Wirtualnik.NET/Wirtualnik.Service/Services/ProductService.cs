@@ -32,20 +32,21 @@ namespace Wirtualnik.Service.Services
             {
                 Id = p.Id,
                 Name = p.Name,
-                PropertyTypes = p.ProductProperties.Select(t => new KeyValuePair<int, string>(t.Id, t.Name)).ToList()
+                PublicId = p.publicId,
+                PropertyTypes = p.ProductProperties.Select(t => new PropertyModel { Name = t.Name, Id = t.Id })
             }).ToListAsync();
         }
 
-        public async Task<IEnumerable<ListItemModel>> GetProductsAsync(Pager pager, Dictionary<string, string> filter)
+        public async Task<IEnumerable<ListItemModel>> GetProductsAsync(Pager pager, string typePublicId, Dictionary<string, string> filter)
         {
             var query = Context.Products
-                .Include(p => p.Properties).ThenInclude(p => p.PropertyType)
+                .Include(p => p.Properties.Where(p => p.PropertyType.ShowInCell)).ThenInclude(p => p.PropertyType)
                 .Include(p => p.ProductType)
                 .Include(p => p.Images)
                 .AsQueryable();
 
-            if (filter.TryGetValue("ProductTypeId", out string stringValue) && int.TryParse(stringValue, out int value))
-                query = query.Where(p => p.ProductTypeId == value);
+            if (!string.IsNullOrEmpty(typePublicId))
+                query = query.Where(p => p.ProductType.publicId == typePublicId);
 
             foreach (var property in filter)
             {
@@ -54,10 +55,9 @@ namespace Wirtualnik.Service.Services
             }
 
             return Mapper.Map<List<ListItemModel>>(await query.Paginate(pager).ToListAsync());
-
         }
 
-        public Task<bool> UpdateAsync(CreateModel model)
+        public Task<bool> UpdateAsync(Shared.Models.Product.CreateModel model)
         {
             throw new System.NotImplementedException();
         }

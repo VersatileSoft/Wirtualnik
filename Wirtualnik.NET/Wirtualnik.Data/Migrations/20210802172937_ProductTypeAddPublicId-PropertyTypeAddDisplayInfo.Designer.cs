@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wirtualnik.Data;
@@ -9,9 +10,10 @@ using Wirtualnik.Data;
 namespace Wirtualnik.Data.Migrations
 {
     [DbContext(typeof(WirtualnikDbContext))]
-    partial class WirtualnikDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210802172937_ProductTypeAddPublicId-PropertyTypeAddDisplayInfo")]
+    partial class ProductTypeAddPublicIdPropertyTypeAddDisplayInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,10 +272,6 @@ namespace Wirtualnik.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("EAN")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasColumnType("text");
 

@@ -24,9 +24,9 @@ namespace Wirtualnik.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Pagination<ListItemModel>>> Search([FromQuery] Pager pager, [FromQuery] Dictionary<string, string> filter)
+        public async Task<ActionResult<Pagination<ListItemModel>>> Search([FromQuery] Pager pager, [FromQuery] string typePublicId, [FromQuery] Dictionary<string, string> filter)
         {
-            var list = _mapper.Map<List<ListItemModel>>(await _productService.GetProductsAsync(pager, filter));
+            var list = _mapper.Map<List<ListItemModel>>(await _productService.GetProductsAsync(pager, typePublicId, filter));
             return TPagination.FromT(list, pager.TotalRows);
         }
 
@@ -55,12 +55,19 @@ namespace Wirtualnik.Server.Controllers
 
         [HttpPost("type")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> CreateProductType(string name, string[] properties)
+        public async Task<ActionResult> CreateProductType(ProductTypeModel model)
         {
             ProductType productType = new ProductType
             {
-                Name = name,
-                ProductProperties = properties.Select(p => new PropertyType { Name = p }).ToList()
+                Name = model.Name,
+                publicId = model.PublicId,
+                ProductProperties = model.PropertyTypes.Select(p => new PropertyType
+                {
+                    Name = p.Name,
+                    ShowInCart = p.ShowInCart,
+                    ShowInCell = p.ShowInCell,
+                    ShowInFilter = p.ShowInFilter
+                }).ToList()
             };
 
             await _productService.CreateAsync(productType);
@@ -69,7 +76,6 @@ namespace Wirtualnik.Server.Controllers
         }
 
         [HttpGet("type")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<ProductTypeModel>>> GetAllProductTypes()
         {
             List<ProductTypeModel> types = await _productService.GetAllProductTypes();

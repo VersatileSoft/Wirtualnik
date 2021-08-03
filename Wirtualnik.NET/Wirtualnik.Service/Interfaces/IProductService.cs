@@ -9,7 +9,7 @@ namespace Wirtualnik.Service.Interfaces
 {
     public interface IProductService : IServiceBase
     {
-        Task<IEnumerable<ListItemModel>> GetProductsAsync(Pager pager, Dictionary<string, string> filter);
+        Task<IEnumerable<ListItemModel>> GetProductsAsync(Pager pager, string typePublicId, Dictionary<string, string> filter);
         Task<bool> UpdateAsync(CreateModel model);
         Task<Product> Fetch(string publicId);
         Task<List<ProductTypeModel>> GetAllProductTypes();
