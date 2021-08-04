@@ -9,7 +9,7 @@ namespace Wirtualnik.Shared.ApiClient
     public interface IProductClient
     {
         [Get("")]
-        public Task<ApiResponse<Pagination<ListItemModel>>> Search([Query] Pager pager,[Query] string typePublicId, [Query] Dictionary<string, string> filter);
+        public Task<ApiResponse<Pagination<ListItemModel>>> Search([Query] Pager pager, [Query] string typePublicId, [Query] Dictionary<string, string> filter);
 
         [Get("/{publicId}")]
         public Task<ApiResponse<DetailsModel>> Fetch(string publicId);

@@ -33,13 +33,13 @@ namespace Wirtualnik.Service.Services
                 Id = p.Id,
                 Name = p.Name,
                 PublicId = p.PublicId,
-                PropertyTypes = p.ProductProperties.Select(t => new PropertyModel 
+                PropertyTypes = p.ProductProperties.Select(t => new PropertyModel
                 {
-                    Name = t.Name, 
-                    Id = t.Id, 
-                    ShowInCart = t.ShowInCart, 
-                    ShowInCell = t.ShowInCell, 
-                    ShowInFilter = t.ShowInFilter 
+                    Name = t.Name,
+                    Id = t.Id,
+                    ShowInCart = t.ShowInCart,
+                    ShowInCell = t.ShowInCell,
+                    ShowInFilter = t.ShowInFilter
                 })
             }).ToListAsync();
         }
