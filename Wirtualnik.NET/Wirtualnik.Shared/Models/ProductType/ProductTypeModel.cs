@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Wirtualnik.Shared.Models.Product
+namespace Wirtualnik.Shared.Models.ProductType
 {
     public class ProductTypeModel
     {

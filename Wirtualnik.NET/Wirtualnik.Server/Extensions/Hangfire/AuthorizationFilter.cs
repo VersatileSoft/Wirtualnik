@@ -34,7 +34,7 @@ namespace Wirtualnik.Server.Extensions.Hangfire
 
                 if ("Basic".Equals(authValues.Scheme, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var parameter = Encoding.UTF8.GetString(Convert.FromBase64String(authValues.Parameter));
+                    var parameter = Encoding.UTF8.GetString(Convert.FromBase64String(authValues?.Parameter ?? ""));
                     var parts = parameter.Split(':');
 
                     if (parts.Length > 1)

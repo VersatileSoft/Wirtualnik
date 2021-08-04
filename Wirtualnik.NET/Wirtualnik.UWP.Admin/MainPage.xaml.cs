@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Pickers;
@@ -17,6 +15,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Wirtualnik.Shared.ApiClient;
 using Wirtualnik.Shared.Models.Auth;
 using Wirtualnik.Shared.Models.Product;
+using Wirtualnik.Shared.Models.ProductType;
 using Wirtualnik.UWP.Admin.Models;
 
 namespace Wirtualnik.UWP.Admin
@@ -69,8 +68,8 @@ namespace Wirtualnik.UWP.Admin
                 InfoLabel.Foreground = new SolidColorBrush(Color.FromArgb(255, 245, 114, 66));
             }
 
-            var products = (IProductClient)App.Services.GetService(typeof(IProductClient));
-            var types = await products.GetAllProductTypes();
+            var productTypes = (IProductTypeClient)App.Services.GetService(typeof(IProductTypeClient));
+            var types = await productTypes.GetAll();
 
             if (!types.IsSuccessStatusCode)
             {
@@ -90,7 +89,7 @@ namespace Wirtualnik.UWP.Admin
 
         private async void AddType_Click(object sender, RoutedEventArgs e)
         {
-            var products = (IProductClient)App.Services.GetService(typeof(IProductClient));
+            var products = (IProductTypeClient)App.Services.GetService(typeof(IProductTypeClient));
 
             ProductTypeModel model = new ProductTypeModel();
 
@@ -120,7 +119,7 @@ namespace Wirtualnik.UWP.Admin
 
             try
             {
-                await products.CreateProductType(model);
+                await products.Create(model);
             }
             catch (Exception ex)
             {
@@ -129,7 +128,7 @@ namespace Wirtualnik.UWP.Admin
             }
 
             var pro = (IProductClient)App.Services.GetService(typeof(IProductClient));
-            var types = await products.GetAllProductTypes();
+            var types = await products.GetAll();
             itemTypesList.Items.Clear();
             if (!types.IsSuccessStatusCode) return;
 
@@ -155,12 +154,12 @@ namespace Wirtualnik.UWP.Admin
                 props.Add(new KeyValuePair<int, string>(id, value));
             }
 
-            if((ProductTypeModel)itemTypesList.SelectedItem is null)
+            if ((ProductTypeModel)itemTypesList.SelectedItem is null)
             {
                 await ShowContentDialog("Nie wybrano typu produktu", "");
                 return;
             }
-            
+
 
             CreateModel model = new CreateModel
             {
@@ -306,7 +305,7 @@ namespace Wirtualnik.UWP.Admin
             {
                 Margin = new Thickness(0, 0, -30, 0),
                 Content = "Filtry"
-            }); 
+            });
             checksStack.Children.Add(new CheckBox
             {
                 Margin = new Thickness(0),
@@ -320,7 +319,7 @@ namespace Wirtualnik.UWP.Admin
 
         private void RemovePropertyTypeInput_Click(object sender, RoutedEventArgs e)
         {
-            if(ProductTypeProps.Children.Count > 0)
+            if (ProductTypeProps.Children.Count > 0)
                 ProductTypeProps.Children.RemoveAt(ProductTypeProps.Children.Count - 1);
         }
     }

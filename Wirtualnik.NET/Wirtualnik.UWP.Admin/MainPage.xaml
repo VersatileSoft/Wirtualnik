@@ -40,7 +40,7 @@
                         <PasswordBox x:Name="Password"
                             Margin="16,0"
                             Header="Hasło"
-                            IsPasswordRevealButtonEnabled="True"
+                            PasswordRevealMode="Visible"
                             Password="admin"
                             PlaceholderText="Enter your password"
                             VerticalAlignment="Top" />

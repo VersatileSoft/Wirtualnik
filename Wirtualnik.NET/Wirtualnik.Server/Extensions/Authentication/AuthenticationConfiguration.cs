@@ -23,7 +23,7 @@ namespace Wirtualnik.Server.Extensions.Authentication
             var tokenParams = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authSettings.JwtAuthenticationSettings.Secret)),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authSettings?.JwtAuthenticationSettings?.Secret ?? "")),
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 RequireExpirationTime = false,
@@ -46,8 +46,8 @@ namespace Wirtualnik.Server.Extensions.Authentication
             .AddCookie()
             .AddFacebook(opt =>
             {
-                opt.AppId = authSettings.FacebookAuthenticationSettings.AppId;
-                opt.AppSecret = authSettings.FacebookAuthenticationSettings.AppSecret;
+                opt.AppId = authSettings?.FacebookAuthenticationSettings?.AppId;
+                opt.AppSecret = authSettings?.FacebookAuthenticationSettings?.AppSecret;
                 opt.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
 

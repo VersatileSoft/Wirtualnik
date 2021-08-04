@@ -9,19 +9,17 @@ namespace Wirtualnik.Data
         public WirtualnikDbContext(DbContextOptions<WirtualnikDbContext> options) : base(options)
         { }
 
-        public virtual DbSet<Shop>? Shops { get; set; }
-        public virtual DbSet<Product>? Products { get; set; }
-        public virtual DbSet<Property>? Properties { get; set; }
-        public virtual DbSet<PropertyType>? PropertyTypes { get; set; }
-        public virtual DbSet<ProductType>? ProductTypes { get; set; }
-        public virtual DbSet<Image>? Images { get; set; }
+        public virtual DbSet<Shop> Shops => Set<Shop>();
+        public virtual DbSet<Product> Products => Set<Product>();
+        public virtual DbSet<Property> Properties => Set<Property>();
+        public virtual DbSet<PropertyType> PropertyTypes => Set<PropertyType>();
+        public virtual DbSet<ProductType> ProductTypes => Set<ProductType>();
+        public virtual DbSet<Image> Images => Set<Image>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
             base.OnModelCreating(builder);
-            //builder.Entity<Product>().Property(e => e.Id).ValueGeneratedOnAdd();
-            //builder.Entity<Product>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+
             builder.Entity<ProductShop>().HasKey(q => new { q.ProductId, q.ShopId });
 
             builder.Entity<Product>()

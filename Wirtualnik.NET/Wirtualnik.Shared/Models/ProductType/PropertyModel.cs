@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wirtualnik.Shared.Models.Product
+﻿namespace Wirtualnik.Shared.Models.ProductType
 {
     public class PropertyModel
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string Name { get; set; } = "";
         public bool ShowInFilter { get; set; }
         public bool ShowInCell { get; set; }

@@ -23,10 +23,10 @@ namespace Wirtualnik.Server.Extensions.Hangfire
                 config.UseSimpleAssemblyNameTypeSerializer();
                 config.UseDefaultTypeSerializer();
 
-                if (settings.Database.InMemory)
+                if (settings?.Database?.InMemory == true)
                     config.UseMemoryStorage();
                 else
-                    config.UsePostgreSqlStorage(settings.Database.ConnectionString);
+                    config.UsePostgreSqlStorage(settings?.Database?.ConnectionString);
 
             });
 
@@ -40,13 +40,13 @@ namespace Wirtualnik.Server.Extensions.Hangfire
         {
             var settings = new HangfireSettings(config);
 
-            app.MapWhen(x => x.Request.Path.Value.StartsWith(settings.Dashboard.Path), builder =>
+            app.MapWhen(x => x?.Request?.Path.Value?.StartsWith(settings?.Dashboard?.Path ?? "") ?? false, builder =>
             {
-                builder.UseHangfireDashboard(settings.Dashboard.Path, new DashboardOptions()
+                builder.UseHangfireDashboard(settings?.Dashboard?.Path, new DashboardOptions()
                 {
                     Authorization = new[]
                     {
-                        new AuthorizationFilter(settings)
+                        new AuthorizationFilter(settings ?? new HangfireSettings(config))
                     },
                     IgnoreAntiforgeryToken = true
                 });

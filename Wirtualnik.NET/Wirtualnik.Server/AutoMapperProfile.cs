@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Wirtualnik.Shared.Models.Product;
+using Wirtualnik.Shared.Models.ProductType;
 
 namespace Wirtualnik.Shared.Models
 {
@@ -27,6 +28,12 @@ namespace Wirtualnik.Shared.Models
             CreateMap<Data.Models.Product, DetailsModel>()
                 .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name))
                 .ForMember(o => o.Images, k => k.MapFrom<DetailsImagesResolver>());
+
+            CreateMap<Data.Models.ProductType, ProductTypeModel>()
+                .ReverseMap();
+
+            CreateMap<Data.Models.PropertyType, PropertyModel>()
+                .ReverseMap();
 
             CreateMap<Data.Models.Product, ListItemModel>()
                .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name))

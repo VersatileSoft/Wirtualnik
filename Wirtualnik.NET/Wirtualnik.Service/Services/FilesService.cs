@@ -42,6 +42,9 @@ namespace Wirtualnik.Service.Services
 
                     var product = Context.Products.Where(p => p.PublicId == publicId).FirstOrDefault();
 
+                    if (product is null)
+                        throw new Exception();
+
                     var id = product.Id;
 
                     await CreateAsync(new Data.Models.Image
@@ -50,7 +53,7 @@ namespace Wirtualnik.Service.Services
                         ProductId = id,
                         Width = width,
                         Height = height,
-                        Main = formFile.FileName.Trim().ToLower().Contains("main")
+                        Main = formFile.FileName.Trim().Contains("main", StringComparison.OrdinalIgnoreCase)
                     });
 
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))

@@ -65,12 +65,17 @@ export default class ProductPage extends Vue {
       await this.loadData();
   }
 
+  public get productTypeId() : string
+  {
+      return this.$route.params.part;
+  }
+
   private async loadData(): Promise<boolean>
   {
       this.items = [];
       try
       {
-        this.items = (await axios.get(`https://api.zlcn.pro/api/product`)).data.items;
+        this.items = (await axios.get(`https://api.zlcn.pro/api/product?typePublicId=${this.productTypeId}`)).data.items;
 
         console.log(this.items);
 

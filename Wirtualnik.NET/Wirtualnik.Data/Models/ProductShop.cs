@@ -6,10 +6,10 @@
         public int ProductId { get; set; }
         public bool Available { get; set; }
         public float Price { get; set; }
-        public string? CleanLink { get; set; }
-        public string? RefLink { get; set; }
+        public string CleanLink { get; set; } = "";
+        public string RefLink { get; set; } = "";
 
-        public virtual Shop Shop { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual Shop Shop { get; set; } = null!;
+        public virtual Product Product { get; set; } = null!;
     }
 }

@@ -8,6 +8,6 @@
         public int Height { get; set; }
         public bool Main { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual Product Product { get; set; } = null!;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Wirtualnik.Service.Services
         public ProductService(WirtualnikDbContext context, IMapper mapper) : base(context, mapper)
         { }
 
-        public Task<Product> Fetch(string publicId)
+        public Task<Product> FetchAsync(string publicId)
         {
             return Context.Products
                 .Include(p => p.Properties).ThenInclude(p => p.PropertyType)
@@ -26,47 +27,31 @@ namespace Wirtualnik.Service.Services
                 .FirstOrDefaultAsync(p => p.PublicId == publicId);
         }
 
-        public async Task<List<ProductTypeModel>> GetAllProductTypes()
-        {
-            return await Context.ProductTypes.Include(t => t.ProductProperties.OrderBy(p => p.Name)).Select(p => new ProductTypeModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                PublicId = p.PublicId,
-                PropertyTypes = p.ProductProperties.Select(t => new PropertyModel 
-                {
-                    Name = t.Name, 
-                    Id = t.Id, 
-                    ShowInCart = t.ShowInCart, 
-                    ShowInCell = t.ShowInCell, 
-                    ShowInFilter = t.ShowInFilter 
-                })
-            }).ToListAsync();
-        }
-
-        public async Task<IEnumerable<ListItemModel>> GetProductsAsync(Pager pager, string typePublicId, Dictionary<string, string> filter)
+        public async Task<IEnumerable<Product>> GetProductsAsync(Pager pager, FilterModel filter, Dictionary<string, string> dynamicFilter)
         {
             var query = Context.Products
-                .Include(p => p.Properties.Where(p => p.PropertyType.ShowInCell)).ThenInclude(p => p.PropertyType)
+                .Include(p => p.Properties.Where(p => p.PropertyType.ShowInCell))
+                .ThenInclude(p => p.PropertyType)
                 .Include(p => p.ProductType)
                 .Include(p => p.Images)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(typePublicId))
-                query = query.Where(p => p.ProductType.PublicId == typePublicId);
+            if (!string.IsNullOrEmpty(filter.ProductType))
+                query = query.Where(p => p.ProductType.PublicId == filter.ProductType);
 
-            foreach (var property in filter)
+            if (!string.IsNullOrEmpty(filter.Name))
+                query = query.Where(p => p.Name.Contains(filter.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrEmpty(filter.Manufacturer))
+                query = query.Where(p => p.Manufacturer.Contains(filter.Manufacturer, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var property in dynamicFilter)
             {
-                query = query.Where(product => product.Properties.Any(prop => prop.PropertyType.Name == property.Key) ?
-                product.Properties.Single(prop => prop.PropertyType.Name == property.Key).Value == property.Value : true);
+                query = query.Where(product => !product.Properties.Any(prop => prop.PropertyType.Name == property.Key) ||
+                product.Properties.Single(prop => prop.PropertyType.Name == property.Key).Value == property.Value);
             }
 
-            return Mapper.Map<List<ListItemModel>>(await query.Paginate(pager).ToListAsync());
-        }
-
-        public Task<bool> UpdateAsync(Shared.Models.Product.CreateModel model)
-        {
-            throw new System.NotImplementedException();
+            return await query.Paginate(pager).ToListAsync();
         }
     }
 }

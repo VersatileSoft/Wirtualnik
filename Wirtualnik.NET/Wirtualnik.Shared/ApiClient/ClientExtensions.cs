@@ -28,6 +28,12 @@ namespace Wirtualnik.Shared.ApiClient
             if (delegatingHandler != null)
                 builder.AddHttpMessageHandler(delegatingHandler);
 
+            builder = services.AddRefitClient<IProductTypeClient>()
+           .ConfigureHttpClient(c => c.BaseAddress = new Uri(ApiUrl + "/product/type"));
+
+            if (delegatingHandler != null)
+                builder.AddHttpMessageHandler(delegatingHandler);
+
             return services;
         }
     }
