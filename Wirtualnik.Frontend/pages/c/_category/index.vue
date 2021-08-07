@@ -50,7 +50,7 @@ import BottomNavbar from '@/components/common/BottomNavbar.vue'
 import axios from 'axios'
 
 @Component({
-  name: 'ProductPage',
+  name: 'CategoryPage',
   components: {
     ProductCard,
     ProductsTrack,
@@ -59,15 +59,23 @@ import axios from 'axios'
 })
 export default class ProductPage extends Vue {
   private items: any[] = [];
+  private category?: string;
 
   public async created(): Promise<void>
   {
-      await this.loadData();
-  }
+      this.category = this.$route.params.category;
+      this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
+        {
+          name: 'Wirtualnik.pl',
+          route: '/'
+        },
+        {
+          name: this.category,
+          route: '/c/' + this.category // TODO add i18n 
+        }
+      ])
 
-  public get productTypeId() : string
-  {
-      return this.$route.params.part;
+      await this.loadData();
   }
 
   private async loadData(): Promise<boolean>
@@ -75,16 +83,19 @@ export default class ProductPage extends Vue {
       this.items = [];
       try
       {
-        this.items = (await axios.get(`https://api.zlcn.pro/api/product?typePublicId=${this.productTypeId}`)).data.items;
+        const response = await axios.get(`https://api.zlcn.pro/api/product`, {
+          params: {
+            typePublicId: this.category + 's'
+          }
+        });
+        this.items = response.data.items;
 
         console.log(this.items);
-
-      }
+      } 
       catch (ex)
       {
-        console.log(ex);
-          this.items = [];
-          return false;
+        this.items = [];
+        return false;
       }
       return true;
   }

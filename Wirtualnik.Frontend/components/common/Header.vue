@@ -7,7 +7,7 @@
     </h1>
     <div class="page-header__components">
       <nuxt-link
-        :to="{ name: 'c-part', params: { part: 'cpu' } }"
+        :to="{ name: 'c-category', params: { category: 'cpu' } }"
         class="page-header__components-link"
       >
         <span class="las la-plus"></span>

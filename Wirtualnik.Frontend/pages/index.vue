@@ -31,7 +31,7 @@
           <template #parts>
             <div v-for="index in 10" :key="index">
               <img src="~/assets/images/cpu/ryzen_3_3100-box.png" />
-              <nuxt-link :to="{ name: 'c-part', params: { part: 'cpu' } }">
+              <nuxt-link :to="{ name: 'c-category', params: { category: 'cpu' } }">
                 AMD Ryzen 3 3100
               </nuxt-link>
               <p>
@@ -285,6 +285,16 @@ import VerticalCard from '@/components/common/VerticalCard.vue'
   },
 })
 export default class StartingPage extends Vue {
+
+  public async created(): void {
+    this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
+      {
+        name: 'Wirtualnik.pl',
+        route: '/'
+      },
+    ])
+  }
+
   public scrollIntoView(section: string): void {
     let offsetTop: number
     if (section === 'promo') {
