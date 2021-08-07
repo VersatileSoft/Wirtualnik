@@ -4,7 +4,7 @@
       <nuxt-link
         v-for="(link, index) in linksArray"
         :key="index"
-        :to="{ name: 'c-part', params: { part: link.part } }"
+        :to="{ name: 'c-category', params: { category: link.part } }"
         class="bottom-nav__components-link"
       >
         <i :class="link.iconName"></i>

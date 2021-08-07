@@ -1,11 +1,11 @@
 <template>
   <ul class="bread-track">
     <li
-      v-for="(crud, idx) in breadCrumbs"
+      v-for="(crud, idx) in breadcrumbs"
       :key="idx"
       :class="{ indicator: !isLast(idx) }"
     >
-      <nuxt-link :to="{ name: crud.route }" class="crumb">
+      <nuxt-link :to="crud.route" class="crumb">
         {{ crud.name }}
       </nuxt-link>
     </li>
@@ -14,22 +14,22 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-
-interface CrumbDetail {
-  name: string
-  route: string
-}
+import { CrumbDetail } from 'store/breadcrumb';
 
 @Component({
   name: 'BreadCrumb',
 })
 export default class Breadcrumb extends Vue {
-  private breadCrumbs: CrumbDetail[] = [
-    { name: 'Wirtualnik.pl', route: 'index' },
-  ]
+  private get breadcrumbs(): CrumbDetail[] {
+    return this.$store.state.breadcrumb.breadcrumbs;
+  }
 
   public isLast(crumbIdx: number): boolean {
-    return this.breadCrumbs.length - 1 === crumbIdx
+    console.log(this.breadcrumbs.length)
+    console.log(crumbIdx)
+    console.log(this.breadcrumbs.length - 1 === crumbIdx)
+
+    return this.breadcrumbs.length - 1 === crumbIdx
   }
 }
 </script>
