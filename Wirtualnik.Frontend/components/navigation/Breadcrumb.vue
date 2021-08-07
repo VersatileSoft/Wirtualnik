@@ -25,10 +25,6 @@ export default class Breadcrumb extends Vue {
   }
 
   public isLast(crumbIdx: number): boolean {
-    console.log(this.breadcrumbs.length)
-    console.log(crumbIdx)
-    console.log(this.breadcrumbs.length - 1 === crumbIdx)
-
     return this.breadcrumbs.length - 1 === crumbIdx
   }
 }

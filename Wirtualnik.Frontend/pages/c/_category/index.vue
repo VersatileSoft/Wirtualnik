@@ -7,7 +7,9 @@
       <template #cards>
         <ProductCard v-for="item in items" :key="item.publicId">
           <template #image>
-            <img :src="'https://api.zlcn.pro/' + item.image" />
+            <nuxt-link :to="`/p/` + item.publicId">
+              <img :src="'https://api.zlcn.pro/' + item.image" />
+            </nuxt-link>
           </template>
           <template #title>
             <h2>{{ item.name }}</h2>
@@ -57,7 +59,7 @@ import axios from 'axios'
     BottomNavbar,
   },
 })
-export default class ProductPage extends Vue {
+export default class CategoryPage extends Vue {
   private items: any[] = [];
   private category?: string;
 
@@ -89,8 +91,6 @@ export default class ProductPage extends Vue {
           }
         });
         this.items = response.data.items;
-
-        console.log(this.items);
       } 
       catch (ex)
       {
