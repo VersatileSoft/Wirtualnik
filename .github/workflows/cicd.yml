@@ -17,7 +17,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Dotnet Publish
-      run: dotnet publish src -c Release -o deploy
+      run: dotnet publish Wirtualnik.NET/Wirtualnik.Server/Wirtualnik.Server.csproj -c Release -o deploy
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.5.3
       with:
