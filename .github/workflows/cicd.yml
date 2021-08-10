@@ -18,6 +18,8 @@ jobs:
         dotnet-version: 5.0.x
     - name: Dotnet Publish
       run: dotnet publish Wirtualnik.NET/Wirtualnik.Server/Wirtualnik.Server.csproj -c Release -o Release
+    - name: Remove not needed files
+      run: rm Release/appsettings.json
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
@@ -29,7 +31,7 @@ jobs:
     - name: Run SSH command
       uses: garygrossgarten/github-action-ssh@v0.6.4
       with:
-        command: sudo service deferat start
+        command: systemctl restart wirtualnik.service
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         privateKey: ${{ secrets.REMOTE_SSH_KEY }}
