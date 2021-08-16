@@ -1,0 +1,58 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/essential",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier-vue/recommended",
+        "prettier"
+    ],
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser"
+    },
+    "plugins": ["vue", "@typescript-eslint", "prettier-vue"],
+    "settings": {
+        "prettier-vue": {
+            "SFCBlocks": {
+                "template": true,
+                "script": true,
+                "style": true,
+                "customBlocks": {
+                    "docs": { "lang": "markdown" },
+                    "config": { "lang": "json" },
+                    "module": { "lang": "js" },
+                    "comments": false
+                }
+            },
+            "usePrettierrc": false
+        }
+    },
+    "rules": {
+        "no-console": 1,
+        "linebreak-style": ["error", "unix"],
+        "keyword-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
+        "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+        "prettier-vue/prettier": [
+            "error",
+            {
+                "tabWidth": 4,
+                "useTabs": false,   
+                "printWidth": 80,
+                "singleQuote": true,
+                "semi": true,
+                "trailingComma": "none"
+            }
+        ]
+    }
+}

@@ -1,160 +1,160 @@
-import merge from 'lodash/merge'
-import Errors from './Errors'
+import merge from 'lodash/merge';
+import Errors from './Errors';
 
 class FormHelper<T extends Record<string, any>> {
-  private $initial = {}
+    private $initial = {};
 
-  public $loaded: boolean
-  public $loading: boolean
-  public $errors: Errors;
+    public $loaded: boolean;
+    public $loading: boolean;
+    public $errors: Errors;
 
-  [prop: string]: any
+    [prop: string]: any;
 
-  /**
-   * Create a new Form instance.
-   */
-  public constructor(data: T) {
-    this.$loaded = false
-    this.$loading = false
-    this.$errors = new Errors()
-    this.setInitialValues(data)
-    this.withData(data).withErrors({})
-  }
-
-  public withData(data: T): FormHelper<T> {
-    for (const field in data) {
-      this[field as string] = data[field]
+    /**
+     * Create a new Form instance.
+     */
+    public constructor(data: T) {
+        this.$loaded = false;
+        this.$loading = false;
+        this.$errors = new Errors();
+        this.setInitialValues(data);
+        this.withData(data).withErrors({});
     }
 
-    return this
-  }
+    public withData(data: T): FormHelper<T> {
+        for (const field in data) {
+            this[field as string] = data[field];
+        }
 
-  public withErrors(errors: Record<string, string[]>): FormHelper<T> {
-    this.$errors.record(errors)
-
-    return this
-  }
-
-  /**
-   * Fetch all relevant data for the form.
-   */
-  public data(): T {
-    const data = {} as any
-
-    for (const property in this.$initial) {
-      data[property] = this[property] as any
+        return this;
     }
 
-    return data as T
-  }
+    public withErrors(errors: Record<string, string[]>): FormHelper<T> {
+        this.$errors.record(errors);
 
-  /**
-   * Fetch only selected data for the form.
-   */
-  public only(props: string[]): any {
-    const data = {} as any
-
-    for (const property in this.$initial) {
-      if (props.includes(property)) {
-        data[property] = this[property] as any
-      }
+        return this;
     }
 
-    return data
-  }
+    /**
+     * Fetch all relevant data for the form.
+     */
+    public data(): T {
+        const data = {} as any;
 
-  /**
-   * Fetch data for the form except selected.
-   */
-  public except(props: string[]): any {
-    const data = {} as any
+        for (const property in this.$initial) {
+            data[property] = this[property] as any;
+        }
 
-    for (const property in this.$initial) {
-      if (!props.includes(property)) {
-        data[property] = this[property] as any
-      }
+        return data as T;
     }
 
-    return data
-  }
+    /**
+     * Fetch only selected data for the form.
+     */
+    public only(props: string[]): any {
+        const data = {} as any;
 
-  /**
-   * Reset the form fields.
-   */
-  public reset(): void {
-    merge(this, this.$initial)
+        for (const property in this.$initial) {
+            if (props.includes(property)) {
+                data[property] = this[property] as any;
+            }
+        }
 
-    this.$errors.clear()
-    this.complete(true)
-  }
-
-  public setInitialValues(values: any): void {
-    this.$initial = {}
-
-    merge(this.$initial, values)
-  }
-
-  /**
-   * Clear the form fields.
-   */
-  public clear(): void {
-    for (const field in this.$initial) {
-      this[field] = this.$initial[field]
+        return data;
     }
 
-    this.$errors.clear()
-  }
+    /**
+     * Fetch data for the form except selected.
+     */
+    public except(props: string[]): any {
+        const data = {} as any;
 
-  public loading(): boolean {
-    return !this.$loaded && this.$loading
-  }
+        for (const property in this.$initial) {
+            if (!props.includes(property)) {
+                data[property] = this[property] as any;
+            }
+        }
 
-  public wait($forceLoading: boolean = false): void {
-    if ($forceLoading) this.$loaded = false
-
-    this.$loading = true
-  }
-
-  public continue(): void {
-    this.complete(this.valid())
-  }
-
-  public complete(status: boolean = true): void {
-    if (status === true) {
-      this.$errors.clear()
+        return data;
     }
 
-    this.$loading = false
-    this.$loaded = true
-  }
+    /**
+     * Reset the form fields.
+     */
+    public reset(): void {
+        merge(this, this.$initial);
 
-  public async ready(values: Promise<boolean>[]): Promise<void> {
-    this.wait()
-    const result = await Promise.all(values)
-    this.complete(result.every((p) => p === true))
-  }
+        this.$errors.clear();
+        this.complete(true);
+    }
 
-  public valid(): boolean {
-    return !this.$errors.any()
-  }
+    public setInitialValues(values: any): void {
+        this.$initial = {};
 
-  public active(): boolean {
-    // return !this.$loading && this.valid();
-    return !this.$loading
-  }
+        merge(this.$initial, values);
+    }
 
-  public static create<T>(data: T): FormHelper<T> {
-    return new FormHelper<T>(data)
-  }
+    /**
+     * Clear the form fields.
+     */
+    public clear(): void {
+        for (const field in this.$initial) {
+            this[field] = this.$initial[field];
+        }
+
+        this.$errors.clear();
+    }
+
+    public loading(): boolean {
+        return !this.$loaded && this.$loading;
+    }
+
+    public wait($forceLoading = false): void {
+        if ($forceLoading) this.$loaded = false;
+
+        this.$loading = true;
+    }
+
+    public continue(): void {
+        this.complete(this.valid());
+    }
+
+    public complete(status = true): void {
+        if (status === true) {
+            this.$errors.clear();
+        }
+
+        this.$loading = false;
+        this.$loaded = true;
+    }
+
+    public async ready(values: Promise<boolean>[]): Promise<void> {
+        this.wait();
+        const result = await Promise.all(values);
+        this.complete(result.every((p) => p === true));
+    }
+
+    public valid(): boolean {
+        return !this.$errors.any();
+    }
+
+    public active(): boolean {
+        // return !this.$loading && this.valid();
+        return !this.$loading;
+    }
+
+    public static create<T>(data: T): FormHelper<T> {
+        return new FormHelper<T>(data);
+    }
 }
 
-type FormType<T> = FormHelper<T> & T
+type FormType<T> = FormHelper<T> & T;
 
 interface FormFactory {
-  new <T>(data: T): FormType<T>
-  create<T>(data: T): FormType<T>
+    new <T>(data: T): FormType<T>;
+    create<T>(data: T): FormType<T>;
 }
 
-const Form: FormFactory = FormHelper as any
+const Form: FormFactory = FormHelper as any;
 
-export default Form
+export default Form;

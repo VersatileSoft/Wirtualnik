@@ -1,7 +1,5 @@
-enum ThemeMutations{
-  CHANGE_THEME = 'CHANGE_THEME'
+enum ThemeMutations {
+    CHANGE_THEME = 'CHANGE_THEME'
 }
 
-export {
-  ThemeMutations
-}
+export { ThemeMutations };

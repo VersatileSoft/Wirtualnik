@@ -1,13 +1,13 @@
 interface AuthState {
-  token: string
+    token: string;
 }
 
 export const state = (): AuthState => ({
-  token: '',
-})
+    token: ''
+});
 
 export const mutations = {
-  SET_TOKEN(state: AuthState, token: string) {
-    state.token = token
-  },
-}
+    SET_TOKEN(state: AuthState, token: string) {
+        state.token = token;
+    }
+};

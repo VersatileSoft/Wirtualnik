@@ -1,13 +1,13 @@
 interface ThemeState {
-  theme: string
+    theme: string;
 }
 
 export const state = (): ThemeState => ({
-  theme: 'light',
-})
+    theme: 'light'
+});
 
 export const mutations = {
-  CHANGE_THEME(state: ThemeState, theme: string) {
-    state.theme = theme
-  },
-}
+    CHANGE_THEME(state: ThemeState, theme: string) {
+        state.theme = theme;
+    }
+};
