@@ -314,8 +314,8 @@ namespace Wirtualnik.UWP.Admin
 
             using (var file = new FileStream(ExcelImportFilePath, FileMode.Open))
             {
-              //  await pro.ExcelImport(ImportTypePublicId.Text, 
-               // new StreamPart(file, System.IO.Path.GetFileName(ExcelImportFilePath)));
+                await pro.ExcelImport(ImportTypePublicId.Text, 
+                new StreamPart(file, System.IO.Path.GetFileName(ExcelImportFilePath)));
             }
 
             foreach(var prodImagesPath in Directory.EnumerateDirectories(ExcelImportImagesPath))
