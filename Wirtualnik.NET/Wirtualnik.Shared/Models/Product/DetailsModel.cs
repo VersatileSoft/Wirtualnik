@@ -9,6 +9,7 @@ namespace Wirtualnik.Shared.Models.Product
         public string ProductTypeName { get; set; } = "";
         public string PublicId { get; set; } = "";
         public string EAN { get; set; } = "";
+        public string SKU { get; set; } = "";
         public string Description { get; set; } = "";
         public string Manufacturer { get; set; } = "";
         public string Color { get; set; } = "";

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
 using Wirtualnik.Service.Interfaces.Base;
@@ -11,5 +12,6 @@ namespace Wirtualnik.Service.Interfaces
     {
         Task<IEnumerable<Product>> GetProductsAsync(Pager pager, FilterModel filter, Dictionary<string, string> dynamicFilter);
         Task<Product> FetchAsync(string publicId);
+        Task XlsxImport(IFormFile file, string productTypeId);
     }
 }

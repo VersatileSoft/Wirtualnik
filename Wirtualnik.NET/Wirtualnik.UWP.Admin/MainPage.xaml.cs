@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI;
@@ -24,6 +25,9 @@ namespace Wirtualnik.UWP.Admin
     {
         public static string Token;
         public List<ImageModel> SelectedFiles { get; set; }
+
+        public string ExcelImportFilePath { get; set; }
+        public string ExcelImportImagesPath { get; set; }
 
         public MainPage()
         {
@@ -166,6 +170,7 @@ namespace Wirtualnik.UWP.Admin
                 Archived = false,
                 Description = description.Text,
                 EAN = prodEAN.Text,
+                SKU = prodSKU.Text,
                 Name = prodName.Text,
                 ProductTypeId = ((ProductTypeModel)itemTypesList.SelectedItem).Id,
                 PublicId = prodIdPubl.Text,
@@ -266,6 +271,68 @@ namespace Wirtualnik.UWP.Admin
             flipView.ItemsSource = SelectedFiles;
         }
 
+        private async void AddImportExcel_Click(object sender, RoutedEventArgs e)
+        {
+
+            FileOpenPicker fileOpenPicker = new FileOpenPicker();
+            fileOpenPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            fileOpenPicker.ViewMode = PickerViewMode.Thumbnail;
+            fileOpenPicker.FileTypeFilter.Add(".xlsx"); // Required file extension 
+
+            var file = await fileOpenPicker.PickSingleFileAsync();
+
+            if (file == null)
+            {
+                return;
+            }
+            ExcelImportFilePath = file.Path;
+
+            CurrentImportPath.Text = ExcelImportFilePath;
+        }
+
+        private async void AddImportImages_Click(object sender, RoutedEventArgs e)
+        {
+            var folderPicker = new FolderPicker();
+            folderPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            folderPicker.FileTypeFilter.Add("*");
+            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                ExcelImportImagesPath = folder.Path;
+            }
+            else
+            {
+                ExcelImportImagesPath = "-";
+            }
+            CurrentImportImagesPath.Text = ExcelImportImagesPath;
+        }
+
+        private async void Import_Click(object sender, RoutedEventArgs e)
+        {
+            var pro = (IProductClient)App.Services.GetService(typeof(IProductClient));
+            var filesClient = (IFilesClient)App.Services.GetService(typeof(IFilesClient));
+
+            using (var file = new FileStream(ExcelImportFilePath, FileMode.Open))
+            {
+              //  await pro.ExcelImport(ImportTypePublicId.Text, 
+               // new StreamPart(file, System.IO.Path.GetFileName(ExcelImportFilePath)));
+            }
+
+            foreach(var prodImagesPath in Directory.EnumerateDirectories(ExcelImportImagesPath))
+            {
+                var images = new List<StreamPart>();
+
+                foreach(var imagePath in Directory.EnumerateFiles(prodImagesPath))
+                {
+                    using(var file = new FileStream(imagePath, FileMode.Open))
+                    {
+                        images.Add(new StreamPart(file, Path.GetFileName(imagePath)));
+                    }
+                }
+                await filesClient.Create(Path.GetFileName(prodImagesPath), images);
+            }
+        }
+
         private async Task ShowContentDialog(string title, string description)
         {
             ContentDialog errorDialog = new ContentDialog()
@@ -321,6 +388,11 @@ namespace Wirtualnik.UWP.Admin
         {
             if (ProductTypeProps.Children.Count > 0)
                 ProductTypeProps.Children.RemoveAt(ProductTypeProps.Children.Count - 1);
+        }
+
+        private void AddImportFiles_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

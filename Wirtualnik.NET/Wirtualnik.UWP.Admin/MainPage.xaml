@@ -192,6 +192,14 @@
                                 PlaceholderText="8592978177560"
                                 TextWrapping="Wrap"
                                 VerticalAlignment="Top" />
+                            
+                            <TextBox x:Name="prodSKU"
+                                Margin="16,0"
+                                Header="SKU"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="8592978177560"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
 
                             <TextBlock Margin="16,0" Text="Images&#x0a;(25px, 50px, 100px, 200px, 400px, 1000px)" />
 
@@ -330,8 +338,55 @@
                             FontSize="22"
                             FontWeight="Bold"
                             HorizontalAlignment="Left"
-                            Text="Item cell preview [WIP]"
+                            Text="Excel import"
                             VerticalAlignment="Top" />
+
+                        <TextBox x:Name="ImportTypePublicId"
+                                Margin="16,0"
+                                Header="Product type name"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="cpu"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+                        
+                        <Button x:Name="AddImportExcel"
+                                Margin="16,0"
+                                Click="AddImportExcel_Click"
+                                Content="Wybierz plik importu"
+                                HorizontalAlignment="Stretch"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Top" />
+
+                        <TextBlock x:Name="CurrentImportPath"
+                                Margin="16,0"
+                                Text="-"
+                                HorizontalAlignment="Stretch"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
+                        <Button x:Name="AddImportImages"
+                                Margin="16,0"
+                                Click="AddImportImages_Click"
+                                Content="Wybierz folder zdjęć"
+                                HorizontalAlignment="Stretch"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Top" />
+                        
+                        <TextBlock x:Name="CurrentImportImagesPath"
+                                Margin="16,0"
+                                Text="-"
+                                HorizontalAlignment="Stretch"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
+                        <Button x:Name="Import"
+                                Margin="16,0"
+                                Click="Import_Click"
+                                Content="Importuj"
+                                HorizontalAlignment="Stretch"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Top" />
+
                     </StackPanel>
                 </Grid>
             </ScrollViewer>
