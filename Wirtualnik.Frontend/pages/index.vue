@@ -30,20 +30,19 @@
                         </p>
                     </template>
                     <template #parts>
-                        <div v-for="index in 10" :key="index">
-                            <img
-                                src="~/assets/images/cpu/ryzen_3_3100-box.png"
-                            />
+                        <div v-for="item in items" :key="item.publicId">
+                            <img :src="'https://api.zlcn.pro/' + item.image" />
                             <nuxt-link
                                 :to="{
                                     name: 'c-category',
                                     params: { category: 'cpu' }
                                 }"
                             >
-                                AMD Ryzen 3 3100
+                                {{ item.name }}
                             </nuxt-link>
                             <p>
-                                2342.97 PLN
+                                <!-- Price TODO w API-->
+                                {{ item.price }}PLN
                                 <img
                                     src="~/assets/images/shop/xkom-sygnet.png"
                                 />
@@ -73,88 +72,39 @@
                     <h2>Prawdziwe promocje</h2>
                 </template>
                 <template #cards>
-                    <VerticalCard>
+                    <VerticalCard v-for="item in items" :key="item.publicId">
                         <template #image>
-                            <img
-                                src="~/assets/images/cpu/ryzen_3_3100-box.png"
-                            />
+                            <img :src="'https://api.zlcn.pro/' + item.image" />
                         </template>
                         <template #title>
-                            <h2>AMD Ryzen 3 1200</h2>
+                            <h2>{{ item.name }}</h2>
                         </template>
-                        <template #promo> 549.00 PLN </template>
+                        <template #promo>{{ item.price }} PLN</template>
                         <template #price>
-                            495.00 PLN
+                            {{ item.price }} PLN
                             <img src="~/assets/images/shop/xkom-sygnet.png" />
                         </template>
-                        <template #first> 4 rdzenie, 4 wątki </template>
-                        <template #second> Socket AM4 </template>
-                        <template #third> 65W </template>
+                        <template #first>
+                            {{ item.properties[0].key }}
+                            :
+                            {{ item.properties[0].value }}</template
+                        >
+                        <template #second>
+                            {{ item.properties[0].key }}
+                            :
+                            {{ item.properties[1].value }}</template
+                        >
+                        <template #third>
+                            {{ item.properties[2].key }}
+                            :
+
+                            {{ item.properties[2].value }}</template
+                        >
                         <template #shop-price>
                             <button class="btn-miniprice">
                                 <a href="#">
                                     <img
                                         src="~/assets/images/shop/xkom-sygnet.png"
-                                    />
-                                    542.00
-                                </a>
-                            </button>
-                            <button class="btn-miniprice">
-                                <a href="#">
-                                    <img
-                                        src="~/assets/images/shop/morele-sygnet.png"
-                                    />
-                                    542.00
-                                </a>
-                            </button>
-                        </template>
-                        <template #buttons>
-                            <button class="btn-circle btn-green">
-                                <span class="las la-balance-scale"></span>
-                            </button>
-                            <button class="btn-circle btn-green">
-                                <span class="las la-cart-plus"></span>
-                            </button>
-                        </template>
-                    </VerticalCard>
-                    <VerticalCard>
-                        <template #image>
-                            <img
-                                src="~/assets/images/cpu/ryzen_3_3100-box.png"
-                            />
-                        </template>
-                        <template #title>
-                            <h2>AMD Ryzen 3 1200</h2>
-                        </template>
-                        <template #promo> 549.00 PLN </template>
-                        <template #price>
-                            495.00 PLN
-                            <img src="~/assets/images/shop/xkom-sygnet.png" />
-                        </template>
-                        <template #first> 4 rdzenie, 4 wątki </template>
-                        <template #second> Socket AM4 </template>
-                        <template #third> 65W </template>
-                        <template #shop-price>
-                            <button class="btn-miniprice">
-                                <a href="#">
-                                    <img
-                                        src="~/assets/images/shop/xkom-sygnet.png"
-                                    />
-                                    542.00
-                                </a>
-                            </button>
-                            <button class="btn-miniprice">
-                                <a href="#">
-                                    <img
-                                        src="~/assets/images/shop/morele-sygnet.png"
-                                    />
-                                    542.00
-                                </a>
-                            </button>
-                            <button class="btn-miniprice">
-                                <a href="#">
-                                    <img
-                                        src="~/assets/images/shop/morele-sygnet.png"
                                     />
                                     542.00
                                 </a>
@@ -306,6 +256,8 @@ import ProductsGrid from '@/components/common/ProductsGrid.vue';
 import ProductsTrack from '@/components/common/ProductsTrack.vue';
 import ProductCard from '@/components/common/ProductCard.vue';
 import VerticalCard from '@/components/common/VerticalCard.vue';
+import axios from 'axios';
+
 @Component({
     name: 'StartingPage',
     components: {
@@ -319,6 +271,8 @@ import VerticalCard from '@/components/common/VerticalCard.vue';
     }
 })
 export default class StartingPage extends Vue {
+    private items: any[] = [];
+
     public async created(): void {
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
@@ -326,6 +280,26 @@ export default class StartingPage extends Vue {
                 route: '/'
             }
         ]);
+        await this.loadData();
+    }
+
+    private async loadData(): Promise<boolean> {
+        this.items = [];
+        try {
+            const response = await axios.get(
+                'https://api.zlcn.pro/api/product',
+                {
+                    params: {
+                        ProductType: 'cpu'
+                    }
+                }
+            );
+            this.items = response.data.items;
+        } catch (ex) {
+            this.items = [];
+            return false;
+        }
+        return true;
     }
 
     public scrollIntoView(section: string): void {

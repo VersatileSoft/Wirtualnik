@@ -1,9 +1,10 @@
 <template>
     <div class="user-menu" :class="{ 'menu-opened': isMenuOpened }">
         <section class="user-menu__header">
-            <h3>Hej Maksymilian!</h3>
+            <h3 v-if="this.$store.state.auth.token">Hej Maksymilian!</h3>
+            <h3 v-else>Niezalogowano</h3>
             <div class="page-header__extras">
-                <div class="btn-flat">
+                <div class="btn-flat" v-if="this.$store.state.auth.token">
                     <img src="~/assets/images/user.jpg" />
                 </div>
                 <button class="btn-flat" @click="themeChange">
@@ -15,28 +16,50 @@
             </div>
         </section>
         <section class="user-menu__items">
-            <nuxt-link class="user-menu__items-link" to="/">
+            <nuxt-link
+                v-if="this.$store.state.auth.token"
+                class="user-menu__items-link"
+                to="/"
+            >
                 <span
                     class="las la-bell icon"
                     :class="{ 'bell-ring': isMenuOpened }"
                 ></span>
                 <p class="user-menu__items-text">Powiadomienia (4)</p>
             </nuxt-link>
-            <nuxt-link class="user-menu__items-link" to="#">
+            <nuxt-link
+                v-if="this.$store.state.auth.token"
+                class="user-menu__items-link"
+                to="#"
+            >
                 <span class="las la-cloud icon"></span>
                 <p class="user-menu__items-text">Twoje Wirtualniki (333)</p>
             </nuxt-link>
-            <nuxt-link class="user-menu__items-link" to="#">
+            <nuxt-link
+                v-if="this.$store.state.auth.token"
+                class="user-menu__items-link"
+                to="#"
+            >
                 <span class="las la-cog icon"></span>
                 <p class="user-menu__items-text">Ustawienia</p>
             </nuxt-link>
-            <nuxt-link class="user-menu__items-link" to="#">
+            <nuxt-link
+                v-if="this.$store.state.auth.token"
+                class="user-menu__items-link"
+                to="#"
+            >
                 <span class="las la-bug icon"></span>
                 <p class="user-menu__items-text">Zgłoś błąd / sugestie</p>
             </nuxt-link>
             <nuxt-link class="user-menu__items-link" to="#">
                 <span class="las la-sign-out-alt icon"></span>
-                <p class="user-menu__items-text">Wyloguj sie</p>
+                <p
+                    v-if="this.$store.state.auth.token"
+                    class="user-menu__items-text"
+                >
+                    Wyloguj się
+                </p>
+                <p v-else class="user-menu__items-text">Zaloguj się</p>
             </nuxt-link>
         </section>
     </div>
