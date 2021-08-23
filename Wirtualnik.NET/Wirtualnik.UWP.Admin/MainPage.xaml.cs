@@ -316,10 +316,8 @@ namespace Wirtualnik.UWP.Admin
 
                 var stream = await ExcelImportFile.OpenStreamForReadAsync();
 
-                //await pro.ExcelImport(ImportTypePublicId.Text,
-                //    new StreamPart(stream, System.IO.Path.GetFileName(ExcelImportFile.Path)));
-
-                Debug.WriteLine("Excel Path: " + ExcelImportFile.Path);
+                await pro.ExcelImport(ImportTypePublicId.Text,
+                    new StreamPart(stream, System.IO.Path.GetFileName(ExcelImportFile.Path)));
 
                 var imagesFolders = await ExcelImportImagesFolder.GetFoldersAsync();
 
@@ -329,17 +327,13 @@ namespace Wirtualnik.UWP.Admin
 
                     var imagesFiles = await folder.GetFilesAsync();
 
-                    Debug.WriteLine("Image folder path: " + folder.Path);
-
                     foreach (var file in imagesFiles)
                     {
                         var imageStream = await file.OpenStreamForReadAsync();
                         images.Add(new StreamPart(imageStream, Path.GetFileName(file.Path)));
-
-                        Debug.WriteLine("Image path: " + file.Path);
                     }
 
-                    //await filesClient.Create(Path.GetFileName(folders.Path), images);
+                    await filesClient.Create(Path.GetFileName(folder.Path), images);
                 }
             }
             catch (Exception ex)

@@ -55,7 +55,6 @@ namespace Wirtualnik.Server.Controllers
         }
 
         [HttpPost("import/{productTypeId}")]
-        [AllowAnonymous]
         public async Task<ActionResult> ExcelImport(string productTypeId, [FromForm] List<IFormFile> file)
         {
             await _productService.XlsxImport(file[0], productTypeId);

@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using System;
 
 namespace Wirtualnik.Data.Migrations
 {
@@ -70,9 +70,9 @@ namespace Wirtualnik.Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Logo = table.Column<string>(type: "text", nullable: true),
-                    ApiLink = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Logo = table.Column<string>(type: "text", nullable: false),
+                    ApiLink = table.Column<string>(type: "text", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -201,6 +201,7 @@ namespace Wirtualnik.Data.Migrations
                     Manufacturer = table.Column<string>(type: "text", nullable: false),
                     Archived = table.Column<bool>(type: "boolean", nullable: false),
                     Color = table.Column<string>(type: "text", nullable: false),
+                    SKU = table.Column<string>(type: "text", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -273,8 +274,8 @@ namespace Wirtualnik.Data.Migrations
                     ProductId = table.Column<int>(type: "integer", nullable: false),
                     Available = table.Column<bool>(type: "boolean", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    CleanLink = table.Column<string>(type: "text", nullable: true),
-                    RefLink = table.Column<string>(type: "text", nullable: true)
+                    CleanLink = table.Column<string>(type: "text", nullable: false),
+                    RefLink = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
