@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
@@ -308,20 +309,28 @@ namespace Wirtualnik.UWP.Admin
                 return;
             }
 
-            ExcelStatusTextBlock.Text = "Wrzuca";
+            ExcelStatusTextBlock.Text += "Import produktów z excela... \n";
+            var pro = (IProductClient)App.Services.GetService(typeof(IProductClient));
+            var filesClient = (IFilesClient)App.Services.GetService(typeof(IFilesClient));
             try
             {
-                var pro = (IProductClient)App.Services.GetService(typeof(IProductClient));
-                var filesClient = (IFilesClient)App.Services.GetService(typeof(IFilesClient));
-
                 var stream = await ExcelImportFile.OpenStreamForReadAsync();
+                await pro.ExcelImport(ImportTypePublicId.Text, new StreamPart(stream, System.IO.Path.GetFileName(ExcelImportFile.Path)));
+            }
+            catch (Exception ex)
+            {
+                await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
+                ExcelStatusTextBlock.Text = "Nie Działa";
+                return;
+            }
 
-                await pro.ExcelImport(ImportTypePublicId.Text,
-                    new StreamPart(stream, System.IO.Path.GetFileName(ExcelImportFile.Path)));
+            ExcelStatusTextBlock.Text += "Import obrazków...";
 
-                var imagesFolders = await ExcelImportImagesFolder.GetFoldersAsync();
+            var imagesFolders = await ExcelImportImagesFolder.GetFoldersAsync();
 
-                foreach (var folder in imagesFolders)
+            foreach (var folder in imagesFolders)
+            {
+                try
                 {
                     var images = new List<StreamPart>();
 
@@ -333,16 +342,45 @@ namespace Wirtualnik.UWP.Admin
                         images.Add(new StreamPart(imageStream, Path.GetFileName(file.Path)));
                     }
 
-                    await filesClient.Create(Path.GetFileName(folder.Path), images);
+                    ExcelStatusTextBlock.Text += $"\n {Path.GetFileName(folder.Path)}: ";
+
+                    var prod = await pro.Fetch(Path.GetFileName(folder.Path));
+
+                    if(prod.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        ExcelStatusTextBlock.Text += "Produkt nie istnieje w bazie";
+                        continue;
+                    }
+
+                    if (!prod.IsSuccessStatusCode)
+                    {
+                        await ShowContentDialog("Pobieranie", prod?.Error?.Content);
+                        ExcelStatusTextBlock.Text += "Błąd pobierania produktu";
+                        continue;
+                    }
+
+                    var k = prod.Content.Images;
+
+                    if(k?.Count > 0)
+                    {
+                        ExcelStatusTextBlock.Text += "Posiada obrazki"; 
+                    }
+                    else
+                    {
+                        await filesClient.Create(Path.GetFileName(folder.Path), images);
+                        ExcelStatusTextBlock.Text += "OK";
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
+
+                    ExcelStatusTextBlock.Text += "Błąd";
                 }
             }
-            catch (Exception ex)
-            {
-                await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
-                ExcelStatusTextBlock.Text = "Nie Działa";
-            }
 
-            ExcelStatusTextBlock.Text = "Działa";
+            ExcelStatusTextBlock.Text += "\n Koniec";
         }
 
         private async Task ShowContentDialog(string title, string description)

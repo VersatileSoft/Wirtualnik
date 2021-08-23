@@ -26,6 +26,7 @@ namespace Wirtualnik.Shared.ApiClient
         [Delete("/{publicId}")]
         public Task Delete(string publicId);
 
+        [Multipart]
         [Headers("Authorization: Bearer")]
         [Post("/import/{productTypeId}")]
         public Task ExcelImport(string productTypeId, StreamPart file);
