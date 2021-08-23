@@ -10,8 +10,8 @@ using Wirtualnik.Data;
 namespace Wirtualnik.Data.Migrations
 {
     [DbContext(typeof(WirtualnikDbContext))]
-    [Migration("20210804194109_ColumnRename")]
-    partial class ColumnRename
+    [Migration("20210823183252_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,6 +291,10 @@ namespace Wirtualnik.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SKU")
                         .IsRequired()
                         .HasColumnType("text");
 

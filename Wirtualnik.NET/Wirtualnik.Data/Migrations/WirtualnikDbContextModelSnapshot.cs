@@ -292,6 +292,10 @@ namespace Wirtualnik.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 

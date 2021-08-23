@@ -40,8 +40,8 @@
                         <PasswordBox x:Name="Password"
                             Margin="16,0"
                             Header="Hasło"
-                            PasswordRevealMode="Visible"
                             Password="admin"
+                            PasswordRevealMode="Visible"
                             PlaceholderText="Enter your password"
                             VerticalAlignment="Top" />
 
@@ -53,12 +53,12 @@
                             HorizontalAlignment="Stretch"
                             Style="{StaticResource AccentButtonStyle}"
                             VerticalAlignment="Top" />
-                        
+
                         <TextBlock x:Name="InfoLabel"
                             Margin="0,16"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top" />
-                        
+
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Spacing="8">
@@ -77,7 +77,7 @@
                             PlaceholderText="Processor"
                             TextWrapping="Wrap"
                             VerticalAlignment="Top" />
-                        
+
                         <TextBox x:Name="ProductTypePublicId"
                             Margin="16,0"
                             Header="ID (short code / url)"
@@ -85,7 +85,7 @@
                             PlaceholderText="cpu"
                             TextWrapping="Wrap"
                             VerticalAlignment="Top" />
-                        
+
                         <TextBlock
                             Margin="16,16,0,0"
                             HorizontalAlignment="Left"
@@ -94,31 +94,29 @@
 
                         <StackPanel x:Name="ProductTypeProps" />
 
-                        <StackPanel Orientation="Horizontal" >
+                        <StackPanel Orientation="Horizontal">
                             <Button x:Name="AddPropertyTypeInput"
-                            Height="44"
-                            Width="44"
-                            Margin="16,0,10,0"
-                            Click="AddPropertyTypeInput_Click"
-                            Content="+"
-                            HorizontalAlignment="Left"
-                            CornerRadius="100"
-                            Style="{StaticResource AccentButtonStyle}"
-                            VerticalAlignment="Top" />
+                                Width="44"
+                                Height="44"
+                                Margin="16,0,10,0"
+                                Click="AddPropertyTypeInput_Click"
+                                Content="+"
+                                CornerRadius="100"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Top" />
 
                             <Button x:Name="RemovePropertyTypeInput"
-                            Height="44"
-                            Width="44"
-                            Click="RemovePropertyTypeInput_Click"
-                            Content="-"
-                            CornerRadius="100"
-                            HorizontalAlignment="Left"
-                            Style="{StaticResource AccentButtonStyle}"
-                            VerticalAlignment="Top" />
+                                Width="44"
+                                Height="44"
+                                Click="RemovePropertyTypeInput_Click"
+                                Content="-"
+                                CornerRadius="100"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource AccentButtonStyle}"
+                                VerticalAlignment="Top" />
 
                         </StackPanel>
-                        
-                        
 
                         <Button x:Name="AddType"
                             Height="44"
@@ -193,6 +191,14 @@
                                 TextWrapping="Wrap"
                                 VerticalAlignment="Top" />
 
+                            <TextBox x:Name="prodSKU"
+                                Margin="16,0"
+                                Header="SKU"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="8592978177560"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
+
                             <TextBlock Margin="16,0" Text="Images&#x0a;(25px, 50px, 100px, 200px, 400px, 1000px)" />
 
                             <FlipView x:Name="flipView"
@@ -214,7 +220,6 @@
                                 </FlipView.ItemTemplate>
                             </FlipView>
 
-
                             <Button x:Name="AddFiles"
                                 Margin="16,0"
                                 Click="AddFiles_Click"
@@ -227,7 +232,7 @@
                             <muxc:SplitButton x:Name="myColorButton"
                                 Margin="16,0"
                                 HorizontalAlignment="Stretch">
-                                <Border 
+                                <Border
                                     Width="220"
                                     Height="32"
                                     Background="{Binding SelectedValue, ElementName=colorPickerGridView}"
@@ -330,12 +335,61 @@
                             FontSize="22"
                             FontWeight="Bold"
                             HorizontalAlignment="Left"
-                            Text="Item cell preview [WIP]"
+                            Text="Excel import"
                             VerticalAlignment="Top" />
+
+                        <TextBox x:Name="ImportTypePublicId"
+                            Margin="16,0"
+                            Header="Product type name"
+                            HorizontalAlignment="Stretch"
+                            PlaceholderText="cpu"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Top" />
+
+                        <Button x:Name="AddImportExcel"
+                            Margin="16,0"
+                            Click="AddImportExcel_Click"
+                            Content="Wybierz plik importu"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource AccentButtonStyle}"
+                            VerticalAlignment="Top" />
+
+                        <TextBlock x:Name="CurrentImportPath"
+                            Margin="16,0"
+                            HorizontalAlignment="Stretch"
+                            Text="-"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Top" />
+
+                        <Button x:Name="AddImportImages"
+                            Margin="16,0"
+                            Click="AddImportImages_Click"
+                            Content="Wybierz folder zdjęć"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource AccentButtonStyle}"
+                            VerticalAlignment="Top" />
+
+                        <TextBlock x:Name="CurrentImportImagesPath"
+                            Margin="16,0"
+                            HorizontalAlignment="Stretch"
+                            Text="-"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Top" />
+
+                        <Button x:Name="Import"
+                            Margin="16,0"
+                            Click="Import_Click"
+                            Content="Importuj"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource AccentButtonStyle}"
+                            VerticalAlignment="Top" />
+
+                        <TextBlock x:Name="ExcelStatusTextBlock"
+                            Margin="16,0"
+                            Text="Status" />
                     </StackPanel>
                 </Grid>
             </ScrollViewer>
         </NavigationView.Content>
     </NavigationView>
-
 </Page>

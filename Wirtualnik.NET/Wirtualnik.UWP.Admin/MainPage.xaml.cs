@@ -1,10 +1,12 @@
 ﻿using Refit;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI;
@@ -24,6 +26,9 @@ namespace Wirtualnik.UWP.Admin
     {
         public static string Token;
         public List<ImageModel> SelectedFiles { get; set; }
+
+        public StorageFile ExcelImportFile { get; set; }
+        public StorageFolder ExcelImportImagesFolder { get; set; }
 
         public MainPage()
         {
@@ -46,14 +51,9 @@ namespace Wirtualnik.UWP.Admin
 
                 Token = tokenModel.Content.Token;
             }
-            catch (ApiException ex)
-            {
-                await ShowContentDialog(ex.Message, ex.StackTrace);
-                return;
-            }
             catch (Exception ex)
             {
-                await ShowContentDialog(ex.Message, ex.StackTrace);
+                await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
                 return;
             }
 
@@ -123,7 +123,7 @@ namespace Wirtualnik.UWP.Admin
             }
             catch (Exception ex)
             {
-                await ShowContentDialog(ex.Message, ex.StackTrace).ConfigureAwait(false);
+                await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
                 return;
             }
 
@@ -159,13 +159,18 @@ namespace Wirtualnik.UWP.Admin
                 await ShowContentDialog("Nie wybrano typu produktu", "");
                 return;
             }
-
+            if (SelectedFiles.Count == 0)
+            {
+                await ShowContentDialog("Nie dodano obrazków", "");
+                return;
+            }
 
             CreateModel model = new CreateModel
             {
                 Archived = false,
                 Description = description.Text,
                 EAN = prodEAN.Text,
+                SKU = prodSKU.Text,
                 Name = prodName.Text,
                 ProductTypeId = ((ProductTypeModel)itemTypesList.SelectedItem).Id,
                 PublicId = prodIdPubl.Text,
@@ -180,7 +185,7 @@ namespace Wirtualnik.UWP.Admin
             }
             catch (ApiException ex)
             {
-                await ShowContentDialog(ex.Message, ex.StackTrace);
+                await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
                 return;
             }
 
@@ -200,8 +205,8 @@ namespace Wirtualnik.UWP.Admin
             }
             catch (ApiException ex)
             {
-                await ShowContentDialog(ex.Message, ex.StackTrace);
-                AddProductStatusText.Text = "Nie działa";
+                await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
+                AddProductStatusText.Text = "Poszło, ale nie obrazki :c";
                 files.Clear();
                 return;
             }
@@ -238,7 +243,7 @@ namespace Wirtualnik.UWP.Admin
             SelectedFiles = new List<ImageModel>();
 
             FileOpenPicker fileOpenPicker = new FileOpenPicker();
-            fileOpenPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            fileOpenPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             fileOpenPicker.ViewMode = PickerViewMode.Thumbnail;
             fileOpenPicker.FileTypeFilter.Add(".png"); // Required file extension 
 
@@ -264,6 +269,80 @@ namespace Wirtualnik.UWP.Admin
             }
 
             flipView.ItemsSource = SelectedFiles;
+        }
+
+        private async void AddImportExcel_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker fileOpenPicker = new FileOpenPicker();
+            fileOpenPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            fileOpenPicker.ViewMode = PickerViewMode.Thumbnail;
+            fileOpenPicker.FileTypeFilter.Add(".xlsx"); // Required file extension 
+
+            var file = await fileOpenPicker.PickSingleFileAsync();
+
+            if (file == null)
+            {
+                return;
+            }
+            ExcelImportFile = file;
+
+            CurrentImportPath.Text = file.Path;
+        }
+
+        private async void AddImportImages_Click(object sender, RoutedEventArgs e)
+        {
+            var folderPicker = new FolderPicker();
+            folderPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            folderPicker.FileTypeFilter.Add("*");
+            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+
+            ExcelImportImagesFolder = folder;
+            CurrentImportImagesPath.Text = folder?.Path ?? "-";
+        }
+
+        private async void Import_Click(object sender, RoutedEventArgs e)
+        {
+            if (ExcelImportFile is null || ExcelImportImagesFolder is null)
+            {
+                await ShowContentDialog("Wybierz plik .xlsx i folder z obrazkami.", "");
+                return;
+            }
+
+            ExcelStatusTextBlock.Text = "Wrzuca";
+            try
+            {
+                var pro = (IProductClient)App.Services.GetService(typeof(IProductClient));
+                var filesClient = (IFilesClient)App.Services.GetService(typeof(IFilesClient));
+
+                var stream = await ExcelImportFile.OpenStreamForReadAsync();
+
+                await pro.ExcelImport(ImportTypePublicId.Text,
+                    new StreamPart(stream, System.IO.Path.GetFileName(ExcelImportFile.Path)));
+
+                var imagesFolders = await ExcelImportImagesFolder.GetFoldersAsync();
+
+                foreach (var folder in imagesFolders)
+                {
+                    var images = new List<StreamPart>();
+
+                    var imagesFiles = await folder.GetFilesAsync();
+
+                    foreach (var file in imagesFiles)
+                    {
+                        var imageStream = await file.OpenStreamForReadAsync();
+                        images.Add(new StreamPart(imageStream, Path.GetFileName(file.Path)));
+                    }
+
+                    await filesClient.Create(Path.GetFileName(folder.Path), images);
+                }
+            }
+            catch (Exception ex)
+            {
+                await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
+                ExcelStatusTextBlock.Text = "Nie Działa";
+            }
+
+            ExcelStatusTextBlock.Text = "Działa";
         }
 
         private async Task ShowContentDialog(string title, string description)
@@ -321,6 +400,11 @@ namespace Wirtualnik.UWP.Admin
         {
             if (ProductTypeProps.Children.Count > 0)
                 ProductTypeProps.Children.RemoveAt(ProductTypeProps.Children.Count - 1);
+        }
+
+        private void AddImportFiles_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

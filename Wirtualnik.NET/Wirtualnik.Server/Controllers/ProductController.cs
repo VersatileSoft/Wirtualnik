@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -51,6 +52,13 @@ namespace Wirtualnik.Server.Controllers
             product = await _productService.FetchAsync(product.PublicId);
 
             return CreatedAtAction(nameof(this.Fetch), this.GetType().Name.Replace("Controller", ""), new { publicId = product.PublicId }, _mapper.Map<DetailsModel>(product));
+        }
+
+        [HttpPost("import/{productTypeId}")]
+        public async Task<ActionResult> ExcelImport(string productTypeId, [FromForm] List<IFormFile> file)
+        {
+            await _productService.XlsxImport(file[0], productTypeId);
+            return Ok();
         }
 
         [HttpPut("{publicId}")]
