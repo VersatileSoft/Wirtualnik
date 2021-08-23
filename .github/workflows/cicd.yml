@@ -19,8 +19,7 @@ jobs:
     - name: Dotnet Publish
       run: dotnet publish Wirtualnik.NET/Wirtualnik.Server/Wirtualnik.Server.csproj -c Release -o Release
     - name: Remove not needed files
-      run: rm Release/appsettings.json
-      run: rm -rf Release/wwwroot
+      run: rm Release/appsettings.json; rm -rf Release/wwwroot
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
