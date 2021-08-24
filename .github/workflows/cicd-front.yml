@@ -39,7 +39,7 @@ jobs:
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
-        local: .nuxt
+        local: nuxt
         remote: ${{ secrets.REMOTE_FRONT_TARGET }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
