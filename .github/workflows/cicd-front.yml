@@ -28,7 +28,7 @@ jobs:
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
     - name: Install dependencies
-      run: yarn --version
+      run: ls
     
     - name: Generate prod
       run: yarn build
