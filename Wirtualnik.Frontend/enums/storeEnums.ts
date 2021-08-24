@@ -2,4 +2,8 @@ enum ThemeMutations {
     CHANGE_THEME = 'CHANGE_THEME'
 }
 
-export { ThemeMutations };
+enum TokenMutations {
+  SET_TOKEN = 'SET_TOKEN'
+}
+
+export { ThemeMutations, TokenMutations };
