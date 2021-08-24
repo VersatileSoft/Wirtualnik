@@ -34,7 +34,7 @@ jobs:
       run: yarn build
 
     - name: Test
-      run: ls
+      run: ls .nuxt
 
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.7.3
