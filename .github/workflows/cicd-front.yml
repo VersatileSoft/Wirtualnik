@@ -57,15 +57,6 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         privateKey: ${{ secrets.REMOTE_SSH_KEY }}
 
-    - name: Copy jest.config.js
-      uses: garygrossgarten/github-action-scp@v0.7.3
-      with:
-        local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/jest.config.js
-        remote: ${{ secrets.REMOTE_FRONT_TARGET }}
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
-        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
-
     - name: Copy nuxt.config.js
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
