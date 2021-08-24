@@ -21,25 +21,31 @@ jobs:
       with:
         node-version: '14'
     
-    - name: Restore cache
-      uses: actions/cache@v2
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    - name: Get yarn cache directory path
+       id: yarn-cache-dir-path
+       run: echo "::set-output name=dir::$(yarn cache dir)"
 
-    - name: Install dependencies
-      run: yarn
+     - uses: actions/cache@v1
+       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+       with:
+         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+         restore-keys: |
+           ${{ runner.os }}-yarn-
+
+    - name: Install project dependencies
+      run: yarn --prefer-offline
     
     - name: Generate prod
       run: yarn build
 
-    - name: Make nuxt visible for ssh
-      run: mv .nuxt nuxt
+    - name: test
+      run: pwd
 
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
-        local: nuxt
+        local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/.nuxt/
         remote: ${{ secrets.REMOTE_FRONT_TARGET }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
