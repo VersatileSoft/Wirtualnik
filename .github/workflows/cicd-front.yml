@@ -39,22 +39,72 @@ jobs:
     - name: Generate prod
       run: yarn build
 
-    - name: test
-      run: pwd
-
-    - name: Copy via ssh
+    - name: Copy .nuxt
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
         local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/.nuxt/
+        remote: ${{ secrets.REMOTE_FRONT_TARGET }}/.nuxt
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+
+    - name: Copy static
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/static/
+        remote: ${{ secrets.REMOTE_FRONT_TARGET }}/static
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+
+    - name: Copy jest.config.js
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/jest.config.js
         remote: ${{ secrets.REMOTE_FRONT_TARGET }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         privateKey: ${{ secrets.REMOTE_SSH_KEY }}
 
-    # - name: Run SSH command
-    #   uses: garygrossgarten/github-action-ssh@v0.6.4
-    #   with:
-    #     command: sudo systemctl restart wirtualnik.service
-    #     host: ${{ secrets.REMOTE_HOST }}
-    #     username: ${{ secrets.REMOTE_USER }}
-    #     privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+    - name: Copy nuxt.config.js
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/nuxt.config.js
+        remote: ${{ secrets.REMOTE_FRONT_TARGET }}/nuxt.config.js
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+
+    - name: Copy package.json
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/package.json
+        remote: ${{ secrets.REMOTE_FRONT_TARGET }}/package.json
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+
+    - name: Copy yarn.lock
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: /home/runner/work/Wirtualnik/Wirtualnik/Wirtualnik.Frontend/yarn.lock
+        remote: ${{ secrets.REMOTE_FRONT_TARGET }}/yarn.lock
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+
+    - name: Run SSH command
+      uses: garygrossgarten/github-action-ssh@v0.6.4
+      with:
+        command: yarn --cwd ${{ secrets.REMOTE_FRONT_TARGET }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+
+    - name: Run SSH command
+      uses: garygrossgarten/github-action-ssh@v0.6.4
+      with:
+        command: sudo pm2 reload npm
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
