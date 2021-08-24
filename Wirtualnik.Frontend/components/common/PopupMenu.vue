@@ -107,7 +107,7 @@ export default class PopupMenu extends Vue {
       var that = this;
       console.log('login');
       this.showAuthWindow({
-        path: "https://localhost/auth/login/Facebook",
+        path: "https://api.zlcn.pro/auth/login/Facebook",
         callback: function(c: string)
         {
             console.log('callback' + c);
