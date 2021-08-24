@@ -5,6 +5,10 @@ on:
     branches:
     - develop
 
+defaults:
+  run:
+    working-directory: Wirtualnik.Frontend
+
 jobs:
   build:
 
@@ -24,7 +28,7 @@ jobs:
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
     - name: Install dependencies
-      run: ls
+      run: yarn
     
     - name: Generate prod
       run: yarn build
@@ -32,7 +36,7 @@ jobs:
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
-        local: frontend/.nuxt
+        local: .nuxt
         remote: ${{ secrets.REMOTE_FRONT_TARGET }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
