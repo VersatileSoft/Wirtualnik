@@ -118,11 +118,11 @@ export default {
         throttle: 0
     },
 
-    // configure server
-    server: {
-        https: {
-            key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
-            cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
-        }
-    }
+    // // configure server
+    // server: {
+    //     https: {
+    //         key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+    //         cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    //     }
+    // }
 };
