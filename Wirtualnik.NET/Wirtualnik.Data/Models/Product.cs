@@ -12,6 +12,7 @@ namespace Wirtualnik.Data.Models
         public string Manufacturer { get; set; } = "";
         public bool Archived { get; set; }
         public string Color { get; set; } = "";
+        public string SKU { get; set; } = "";
 
         public virtual ICollection<ProductShop> ProductShops { get; set; } = null!;
         public virtual ICollection<Shop> Shops { get; set; } = null!;

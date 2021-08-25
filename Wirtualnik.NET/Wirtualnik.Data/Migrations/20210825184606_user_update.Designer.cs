@@ -10,8 +10,8 @@ using Wirtualnik.Data;
 namespace Wirtualnik.Data.Migrations
 {
     [DbContext(typeof(WirtualnikDbContext))]
-    [Migration("20210803194145_Init")]
-    partial class Init
+    [Migration("20210825184606_user_update")]
+    partial class user_update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,14 +170,14 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("GivenName")
+                        .HasColumnType("text");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -196,7 +196,13 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Picture")
+                        .HasColumnType("text");
+
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -294,6 +300,10 @@ namespace Wirtualnik.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -319,12 +329,14 @@ namespace Wirtualnik.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("CleanLink")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("RefLink")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("ProductId", "ShopId");
@@ -442,15 +454,18 @@ namespace Wirtualnik.Data.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ApiLink")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Logo")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdateDate")
@@ -575,7 +590,7 @@ namespace Wirtualnik.Data.Migrations
             modelBuilder.Entity("Wirtualnik.Data.Models.PropertyType", b =>
                 {
                     b.HasOne("Wirtualnik.Data.Models.ProductType", "ProductType")
-                        .WithMany("ProductProperties")
+                        .WithMany("PropertyTypes")
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -594,7 +609,7 @@ namespace Wirtualnik.Data.Migrations
 
             modelBuilder.Entity("Wirtualnik.Data.Models.ProductType", b =>
                 {
-                    b.Navigation("ProductProperties");
+                    b.Navigation("PropertyTypes");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Shop", b =>

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
@@ -49,6 +51,9 @@ namespace Wirtualnik.Server.Extensions.Authentication
                 opt.AppId = authSettings?.FacebookAuthenticationSettings?.AppId;
                 opt.AppSecret = authSettings?.FacebookAuthenticationSettings?.AppSecret;
                 opt.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                opt.Fields.Add("picture");
+                opt.ClaimActions.MapCustomJson("Picture",
+                json => json.GetProperty("picture").GetProperty("data").GetProperty("url").GetString());
             });
 
             services.AddAuthorization();
@@ -77,7 +82,8 @@ namespace Wirtualnik.Server.Extensions.Authentication
                 {
                     UserName = authSettings?.AdminUser?.Email ?? "admin@admin.pl",
                     Email = authSettings?.AdminUser?.Email ?? "admin@admin.pl",
-                    Name = "Admin Admin"
+                    GivenName = "Admin",
+                    Surname = "Admin"
                 };
 
                 var result = await UserManager.CreateAsync(admin, authSettings?.AdminUser?.Password ?? "admin");

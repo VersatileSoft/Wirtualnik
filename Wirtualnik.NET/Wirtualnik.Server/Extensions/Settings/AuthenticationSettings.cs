@@ -9,7 +9,8 @@ namespace Wirtualnik.Server.Extensions.Settings
 
         public AdminUser? AdminUser { get; set; }
         public string? ErrorUrl { get; set; }
-        public string? CallbackUrl { get; set; }
+        public string? WebCallbackUrl { get; set; }
+        public string? MobileCallbackUrl { get; set; }
 
         public AuthenticationSettings(IConfiguration config)
         {

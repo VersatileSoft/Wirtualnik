@@ -1,0 +1,37 @@
+name: CI
+
+on: 
+  push:
+    branches:
+    - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2.3.4
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Dotnet Publish
+      run: dotnet publish Wirtualnik.NET/Wirtualnik.Server/Wirtualnik.Server.csproj -c Release -o Release
+    - name: Remove not needed files
+      run: rm Release/appsettings.json; rm -rf Release/wwwroot
+    - name: Copy via ssh
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: Release
+        remote: ${{ secrets.REMOTE_TARGET }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+    - name: Run SSH command
+      uses: garygrossgarten/github-action-ssh@v0.6.4
+      with:
+        command: sudo systemctl restart wirtualnik.service
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        privateKey: ${{ secrets.REMOTE_SSH_KEY }}
