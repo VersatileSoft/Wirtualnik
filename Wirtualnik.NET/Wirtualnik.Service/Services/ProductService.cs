@@ -111,7 +111,7 @@ namespace Wirtualnik.Service.Services
                     product.Archived = false;
                     product.ProductType = productType;
 
-                    if(!string.IsNullOrEmpty(product.PublicId) && !(await Context.Products.AnyAsync(p => p.PublicId == product.PublicId)))
+                    if (!string.IsNullOrEmpty(product.PublicId) && !(await Context.Products.AnyAsync(p => p.PublicId == product.PublicId)))
                     {
                         await CreateAsync(product);
                     }
