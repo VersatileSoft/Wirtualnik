@@ -1,11 +1,11 @@
 <template>
     <div class="user-menu" :class="{ 'menu-opened': isMenuOpened }">
         <section class="user-menu__header">
-            <h3 v-if="this.$store.state.auth.token">Hej Maksymilian!</h3>
+            <h3 v-if="this.$store.state.auth.token">Hej {{this.$store.state.auth.givenName}}!</h3>
             <h3 v-else>Niezalogowano</h3>
             <div class="page-header__extras">
                 <div class="btn-flat" v-if="this.$store.state.auth.token">
-                    <img src="~/assets/images/user.jpg" />
+                    <img :src="this.$store.state.auth.picture" />
                 </div>
                 <button class="btn-flat" @click="themeChange">
                     <span class="las la-moon"></span>
@@ -69,6 +69,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator';
 import { ThemeMutations, TokenMutations } from '@/enums/storeEnums';
+import jwt_decode from "jwt-decode";
 @Component({
     name: 'PopupMenu'
 })
@@ -118,9 +119,12 @@ export default class PopupMenu extends Vue {
     }
 
     loged(token: string){
-      this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, token)
-      console.log('token: ' + token);
-      console.log(this.$store.state.auth.token);
+      this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, token);
+
+      var decoded: any = jwt_decode(token);
+      this.$store.commit(`auth/${TokenMutations.SET_GIVEN_NAME}`, decoded.given_name);
+      this.$store.commit(`auth/${TokenMutations.SET_SURNAME}`, decoded.family_name);
+      this.$store.commit(`auth/${TokenMutations.SET_PICTURE}`, decoded.picture);
     }
 
     showAuthWindow(options: any)

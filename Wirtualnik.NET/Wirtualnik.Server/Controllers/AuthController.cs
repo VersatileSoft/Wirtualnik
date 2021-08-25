@@ -34,7 +34,7 @@ namespace Wirtualnik.Server.Controllers
         }
 
         [HttpGet("login/{scheme}")]
-        public async Task<ActionResult> FacebookAuthenticateAsync(string scheme)
+        public async Task<ActionResult> FacebookAuthenticateAsync(string scheme, string? callbackType)
         {
             if (scheme.Length > 0)
                 scheme = char.ToUpper(scheme[0]) + scheme.Substring(1);
@@ -58,7 +58,8 @@ namespace Wirtualnik.Server.Controllers
 
             if (result.Success)
             {
-                return Redirect($"{_authSettings.CallbackUrl}#access_token={result.Token}");
+                var callback = callbackType == "mobile" ? _authSettings.MobileCallbackUrl : _authSettings.WebCallbackUrl;
+                return Redirect($"{callback}#access_token={result.Token}");
             }
             else
             {

@@ -49,8 +49,9 @@ namespace Wirtualnik.Service.Services
                 {
                     Email = email,
                     UserName = email,
-                    Name = claims?.FindFirst(ClaimTypes.Name)?.Value,
-
+                    GivenName = claims?.FindFirst(ClaimTypes.GivenName)?.Value,
+                    Surname = claims?.FindFirst(ClaimTypes.Surname)?.Value,
+                    Picture = claims?.FindFirst("picture")?.Value,
                 };
 
                 var result = await _userManager.CreateAsync(user);
@@ -145,7 +146,9 @@ namespace Wirtualnik.Service.Services
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.NameId, user.Id),
-                    new Claim(JwtRegisteredClaimNames.GivenName, user.Name ?? string.Empty),
+                    new Claim(JwtRegisteredClaimNames.GivenName, user.GivenName ?? string.Empty),
+                    new Claim(JwtRegisteredClaimNames.FamilyName, user.Surname?? string.Empty),
+                    new Claim("picture", user.Picture ?? string.Empty),
                     new Claim("role", roles)
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
