@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+	<title>Koszyk - Wirtualnik.pl</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<style>
+	@font-face{font-family:'Poppins Devanagari';src:url(static/fonts/PoppinsVF.woff2) format("woff2");font-weight:100 800;font-display: fallback}
+  :root {
+    --background: #F3F3F3;
+  }
+  body
+  {
+    background-color:var(--background);
+    font-family:'Poppins Devanagari',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    min-width:320px;
+    font-size: 15px;
+    max-width: 1280px;
+    margin:    0 auto;
+  }
+  a{text-decoration:none}
+  @keyframes fadeIn {
+  	from {
+  		opacity: 0;
+  		transform: translate3d(0, 10px, 0);
+  	}
+  	to {
+  		opacity: 1;
+  		transform: translate3d(0, 0, 0);
+  	}
+  }
+	</style>
+	<link rel="preload" href="static/css/shadient.css" as="style">
+	<link rel="stylesheet" href="static/css/shadient.css">
+	<link rel="preload" href="static/css/shadient_defer.css" as="style">
+	<link rel="stylesheet" href="static/css/shadient_defer.css">
+	<link rel="preload" as="style" media='screen and (max-width: 720px)' href="static/css/shadient_mobile.css" onload="this.rel='stylesheet'"/>
+	<link rel="stylesheet" href="static/css/shadient_mobile.css" media='screen and (max-width: 720px)' >
+	<link rel="preload" as="style" href="static/css/line-awesome.min.css" onload="this.rel='stylesheet'"/>
+</head>
+<body id="Home" data-theme="light">
+
+	<header class="header">
+
+	  <h1><button class="btnFlat" onclick="BigMenuToggle()"><i class="las la-bars"></i></button><a href="index.htm">WIRTUALNIK</a></h1>
+
+		<div class="userMenu bigMenu" id="big-menu">
+			<section>
+
+				<div class="headerExtra">
+					<button class="btnFlat" onclick="BigMenuToggle()"><i class="las la-times"></i></button>
+				</div>
+
+				<div class="searchContainer">
+					<input placeholder="Szukaj..." spellcheck="false" type="text" />
+				</div>
+			</section>
+
+			<div class="dividerGrey" style="margin-top:10px"></div>
+
+			<div class="sidebarElement">
+				<button><span class="icon-cpu"></span><p>Procesory</p></button>
+				<button><span class="icon-motherboard"></span><p>Płyty główne</p></button>
+				<button><span class="icon-ram"></span><p>Pamięć RAM</p></button>
+				<button><span class="icon-gpu"></span><p>Karty graficzne</p></button>
+				<button><span class="icon-ssd"></span><p>Dyski</p></button>
+				<button><span class="icon-psu"></span><p>Zasilacze</p></button>
+				<button><span class="icon-case"></span><p>Obudowy</p></button>
+			</div>
+
+			<div class="dividerGrey" style="margin-top:10px"></div>
+
+			<div class="sidebarElement">
+				<button><span class="icon-laptop"></span><p>Laptopy<br></p></button>
+				<button><span class="icon-cooler"></span><p>Chłodzenia procesora</p></button>
+				<button><span class="icon-mouse"></span><p>Myszki<br></p></button>
+				<button><span class="icon-keyboard"></span><p>Klawiatury</p></button>
+				<button><span class="icon-headphones"></span></i><p>Słuchawki</p></button>
+				<button><span class="icon-monitor"></span></i><p>Monitory</p></button>
+			</div>
+
+			<div class="dividerGrey" style="margin-top:10px"></div>
+
+			<div class="shopPreference">
+				<div>
+					<h3>Preferowany sklep</h3>
+					<h4>Aktualnie wybrany: <b>Morele.net</b></h4>
+				</div>
+				<div class="shopList">
+						<button class="btnFlat preferedShopGlow"><img src="static/img/shop/morele-sygnet.png" alt="Morele.net"></button>
+						<button class="btnFlat"><img src="static/img/shop/xkom-sygnet.png" alt="X-kom"></button>
+						<button class="btnFlat"><img src="static/img/shop/euro-sygnet.png" alt="RTV Euro AGD"></button>
+						<button class="btnFlat"><img src="static/img/shop/mediaexpert-sygnet.png" alt="OleOle"></button>
+						<button class="btnFlat"><img src="static/img/shop/proline-sygnet.png" alt="MediaExpert"></button>
+						<button class="btnFlat"><img src="static/img/shop/oleole-sygnet.png" alt="ProLine"></button>
+				</div>
+			</div>
+
+
+			<div class="mobileMenu">
+				<div class="headerComponents">
+					<a href="najlepsze.htm"><button><i class="las la-thumbs-up"></i></button></a>
+					<a href="ulubione.htm"><button><i class="las la-heart"></i></button></a>
+					<a href="twoje-wirtualniki.htm"><button><i class="las la-cloud"></i></button></a>
+					<a href="porownanie.htm"><button><i class="las la-balance-scale-left"></i></button></a>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="headerCenter">
+			<div class="headerComponents">
+				<a href="najlepsze.htm"><button class="tooltipRecommendedCarts"><i class="las la-thumbs-up"></i></button></a>
+				<a href="ulubione.htm"><button class="tooltipLikedCarts"><i class="las la-heart"></i></button></a>
+				<a href="twoje-wirtualniki.htm"><button class="tooltipSavedCarts"><i class="las la-cloud"></i></button></a>
+				<a href="porownanie.htm"><button class="tooltipProductComparison"><i class="las la-balance-scale-left"></i></button></a>
+			</div>
+
+
+
+		</div>
+	  <div class="headerExtra">
+			<div class="headerComponents" style="justify-content:flex-end;">
+				<a href="koszyk.htm"><button class="itemChosen btnCart"><i class="las la-shopping-cart"></i><sub>342,23 PLN</sub></button></a>
+			</div>
+	    <button class="btnFlat" onclick="UserMenuToggle()"><i class="las la-user"></i></button>
+
+
+
+		<div class="userMenu" id="user-menu">
+			<section>
+				<h3>Hej Maksymilian!</h3>
+				<div class="headerExtra">
+					<button class="btnFlat"><img src="static/img/user.jpg" alt="Avatar"></button>
+					<button class="btnFlat" onclick="DarkModeToggle()"><i class="las la-moon"></i></button>
+					<button class="btnFlat" onclick="UserMenuToggle()"><i class="las la-times"></i></button>
+				</div>
+			</section>
+			<div class="sidebarElement">
+				<button class="btnActive"><i class="las la-bell bellRing"></i><p>Powiadomienia<br><sub>(4)</sub></p></button>
+				<button><i class="las la-cloud"></i><p>Twoje Wirtualniki<br><sub>(333)</sub></p></button>
+				<button><i class="las la-cog"></i><p>Ustawienia</p></button>
+				<button><i class="las la-bug"></i><p>Zgłoś błąd / sugestie</p></button>
+				<button><i class="las la-sign-out-alt"></i><p>Wyloguj się</p></button>
+			</div>
+		</div>
+	  </div>
+	</header>
+
+	<div class="dividerForMobile"></div>
+
+	<div class="breadcrumbs">
+		<p>
+			<a href="https://wirtualnik.pl/">Wirtualnik.pl</a>
+			>
+			Koszyk</p>
+	</div>
+
+<div class="container">
+				<div class="productCard" style="max-width:100%;background:var(--white);"><div class="cart">
+					<div class="left">
+						<div class="productCardImage productCardGlowCyan">
+							<img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy">
+						</div>
+						<div class="userCard">
+							<a href="#"><button class="btnFlat"><img src="static/img/user.jpg" alt="Avatar"></button></a>
+							<p>Autor<br>
+							<a href="#"><b>Piotr Plenzler</b></p></a>
+							<sub>Dodano: 24.07.2021 10:42<br>
+							Aktualizacja: 24.07.2021 11:01</sub>
+						</div><div class="userCard" style="justify-content:space-around">
+						<button class="btnGreen btnCircle btnBasic" style="display:none;"><i class="las la-cart-plus"></i>Utwórz publicznego Wirtualnika</button>
+						<button class="btnOrange btnCircle btnBasic"><i class="las la-exclamation"></i>Ostrzeżenia (3)</button>
+						<button class="btnRed btnCircle btnBasic"><i class="las la-bug"></i>Błąd! (1)</button></div>
+
+						<sub style="display:none">Nie wykryto problemów z tą konfiguracją 😊</sub>
+					</div>
+					<div class="list sidebarList currency">
+						<li><img src="static/img/cpu/ryzen_3_3100-box.png"><a href="amd_ryzen_3_3100.htm">
+
+							AMD Ryzen 3 3100
+							</a><p>2342.97<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></p>
+							<i class="las la-angle-up"></i>
+
+
+
+						</li>
+						<div class="productExtraInfo">
+							<div class="pcs-controls">
+								<i class="las la-angle-up"></i>
+								<p>1x</p>
+								<i class="las la-angle-down"></i>
+							</div>
+							<button class="btnRed btnCircle btnBasic"><i class="las la-trash"></i>Usuń produkt</button>
+						</div>
+
+
+
+						<li><img src="static/img/cpu/ryzen_3_3100-box.png"><a href="amd_ryzen_3_3100.htm">
+
+							G.Skill 2x8GB 3200MHz C16
+							</a><p>2943.13<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></p>
+
+							<div class="pcs-controls">
+								<i class="las la-angle-down"></i>
+							</div>
+
+						</li>
+						<li><img src="static/img/cpu/ryzen_3_3100-box.png"><a href="amd_ryzen_3_3100.htm">
+							Gigabyte Z490 Gaming X
+							</a><p>2541.71<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></p>
+							<div class="pcs-controls"><i class="las la-angle-down"></i>
+
+							</div>
+
+						</li>
+						<li><img src="static/img/cpu/ryzen_3_3100-box.png"><a href="amd_ryzen_3_3100.htm">
+							Crucial MX500 1TB
+							</a><p>462.23<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></p>
+							<div class="pcs-controls"><i class="las la-angle-down"></i></div>
+						</li>
+						<li><img src="static/img/cpu/ryzen_3_3100-box.png"><a href="amd_ryzen_3_3100.htm">
+							Gigabyte RTX 3070 Gaming X
+							</a><p>9877.32<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></p>
+							<div class="pcs-controls"><i class="las la-angle-down"></i></div>
+						</li>
+						<li><img src="static/img/cpu/ryzen_3_3100-box.png"><a href="amd_ryzen_3_3100.htm">
+							SilentiumPC Vero L3 600W
+							</a><p>3842.00<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></p>
+							<div class="pcs-controls"><i class="las la-angle-down"></i></div>
+						</li>
+						<li><img src="static/img/cpu/ryzen_3_3100-box.png"><a href="amd_ryzen_3_3100.htm">
+							SilentiumPC Signum SG1 TG
+							</a><p>214.55<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></p>
+							<div class="pcs-controls"><i class="las la-angle-down"></i></div>
+						</li>
+					</div></div>
+
+					<div class="warninglist">
+						<li class="error">
+							<span class="icon-motherboard"></span>
+							<h4>Brak kompatybilności</h4>
+							<p>Wybrany procesor AMD Ryzen 3 3100 posiada złącze Socket AM4, a płyta główna znajdująca się w tym Wirtualniku obsługuje Socket LGA1200.</p>
+						</li>
+						<li class="warning">
+							<span class="icon-case"></span>
+							<h4>Obudowa może być zbyt mała</h4>
+							<p>W obudowie SilentiumPC Signum SG1 TG jest miejsce na karte graficzną o długości maksymalnie 300mm, a wybrana Gigabyte RTX 3070 Gaming X ma 298mm.</p>
+						</li>
+						<li class="warning">
+							<span class="icon-gpu"></span>
+							<h4>--</h4>
+							<p>--</p>
+						</li>
+						<li class="warning">
+							<span class="icon-psu"></span>
+							<h4>--</h4>
+							<p>--</p>
+						</li>
+					</div>
+
+					<div class="pricelist fullwidth">
+						<button class="btnPrice best">
+							<img src="static\img\shop\morele-sygnet.png" alt="Morele.net"><h4>Morele.net</h4>
+							5462.32
+						</button>
+						<button class="btnPrice">
+							<img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><h4>X-kom</h4>
+							5492.32
+						</button>
+						<button class="btnPrice">
+							<img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><h4>RTV Euro AGD</h4>
+							6462.32
+						</button>
+						<button class="btnPrice">
+							<img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><h4>OleOle</h4>
+							6762.32
+						</button>
+						<button class="btnPrice">
+							<img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><h4>MediaExpert</h4>
+							6962.32
+						</button>
+						<button class="btnPrice">
+							<img src="static\img\shop\proline-sygnet.png" alt="ProLine"><h4>ProLine</h4>
+							2962.64 ⚠️
+						</button>
+					</div>
+
+
+					<h3>Więcej o tym Wirtualniku</h3>
+					<div class="list col-3">
+						<li>
+							Ilość rdzeni/wątków
+							<p>4R / 8W</p>
+						</li>
+						<li>
+							<h5>Geekbench 5<br>
+							<sub>Pojedyńczy rdzeń</sub></h5>
+							<p>1128</p>
+						</li>
+						<li>
+							<h5>Geekbench 5<br>
+							<sub>Wszystkie rdzenie</sub></h5>
+							<p>4709</p>
+						</li>
+						<li>
+							<h5>Cinebench R23<br>
+							<sub>Pojedyńczy rdzeń</sub></h5>
+							<p>1105</p>
+						</li>
+						<li>
+							<h5>Cinebench R23<br>
+							<sub>Wszystkie rdzenie</sub></h5>
+							<p>5423</p>
+						</li>
+						<li>
+							<h5>3DMark FireStrike<br></h5>
+							<p>32411 pkt</p>
+						</li>
+						<li>
+							<h5>Pobór prądu<br>
+							<sub>(maksymalny)</sub></h5>
+							<p>321W</p>
+						</li>
+						<li>
+							<h5>Odblokowany mnożnik</h5>
+							<p>Nie</p>
+						</li>
+
+						<li>
+							<h5>Chłodzenie w zestawie</h5>
+							<p>Wraith Stealth</p>
+						</li>
+						<li>
+							<h5>Gwarancja</h5>
+							<p>36 miesięcy</p>
+						</li>
+					</div>
+
+				</div>
+</div>
+<div class="container">
+
+		<div class="productContainer">
+			<div class="productsGridTitle"><h2><b>Prawdziwe promocje </b></h2></div>
+			<div class="productsGrid" id="popular_items">
+
+					<div class="productCard vertical promo">
+						<div class="productCardImage ProductCardGlowOrange">
+							<img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy">
+						</div>
+
+						<h2>AMD Ryzen 3 1200</h2>
+						<sub>549.00 PLN</sub><h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4>
+
+
+						<p>4 rdzenie, 4 wątki</p>
+						<p>Socket AM4</p>
+						<p>65W</p>
+						<div class="pricelist">
+
+							<button class="btn-miniprice">
+								<img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><br>
+								542.00
+							</button>
+							<button class="btn-miniprice">
+								<img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><br>
+								555.00
+							</button>
+							<button class="btn-miniprice">
+								<img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><br>
+								654.00
+							</button>
+							<button class="btn-miniprice">
+								<img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><br>
+								876.00
+							</button>
+							<button class="btn-miniprice">
+								<img src="static\img\shop\proline-sygnet.png" alt="ProLine"><br>
+								765.00
+							</button>
+						</div>
+
+						<div class="productCardButtons">
+							<i class="las la-cart-plus btnCircle btnGreen"></i>
+							<i class="las la-angle-double-right btnCircle btnGreen"></i>
+						</div>
+					</div>
+
+					<div class="productCard vertical promo"><div class="productCardImage ProductCardGlowOrange"><img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"></div><h2>AMD Ryzen 3 1200</h2><sub>549.00 PLN</sub><h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="pricelist"><button class="btn-miniprice"><img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><br>542.00</button><button class="btn-miniprice"><img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><br>555.00</button><button class="btn-miniprice"><img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><br>654.00</button><button class="btn-miniprice"><img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><br>876.00</button><button class="btn-miniprice"><img src="static\img\shop\proline-sygnet.png" alt="ProLine"><br>765.00</button></div><div class="productCardButtons"><i class="las la-cart-plus btnCircle btnGreen"></i><i class="las la-angle-double-right btnCircle btnGreen"></i></div></div>
+					<div class="productCard vertical promo"><div class="productCardImage ProductCardGlowOrange"><img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"></div><h2>AMD Ryzen 3 1200</h2><sub>549.00 PLN</sub><h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="pricelist"><button class="btn-miniprice"><img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><br>542.00</button><button class="btn-miniprice"><img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><br>555.00</button><button class="btn-miniprice"><img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><br>654.00</button><button class="btn-miniprice"><img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><br>876.00</button><button class="btn-miniprice"><img src="static\img\shop\proline-sygnet.png" alt="ProLine"><br>765.00</button></div><div class="productCardButtons"><i class="las la-cart-plus btnCircle btnGreen"></i><i class="las la-angle-double-right btnCircle btnGreen"></i></div></div>
+					<div class="productCard vertical promo"><div class="productCardImage ProductCardGlowOrange"><img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"></div><h2>AMD Ryzen 3 1200</h2><sub>549.00 PLN</sub><h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="pricelist"><button class="btn-miniprice"><img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><br>542.00</button><button class="btn-miniprice"><img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><br>555.00</button><button class="btn-miniprice"><img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><br>654.00</button><button class="btn-miniprice"><img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><br>876.00</button><button class="btn-miniprice"><img src="static\img\shop\proline-sygnet.png" alt="ProLine"><br>765.00</button></div><div class="productCardButtons"><i class="las la-cart-plus btnCircle btnGreen"></i><i class="las la-angle-double-right btnCircle btnGreen"></i></div></div>
+					<div class="productCard vertical promo"><div class="productCardImage ProductCardGlowOrange"><img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"></div><h2>AMD Ryzen 3 1200</h2><sub>549.00 PLN</sub><h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="pricelist"><button class="btn-miniprice"><img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><br>542.00</button><button class="btn-miniprice"><img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><br>555.00</button><button class="btn-miniprice"><img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><br>654.00</button><button class="btn-miniprice"><img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><br>876.00</button><button class="btn-miniprice"><img src="static\img\shop\proline-sygnet.png" alt="ProLine"><br>765.00</button></div><div class="productCardButtons"><i class="las la-cart-plus btnCircle btnGreen"></i><i class="las la-angle-double-right btnCircle btnGreen"></i></div></div>
+					<div class="productCard vertical promo"><div class="productCardImage ProductCardGlowOrange"><img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"></div><h2>AMD Ryzen 3 1200</h2><sub>549.00 PLN</sub><h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="pricelist"><button class="btn-miniprice"><img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><br>542.00</button><button class="btn-miniprice"><img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><br>555.00</button><button class="btn-miniprice"><img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><br>654.00</button><button class="btn-miniprice"><img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><br>876.00</button><button class="btn-miniprice"><img src="static\img\shop\proline-sygnet.png" alt="ProLine"><br>765.00</button></div><div class="productCardButtons"><i class="las la-cart-plus btnCircle btnGreen"></i><i class="las la-angle-double-right btnCircle btnGreen"></i></div></div>
+					<div class="productCard vertical promo"><div class="productCardImage ProductCardGlowOrange"><img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"></div><h2>AMD Ryzen 3 1200</h2><sub>549.00 PLN</sub><h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="pricelist"><button class="btn-miniprice"><img src="static\img\shop\xkom-sygnet.png" alt="X-kom"><br>542.00</button><button class="btn-miniprice"><img src="static\img\shop\euro-sygnet.png" alt="RTV Euro AGD"><br>555.00</button><button class="btn-miniprice"><img src="static\img\shop\oleole-sygnet.png" alt="OleOle"><br>654.00</button><button class="btn-miniprice"><img src="static\img\shop\mediaexpert-sygnet.png" alt="MediaExpert"><br>876.00</button><button class="btn-miniprice"><img src="static\img\shop\proline-sygnet.png" alt="ProLine"><br>765.00</button></div><div class="productCardButtons"><i class="las la-cart-plus btnCircle btnGreen"></i><i class="las la-angle-double-right btnCircle btnGreen"></i></div></div>
+
+
+			</div>
+
+			<div class="productsGridTitle"><h2><b>Nowe produkty</b></h2></div>
+			<div class="productsGrid" id="popular_items">
+
+				<div class="productsGridSlider">
+					<div class="productCard"> <div class="productCardImage ProductCardGlowOrange"> <img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"> </div><h2>AMD Ryzen 3 1200</h2> <h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="productPoints"> <div class="productPointsBox productPointsRed"> Gaming <h5>123</h5> </div><div class="productPointsBox productPointsBlue"> Pro <h5>93</h5> </div></div><div class="productCardButtons"><i class="las la-balance-scale btnCircle btnGreen"></i><i class="las la-cart-plus btnCircle btnGreen"></i></div></div>
+					<div class="productCard"> <div class="productCardImage ProductCardGlowOrange"> <img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"> </div><h2>AMD Ryzen 3 1200</h2> <h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="productPoints"> <div class="productPointsBox productPointsRed"> Gaming <h5>123</h5> </div><div class="productPointsBox productPointsBlue"> Pro <h5>93</h5> </div></div><div class="productCardButtons"><i class="las la-balance-scale btnCircle btnGreen"></i><i class="las la-cart-plus btnCircle btnGreen"></i></div></div>
+					<div class="productCard"> <div class="productCardImage ProductCardGlowOrange"> <img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"> </div><h2>AMD Ryzen 3 1200</h2> <h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="productPoints"> <div class="productPointsBox productPointsRed"> Gaming <h5>123</h5> </div><div class="productPointsBox productPointsBlue"> Pro <h5>93</h5> </div></div><div class="productCardButtons"><i class="las la-balance-scale btnCircle btnGreen"></i><i class="las la-cart-plus btnCircle btnGreen"></i></div></div>
+					<div class="productCard"> <div class="productCardImage ProductCardGlowOrange"> <img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"> </div><h2>AMD Ryzen 3 1200</h2> <h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="productPoints"> <div class="productPointsBox productPointsRed"> Gaming <h5>123</h5> </div><div class="productPointsBox productPointsBlue"> Pro <h5>93</h5> </div></div><div class="productCardButtons"><i class="las la-balance-scale btnCircle btnGreen"></i><i class="las la-cart-plus btnCircle btnGreen"></i></div></div>
+					<div class="productCard"> <div class="productCardImage ProductCardGlowOrange"> <img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"> </div><h2>AMD Ryzen 3 1200</h2> <h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="productPoints"> <div class="productPointsBox productPointsRed"> Gaming <h5>123</h5> </div><div class="productPointsBox productPointsBlue"> Pro <h5>93</h5> </div></div><div class="productCardButtons"><i class="las la-balance-scale btnCircle btnGreen"></i><i class="las la-cart-plus btnCircle btnGreen"></i></div></div>
+					<div class="productCard"> <div class="productCardImage ProductCardGlowOrange"> <img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"> </div><h2>AMD Ryzen 3 1200</h2> <h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="productPoints"> <div class="productPointsBox productPointsRed"> Gaming <h5>123</h5> </div><div class="productPointsBox productPointsBlue"> Pro <h5>93</h5> </div></div><div class="productCardButtons"><i class="las la-balance-scale btnCircle btnGreen"></i><i class="las la-cart-plus btnCircle btnGreen"></i></div></div>
+					<div class="productCard"> <div class="productCardImage ProductCardGlowOrange"> <img src="static/img/cpu/ryzen_3_3100-box.png" alt="Zdjęcie produktu" loading="lazy"> </div><h2>AMD Ryzen 3 1200</h2> <h4>495.00 PLN <img src="static\img\shop\morele-sygnet.png" alt="Morele.net"></h4><p>4 rdzenie, 4 wątki</p><p>Socket AM4</p><p>65W</p><div class="productPoints"> <div class="productPointsBox productPointsRed"> Gaming <h5>123</h5> </div><div class="productPointsBox productPointsBlue"> Pro <h5>93</h5> </div></div><div class="productCardButtons"><i class="las la-balance-scale btnCircle btnGreen"></i><i class="las la-cart-plus btnCircle btnGreen"></i></div></div>
+				</div>
+
+			</div>
+
+</div></div>
+<div class="footer">
+	2021 Wirtualnik.pl wersja 0.01<br>
+	<a href="https://github.com/VersatileSoft/Wirtualnik/">GitHub</a> | Facebook fanpage | Facebook grupa | YouTube
+</div>
+
+  <link rel="stylesheet" href="static/css/icons.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="static/css/dark.css">
+  <script src="static/js/shadient.js"></script>
+</body>
+</html>

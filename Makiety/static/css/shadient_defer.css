@@ -1,0 +1,64 @@
+.modal {
+  display: flex;
+  background: var(--white);
+  box-shadow: var(--shadowcard), var(--shadowcard);
+  border-radius: 15px;
+  flex-wrap: wrap;
+}
+
+
+.modal.fullwidth {
+  width: 100%;
+  padding: 20px;
+}
+
+.modal.fullwidth h1 {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+.modal.fullwidth p {
+  flex-basis: 100%;
+  color: var(--grey4);
+  text-align: center;
+  margin: 0;
+}
+
+.social-login-buttons {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+  width: 100%;
+}
+
+.social-login-buttons > div:hover {
+  filter: var(--focus)
+}
+
+.social-login-buttons > div:active {
+  filter: var(--active);
+}
+
+.fullscreenModal_overlay {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  background-color: var(--semitransparent3);
+  top: 0;
+  position: fixed;
+}
+
+.fullscreenModal_container {
+  display: flex;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--white);
+  color: var(--black);
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: var(--shadowcard), var(--shadowcard);
+}
