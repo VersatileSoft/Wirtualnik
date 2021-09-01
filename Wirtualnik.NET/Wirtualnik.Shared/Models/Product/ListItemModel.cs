@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Wirtualnik.Shared.Models.Shop;
 
 namespace Wirtualnik.Shared.Models.Product
 {
@@ -15,5 +16,6 @@ namespace Wirtualnik.Shared.Models.Product
         public string Manufacturer { get; set; } = "";
         public string Color { get; set; } = "";
         public IEnumerable<KeyValuePair<string, string>> Properties { get; set; } = new List<KeyValuePair<string, string>>();
+        public IEnumerable<ProductShopDetails> ProductShopDetails { get; set; } = new List<ProductShopDetails>();
     }
 }

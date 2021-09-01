@@ -20,19 +20,55 @@ namespace Wirtualnik.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Shop>>> Search()
         {
-            return Ok(await _shopService.AllAsync<Shop>());
+            var k = await _shopService.Search();
+            return Ok(k);
         }
 
         [HttpPost]
         public async Task<ActionResult> Create()
         {
-            var shop = new Shop
+            await _shopService.CreateAsync(new Shop
             {
-                Name = "HARD PC",
-                ParserName = "hard_pc",
-            };
+                Name = "Rtv euro agd",
+                ParserName = "tradedoubler",
+                AdditionalParserInfo = "21618",
+            });
 
-            await _shopService.CreateAsync(shop);
+            await _shopService.CreateAsync(new Shop
+            {
+                Name = "Neonet",
+                ParserName = "tradedoubler",
+                AdditionalParserInfo = "21986",
+            });
+
+            await _shopService.CreateAsync(new Shop
+            {
+                Name = "Avans",
+                ParserName = "tradedoubler",
+                AdditionalParserInfo = "25545",
+            });
+
+            await _shopService.CreateAsync(new Shop
+            {
+                Name = "OleOle",
+                ParserName = "tradedoubler",
+                AdditionalParserInfo = "17354",
+            });
+
+            await _shopService.CreateAsync(new Shop
+            {
+                Name = "Electro",
+                ParserName = "tradedoubler",
+                AdditionalParserInfo = "23757",
+            });
+
+            await _shopService.CreateAsync(new Shop
+            {
+                Name = "Zadowolenie",
+                ParserName = "tradedoubler",
+                AdditionalParserInfo = "24688",
+            });
+
             return Ok();
         }
 

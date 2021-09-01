@@ -10,14 +10,14 @@ using Wirtualnik.Service.Interfaces.ShopParsers;
 
 namespace Wirtualnik.Service.Services.ShopParsers
 {
-    public class RtvEuroAgdParser : IShopParser
+    public class TradedoublerParser : IShopParser
     {
-        public string Name => "rtv_euro_agd";
+        public string Name => "tradedoubler";
 
         public async Task<ProductShop?> LoadData(string ean, Shop shop)
         {
             var client = new HttpClient();
-            var link = $"https://api.tradedoubler.com/1.0/products.xml;ean={ean};fid=21618?token=698D1540FA095128A5B7340AF518DE86AD17F8A1";
+            var link = $"https://api.tradedoubler.com/1.0/products.xml;ean={ean};fid={shop.AdditionalParserInfo}?token=698D1540FA095128A5B7340AF518DE86AD17F8A1";
             var response = await client.GetAsync(link);
             return ParseResponse(await response.Content.ReadAsStringAsync());
         }
@@ -50,12 +50,13 @@ namespace Wirtualnik.Service.Services.ShopParsers
 
             var url = doc.Descendants().FirstOrDefault(n => n.Name.LocalName == "productUrl");
             var price = doc.Descendants().FirstOrDefault(n => n.Name.LocalName == "price");
+            var p = price?.Value?.Replace('.', ',');
 
             return new ProductShop
             {
                 Available = true,
                 RefLink = url?.Value ?? "",
-                Price = float.TryParse(price?.Value ?? "0", out float result) ? result : 0,
+                Price = float.TryParse(p ?? "0", out float result) ? result : 0,
             };
 
         }

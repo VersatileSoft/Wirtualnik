@@ -23,9 +23,14 @@ namespace Wirtualnik.Service.Services
             _logger = logger;
         }
 
+        public async Task<List<Shop>> Search()
+        {
+            return await Context.Shops.Include(s => s.Products).ToListAsync();
+        }
+
         public async Task UpdateProductShop()
         {
-            var products = await Context.Products.ToListAsync();
+            var products = await Context.Products.Include(p => p.ProductShops).ToListAsync();
 
             foreach (var product in products)
             {
