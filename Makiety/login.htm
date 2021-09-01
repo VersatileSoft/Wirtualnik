@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+	<title>Zaloguj się - Wirtualnik.pl</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<style>
+	@font-face{font-family:'Poppins Devanagari';src:url(static/fonts/PoppinsVF.woff2) format("woff2");font-weight:100 800;font-display: fallback}
+  :root {
+    --background: #F3F3F3;
+  }
+  body
+  {
+    background-color:var(--background);
+    font-family:'Poppins Devanagari',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    min-width:320px;
+    font-size: 15px;
+    max-width: 1280px;
+    margin:    0 auto;
+  }
+  a{text-decoration:none}
+  @keyframes fadeIn {
+  	from {
+  		opacity: 0;
+  		transform: translate3d(0, 10px, 0);
+  	}
+  	to {
+  		opacity: 1;
+  		transform: translate3d(0, 0, 0);
+  	}
+  }
+	</style>
+	<link rel="preload" href="static/css/shadient.css" as="style">
+	<link rel="stylesheet" href="static/css/shadient.css">
+	<link rel="preload" href="static/css/shadient_defer.css" as="style">
+	<link rel="stylesheet" href="static/css/shadient_defer.css">
+	<link rel="preload" as="style" media='screen and (max-width: 720px)' href="static/css/shadient_mobile.css" onload="this.rel='stylesheet'"/>
+	<link rel="stylesheet" href="static/css/shadient_mobile.css" media='screen and (max-width: 720px)' >
+	<link rel="preload" as="style" href="static/css/line-awesome.min.css" onload="this.rel='stylesheet'"/>
+</head>
+<body id="Home" data-theme="light">
+
+	<div class="breadcrumbs">
+		<p>
+			<a href="https://wirtualnik.pl/">Wirtualnik.pl</a>
+			>
+			Logowanie</p>
+	</div>
+
+<div class="container">
+	<div class="modal fullwidth">
+
+			<h1>Zaloguj się</h1>
+			<p>Konto na Wirtualnik.pl zostanie automatycznie utworzone podczas pierwszego logowania</p>
+
+
+			<div class="social-login-buttons">
+				<div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="true"></div>
+			</div>
+
+	</div>
+</div>
+<div class="footer">
+	2021 Wirtualnik.pl wersja 0.01<br>
+	<a href="https://github.com/VersatileSoft/Wirtualnik/">GitHub</a> | Facebook fanpage | Facebook grupa | YouTube
+</div>
+
+	<!--Skrypt Facebooka, ten div też chuj wie czemu potrzebny xD-->
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v11.0&appId=265462461367064&autoLogAppEvents=1" nonce="ufzw8Dlg"></script>
+
+	<link rel="stylesheet" href="static/css/icons.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="static/css/dark.css">
+  <script src="static/js/shadient.js"></script>
+</body>
+</html>
