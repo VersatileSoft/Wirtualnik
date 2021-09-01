@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
@@ -54,6 +55,15 @@ namespace Wirtualnik.Service.Services.Base
             Context.Remove(entity);
             await SaveChangesAsync();
             return entity;
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> RemoveAsync<TEntity>(IEnumerable<TEntity> entities)
+        {
+            if (entities?.Any() != true)
+                throw new System.ArgumentNullException(nameof(entities));
+            Context.RemoveRange(entities);
+            await SaveChangesAsync();
+            return entities;
         }
 
         public Task<int> SaveChangesAsync()

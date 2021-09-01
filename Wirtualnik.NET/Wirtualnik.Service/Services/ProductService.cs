@@ -28,6 +28,7 @@ namespace Wirtualnik.Service.Services
                 .Include(p => p.Properties).ThenInclude(p => p.PropertyType)
                 .Include(p => p.ProductType)
                 .Include(p => p.Images)
+                .Include(p => p.ProductShops).ThenInclude(p => p.Shop)
                 .FirstOrDefaultAsync(p => p.PublicId == publicId);
         }
 
@@ -38,6 +39,7 @@ namespace Wirtualnik.Service.Services
                 .ThenInclude(p => p.PropertyType)
                 .Include(p => p.ProductType)
                 .Include(p => p.Images)
+                .Include(p => p.ProductShops).ThenInclude(p => p.Shop)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.ProductType))

@@ -50,6 +50,9 @@ namespace Wirtualnik.Server
                     k.AllowAnyOrigin();
                 });
             });
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             return services.ConfigureAutofac();
         }
 
