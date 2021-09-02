@@ -172,3 +172,59 @@ ul {
   border-radius: 15px;
   padding: 10px 0;
 }
+
+:root {
+  --white: #ffffff;
+  --transparent: #ffffff00;
+  --semitransparent: #ffffff82;
+  --semitransparent3: #ffffffdb;
+  --semitransparent2: #2d333cc7;
+  --grey1: #f3f3f3;
+  --grey2: #efefef;
+  --grey3: #d8d8d8;
+  --grey4: #929292;
+  --grey6: #313131;
+  --black: #000000;
+  --ltgrey: #efefef;
+  --ltblue: #8fa8b9;
+  --ltorange: #ffc97e4d;
+  --blue: #1e90ff;
+  --red: #e22c2c;
+  --ltred: #e22c2c;
+  --orange: #f5af39;
+  --darkerorange: #e39630;
+  --green: #37ca22;
+  --gloworange: 0px 2px 10px 0px rgba(214, 152, 46, 0.4);
+  --glowgreen: 0px 2px 10px 0px rgba(0, 255, 0, 0.5);
+  --ltgreen: #8fa8b9;
+  --shadow20: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+  --shadowcard: 0px 12px 16px 0px rgba(0, 0, 0, 0.06);
+  --shadowcardreverse: 0px -16px 16px 0px rgba(0, 0, 0, 0.06);
+  --shadowinset: inset 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
+  --active: brightness(85%);
+  --focus: brightness(95%);
+  --green: #37ca22;
+}
+
+[data-theme='dark'] {
+  --background: #191919;
+  --white: #232323;
+  --transparent: #19191900;
+  --semitransparent: #ffffff0a;
+  --semitransparent3: #101010bf;
+  --grey1: #292929;
+  --grey2: #484848;
+  --grey3: #5a5a5a;
+  --grey4: #848484;
+  --grey6: #b5b5b5;
+  --black: #f1f1f1;
+  --blue: #1e90ff;
+  --red: #e22c2c;
+  --ltgrey: #151515;
+  --ltblue: #7d8e9a;
+  --shadow20: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+  --shadowcard: 0px 12px 16px 0px rgba(0, 0, 0, 0.06);
+  --shadowinset: inset 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
+  --active: brightness(80%);
+  --focus: brightness(90%);
+}
