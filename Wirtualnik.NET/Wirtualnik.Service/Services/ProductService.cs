@@ -135,7 +135,7 @@ namespace Wirtualnik.Service.Services
             ProductType productType = new ProductType
             {
                 CreateDate = DateTime.Now,
-                Name = "Test",
+                Name = productTypeId,
                 PublicId = productTypeId,
                 PropertyTypes = newProps
             };
