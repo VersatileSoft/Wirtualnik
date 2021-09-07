@@ -383,7 +383,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import axios from 'axios';
+import ProductService from '@/services/ProductService.ts';
 import BreadCrumb from '@/components/navigation/Breadcrumb.vue';
 import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 import ProductInformation from '@/components/common/ProductInformation.vue';
@@ -427,15 +427,7 @@ export default class ProductPage extends Vue {
     }
 
     private async loadData(): Promise<boolean> {
-        try {
-            const response = await axios.get(
-                'https://api.zlcn.pro/api/product/' + this.id
-            );
-            console.log(response);
-            this.item = response.data;
-        } catch (ex) {
-            this.item = undefined;
-        }
+        this.item = await ProductService.getProduct(this.id);
     }
 }
 </script>

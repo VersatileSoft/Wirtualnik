@@ -51,7 +51,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import ProductCard from '@/components/common/ProductCard.vue';
 import ProductsTrack from '@/components/common/ProductsTrack.vue';
 import BottomNavbar from '@/components/common/BottomNavbar.vue';
-import axios from 'axios';
+import ProductService from '@/services/ProductService.ts';
 
 @Component({
     name: 'CategoryPage',
@@ -82,22 +82,7 @@ export default class CategoryPage extends Vue {
     }
 
     private async loadData(): Promise<boolean> {
-        this.items = [];
-        try {
-            const response = await axios.get(
-                'https://api.zlcn.pro/api/product',
-                {
-                    params: {
-                        typePublicId: this.category
-                    }
-                }
-            );
-            this.items = response.data.items;
-        } catch (ex) {
-            this.items = [];
-            return false;
-        }
-        return true;
+        this.items = await ProductService.getProductsByCategory(this.category);
     }
 }
 </script>

@@ -256,7 +256,7 @@ import ProductsGrid from '@/components/common/ProductsGrid.vue';
 import ProductsTrack from '@/components/common/ProductsTrack.vue';
 import ProductCard from '@/components/common/ProductCard.vue';
 import VerticalCard from '@/components/common/VerticalCard.vue';
-import axios from 'axios';
+import ProductService from '@/services/ProductService.ts';
 
 @Component({
     name: 'StartingPage',
@@ -284,22 +284,8 @@ export default class StartingPage extends Vue {
     }
 
     private async loadData(): Promise<boolean> {
-        this.items = [];
-        try {
-            const response = await axios.get(
-                'https://api.zlcn.pro/api/product',
-                {
-                    params: {
-                        ProductType: 'cpu'
-                    }
-                }
-            );
-            this.items = response.data.items;
-        } catch (ex) {
-            this.items = [];
-            return false;
-        }
-        return true;
+        this.items = await ProductService.getProductsByType('cpu');
+        console.log(this.items);
     }
 
     public scrollIntoView(section: string): void {
