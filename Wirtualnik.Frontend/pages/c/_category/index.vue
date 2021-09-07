@@ -88,7 +88,7 @@ export default class CategoryPage extends Vue {
                 'https://api.zlcn.pro/api/product',
                 {
                     params: {
-                        typePublicId: this.category
+                        ProductType: this.category
                     }
                 }
             );
