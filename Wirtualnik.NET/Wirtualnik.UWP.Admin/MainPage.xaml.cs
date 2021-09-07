@@ -342,9 +342,9 @@ namespace Wirtualnik.UWP.Admin
                         images.Add(new StreamPart(imageStream, Path.GetFileName(file.Path)));
                     }
 
-                    ExcelStatusTextBlock.Text += $"\n {Path.GetFileName(folder.Path)}: ";
+                    ExcelStatusTextBlock.Text += $"\n {Path.GetFileName(folder.Path).ToLower()}: ";
 
-                    var prod = await pro.Fetch(Path.GetFileName(folder.Path));
+                    var prod = await pro.Fetch(Path.GetFileName(folder.Path).ToLower());
 
                     if(prod.StatusCode == HttpStatusCode.NotFound)
                     {
@@ -367,7 +367,7 @@ namespace Wirtualnik.UWP.Admin
                     }
                     else
                     {
-                        await filesClient.Create(Path.GetFileName(folder.Path), images);
+                        await filesClient.Create(Path.GetFileName(folder.Path).ToLower(), images);
                         ExcelStatusTextBlock.Text += "OK";
                     }
 
