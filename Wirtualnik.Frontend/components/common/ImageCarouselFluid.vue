@@ -1,74 +1,54 @@
 <template>
     <div id="imageModal">
         <div class="imageModalContainer">
-            <div
-                class="
-                    swiper-container
-                    swiper-initialized
-                    swiper-horizontal
-                    swiper-pointer-events
-                    swiper-free-mode
-                "
+            <swiper
+                :pagination="{
+                    type: 'progressbar'
+                }"
+                :navigation="true"
+                class="mySwiper"
             >
-                <div
-                    class="swiper-wrapper"
-                    style="transition-duration: 0ms"
-                    id="swiper-wrapper-8311a551d65f919c"
-                    aria-live="polite"
-                >
-                    <div
-                        class="swiper-slide product_card_glow_orange"
-                        style="
-                            background-image: url('https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png'),
-                            height: auto;
-                        "
-                    ></div>
-                    <div
-                        class="swiper-slide product_card_glow_orange"
-                        style="
-                            background-image: url('https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png'),
-                            height: auto;
-                        "
-                    ></div>
-                    <div
-                        class="swiper-slide product_card_glow_orange"
-                        style="
-                            background-image: url('https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png'),
-                            height: auto;
-                        "
-                    ></div>
-                </div>
-                <div
-                    class="swiper-button-prev swiper-button-black"
-                    tabindex="0"
-                    role="button"
-                    aria-label="undefined"
-                    aria-controls="Previous slide"
-                    aria-disabled="false"
-                ></div>
-                <div
-                    class="swiper-button-next swiper-button-black"
-                    tabindex="0"
-                    role="button"
-                    aria-label="undefined"
-                    aria-controls="Next slide"
-                    aria-disabled="false"
-                ></div>
-                <span
-                    class="swiper-notification"
-                    aria-live="assertive"
-                    aria-atomic="true"
-                ></span>
-            </div>
-            <button
-                class="btn-green btn-circle btn-addtocart"
-                onclick="imageModal()"
-            >
-                <i class="las la-download"></i>Pobierz zdjęcie
-            </button>
+                <swiper-slide
+                    ><img
+                        src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
+                /></swiper-slide>
+                <swiper-slide
+                    ><img
+                        src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
+                /></swiper-slide>
+                <swiper-slide
+                    ><img
+                        src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
+                /></swiper-slide>
+            </swiper>
         </div>
     </div>
 </template>
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
+@import url('https://unpkg.com/swiper/swiper-bundle.min.css');
 </style>
+<script>
+/* Swiper compotent - To Fix in future
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// import Swiper core and required modules
+import SwiperCore, { Pagination, Navigation } from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Pagination, Navigation]);
+
+export default {
+    components: {
+        Swiper,
+        SwiperSlide
+    },
+    data() {
+        return {};
+    },
+    methods: {}
+};
+
+*/
+</script>

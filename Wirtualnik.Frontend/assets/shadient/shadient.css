@@ -1235,7 +1235,7 @@ body::-webkit-scrollbar-thumb {
 
 .pricelist.fullwidth {
   padding: 30px 5px;
-  width: calc(100% + 14px);
+  width: calc(100% + 24px);
   justify-content: center;
   background-color: var(--grey1);
   margin-left: -12px;

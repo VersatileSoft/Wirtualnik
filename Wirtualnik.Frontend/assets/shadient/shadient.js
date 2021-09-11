@@ -68,28 +68,6 @@ function imageModal() {
 }
 
 
-// Wysuwane menu Sortowanie / Filtrowanie mobile
-// Zmienia wartość display: między block/none dla ID sidebar
-// Dodatkowo przełącza wartośc overflow: auto/hidden dla ID Home aby
-// zliwidowac problem z przesuwającym się głównym kontenerem pod wyskakującym oknem
-const mediaQuery = window.matchMedia('(max-width: 720px)')
-if (mediaQuery.matches) {
-  function sidebarMobileButton() {
-    document.getElementById("sidebar");
-    var x = document.getElementById("sidebar");
-    var y = document.getElementById("Home");
-    if (x.style.display === "block") {
-      x.style.display = "none";
-      y.style.overflow = "auto";
-
-    } else {
-      x.style.display = "block";
-      y.style.overflow = "hidden";
-    }
-  }
-}
-handleTabletChange(mediaQuery)
-
 
 // Funkcjonalność przycisku menu użytkownika
 // Działa pod ID "user-menu"

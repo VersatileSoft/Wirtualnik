@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- ImageCarouselFluid will be remade after swiper dependency bugfix -->
         <ImageCarouselFluid />
         <div class="container">
             <div class="thickColumn">
@@ -8,7 +9,7 @@
                         <template #image>
                             <img
                                 :src="'https://api.zlcn.pro/' + item.images"
-                                @Click="imageModal()"
+                                v-on:click="imageModal"
                             />
                         </template>
                         <template #title>
@@ -73,307 +74,57 @@
                 </div>
                 <div class="productsGrid" id="popular_items">
                     <div class="productsGridSlider">
-                        <div class="productCard">
-                            <div class="productCardImage ProductCardGlowOrange">
+                        <CommonProducts
+                            v-for="commonProduct in commonProducts"
+                            :key="commonProduct.publicId"
+                        >
+                            <template #common-product-image>
+                                <nuxt-link :to="`/p/` + commonProduct.publicId">
+                                    <img
+                                        :src="
+                                            'https://api.zlcn.pro/' +
+                                            commonProduct.image
+                                        "
+                                        alt="Zdjęcie produktu"
+                                        loading="lazy"
+                                    />
+                                </nuxt-link>
+                            </template>
+                            <template #common-product-name>
+                                {{ commonProduct.name }}
+                            </template>
+                            <template #common-product-price
+                                >495.00 PLN
+                                <!-- {{ commonProduct.price }} --></template
+                            >
+                            <template #common-product-price-provider>
                                 <img
-                                    src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
-                                    alt="Zdjęcie produktu"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <h2>AMD Ryzen 3 1200</h2>
-                            <h4>
-                                495.00 PLN
-                                <img
-                                    src="https://wirtualnik.pl/static/img/shop/morele-sygnet.png"
-                                    alt="Morele.net"
-                                />
-                            </h4>
-                            <p>4 rdzenie, 4 wątki</p>
-                            <p>Socket AM4</p>
-                            <p>65W</p>
-                            <div class="productPoints">
-                                <div class="productPointsBox productPointsRed">
-                                    Gaming
-                                    <h5>123</h5>
-                                </div>
-                                <div class="productPointsBox productPointsBlue">
-                                    Pro
-                                    <h5>93</h5>
-                                </div>
-                            </div>
-                            <div class="productCardButtons">
-                                <i
-                                    class="
-                                        las
-                                        la-balance-scale
-                                        btnCircle
-                                        btnGreen
+                                    :src="
+                                        commonProduct.productShopDetails.image
                                     "
-                                ></i
-                                ><i
-                                    class="las la-cart-plus btnCircle btnGreen"
-                                ></i>
-                            </div>
-                        </div>
-                        <div class="productCard">
-                            <div class="productCardImage ProductCardGlowOrange">
-                                <img
-                                    src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
-                                    alt="Zdjęcie produktu"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <h2>AMD Ryzen 3 1200</h2>
-                            <h4>
-                                495.00 PLN
-                                <img
-                                    src="https://wirtualnik.pl/static/img/shop/morele-sygnet.png"
                                     alt="Morele.net"
-                                />
-                            </h4>
-                            <p>4 rdzenie, 4 wątki</p>
-                            <p>Socket AM4</p>
-                            <p>65W</p>
-                            <div class="productPoints">
-                                <div class="productPointsBox productPointsRed">
-                                    Gaming
-                                    <h5>123</h5>
-                                </div>
-                                <div class="productPointsBox productPointsBlue">
-                                    Pro
-                                    <h5>93</h5>
-                                </div>
-                            </div>
-                            <div class="productCardButtons">
-                                <i
-                                    class="
-                                        las
-                                        la-balance-scale
-                                        btnCircle
-                                        btnGreen
-                                    "
-                                ></i
-                                ><i
-                                    class="las la-cart-plus btnCircle btnGreen"
-                                ></i>
-                            </div>
-                        </div>
-                        <div class="productCard">
-                            <div class="productCardImage ProductCardGlowOrange">
-                                <img
-                                    src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
-                                    alt="Zdjęcie produktu"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <h2>AMD Ryzen 3 1200</h2>
-                            <h4>
-                                495.00 PLN
-                                <img
-                                    src="https://wirtualnik.pl/static/img/shop/morele-sygnet.png"
-                                    alt="Morele.net"
-                                />
-                            </h4>
-                            <p>4 rdzenie, 4 wątki</p>
-                            <p>Socket AM4</p>
-                            <p>65W</p>
-                            <div class="productPoints">
-                                <div class="productPointsBox productPointsRed">
-                                    Gaming
-                                    <h5>123</h5>
-                                </div>
-                                <div class="productPointsBox productPointsBlue">
-                                    Pro
-                                    <h5>93</h5>
-                                </div>
-                            </div>
-                            <div class="productCardButtons">
-                                <i
-                                    class="
-                                        las
-                                        la-balance-scale
-                                        btnCircle
-                                        btnGreen
-                                    "
-                                ></i
-                                ><i
-                                    class="las la-cart-plus btnCircle btnGreen"
-                                ></i>
-                            </div>
-                        </div>
-                        <div class="productCard">
-                            <div class="productCardImage ProductCardGlowOrange">
-                                <img
-                                    src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
-                                    alt="Zdjęcie produktu"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <h2>AMD Ryzen 3 1200</h2>
-                            <h4>
-                                495.00 PLN
-                                <img
-                                    src="https://wirtualnik.pl/static/img/shop/morele-sygnet.png"
-                                    alt="Morele.net"
-                                />
-                            </h4>
-                            <p>4 rdzenie, 4 wątki</p>
-                            <p>Socket AM4</p>
-                            <p>65W</p>
-                            <div class="productPoints">
-                                <div class="productPointsBox productPointsRed">
-                                    Gaming
-                                    <h5>123</h5>
-                                </div>
-                                <div class="productPointsBox productPointsBlue">
-                                    Pro
-                                    <h5>93</h5>
-                                </div>
-                            </div>
-                            <div class="productCardButtons">
-                                <i
-                                    class="
-                                        las
-                                        la-balance-scale
-                                        btnCircle
-                                        btnGreen
-                                    "
-                                ></i
-                                ><i
-                                    class="las la-cart-plus btnCircle btnGreen"
-                                ></i>
-                            </div>
-                        </div>
-                        <div class="productCard">
-                            <div class="productCardImage ProductCardGlowOrange">
-                                <img
-                                    src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
-                                    alt="Zdjęcie produktu"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <h2>AMD Ryzen 3 1200</h2>
-                            <h4>
-                                495.00 PLN
-                                <img
-                                    src="https://wirtualnik.pl/static/img/shop/morele-sygnet.png"
-                                    alt="Morele.net"
-                                />
-                            </h4>
-                            <p>4 rdzenie, 4 wątki</p>
-                            <p>Socket AM4</p>
-                            <p>65W</p>
-                            <div class="productPoints">
-                                <div class="productPointsBox productPointsRed">
-                                    Gaming
-                                    <h5>123</h5>
-                                </div>
-                                <div class="productPointsBox productPointsBlue">
-                                    Pro
-                                    <h5>93</h5>
-                                </div>
-                            </div>
-                            <div class="productCardButtons">
-                                <i
-                                    class="
-                                        las
-                                        la-balance-scale
-                                        btnCircle
-                                        btnGreen
-                                    "
-                                ></i
-                                ><i
-                                    class="las la-cart-plus btnCircle btnGreen"
-                                ></i>
-                            </div>
-                        </div>
-                        <div class="productCard">
-                            <div class="productCardImage ProductCardGlowOrange">
-                                <img
-                                    src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
-                                    alt="Zdjęcie produktu"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <h2>AMD Ryzen 3 1200</h2>
-                            <h4>
-                                495.00 PLN
-                                <img
-                                    src="https://wirtualnik.pl/static/img/shop/morele-sygnet.png"
-                                    alt="Morele.net"
-                                />
-                            </h4>
-                            <p>4 rdzenie, 4 wątki</p>
-                            <p>Socket AM4</p>
-                            <p>65W</p>
-                            <div class="productPoints">
-                                <div class="productPointsBox productPointsRed">
-                                    Gaming
-                                    <h5>123</h5>
-                                </div>
-                                <div class="productPointsBox productPointsBlue">
-                                    Pro
-                                    <h5>93</h5>
-                                </div>
-                            </div>
-                            <div class="productCardButtons">
-                                <i
-                                    class="
-                                        las
-                                        la-balance-scale
-                                        btnCircle
-                                        btnGreen
-                                    "
-                                ></i
-                                ><i
-                                    class="las la-cart-plus btnCircle btnGreen"
-                                ></i>
-                            </div>
-                        </div>
-                        <div class="productCard">
-                            <div class="productCardImage ProductCardGlowOrange">
-                                <img
-                                    src="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png"
-                                    alt="Zdjęcie produktu"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <h2>AMD Ryzen 3 1200</h2>
-                            <h4>
-                                495.00 PLN
-                                <img
-                                    src="https://wirtualnik.pl/static/img/shop/morele-sygnet.png"
-                                    alt="Morele.net"
-                                />
-                            </h4>
-                            <p>4 rdzenie, 4 wątki</p>
-                            <p>Socket AM4</p>
-                            <p>65W</p>
-                            <div class="productPoints">
-                                <div class="productPointsBox productPointsRed">
-                                    Gaming
-                                    <h5>123</h5>
-                                </div>
-                                <div class="productPointsBox productPointsBlue">
-                                    Pro
-                                    <h5>93</h5>
-                                </div>
-                            </div>
-                            <div class="productCardButtons">
-                                <i
-                                    class="
-                                        las
-                                        la-balance-scale
-                                        btnCircle
-                                        btnGreen
-                                    "
-                                ></i
-                                ><i
-                                    class="las la-cart-plus btnCircle btnGreen"
-                                ></i>
-                            </div>
-                        </div>
+                            /></template>
+                            <template #common-product-first-prop
+                                >{{ commonProduct.properties[0].key }}
+                                {{
+                                    commonProduct.properties[0].value
+                                }}</template
+                            >
+                            <template #common-product-second-prop
+                                >{{ commonProduct.properties[1].key }}
+                                {{
+                                    commonProduct.properties[1].value
+                                }}</template
+                            >
+                            <template #common-product-third-prop
+                                >{{ commonProduct.properties[2].key }}
+                                {{
+                                    commonProduct.properties[2].value
+                                }}</template
+                            >
+                            <template #common-product-red-points>123</template>
+                            <template #common-product-gray-points>93</template>
+                        </CommonProducts>
                     </div>
                 </div>
             </div>
@@ -389,6 +140,7 @@ import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 import ProductInformation from '@/components/common/ProductInformation.vue';
 import PriceListItem from '@/components/common/PriceListItem.vue';
 import ProductSpecificationItem from '@/components/common/ProductSpecificationItem.vue';
+import CommonProducts from '@/components/common/CommonProducts.vue';
 
 @Component({
     name: 'ProductPage',
@@ -397,11 +149,24 @@ import ProductSpecificationItem from '@/components/common/ProductSpecificationIt
         ImageCarouselFluid,
         ProductInformation,
         PriceListItem,
-        ProductSpecificationItem
+        ProductSpecificationItem,
+        CommonProducts
+    },
+    methods: {
+        imageModal: function () {
+            document.getElementById('imageModal');
+            var x = document.getElementById('imageModal');
+            if (x.style.display === 'block') {
+                x.style.display = 'none';
+            } else {
+                x.style.display = 'block';
+            }
+        }
     }
 })
 export default class ProductPage extends Vue {
     private item: any[] = [];
+    private commonProducts: any[] = [];
 
     public get id() {
         return this.$route.params.id;
@@ -428,12 +193,17 @@ export default class ProductPage extends Vue {
 
     private async loadData(): Promise<boolean> {
         this.item = await ProductService.getProduct(this.id);
+        this.commonProducts = await ProductService.getProductsByCategory(
+            this.typePublicId
+        );
+        console.log(this.commonProducts);
     }
 }
 </script>
 
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
+
 :root {
     --background: #f3f3f3;
 }
