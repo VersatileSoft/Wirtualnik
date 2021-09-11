@@ -27,7 +27,12 @@ namespace Wirtualnik.Shared.Models
 
             CreateMap<Data.Models.Product, DetailsModel>()
                 .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name))
+                .ForMember(o => o.ProductShopDetails, k => k.MapFrom(m => m.ProductShops))
                 .ForMember(o => o.Images, k => k.MapFrom<DetailsImagesResolver>());
+
+            CreateMap<Data.Models.ProductShop, Shared.Models.Shop.ProductShopDetails>()
+                .ForMember(o => o.Image, k => k.Ignore())
+                .ForMember(o => o.Name, k => k.MapFrom(m => m.Shop.Name));
 
             CreateMap<Data.Models.ProductType, ProductTypeModel>()
                 .ReverseMap();
@@ -37,6 +42,7 @@ namespace Wirtualnik.Shared.Models
 
             CreateMap<Data.Models.Product, ListItemModel>()
                .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.ProductType.Name))
+               .ForMember(o => o.ProductShopDetails, k => k.MapFrom(m => m.ProductShops))
                .ForMember(o => o.Image, k => k.MapFrom<ListImagesResolver>());
 
             CreateMap<KeyValuePair<int, string>, Data.Models.Property>()

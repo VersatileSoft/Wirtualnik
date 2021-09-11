@@ -384,9 +384,14 @@
                             Style="{StaticResource AccentButtonStyle}"
                             VerticalAlignment="Top" />
 
-                        <TextBlock x:Name="ExcelStatusTextBlock"
+                        <TextBox x:Name="ExcelStatusTextBlock"
                             Margin="16,0"
-                            Text="Status" />
+                            Text="Status" 
+                            AcceptsReturn="True"
+                            IsReadOnly="True"
+                            TextWrapping="Wrap"
+                                 
+                                   />
                     </StackPanel>
                 </Grid>
             </ScrollViewer>

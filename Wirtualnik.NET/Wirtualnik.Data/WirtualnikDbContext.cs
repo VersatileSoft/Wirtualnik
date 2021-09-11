@@ -15,6 +15,8 @@ namespace Wirtualnik.Data
         public virtual DbSet<PropertyType> PropertyTypes => Set<PropertyType>();
         public virtual DbSet<ProductType> ProductTypes => Set<ProductType>();
         public virtual DbSet<Image> Images => Set<Image>();
+        public virtual DbSet<ProductShop> ProductShops => Set<ProductShop>();
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
