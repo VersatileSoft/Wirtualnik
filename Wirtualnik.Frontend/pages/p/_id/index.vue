@@ -8,16 +8,16 @@
                     <ProductInformation>
                         <template #image>
                             <img
-                                :src="'https://api.zlcn.pro/' + item.images"
+                                :src="'https://api.zlcn.pro/' + product.images"
                                 v-on:click="imageModal"
                             />
                         </template>
                         <template #title>
-                            <h2>{{ item.name }}</h2>
+                            <h2>{{ product.name }}</h2>
                         </template>
                         <template #description>
                             <p>
-                                {{ item.description }}
+                                {{ product.description }}
                             </p>
                         </template>
                         <template #buttons>
@@ -38,7 +38,7 @@
 
                     <div class="pricelist fullwidth">
                         <PriceListItem
-                            v-for="shop in item.productShopDetails"
+                            v-for="shop in product.productShopDetails"
                             :key="shop.name"
                         >
                             <template #shop-icon>
@@ -52,7 +52,7 @@
                     <h3>Specyfikacja</h3>
                     <div class="list col-3">
                         <ProductSpecificationItem
-                            v-for="prop in item.properties"
+                            v-for="prop in product.properties"
                             :key="prop.key"
                         >
                             <template #spec-key>{{ prop.key }}</template>
@@ -61,8 +61,8 @@
                     </div>
 
                     <sub
-                        >EAN: {{ item.ean }} | Kod producenta: {{ item.sku }} |
-                        ID Wirtualnika: 132</sub
+                        >EAN: {{ product.ean }} | Kod producenta:
+                        {{ product.sku }} | ID Wirtualnika: 132</sub
                     >
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="productsGrid" id="popular_items">
                     <div class="productsGridSlider">
-                        <CommonProducts
+                        <CommonProduct
                             v-for="commonProduct in commonProducts"
                             :key="commonProduct.publicId"
                         >
@@ -124,7 +124,7 @@
                             >
                             <template #common-product-red-points>123</template>
                             <template #common-product-gray-points>93</template>
-                        </CommonProducts>
+                        </CommonProduct>
                     </div>
                 </div>
             </div>
@@ -140,7 +140,7 @@ import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 import ProductInformation from '@/components/common/ProductInformation.vue';
 import PriceListItem from '@/components/common/PriceListItem.vue';
 import ProductSpecificationItem from '@/components/common/ProductSpecificationItem.vue';
-import CommonProducts from '@/components/common/CommonProducts.vue';
+import CommonProduct from '@/components/common/CommonProduct.vue';
 
 @Component({
     name: 'ProductPage',
@@ -150,7 +150,7 @@ import CommonProducts from '@/components/common/CommonProducts.vue';
         ProductInformation,
         PriceListItem,
         ProductSpecificationItem,
-        CommonProducts
+        CommonProduct
     },
     methods: {
         imageModal: function () {
@@ -165,7 +165,7 @@ import CommonProducts from '@/components/common/CommonProducts.vue';
     }
 })
 export default class ProductPage extends Vue {
-    private item: any[] = [];
+    private product: any[] = [];
     private commonProducts: any[] = [];
 
     public get id() {
@@ -181,22 +181,21 @@ export default class ProductPage extends Vue {
                 route: '/'
             },
             {
-                name: this.item.productTypeName,
-                route: '/c/' + this.item.productTypeName
+                name: this.product.productTypeName,
+                route: '/c/' + this.product.productTypeName
             },
             {
-                name: this.item.name,
-                route: '/p/' + this.item.publicId
+                name: this.product.name,
+                route: '/p/' + this.product.publicId
             }
         ]);
     }
 
     private async loadData(): Promise<boolean> {
-        this.item = await ProductService.getProduct(this.id);
+        this.product = await ProductService.getProduct(this.id);
         this.commonProducts = await ProductService.getProductsByCategory(
             this.typePublicId
         );
-        console.log(this.commonProducts);
     }
 }
 </script>
