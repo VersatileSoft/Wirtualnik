@@ -9,7 +9,7 @@ export const state = (): AuthState => ({
     token: '',
     givenName: '',
     surname: '',
-    picture: '',
+    picture: ''
 });
 
 export const mutations = {
@@ -22,10 +22,10 @@ export const mutations = {
     },
 
     SET_SURNAME(state: AuthState, surname: string) {
-      state.surname = surname;
+        state.surname = surname;
     },
 
     SET_PICTURE(state: AuthState, picture: string) {
-      state.picture = picture;
+        state.picture = picture;
     }
 };

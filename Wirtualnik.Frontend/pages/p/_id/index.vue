@@ -37,16 +37,35 @@
                     </ProductInformation>
 
                     <div class="pricelist fullwidth">
-                        <PriceListItem
-                            v-for="shop in product.productShopDetails"
-                            :key="shop.name"
+                        <div
+                            v-if="
+                                product.productShopDetails &&
+                                product.productShopDetails.length > 0
+                            "
                         >
-                            <template #shop-icon>
-                                <img :src="shop.image" :alt="shop.name" />
-                            </template>
-                            <template #shop-name>{{ shop.name }}</template>
-                            <template #shop-price> {{ shop.price }} </template>
-                        </PriceListItem>
+                            <PriceListItem
+                                v-for="shop in product.productShopDetails"
+                                :key="shop.name"
+                            >
+                                <template #shop-icon>
+                                    <img :src="shop.image" :alt="shop.name" />
+                                </template>
+                                <template #shop-name>{{ shop.name }}</template>
+                                <template #shop-price>
+                                    {{ shop.price }}
+                                </template>
+                            </PriceListItem>
+                        </div>
+                        <div v-else>
+                            <PriceListItem>
+                                <template #shop-icon>
+                                    <i class="las la-sad-cry"></i>
+                                </template>
+                                <template #shop-name
+                                    >Produkt niedostępny</template
+                                >
+                            </PriceListItem>
+                        </div>
                     </div>
 
                     <h3>Specyfikacja</h3>
@@ -196,6 +215,7 @@ export default class ProductPage extends Vue {
         this.commonProducts = await ProductService.getProductsByCategory(
             this.typePublicId
         );
+        console.log(this.product);
     }
 }
 </script>
@@ -228,5 +248,9 @@ a {
         opacity: 1;
         transform: translate3d(0, 0, 0);
     }
+}
+
+.btnPrice i {
+    font-size: 30px;
 }
 </style>

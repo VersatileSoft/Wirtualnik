@@ -7,4 +7,7 @@
 </template>
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
+.btnPrice h4 {
+    font-size: 15px;
+}
 </style>
