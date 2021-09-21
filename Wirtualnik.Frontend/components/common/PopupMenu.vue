@@ -1,7 +1,9 @@
 <template>
     <div class="user-menu" :class="{ 'menu-opened': isMenuOpened }">
         <section class="user-menu__header">
-            <h3 v-if="this.$store.state.auth.token">Hej {{this.$store.state.auth.givenName}}!</h3>
+            <h3 v-if="this.$store.state.auth.token">
+                Hej {{ this.$store.state.auth.givenName }}!
+            </h3>
             <h3 v-else>Niezalogowano</h3>
             <div class="page-header__extras">
                 <div class="btn-flat" v-if="this.$store.state.auth.token">
@@ -60,7 +62,9 @@
                 >
                     Wyloguj się
                 </p>
-                <p v-else class="user-menu__items-text" v-on:click="login()">Zaloguj się</p>
+                <p v-else class="user-menu__items-text" v-on:click="login()">
+                    Zaloguj się
+                </p>
             </nuxt-link>
         </section>
     </div>
@@ -69,7 +73,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator';
 import { ThemeMutations, TokenMutations } from '@/enums/storeEnums';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 @Component({
     name: 'PopupMenu'
 })
@@ -96,58 +100,74 @@ export default class PopupMenu extends Vue {
         return event;
     }
 
-
-    logout(){
-      this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, '')
-
+    logout() {
+        this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, '');
     }
 
-    login(){
-
-      var token = '';
-      var that = this;
-      console.log('login');
-      this.showAuthWindow({
-        path: "https://api.zlcn.pro/auth/login/Facebook",
-        callback: function(c: string)
-        {
-            console.log('callback' + c);
-            token = c.split('=')[1];
-            that.loged(token);
-        }
-      });
+    login() {
+        var token = '';
+        var that = this;
+        console.log('login');
+        this.showAuthWindow({
+            path: 'https://api.zlcn.pro/auth/login/Facebook',
+            callback: function (c: string) {
+                console.log('callback' + c);
+                token = c.split('=')[1];
+                that.loged(token);
+            }
+        });
     }
 
-    loged(token: string){
-      this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, token);
+    loged(token: string) {
+        this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, token);
 
-      var decoded: any = jwt_decode(token);
-      this.$store.commit(`auth/${TokenMutations.SET_GIVEN_NAME}`, decoded.given_name);
-      this.$store.commit(`auth/${TokenMutations.SET_SURNAME}`, decoded.family_name);
-      this.$store.commit(`auth/${TokenMutations.SET_PICTURE}`, decoded.picture);
+        var decoded: any = jwt_decode(token);
+
+        localStorage.setItem('accessToken', JSON.stringify(token));
+
+        this.$store.commit(
+            `auth/${TokenMutations.SET_GIVEN_NAME}`,
+            decoded.given_name
+        );
+        this.$store.commit(
+            `auth/${TokenMutations.SET_SURNAME}`,
+            decoded.family_name
+        );
+        this.$store.commit(
+            `auth/${TokenMutations.SET_PICTURE}`,
+            decoded.picture
+        );
     }
 
-    showAuthWindow(options: any)
-    {
-        options.windowName = options.windowName ||  'ConnectWithOAuth';
-        options.windowOptions = options.windowOptions || 'location=0,status=0,width=700,height=900';
-        options.callback = options.callback || function(){ window.location.reload(); };
+    showAuthWindow(options: any) {
+        options.windowName = options.windowName || 'ConnectWithOAuth';
+        options.windowOptions =
+            options.windowOptions || 'location=0,status=0,width=700,height=900';
+        options.callback =
+            options.callback ||
+            function () {
+                window.location.reload();
+            };
         var that: any = this;
-        that._oauthWindow = window.open(options.path, options.windowName, options.windowOptions);
+        that._oauthWindow = window.open(
+            options.path,
+            options.windowName,
+            options.windowOptions
+        );
 
-        that._oauthInterval = window.setInterval(function(){
-            if(that._oauthWindow.closed){
-              clearInterval(that._oauthInterval);
+        that._oauthInterval = window.setInterval(function () {
+            if (that._oauthWindow.closed) {
+                clearInterval(that._oauthInterval);
             }
 
-                var link: string = that._oauthWindow.location.href;
-                console.log(link)
-                 if(link.includes('access_token')){
-                   console.log('link')
-                     options.callback(that._oauthWindow.location.href);
-                     clearInterval(that._oauthInterval);
-                     that._oauthWindow.close();
-                 }
+            var link: string = that._oauthWindow.location.href;
+            console.log(link);
+            if (link.includes('access_token')) {
+                console.log('link');
+                options.callback(that._oauthWindow.location.href);
+                clearInterval(that._oauthInterval);
+                that._oauthWindow.close();
+            }
         }, 100);
     }
 

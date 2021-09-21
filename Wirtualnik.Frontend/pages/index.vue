@@ -31,7 +31,7 @@
                     </template>
                     <template #parts>
                         <div v-for="item in items" :key="item.publicId">
-                            <img :src="'https://api.zlcn.pro/' + item.image" />
+                            <img :src="url + item.image" />
                             <nuxt-link
                                 :to="{
                                     name: 'c-category',
@@ -74,7 +74,7 @@
                 <template #cards>
                     <VerticalCard v-for="item in items" :key="item.publicId">
                         <template #image>
-                            <img :src="'https://api.zlcn.pro/' + item.image" />
+                            <img :src="url + item.image" />
                         </template>
                         <template #title>
                             <h2>{{ item.name }}</h2>
@@ -268,6 +268,11 @@ import ProductService from '@/services/ProductService.ts';
         ProductsTrack,
         ProductCard,
         VerticalCard
+    },
+    data() {
+        return {
+            url: process.env.VUE_APP_URL_DEFAULT
+        };
     }
 })
 export default class StartingPage extends Vue {

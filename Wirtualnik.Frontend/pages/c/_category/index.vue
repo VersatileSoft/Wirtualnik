@@ -8,7 +8,7 @@
                 <ProductCard v-for="item in items" :key="item.publicId">
                     <template #image>
                         <nuxt-link :to="`/p/` + item.publicId">
-                            <img :src="'https://api.zlcn.pro/' + item.image" />
+                            <img :src="url + item.image" />
                         </nuxt-link>
                     </template>
                     <template #title>
@@ -59,6 +59,11 @@ import ProductService from '@/services/ProductService.ts';
         ProductCard,
         ProductsTrack,
         BottomNavbar
+    },
+    data() {
+        return {
+            url: process.env.VUE_APP_URL_DEFAULT
+        };
     }
 })
 export default class CategoryPage extends Vue {
