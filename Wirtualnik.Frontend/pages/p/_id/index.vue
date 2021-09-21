@@ -8,7 +8,7 @@
                     <ProductInformation>
                         <template #image>
                             <img
-                                :src="'https://api.zlcn.pro/' + product.images"
+                                :src="url + product.images"
                                 v-on:click="imageModal"
                             />
                         </template>
@@ -81,10 +81,7 @@
                             <template #common-product-image>
                                 <nuxt-link :to="`/p/` + commonProduct.publicId">
                                     <img
-                                        :src="
-                                            'https://api.zlcn.pro/' +
-                                            commonProduct.image
-                                        "
+                                        :src="url + commonProduct.image"
                                         alt="Zdjęcie produktu"
                                         loading="lazy"
                                     />
@@ -151,6 +148,11 @@ import CommonProduct from '@/components/common/CommonProduct.vue';
         PriceListItem,
         ProductSpecificationItem,
         CommonProduct
+    },
+    data() {
+        return {
+            url: process.env.VUE_APP_URL_DEFAULT
+        };
     },
     methods: {
         imageModal: function () {
