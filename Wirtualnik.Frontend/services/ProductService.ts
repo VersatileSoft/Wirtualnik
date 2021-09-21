@@ -5,7 +5,7 @@ export default class ProductService {
     public static async getProduct(id: string): Promise<Product> {
         try {
             const response = await axios.get<Product>(
-                'https://api.zlcn.pro/api/product/' + id
+                process.env.VUE_APP_API_URL_PRODUCT + id
             );
             return response.data;
         } catch (ex) {
@@ -16,7 +16,7 @@ export default class ProductService {
     public static async getProductsByType(type: string): Promise<Product> {
         try {
             const response = await axios.get<Product>(
-                'https://api.zlcn.pro/api/product',
+                process.env.VUE_APP_API_URL_PRODUCT,
                 {
                     params: {
                         ProductType: type
@@ -32,7 +32,7 @@ export default class ProductService {
     public static async getProductsByCategory(category: string): Promise<Product> {
         try {
             const response = await axios.get<Product>(
-                'https://api.zlcn.pro/api/product',
+                process.env.VUE_APP_API_URL_PRODUCT,
                 {
                     params: {
                         typePublicId: category
