@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,12 @@ namespace Wirtualnik.Shared.Models
         public AutoMapperProfile()
         {
             ProductMap();
+            CartMap();
+        }
+
+        private void CartMap()
+        {
+            CreateMap<Data.Models.Cart, Shared.Models.Cart.DetailsModel>();
         }
 
         private void ProductMap()
@@ -23,6 +30,8 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.Images, k => k.Ignore())
                 .ForMember(o => o.CreateDate, k => k.Ignore())
                 .ForMember(o => o.ProductType, k => k.Ignore())
+                .ForMember(o => o.CartProducts, k => k.Ignore())
+                .ForMember(o => o.Carts, k => k.Ignore())
                 .ForMember(o => o.UpdateDate, k => k.Ignore());
 
             CreateMap<Data.Models.Product, DetailsModel>()

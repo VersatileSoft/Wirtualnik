@@ -19,6 +19,7 @@ namespace Wirtualnik.Server.Extensions.Swagger
         {
             services.AddSwaggerGen(c =>
             {
+                c.CustomSchemaIds(type => type.ToString());
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "You api title", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wirtualnik.Data;
@@ -9,9 +10,10 @@ using Wirtualnik.Data;
 namespace Wirtualnik.Data.Migrations
 {
     [DbContext(typeof(WirtualnikDbContext))]
-    partial class WirtualnikDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210914184706_Cart")]
+    partial class Cart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,20 +240,25 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("UserId")
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.CartProduct", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("CartId")
                         .HasColumnType("integer");
@@ -259,15 +266,20 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.HasKey("ProductId", "CartId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("CartProducts");
                 });
@@ -318,6 +330,9 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<bool>("Archived")
                         .HasColumnType("boolean");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("text");
@@ -356,6 +371,8 @@ namespace Wirtualnik.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ProductTypeId");
 
@@ -587,7 +604,7 @@ namespace Wirtualnik.Data.Migrations
                 {
                     b.HasOne("Wirtualnik.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
@@ -595,13 +612,13 @@ namespace Wirtualnik.Data.Migrations
             modelBuilder.Entity("Wirtualnik.Data.Models.CartProduct", b =>
                 {
                     b.HasOne("Wirtualnik.Data.Models.Cart", "Cart")
-                        .WithMany("CartProducts")
+                        .WithMany()
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Wirtualnik.Data.Models.Product", "Product")
-                        .WithMany("CartProducts")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -624,6 +641,10 @@ namespace Wirtualnik.Data.Migrations
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Product", b =>
                 {
+                    b.HasOne("Wirtualnik.Data.Models.Cart", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("Wirtualnik.Data.Models.ProductType", "ProductType")
                         .WithMany()
                         .HasForeignKey("ProductTypeId")
@@ -684,13 +705,11 @@ namespace Wirtualnik.Data.Migrations
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Cart", b =>
                 {
-                    b.Navigation("CartProducts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Product", b =>
                 {
-                    b.Navigation("CartProducts");
-
                     b.Navigation("Images");
 
                     b.Navigation("ProductShops");

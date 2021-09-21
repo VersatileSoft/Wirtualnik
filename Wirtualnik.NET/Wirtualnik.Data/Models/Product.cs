@@ -18,6 +18,8 @@ namespace Wirtualnik.Data.Models
         public virtual ICollection<Shop> Shops { get; set; } = null!;
         public virtual ICollection<Property> Properties { get; set; } = null!;
         public virtual ICollection<Image> Images { get; set; } = null!;
+        public virtual ICollection<Cart> Carts { get; set; } = null!;
+        public virtual ICollection<CartProduct> CartProducts { get; set; } = null!;
         public virtual ProductType ProductType { get; set; } = null!;
     }
 }

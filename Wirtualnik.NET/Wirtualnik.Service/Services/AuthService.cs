@@ -145,7 +145,7 @@ namespace Wirtualnik.Service.Services
                     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.NameId, user.Id),
+                    new Claim("id", user.Id),
                     new Claim(JwtRegisteredClaimNames.GivenName, user.GivenName ?? string.Empty),
                     new Claim(JwtRegisteredClaimNames.FamilyName, user.Surname?? string.Empty),
                     new Claim("picture", user.Picture ?? string.Empty),
