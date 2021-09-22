@@ -16,8 +16,6 @@ export default class ProductService {
     public async getProductsByCategory(
         category: string
     ): Promise<Pagination<Product>> {
-        console.log(this.axios);
-        console.log(this.axios.defaults.baseURL);
         return (
             await this.axios.get<Pagination<Product>>('product', {
                 params: { productType: category }
