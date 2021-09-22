@@ -8,7 +8,7 @@
                 <ProductCard v-for="item in items" :key="item.publicId">
                     <template #image>
                         <nuxt-link :to="`/p/` + item.publicId">
-                            <img :src="url + item.image" />
+                            <img :src="item.image" />
                         </nuxt-link>
                     </template>
                     <template #title>
@@ -51,7 +51,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import ProductCard from '@/components/common/ProductCard.vue';
 import ProductsTrack from '@/components/common/ProductsTrack.vue';
 import BottomNavbar from '@/components/common/BottomNavbar.vue';
-import ProductService from '@/services/ProductService.ts';
+import { Product } from '~/models/Product';
 
 @Component({
     name: 'CategoryPage',
@@ -59,16 +59,11 @@ import ProductService from '@/services/ProductService.ts';
         ProductCard,
         ProductsTrack,
         BottomNavbar
-    },
-    data() {
-        return {
-            url: process.env.VUE_APP_URL_DEFAULT
-        };
     }
 })
 export default class CategoryPage extends Vue {
-    private items: any[] = [];
-    private category?: string;
+    private items: Product[] = [];
+    private category!: string;
 
     public async created(): Promise<void> {
         this.category = this.$route.params.category;
@@ -86,8 +81,10 @@ export default class CategoryPage extends Vue {
         await this.loadData();
     }
 
-    private async loadData(): Promise<boolean> {
-        this.items = await ProductService.getProductsByCategory(this.category);
+    private async loadData(): Promise<void> {
+        this.items = (
+            await this.$productService.getProductsByCategory(this.category)
+        ).items;
     }
 }
 </script>

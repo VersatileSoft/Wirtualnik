@@ -31,7 +31,7 @@
                     </template>
                     <template #parts>
                         <div v-for="item in items" :key="item.publicId">
-                            <img :src="url + item.image" />
+                            <img :src="item.image" />
                             <nuxt-link
                                 :to="{
                                     name: 'c-category',
@@ -74,7 +74,7 @@
                 <template #cards>
                     <VerticalCard v-for="item in items" :key="item.publicId">
                         <template #image>
-                            <img :src="url + item.image" />
+                            <img :src="item.image" />
                         </template>
                         <template #title>
                             <h2>{{ item.name }}</h2>
@@ -256,7 +256,8 @@ import ProductsGrid from '@/components/common/ProductsGrid.vue';
 import ProductsTrack from '@/components/common/ProductsTrack.vue';
 import ProductCard from '@/components/common/ProductCard.vue';
 import VerticalCard from '@/components/common/VerticalCard.vue';
-import ProductService from '@/services/ProductService.ts';
+import { Product } from '~/models/Product';
+import ProductService from '@/services/ProductService';
 
 @Component({
     name: 'StartingPage',
@@ -268,17 +269,12 @@ import ProductService from '@/services/ProductService.ts';
         ProductsTrack,
         ProductCard,
         VerticalCard
-    },
-    data() {
-        return {
-            url: process.env.VUE_APP_URL_DEFAULT
-        };
     }
 })
 export default class StartingPage extends Vue {
-    private items: any[] = [];
+    private items: Product[] = [];
 
-    public async created(): void {
+    public async created(): Promise<void> {
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',
@@ -288,9 +284,10 @@ export default class StartingPage extends Vue {
         await this.loadData();
     }
 
-    private async loadData(): Promise<boolean> {
-        this.items = await ProductService.getProductsByType('cpu');
-        console.log(this.items);
+    private async loadData(): Promise<void> {
+        this.items = (
+            await this.$productService.getProductsByCategory('cpu')
+        ).items;
     }
 
     public scrollIntoView(section: string): void {

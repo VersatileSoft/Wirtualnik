@@ -2,7 +2,7 @@
 import path from 'path';
 import fs from 'fs';
 
-export default {
+module.exports = {
     // Target: https://go.nuxtjs.dev/config-target
     target: 'server',
 
@@ -51,7 +51,11 @@ export default {
         '@/assets/scss/icons.scss'
     ],
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: ['@/plugins/vueMq.ts'],
+    plugins: [
+        '@/plugins/vueMq.ts',
+        '@/plugins/axios.ts',
+        { src: '@/plugins/vue-awesome-swiper.ts', mode: 'client' }
+    ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
@@ -98,7 +102,7 @@ export default {
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: 'https://zlcn.pro/'
+        baseURL: process.env.VUE_APP_API_URL
     },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
