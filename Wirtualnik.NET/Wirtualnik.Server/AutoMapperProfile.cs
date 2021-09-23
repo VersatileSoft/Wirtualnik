@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +14,12 @@ namespace Wirtualnik.Shared.Models
         public AutoMapperProfile()
         {
             ProductMap();
+            CartMap();
+        }
+
+        private void CartMap()
+        {
+            CreateMap<Data.Models.Cart, Shared.Models.Cart.DetailsModel>();
         }
 
         private void ProductMap()
@@ -23,6 +31,8 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.Images, k => k.Ignore())
                 .ForMember(o => o.CreateDate, k => k.Ignore())
                 .ForMember(o => o.ProductType, k => k.Ignore())
+                .ForMember(o => o.CartProducts, k => k.Ignore())
+                .ForMember(o => o.Carts, k => k.Ignore())
                 .ForMember(o => o.UpdateDate, k => k.Ignore());
 
             CreateMap<Data.Models.Product, DetailsModel>()
@@ -62,23 +72,35 @@ namespace Wirtualnik.Shared.Models
 
     public class DetailsImagesResolver : IValueResolver<Data.Models.Product, DetailsModel, List<string>>
     {
+        private HttpContext? _context;
+        public DetailsImagesResolver(IHttpContextAccessor context)
+        {
+            _context = context.HttpContext; 
+        }
+
         public List<string> Resolve(Data.Models.Product source, DetailsModel destination, List<string> destMember, ResolutionContext context)
         {
             return source.Images
                 .Where(i => i.Width == 200 && i.Height == 200)
                 .OrderByDescending(i => i.Main)
-                .Select(i => Path.Combine("static", "img", "p", i.FileName))
+                .Select(i => _context?.Request?.Scheme + "://" + Path.Combine(_context?.Request?.Host.Value ?? "", "static", "img", "p", i.FileName))
                 .ToList();
         }
     }
 
     public class ListImagesResolver : IValueResolver<Data.Models.Product, ListItemModel, string?>
     {
+        private HttpContext? _context;
+        public ListImagesResolver(IHttpContextAccessor context)
+        {
+            _context = context.HttpContext;
+        }
+
         public string? Resolve(Data.Models.Product source, ListItemModel destination, string? destMember, ResolutionContext context)
         {
             return source.Images
                 .Where(i => i.Width == 200 && i.Height == 200 && i.Main)
-                .Select(i => Path.Combine("static", "img", "p", i.FileName))
+                .Select(i => _context?.Request?.Scheme + "://" + Path.Combine(_context?.Request?.Host.Value ?? "", "static", "img", "p", i.FileName))
                 .FirstOrDefault();
         }
     }

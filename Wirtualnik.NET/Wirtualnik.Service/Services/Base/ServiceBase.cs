@@ -26,7 +26,7 @@ namespace Wirtualnik.Service.Services.Base
             return await Context.FindAsync<TEntity>(id);
         }
 
-        public virtual async Task<TEntity> CreateAsync<TEntity>(TEntity entity) where TEntity : EntityBase
+        public virtual async Task<TEntity> CreateAsync<TEntity>(TEntity entity) where TEntity : class
         {
             await Context.AddAsync<TEntity>(entity);
             await SaveChangesAsync();

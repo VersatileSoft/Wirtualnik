@@ -1,14 +1,14 @@
 <template>
     <div>
         <!-- ImageCarouselFluid will be remade after swiper dependency bugfix -->
-        <ImageCarouselFluid />
+        <ImageCarouselFluid v-if="showModal" />
         <div class="container">
             <div class="thickColumn">
                 <div class="productCard fullwidth">
                     <ProductInformation>
                         <template #image>
                             <img
-                                :src="'https://api.zlcn.pro/' + product.images"
+                                :src="product.images"
                                 v-on:click="imageModal"
                             />
                         </template>
@@ -56,16 +56,7 @@
                                 </template>
                             </PriceListItem>
                         </div>
-                        <div v-else>
-                            <PriceListItem>
-                                <template #shop-icon>
-                                    <i class="las la-sad-cry"></i>
-                                </template>
-                                <template #shop-name
-                                    >Produkt niedostępny</template
-                                >
-                            </PriceListItem>
-                        </div>
+                        <div v-else>Produkt niedostępny</div>
                     </div>
 
                     <h3>Specyfikacja</h3>
@@ -100,10 +91,7 @@
                             <template #common-product-image>
                                 <nuxt-link :to="`/p/` + commonProduct.publicId">
                                     <img
-                                        :src="
-                                            'https://api.zlcn.pro/' +
-                                            commonProduct.image
-                                        "
+                                        :src="commonProduct.image"
                                         alt="Zdjęcie produktu"
                                         loading="lazy"
                                     />
@@ -153,41 +141,31 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import ProductService from '@/services/ProductService.ts';
 import BreadCrumb from '@/components/navigation/Breadcrumb.vue';
-import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 import ProductInformation from '@/components/common/ProductInformation.vue';
 import PriceListItem from '@/components/common/PriceListItem.vue';
 import ProductSpecificationItem from '@/components/common/ProductSpecificationItem.vue';
 import CommonProduct from '@/components/common/CommonProduct.vue';
+import { Product } from '~/models/Product';
+import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 
 @Component({
     name: 'ProductPage',
     components: {
         BreadCrumb,
-        ImageCarouselFluid,
         ProductInformation,
         PriceListItem,
         ProductSpecificationItem,
-        CommonProduct
-    },
-    methods: {
-        imageModal: function () {
-            document.getElementById('imageModal');
-            var x = document.getElementById('imageModal');
-            if (x.style.display === 'block') {
-                x.style.display = 'none';
-            } else {
-                x.style.display = 'block';
-            }
-        }
+        CommonProduct,
+        ImageCarouselFluid
     }
 })
 export default class ProductPage extends Vue {
-    private product: any[] = [];
-    private commonProducts: any[] = [];
+    private product: Product = {} as Product;
+    private commonProducts: Product[] = [];
+    private showModal = false;
 
-    public get id() {
+    public get id(): string {
         return this.$route.params.id;
     }
 
@@ -200,22 +178,29 @@ export default class ProductPage extends Vue {
                 route: '/'
             },
             {
-                name: this.product.productTypeName,
-                route: '/c/' + this.product.productTypeName
+                name: this.product?.productTypeName,
+                route: '/c/' + this.product?.productTypeName
             },
             {
-                name: this.product.name,
-                route: '/p/' + this.product.publicId
+                name: this.product?.name,
+                route: '/p/' + this.product?.publicId
             }
         ]);
     }
 
-    private async loadData(): Promise<boolean> {
-        this.product = await ProductService.getProduct(this.id);
-        this.commonProducts = await ProductService.getProductsByCategory(
-            this.typePublicId
-        );
-        console.log(this.product);
+    private imageModal(): void {
+        this.showModal = !this.showModal;
+    }
+
+    private async loadData(): Promise<void> {
+        try {
+            this.product = await this.$productService.getProduct(this.id);
+            this.commonProducts = (
+                await this.$productService.getProductsByCategory('cpu')
+            ).items;
+        } catch {
+            // TODO show popup
+        }
     }
 }
 </script>

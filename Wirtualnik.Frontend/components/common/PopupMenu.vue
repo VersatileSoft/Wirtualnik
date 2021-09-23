@@ -122,6 +122,9 @@ export default class PopupMenu extends Vue {
         this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, token);
 
         var decoded: any = jwt_decode(token);
+
+        localStorage.setItem('accessToken', JSON.stringify(token));
+
         this.$store.commit(
             `auth/${TokenMutations.SET_GIVEN_NAME}`,
             decoded.given_name
@@ -136,7 +139,7 @@ export default class PopupMenu extends Vue {
         );
     }
 
-    showAuthWindow(options: any) {
+    showAuthWindow(options: any): void {
         options.windowName = options.windowName || 'ConnectWithOAuth';
         options.windowOptions =
             options.windowOptions || 'location=0,status=0,width=700,height=900';
