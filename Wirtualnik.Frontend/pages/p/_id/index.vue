@@ -1,7 +1,26 @@
 <template>
     <div>
-        <!-- ImageCarouselFluid will be remade after swiper dependency bugfix -->
-        <ImageCarouselFluid v-if="showModal" />
+        <div
+            v-if="this.showModal === true"
+            id="imageModal"
+            style="display: block"
+        >
+            <div class="imageModalContainer">
+                <ImageCarouselFluid />
+                <button
+                    class="btnGreen btnCircle btnBasic"
+                    onclick="imageModal()"
+                >
+                    <i class="las la-download"></i>Pobierz zdjęcie
+                </button>
+                <button
+                    class="btnRed btnCircle btnBasic"
+                    v-on:click="imageModal"
+                >
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+        </div>
         <div class="container">
             <div class="thickColumn">
                 <div class="productCard fullwidth">
@@ -189,7 +208,13 @@ export default class ProductPage extends Vue {
     }
 
     private imageModal(): void {
-        this.showModal = !this.showModal;
+        document.getElementById('imageModal');
+        var x = document.getElementById('imageModal');
+        if (this.showModal === false) {
+            this.showModal = true;
+        } else {
+            this.showModal = false;
+        }
     }
 
     private async loadData(): Promise<void> {
@@ -207,7 +232,6 @@ export default class ProductPage extends Vue {
 
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
-
 :root {
     --background: #f3f3f3;
 }
@@ -234,8 +258,17 @@ a {
         transform: translate3d(0, 0, 0);
     }
 }
-
 .btnPrice i {
     font-size: 30px;
+}
+.btnRed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    padding: 0;
+}
+.btnRed i {
+    margin: 0;
 }
 </style>
