@@ -30,7 +30,7 @@
     "nuxt-i18n": "^6.27.3",
     "nuxt-mq": "^2.0.2",
     "nuxt-property-decorator": "^2.9.1",
-    "swiper": "6",
+    "swiper": "5.x",
     "vee-validate": "2.2.15",
     "vue-awesome-swiper": "^4.1.1",
     "vue-axios": "^3.3.7",
