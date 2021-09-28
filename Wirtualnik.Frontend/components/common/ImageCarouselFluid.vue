@@ -27,30 +27,20 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 
-import 'swiper/css/swiper.css';
-
-export default {
-    components: {
-        Swiper,
-        SwiperSlide
-    },
-    data() {
-        return {
-            swiperOption: {
-                pagination: {
-                    el: '.swiper-pagination'
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
-                }
-            }
-        };
-    }
-};
+@Component({
+    components: { Swiper, SwiperSlide }
+})
+export default class ImageCarouselFluid extends Vue {
+    private swiperOption = {
+        pagination: { el: '.swiper-pagination' },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        }
+    };
+}
 </script>
 
 <style lang="scss" scoped>

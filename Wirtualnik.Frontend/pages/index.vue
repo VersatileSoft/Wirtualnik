@@ -257,7 +257,6 @@ import ProductsTrack from '@/components/common/ProductsTrack.vue';
 import ProductCard from '@/components/common/ProductCard.vue';
 import VerticalCard from '@/components/common/VerticalCard.vue';
 import { Product } from '~/models/Product';
-import ProductService from '@/services/ProductService';
 
 @Component({
     name: 'StartingPage',
@@ -272,9 +271,9 @@ import ProductService from '@/services/ProductService';
     }
 })
 export default class StartingPage extends Vue {
-    private items: any[] = [];
+    private items: Product[] = [];
 
-    public async created(): void {
+    public async created(): Promise<void> {
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',
@@ -289,6 +288,7 @@ export default class StartingPage extends Vue {
             await this.$productService.getProductsByCategory('cpu')
         ).items;
     }
+
     public scrollIntoView(section: string): void {
         let offsetTop: number;
         if (section === 'promo') {

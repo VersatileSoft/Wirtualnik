@@ -1,22 +1,15 @@
 <template>
     <div>
-        <div
-            v-if="this.showModal === true"
-            id="imageModal"
-            style="display: block"
-        >
+        <div v-if="this.showModal === true" id="imageModal">
             <div class="imageModalContainer">
                 <ImageCarouselFluid />
                 <button
                     class="btnGreen btnCircle btnBasic"
-                    onclick="imageModal()"
+                    @click="imageModal()"
                 >
                     <i class="las la-download"></i>Pobierz zdjęcie
                 </button>
-                <button
-                    class="btnRed btnCircle btnBasic"
-                    v-on:click="imageModal"
-                >
+                <button class="btnRed btnCircle btnBasic" @click="imageModal">
                     <i class="las la-times"></i>
                 </button>
             </div>
@@ -208,8 +201,6 @@ export default class ProductPage extends Vue {
     }
 
     private imageModal(): void {
-        document.getElementById('imageModal');
-        var x = document.getElementById('imageModal');
         if (this.showModal === false) {
             this.showModal = true;
         } else {

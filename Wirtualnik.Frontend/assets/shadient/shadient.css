@@ -1534,7 +1534,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 #imageModal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
