@@ -105,6 +105,12 @@ module.exports = {
         baseURL: process.env.VUE_APP_API_URL
     },
 
+    publicRuntimeConfig: {
+        axios: {
+            baseURL: process.env.VUE_APP_API_URL
+        }
+    },
+
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
         manifest: {
