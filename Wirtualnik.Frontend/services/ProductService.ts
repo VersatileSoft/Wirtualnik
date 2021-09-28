@@ -10,14 +10,14 @@ export default class ProductService {
     }
 
     public async getProduct(id: string): Promise<Product> {
-        return (await this.axios.get<Product>(process.env.VUE_APP_API_URL_DEFAULT + `product/${id}`)).data;
+        return (await this.axios.get<Product>(`product/${id}`)).data;
     }
 
     public async getProductsByCategory(
         category: string
     ): Promise<Pagination<Product>> {
         return (
-            await this.axios.get<Pagination<Product>>(process.env.VUE_APP_API_URL_DEFAULT + 'product', {
+            await this.axios.get<Pagination<Product>>('product', {
                 params: { productType: category }
             })
         ).data;
