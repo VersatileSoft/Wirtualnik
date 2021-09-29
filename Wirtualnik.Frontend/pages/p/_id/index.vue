@@ -20,7 +20,10 @@
                     <ProductInformation>
                         <template #image>
                             <img
-                                :src="product.images"
+                                v-if="
+                                    product.images && product.images.length > 0
+                                "
+                                :src="product.images[0]"
                                 v-on:click="imageModal"
                             />
                         </template>
