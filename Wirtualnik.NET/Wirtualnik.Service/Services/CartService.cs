@@ -84,15 +84,28 @@ namespace Wirtualnik.Service.Services
 
             if (cart != null)
             {
-                await CreateAsync(new CartProduct
-                {
-                    Cart = cart,
-                    Product = product,
-                    Quantity = 1,
-                    CreateDate = DateTime.Now,
-                });
+                var cartProduct = Context.CartProducts.Where(cp => cp.CartId == cart.Id && cp.ProductId == product.Id).FirstOrDefault();
 
-                result.Quantity = await Context.Carts.Where(c => c.Id == cart.Id).Select(c => c.Products.Count()).FirstOrDefaultAsync();
+                if(cartProduct != null)
+                {
+                    cartProduct.Quantity++;
+                    await UpdateAsync(cartProduct);
+                }
+                else
+                {
+                    await CreateAsync(new CartProduct
+                    {
+                        Cart = cart,
+                        Product = product,
+                        Quantity = 1,
+                        CreateDate = DateTime.Now,
+                    });
+                }
+
+                cart = await Context.Carts.FirstOrDefaultAsync(c => c.Id == cart.Id);
+
+                result.Quantity = cart.CartProducts.Sum(p => p.Quantity);
+                result.Products = cart.Products.Select(p => p.PublicId).ToList();
                 return result;
             }
 

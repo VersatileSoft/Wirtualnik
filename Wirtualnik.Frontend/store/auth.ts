@@ -1,31 +1,38 @@
-interface AuthState {
+import { AuthModel } from '../services/AuthService';
+
+export interface AuthState {
+    loaded: boolean;
+    authenticated: boolean;
     token: string;
-    givenName: string;
-    surname: string;
-    picture: string;
+    identity: AuthModel | null;
+    rememberMe: boolean;
 }
 
 export const state = (): AuthState => ({
-    token: '',
-    givenName: '',
-    surname: '',
-    picture: ''
+    loaded: false,
+    authenticated: false,
+    identity: null,
+    rememberMe: false,
+    token: ''
 });
 
 export const mutations = {
-    SET_TOKEN(state: AuthState, token: string) {
+    setLoaded(state: AuthState, value: boolean): void {
+        state.loaded = value;
+    },
+    setAuthenticated(state: AuthState, value: boolean): void {
+        state.authenticated = value;
+    },
+    setIdentity(state: AuthState, identity: AuthModel): void {
+        state.identity = identity;
+    },
+    clearIdentity(state: AuthState): void {
+        state.identity = null;
+    },
+    rememberMe(state: AuthState, enabled: boolean): void {
+        state.rememberMe = enabled;
+    },
+    setToken(state: AuthState, token: string): void {
         state.token = token;
-    },
-
-    SET_GIVEN_NAME(state: AuthState, givenName: string) {
-        state.givenName = givenName;
-    },
-
-    SET_SURNAME(state: AuthState, surname: string) {
-        state.surname = surname;
-    },
-
-    SET_PICTURE(state: AuthState, picture: string) {
-        state.picture = picture;
     }
 };

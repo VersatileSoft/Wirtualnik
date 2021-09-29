@@ -35,7 +35,11 @@
                     class="page-header__components-link page-header__basket"
                 >
                     <span class="las la-shopping-cart"></span>
-                    <sub>342,23 PLN</sub>
+                    <sub>{{
+                        this.$store.state.cart.currentCart
+                            ? this.$store.state.cart.currentCart.quantity
+                            : 0
+                    }}</sub>
                 </nuxt-link>
             </div>
             <button class="btn-flat" @click="toggleMenu">
@@ -52,6 +56,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import PopupMenu from '@/components/common/PopupMenu.vue';
+import { CartSimpleModel } from '~/services/CartService';
 @Component({
     name: 'Header',
     components: {
@@ -60,6 +65,16 @@ import PopupMenu from '@/components/common/PopupMenu.vue';
 })
 export default class Header extends Vue {
     private menuOpened = false;
+    private cartCount = 0;
+
+    public async created(): Promise<void> {
+        try {
+            //let cartId = localStorage.getItem('cartId');
+            // let result = await this.$cartService.getCart(cartId);
+        } catch {
+            console.log('error');
+        }
+    }
 
     public toggleMenu(): void {
         this.menuOpened = !this.menuOpened;

@@ -257,6 +257,7 @@ import ProductsTrack from '@/components/common/ProductsTrack.vue';
 import ProductCard from '@/components/common/ProductCard.vue';
 import VerticalCard from '@/components/common/VerticalCard.vue';
 import { Product } from '~/models/Product';
+import Pager from '~/helpers/Pager';
 
 @Component({
     name: 'StartingPage',
@@ -285,7 +286,10 @@ export default class StartingPage extends Vue {
 
     private async loadData(): Promise<void> {
         this.items = (
-            await this.$productService.getProductsByCategory('cpu')
+            await this.$productService.getProductsByCategory(
+                new Pager(1, 20, 'Id', 'ASC'),
+                'cpu'
+            )
         ).items;
     }
 

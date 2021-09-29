@@ -10,5 +10,6 @@ namespace Wirtualnik.Shared.Models.Cart
         public bool Success { get; set; }
         public List<string> Errors { get; set; } = new List<string>();
         public int Quantity { get; set; }
+        public List<string> Products { get; set; } = new List<string>();
     }
 }

@@ -1,13 +1,11 @@
 <template>
     <div class="user-menu" :class="{ 'menu-opened': isMenuOpened }">
         <section class="user-menu__header">
-            <h3 v-if="this.$store.state.auth.token">
-                Hej {{ this.$store.state.auth.givenName }}!
-            </h3>
+            <h3 v-if="$auth.check()">Hej {{ this.$auth.user().givenName }}!</h3>
             <h3 v-else>Niezalogowano</h3>
             <div class="page-header__extras">
-                <div class="btn-flat" v-if="this.$store.state.auth.token">
-                    <img :src="this.$store.state.auth.picture" />
+                <div class="btn-flat">
+                    <img />
                 </div>
                 <button class="btn-flat" @click="themeChange">
                     <span class="las la-moon"></span>
@@ -19,7 +17,7 @@
         </section>
         <section class="user-menu__items">
             <nuxt-link
-                v-if="this.$store.state.auth.token"
+                v-if="$auth.check()"
                 class="user-menu__items-link"
                 to="/"
             >
@@ -30,7 +28,7 @@
                 <p class="user-menu__items-text">Powiadomienia (4)</p>
             </nuxt-link>
             <nuxt-link
-                v-if="this.$store.state.auth.token"
+                v-if="$auth.check()"
                 class="user-menu__items-link"
                 to="#"
             >
@@ -38,7 +36,7 @@
                 <p class="user-menu__items-text">Twoje Wirtualniki (333)</p>
             </nuxt-link>
             <nuxt-link
-                v-if="this.$store.state.auth.token"
+                v-if="$auth.check()"
                 class="user-menu__items-link"
                 to="#"
             >
@@ -46,7 +44,7 @@
                 <p class="user-menu__items-text">Ustawienia</p>
             </nuxt-link>
             <nuxt-link
-                v-if="this.$store.state.auth.token"
+                v-if="$auth.check()"
                 class="user-menu__items-link"
                 to="#"
             >
@@ -56,7 +54,7 @@
             <nuxt-link class="user-menu__items-link" to="#">
                 <span class="las la-sign-out-alt icon"></span>
                 <p
-                    v-if="this.$store.state.auth.token"
+                    v-if="$auth.check()"
                     class="user-menu__items-text"
                     v-on:click="logout()"
                 >
@@ -72,8 +70,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator';
-import { ThemeMutations, TokenMutations } from '@/enums/storeEnums';
-import jwt_decode from 'jwt-decode';
+import { ThemeMutations } from '@/enums/storeEnums';
+
 @Component({
     name: 'PopupMenu'
 })
@@ -100,75 +98,12 @@ export default class PopupMenu extends Vue {
         return event;
     }
 
-    logout() {
-        this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, '');
+    private logout(): void {
+        this.$auth.logout();
     }
 
-    login() {
-        var token = '';
-        var that = this;
-        console.log('login');
-        this.showAuthWindow({
-            path: 'https://api.zlcn.pro/auth/login/Facebook',
-            callback: function (c: string) {
-                console.log('callback' + c);
-                token = c.split('=')[1];
-                that.loged(token);
-            }
-        });
-    }
-
-    loged(token: string) {
-        this.$store.commit(`auth/${TokenMutations.SET_TOKEN}`, token);
-
-        var decoded: any = jwt_decode(token);
-
-        localStorage.setItem('accessToken', JSON.stringify(token));
-
-        this.$store.commit(
-            `auth/${TokenMutations.SET_GIVEN_NAME}`,
-            decoded.given_name
-        );
-        this.$store.commit(
-            `auth/${TokenMutations.SET_SURNAME}`,
-            decoded.family_name
-        );
-        this.$store.commit(
-            `auth/${TokenMutations.SET_PICTURE}`,
-            decoded.picture
-        );
-    }
-
-    showAuthWindow(options: any): void {
-        options.windowName = options.windowName || 'ConnectWithOAuth';
-        options.windowOptions =
-            options.windowOptions || 'location=0,status=0,width=700,height=900';
-        options.callback =
-            options.callback ||
-            function () {
-                window.location.reload();
-            };
-        var that: any = this;
-        that._oauthWindow = window.open(
-            options.path,
-            options.windowName,
-            options.windowOptions
-        );
-
-        that._oauthInterval = window.setInterval(function () {
-            if (that._oauthWindow.closed) {
-                clearInterval(that._oauthInterval);
-            }
-
-            var link: string = that._oauthWindow.location.href;
-            console.log(link);
-            if (link.includes('access_token')) {
-                console.log('link');
-                options.callback(that._oauthWindow.location.href);
-                clearInterval(that._oauthInterval);
-                that._oauthWindow.close();
-            }
-        }, 100);
+    private async login(): Promise<void> {
+        await this.$auth.login();
     }
 
     public themeChange(): void {

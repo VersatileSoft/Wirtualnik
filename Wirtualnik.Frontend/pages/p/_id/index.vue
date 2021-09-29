@@ -33,9 +33,16 @@
                             </p>
                         </template>
                         <template #buttons>
-                            <button class="btnGreen btnCircle btnBasic">
-                                <i class="las la-cart-plus"></i>Dodaj do koszyka
-                            </button>
+                            <div>
+                                <button
+                                    @click="addToCart()"
+                                    class="btnGreen btnCircle btnBasic"
+                                >
+                                    <i class="las la-cart-plus"></i>Dodaj do
+                                    koszyka
+                                </button>
+                                <div v-if="isInCart">Produkt w koszyku</div>
+                            </div>
                         </template>
                         <template #red-points>
                             <h5>123</h5>
@@ -160,6 +167,8 @@ import ProductSpecificationItem from '@/components/common/ProductSpecificationIt
 import CommonProduct from '@/components/common/CommonProduct.vue';
 import { Product } from '~/models/Product';
 import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
+import Pager from '~/helpers/Pager';
+import { CartSimpleModel } from '~/services/CartService';
 
 @Component({
     name: 'ProductPage',
@@ -179,6 +188,14 @@ export default class ProductPage extends Vue {
 
     public get id(): string {
         return this.$route.params.id;
+    }
+
+    public get currentCart(): CartSimpleModel {
+        return this.$store.state.cart?.currentCart ?? null;
+    }
+
+    public get isInCart(): boolean {
+        return this.currentCart?.products?.includes(this.id);
     }
 
     public async created(): Promise<void> {
@@ -208,11 +225,37 @@ export default class ProductPage extends Vue {
         }
     }
 
+    private async addToCart(): Promise<void> {
+        try {
+            let result = await this.$cartService.addToCart(
+                this.product.publicId,
+                this.currentCart?.temporaryId ?? ''
+            );
+            var model: CartSimpleModel = {
+                temporaryId: result.temporaryId ?? '',
+                quantity: result.quantity,
+                products: result.products
+            };
+
+            this.$store.commit('cart/setCurrentCart', model);
+            localStorage.setItem(
+                'cartId',
+                result.temporaryId?.toString() ?? ''
+            );
+        } catch {
+            localStorage.removeItem('cartId');
+            this.$store.commit('cart/setCurrentCart', null);
+        }
+    }
+
     private async loadData(): Promise<void> {
         try {
             this.product = await this.$productService.getProduct(this.id);
             this.commonProducts = (
-                await this.$productService.getProductsByCategory('cpu')
+                await this.$productService.getProductsByCategory(
+                    new Pager(1, 20, 'Id', 'asc'),
+                    'cpu'
+                )
             ).items;
         } catch {
             // TODO show popup
