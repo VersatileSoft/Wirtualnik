@@ -1,6 +1,8 @@
 import { Product } from '../models/Product';
 import { Pagination } from '../models/Pagination';
 import { AxiosStatic } from 'axios';
+import Pager from '@/helpers/Pager';
+import merge from 'lodash/merge';
 
 export default class ProductService {
     private axios: AxiosStatic;
@@ -14,11 +16,12 @@ export default class ProductService {
     }
 
     public async getProductsByCategory(
+        pager: Pager,
         category: string
     ): Promise<Pagination<Product>> {
         return (
             await this.axios.get<Pagination<Product>>('product', {
-                params: { productType: category }
+                params: merge({ productType: category }, pager.data())
             })
         ).data;
     }
