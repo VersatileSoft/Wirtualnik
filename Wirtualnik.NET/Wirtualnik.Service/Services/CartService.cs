@@ -59,7 +59,7 @@ namespace Wirtualnik.Service.Services
             }
             else if (!string.IsNullOrEmpty(temporaryId))
             {
-                cart = await Context.Carts.FirstOrDefaultAsync(c => c.TemporaryId == temporaryId);
+                cart = await Context.Carts.Include(c => c.Products).Include(c => c.CartProducts).FirstOrDefaultAsync(c => c.TemporaryId == temporaryId);
                 if (cart == null)
                 {
                     result.Success = false;
@@ -102,7 +102,7 @@ namespace Wirtualnik.Service.Services
                     });
                 }
 
-                cart = await Context.Carts.FirstOrDefaultAsync(c => c.Id == cart.Id);
+                cart = await Context.Carts.Include(c => c.Products).Include(c => c.CartProducts).FirstOrDefaultAsync(c => c.Id == cart.Id);
 
                 result.Quantity = cart.CartProducts.Sum(p => p.Quantity);
                 result.Products = cart.Products.Select(p => p.PublicId).ToList();
