@@ -1,63 +1,17 @@
 <template>
     <div>
-        <div v-if="this.showModal === true" id="imageModal">
-            <div class="imageModalContainer">
-                <ImageCarouselFluid />
-                <button
-                    class="btnGreen btnCircle btnBasic"
-                    @click="imageModal()"
-                >
-                    <i class="las la-download"></i>Pobierz zdjęcie
-                </button>
-                <button class="btnRed btnCircle btnBasic" @click="imageModal">
-                    <i class="las la-times"></i>
-                </button>
-            </div>
-        </div>
+        <ImageCarouselFluid
+            v-if="showModal"
+            :images="product.images"
+            @close="showModal = false"
+        />
         <div class="container">
             <div class="thickColumn">
                 <div class="productCard fullwidth">
-                    <ProductInformation>
-                        <template #image>
-                            <img
-                                v-if="
-                                    product.images && product.images.length > 0
-                                "
-                                :src="product.images[0]"
-                                v-on:click="imageModal"
-                            />
-                        </template>
-                        <template #title>
-                            <h2>{{ product.name }}</h2>
-                        </template>
-                        <template #description>
-                            <p>
-                                {{ product.description }}
-                            </p>
-                        </template>
-                        <template #buttons>
-                            <div>
-                                <button
-                                    @click="addToCart()"
-                                    class="btnGreen btnCircle btnBasic"
-                                >
-                                    <i class="las la-cart-plus"></i>Dodaj do
-                                    koszyka
-                                </button>
-                                <div v-if="isInCart">Produkt w koszyku</div>
-                            </div>
-                        </template>
-                        <template #red-points>
-                            <h5>123</h5>
-                        </template>
-                        <template #blue-points>
-                            <h5>93</h5>
-                        </template>
-                        <template #gray-points>
-                            <h5>93</h5>
-                        </template>
-                    </ProductInformation>
-
+                    <ProductInformation
+                        :product="product"
+                        @showModal="showModal = true"
+                    />
                     <div class="pricelist fullwidth">
                         <div
                             v-if="
@@ -68,28 +22,18 @@
                             <PriceListItem
                                 v-for="shop in product.productShopDetails"
                                 :key="shop.name"
-                            >
-                                <template #shop-icon>
-                                    <img :src="shop.image" :alt="shop.name" />
-                                </template>
-                                <template #shop-name>{{ shop.name }}</template>
-                                <template #shop-price>
-                                    {{ shop.price }}
-                                </template>
-                            </PriceListItem>
+                                :shop="shop"
+                            />
                         </div>
                         <div v-else>Produkt niedostępny</div>
                     </div>
 
                     <h3>Specyfikacja</h3>
                     <div class="list col-3">
-                        <ProductSpecificationItem
-                            v-for="prop in product.properties"
-                            :key="prop.key"
-                        >
-                            <template #spec-key>{{ prop.key }}</template>
-                            <template #spec-value>{{ prop.value }}</template>
-                        </ProductSpecificationItem>
+                        <li v-for="prop in product.properties" :key="prop.key">
+                            {{ prop.key }}
+                            <p>{{ prop.value }}</p>
+                        </li>
                     </div>
 
                     <sub
@@ -109,51 +53,8 @@
                         <CommonProduct
                             v-for="commonProduct in commonProducts"
                             :key="commonProduct.publicId"
-                        >
-                            <template #common-product-image>
-                                <nuxt-link :to="`/p/` + commonProduct.publicId">
-                                    <img
-                                        :src="commonProduct.image"
-                                        alt="Zdjęcie produktu"
-                                        loading="lazy"
-                                    />
-                                </nuxt-link>
-                            </template>
-                            <template #common-product-name>
-                                {{ commonProduct.name }}
-                            </template>
-                            <template #common-product-price
-                                >495.00 PLN
-                                <!-- {{ commonProduct.price }} --></template
-                            >
-                            <template #common-product-price-provider>
-                                <img
-                                    :src="
-                                        commonProduct.productShopDetails.image
-                                    "
-                                    alt="Morele.net"
-                            /></template>
-                            <template #common-product-first-prop
-                                >{{ commonProduct.properties[0].key }}
-                                {{
-                                    commonProduct.properties[0].value
-                                }}</template
-                            >
-                            <template #common-product-second-prop
-                                >{{ commonProduct.properties[1].key }}
-                                {{
-                                    commonProduct.properties[1].value
-                                }}</template
-                            >
-                            <template #common-product-third-prop
-                                >{{ commonProduct.properties[2].key }}
-                                {{
-                                    commonProduct.properties[2].value
-                                }}</template
-                            >
-                            <template #common-product-red-points>123</template>
-                            <template #common-product-gray-points>93</template>
-                        </CommonProduct>
+                            :product="commonProduct"
+                        />
                     </div>
                 </div>
             </div>
@@ -166,12 +67,10 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import BreadCrumb from '@/components/navigation/Breadcrumb.vue';
 import ProductInformation from '@/components/common/ProductInformation.vue';
 import PriceListItem from '@/components/common/PriceListItem.vue';
-import ProductSpecificationItem from '@/components/common/ProductSpecificationItem.vue';
 import CommonProduct from '@/components/common/CommonProduct.vue';
 import { Product } from '~/models/Product';
 import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 import Pager from '~/helpers/Pager';
-import { CartSimpleModel } from '~/services/CartService';
 
 @Component({
     name: 'ProductPage',
@@ -179,7 +78,6 @@ import { CartSimpleModel } from '~/services/CartService';
         BreadCrumb,
         ProductInformation,
         PriceListItem,
-        ProductSpecificationItem,
         CommonProduct,
         ImageCarouselFluid
     }
@@ -191,14 +89,6 @@ export default class ProductPage extends Vue {
 
     public get id(): string {
         return this.$route.params.id;
-    }
-
-    public get currentCart(): CartSimpleModel {
-        return this.$store.state.cart?.currentCart ?? null;
-    }
-
-    public get isInCart(): boolean {
-        return this.currentCart?.products?.includes(this.id);
     }
 
     public async created(): Promise<void> {
@@ -218,37 +108,6 @@ export default class ProductPage extends Vue {
                 route: '/p/' + this.product?.publicId
             }
         ]);
-    }
-
-    private imageModal(): void {
-        if (this.showModal === false) {
-            this.showModal = true;
-        } else {
-            this.showModal = false;
-        }
-    }
-
-    private async addToCart(): Promise<void> {
-        try {
-            let result = await this.$cartService.addToCart(
-                this.product.publicId,
-                this.currentCart?.temporaryId ?? ''
-            );
-            var model: CartSimpleModel = {
-                temporaryId: result.temporaryId ?? '',
-                quantity: result.quantity,
-                products: result.products
-            };
-
-            this.$store.commit('cart/setCurrentCart', model);
-            localStorage.setItem(
-                'cartId',
-                result.temporaryId?.toString() ?? ''
-            );
-        } catch {
-            localStorage.removeItem('cartId');
-            this.$store.commit('cart/setCurrentCart', null);
-        }
     }
 
     private async loadData(): Promise<void> {
@@ -297,15 +156,5 @@ a {
 }
 .btnPrice i {
     font-size: 30px;
-}
-.btnRed {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 30px;
-    padding: 0;
-}
-.btnRed i {
-    margin: 0;
 }
 </style>
