@@ -25,4 +25,4 @@ import { Component, Vue } from 'nuxt-property-decorator';
 })
 export default class ProductImage extends Vue {}
 </script>
-<style></style>
+<style scoped></style>

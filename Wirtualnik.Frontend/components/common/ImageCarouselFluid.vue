@@ -33,11 +33,8 @@ export default class ImageCarouselFluid extends Vue {
 }
 </script>
 
-<style lang="scss" scoped loading="lazy">
+<style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
-@media screen and (max-width: 720px) {
-    @import url('@//assets/shadient/shadient_mobile.css');
-}
 .product-image-carousel-item {
     height: 100%;
     display: flex;

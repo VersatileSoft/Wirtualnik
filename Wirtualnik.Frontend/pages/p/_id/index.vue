@@ -55,8 +55,9 @@
                             "
                         >
                             <PriceListItem
-                                v-for="shop in product.productShopDetails"
+                                v-for="(shop, index) in this.orderedShops"
                                 :key="shop.name"
+                                :class="{ best: index === 0 }"
                             >
                                 <template #shop-icon>
                                     <img :src="shop.image" :alt="shop.name" />
@@ -162,6 +163,7 @@ import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 import ProductImage from '@/components/common/ProductImage.vue';
 import download from 'downloadjs';
 import $ from 'jquery';
+import _ from 'lodash';
 
 @Component({
     name: 'ProductPage',
@@ -174,7 +176,12 @@ import $ from 'jquery';
         ImageCarouselFluid,
         ProductImage
     },
-    computed: {},
+    computed: {
+        orderedShops: function () {
+            //Sorting Results by price
+            return _.orderBy(this.product.productShopDetails, 'price');
+        }
+    },
     methods: {}
 })
 export default class ProductPage extends Vue {
@@ -230,11 +237,8 @@ export default class ProductPage extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @import url('@//assets/shadient/shadient.css');
-@media screen and (max-width: 720px) {
-    @import url('@//assets/shadient/shadient_mobile.css');
-}
 :root {
     --background: #f3f3f3;
 }
