@@ -1,16 +1,18 @@
 <template>
     <div>
-        <div v-if="this.showModal === true" id="imageModal">
-            <div class="imageModalContainer">
-                <ImageCarouselFluid />
+        <div
+            v-if="this.showModal === true"
+            id="imageModal"
+            v-on:click="imageModal"
+        >
+            <div class="imageModalContainer" v-on:click.stop>
+                <ImageCarouselFluid :images="product.images">
+                </ImageCarouselFluid>
                 <button
                     class="btnGreen btnCircle btnBasic"
-                    @click="imageModal()"
+                    v-on:click="imageActive"
                 >
                     <i class="las la-download"></i>Pobierz zdjęcie
-                </button>
-                <button class="btnRed btnCircle btnBasic" @click="imageModal">
-                    <i class="las la-times"></i>
                 </button>
             </div>
         </div>
@@ -19,10 +21,7 @@
                 <div class="productCard fullwidth">
                     <ProductInformation>
                         <template #image>
-                            <img
-                                :src="product.images"
-                                v-on:click="imageModal"
-                            />
+                            <ProductImage :url="product.images"> </ProductImage>
                         </template>
                         <template #title>
                             <h2>{{ product.name }}</h2>
@@ -160,6 +159,9 @@ import ProductSpecificationItem from '@/components/common/ProductSpecificationIt
 import CommonProduct from '@/components/common/CommonProduct.vue';
 import { Product } from '~/models/Product';
 import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
+import ProductImage from '@/components/common/ProductImage.vue';
+import download from 'downloadjs';
+import $ from 'jquery';
 
 @Component({
     name: 'ProductPage',
@@ -169,21 +171,23 @@ import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
         PriceListItem,
         ProductSpecificationItem,
         CommonProduct,
-        ImageCarouselFluid
-    }
+        ImageCarouselFluid,
+        ProductImage
+    },
+    computed: {},
+    methods: {}
 })
 export default class ProductPage extends Vue {
     private product: Product = {} as Product;
     private commonProducts: Product[] = [];
     private showModal = false;
+    private imageLink = '';
 
     public get id(): string {
         return this.$route.params.id;
     }
-
     public async created(): Promise<void> {
         await this.loadData();
-
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',
@@ -199,13 +203,18 @@ export default class ProductPage extends Vue {
             }
         ]);
     }
-
     private imageModal(): void {
         if (this.showModal === false) {
             this.showModal = true;
         } else {
             this.showModal = false;
         }
+    }
+
+    private async imageActive(): Promise<void> {
+        this.imageLink = $('.swiper-slide-active').find('img').attr('src');
+        download(this.imageLink);
+        //window.location.href = this.imageLink;
     }
 
     private async loadData(): Promise<void> {
@@ -223,6 +232,9 @@ export default class ProductPage extends Vue {
 
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
+@media screen and (max-width: 720px) {
+    @import url('@//assets/shadient/shadient_mobile.css');
+}
 :root {
     --background: #f3f3f3;
 }

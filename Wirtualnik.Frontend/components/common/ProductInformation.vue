@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="productCardImage">
+        <div class="productCardImage" @click="imageModal">
             <slot name="image"></slot>
         </div>
 
@@ -31,6 +31,26 @@
         </div>
     </div>
 </template>
+<script>
+import { Component, Vue } from 'nuxt-property-decorator';
+
+export default class ProductInformation extends Vue {}
+</script>
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
+@media screen and (max-width: 720px) {
+    @import url('@//assets/shadient/shadient_mobile.css');
+}
 </style>
+<script>
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({
+  methods: {
+    imageModal() {
+      this.$parent.imageModal()
+    }
+  }
+})
+export default class ProductInformation extends Vue {}
+</script>

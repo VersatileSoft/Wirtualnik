@@ -35,10 +35,6 @@ module.exports = {
                 rel: 'preconnect',
                 href: 'https://fonts.gstatic.com',
                 crossorigin: true
-            },
-            {
-                rel: 'stylesheet',
-                href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,900;1,300;1,600&display=swap'
             }
         ]
     },
@@ -67,7 +63,24 @@ module.exports = {
         // style resources
         '@nuxtjs/style-resources',
         // dotenv
-        '@nuxtjs/dotenv'
+        '@nuxtjs/dotenv',
+        //google fonts
+        [
+            '@nuxtjs/google-fonts',
+            {
+                families: {
+                    PoppinsVF: {
+                        wght: [100, 800]
+                    }
+                },
+                display: 'swap',
+                prefetch: false,
+                preconnect: false,
+                preload: false,
+                download: true,
+                base64: false
+            }
+        ]
     ],
 
     styleResources: {
