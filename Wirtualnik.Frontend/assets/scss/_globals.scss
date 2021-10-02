@@ -65,7 +65,6 @@ ul {
 //controls styles
 
 .btn-flat {
-  background-color: var(--white);
   color: var(--black);
   font-size: 20px;
   height: 40px;
@@ -81,7 +80,18 @@ ul {
   align-items: center;
   user-select: none;
   cursor: pointer;
+  background-color: var(--transparent);
+  box-shadow: var(--shadow10);
 }
+
+.btn-flat:hover {
+  background-color: var(--white);
+}
+
+.btn-flat:active {
+  filter: brightness(0.90);
+}
+
 
 .btn-circle {
   width: 41px;
@@ -197,6 +207,7 @@ ul {
   --gloworange: 0px 2px 10px 0px rgba(214, 152, 46, 0.4);
   --glowgreen: 0px 2px 10px 0px rgba(0, 255, 0, 0.5);
   --ltgreen: #8fa8b9;
+  --shadow10: 0px 5px 10px 0px rgba(0, 0, 0, 0.05);
   --shadow20: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
   --shadowcard: 0px 12px 16px 0px rgba(0, 0, 0, 0.06);
   --shadowcardreverse: 0px -16px 16px 0px rgba(0, 0, 0, 0.06);

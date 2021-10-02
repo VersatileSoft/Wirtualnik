@@ -153,6 +153,10 @@
         text-decoration: underline;
         text-decoration-color: var(--gray3);
         width: 100%;
+        transition: 0.1s ease-out;
+    }
+    a:hover {
+        color: var(--red);
     }
 }
 </style>

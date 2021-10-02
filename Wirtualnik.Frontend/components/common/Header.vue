@@ -7,8 +7,17 @@
             >
                 Wirtualnik
             </nuxt-link>
+
+            
+
         </h1>
         <div class="page-header__components">
+            <button class="btn-flat" @click="toggleMenu">
+                <span class="las la-bars"></span>
+            </button>
+            <button class="btn-flat" @click="toggleMenu">
+                <span class="las la-search"></span>
+            </button>
             <nuxt-link
                 :to="{ name: 'c-category', params: { category: 'cpu' } }"
                 class="page-header__components-link"
@@ -39,11 +48,11 @@
                         this.$store.state.cart.currentCart
                             ? this.$store.state.cart.currentCart.quantity
                             : 0
-                    }}</sub>
+                    }} PLN</sub>
                 </nuxt-link>
             </div>
             <button class="btn-flat" @click="toggleMenu">
-                <span class="las la-bars"></span>
+                <span class="las la-user"></span>
             </button>
         </div>
         <PopupMenu
@@ -147,15 +156,33 @@ export default class Header extends Vue {
             }
         }
     }
+    &__components-link:hover {
+        background-color: var(--white);
+        color: var(--gray3)
+    }
+    &__components-link:active {
+        filter: brightness(0.90);
+    }
+
     &__basket {
+        border-radius: 15px;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        align-items: center;
         color: var(--ltblue);
+        box-shadow: var(--shadow10);
         & > sub {
-            font-size: 12.5px;
+            margin-left: 6px;
+            font-size: 15px;
             font-weight: normal;
         }
     }
+    &__basket:hover {
+        background-color: var(--white);
+    }
+    &__basket:active {
+        
+        filter: brightness(0.9);
+    }
+
 }
 </style>
