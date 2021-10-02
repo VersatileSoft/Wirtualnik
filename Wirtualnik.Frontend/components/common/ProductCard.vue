@@ -36,14 +36,16 @@
 
 <style lang="scss">
 .product-card {
-    flex: 1 1 42%;
+    flex: 1 1 41%;
     min-width: 240px;
+    max-width: 269px;
     padding: 12px;
+    background: rgb(255,255,255);
     background: linear-gradient(
         0deg,
         var(--white) 0%,
-        var(--transparent) 50%,
-        var(--white) 80%
+        var(--white) 50%,
+        var(--transparent) 80%
     );
     border-radius: 15px;
     box-shadow: var(--shadowcard);
@@ -59,6 +61,11 @@
             rgba(240, 105, 40, 0.2) 20%,
             rgba(255, 255, 255, 0) 70%
         );
+        background-size: 300px 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-left: -12px;
+        width: calc(100% + 24px);
     }
     &__card-title {
         margin-top: 10px;
@@ -145,6 +152,7 @@
         color: var(--link);
         text-decoration: underline;
         text-decoration-color: var(--gray3);
+        width: 100%;
     }
 }
 </style>
