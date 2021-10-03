@@ -273,6 +273,7 @@ import Pager from '~/helpers/Pager';
 })
 export default class StartingPage extends Vue {
     private items: Product[] = [];
+    private imageLink;
 
     public async created(): Promise<void> {
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [

@@ -1,7 +1,7 @@
 <template>
     <div id="imageModal">
         <div class="imageModalContainer">
-            <swiper class="swiper" :options="swiperOption">
+            <swiper class="swiper" :options="swiperOption" ref="swiper">
                 <swiper-slide v-for="image in images" :key="image">
                     <div class="product-image-carousel-item">
                         <img :src="image" />
@@ -12,7 +12,7 @@
                 <div class="swiper-button-next" slot="button-next"></div>
             </swiper>
 
-            <button class="btnGreen btnCircle btnBasic">
+            <button class="btnGreen btnCircle btnBasic" @click="downloadImg()">
                 <i class="las la-download"></i>Pobierz zdjęcie
             </button>
             <button class="btnRed btnCircle btnBasic" @click="$emit('close')">
@@ -24,6 +24,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+import SwiperClass from 'node_modules/@types/swiper/index';
+import download from 'downloadjs';
 
 @Component({
     components: { Swiper, SwiperSlide }
@@ -32,6 +34,10 @@ export default class ImageCarouselFluid extends Vue {
     @Prop({ default: [] })
     public images: string[];
 
+    public get swiper(): SwiperClass {
+        return this.$refs.swiper?.$swiper;
+    }
+
     private swiperOption = {
         pagination: { el: '.swiper-pagination' },
         navigation: {
@@ -39,6 +45,10 @@ export default class ImageCarouselFluid extends Vue {
             prevEl: '.swiper-button-prev'
         }
     };
+
+    private async downloadImg(): Promise<void> {
+        download(this.images[this.swiper.activeIndex]);
+    }
 }
 </script>
 

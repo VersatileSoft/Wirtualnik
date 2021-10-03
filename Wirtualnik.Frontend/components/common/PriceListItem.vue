@@ -18,8 +18,10 @@ export default class CommonProduct extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import url('@//assets/shadient/shadient.css');
-.btnPrice h4 {
-    font-size: 15px;
-}
+@import url('@//assets/shadient/shadient_mobile.css');
 </style>
+<script>
+import { Component, Vue } from 'nuxt-property-decorator';
+
+export default class PriceListItem extends Vue {}
+</script>
