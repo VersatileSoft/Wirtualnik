@@ -1,5 +1,5 @@
 <template>
-    <div class="week-best product-card">
+    <div class="product-card week-best">
         <div class="week-best__image glow-cyan">
             <slot name="image"></slot>
         </div>
@@ -38,25 +38,15 @@
 </template>
 
 <style lang="scss">
-.week-best {
-    min-width: 155px;
-    margin: 3px;
+
+.product-card.week-best {
     max-width: 100%;
-    background: linear-gradient(
-        0deg,
-        var(--white) 0%,
-        var(--transparent) 50%,
-        var(--white) 80%
-    );
-    flex: 1 1 42%;
-    padding: 12px;
-    border-radius: 15px;
-    animation: fadeIn 0.3s ease-in;
-    box-shadow: var(--shadowcard);
-    transition: all 0.2s ease-out;
-    color: var(--black);
-    height: max-content;
-    margin-bottom: 60px !important;
+    background: white;
+    margin-bottom: 60px;
+}
+
+.week-best {
+    margin: 3px;
     &::before {
         content: '👑 WIRTUALNIK TYGODNIA';
         color: var(--white);

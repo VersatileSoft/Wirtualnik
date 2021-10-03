@@ -49,8 +49,9 @@ module.exports = {
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
         '@/plugins/vueMq.ts',
-        '@/plugins/axios.ts',
-        { src: '@/plugins/vue-awesome-swiper.ts', mode: 'client' }
+        '@/plugins/services.ts',
+        { src: '@/plugins/vue-awesome-swiper.ts', mode: 'client' },
+        { src: '@/plugins/paginator.ts', mode: 'client' }
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components

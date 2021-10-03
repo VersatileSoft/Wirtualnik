@@ -1,28 +1,33 @@
 <template>
     <div class="productCard">
         <div class="productCardImage ProductCardGlowOrange">
-            <slot name="common-product-image"></slot>
+            <nuxt-link :to="`/p/` + product.publicId">
+                <img
+                    :src="product.image"
+                    alt="Zdjęcie produktu"
+                    loading="lazy"
+                />
+            </nuxt-link>
         </div>
-        <h2><slot name="common-product-name"></slot></h2>
+        <h2>{{ product.name }}</h2>
         <h4>
-            <slot name="common-product-price"></slot>
-            <slot name="common-product-price-provider"></slot>
+            495.00 PLN
+            <!-- {{ commonProduct.price }} -->
+
+            <img :src="product.productShopDetails.image" alt="Morele.net" />
         </h4>
-        <p><slot name="common-product-first-prop"></slot></p>
-        <p><slot name="common-product-second-prop"></slot></p>
-        <p><slot name="common-product-third-prop"></slot></p>
+        <p v-for="property in product.properties" :key="property.key">
+            {{ property.key }}
+            {{ property.value }}
+        </p>
         <div class="productPoints">
             <div class="productPointsBox productPointsRed">
                 Gaming
-                <h5>
-                    <slot name="common-product-red-points"></slot>
-                </h5>
+                <h5>123</h5>
             </div>
             <div class="productPointsBox productPointsBlue">
                 Pro
-                <h5>
-                    <slot name="common-product-gray-points"></slot>
-                </h5>
+                <h5>93</h5>
             </div>
         </div>
         <div class="productCardButtons">
@@ -31,7 +36,17 @@
         </div>
     </div>
 </template>
-<script></script>
-<style lang="scss" scoped>
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
+
+import { Product } from '~/models/Product';
+
+@Component({})
+export default class CommonProduct extends Vue {
+    @Prop({ default: null })
+    private product: Product;
+}
+</script>
+<style scoped>
 @import url('@//assets/shadient/shadient.css');
 </style>

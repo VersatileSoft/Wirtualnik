@@ -1,14 +1,30 @@
 <template>
     <header class="page-header">
-        <h1 class="page-header__brand-logo">
-            <nuxt-link
-                :to="{ name: 'index' }"
-                class="page-header__brand-logo-link"
-            >
-                Wirtualnik
-            </nuxt-link>
-        </h1>
+        <div class="page-header__logo">
+            <button class="btn-flat" @click="toggleMenu">
+                <span class="las la-bars"></span>
+            </button>
+            <h1 class="page-header__brand-logo">
+                <nuxt-link
+                    :to="{ name: 'index' }"
+                    class="page-header__brand-logo-link"
+                  >
+                  Wirtualnik
+                </nuxt-link>
+            </h1>
+            <div class="search-box">
+                <input type="text" placeholder="Szukasz czegoś?">
+
+                <button class="btn-flat" @click="toggleMenu">
+                    <span class="las la-search"></span>
+                </button>
+
+            </div>
+        </div>
+
         <div class="page-header__components">
+            
+            
             <nuxt-link
                 :to="{ name: 'c-category', params: { category: 'cpu' } }"
                 class="page-header__components-link"
@@ -35,11 +51,15 @@
                     class="page-header__components-link page-header__basket"
                 >
                     <span class="las la-shopping-cart"></span>
-                    <sub>342,23 PLN</sub>
+                    <sub>{{
+                        this.$store.state.cart.currentCart
+                            ? this.$store.state.cart.currentCart.quantity
+                            : 0
+                    }} PLN</sub>
                 </nuxt-link>
             </div>
             <button class="btn-flat" @click="toggleMenu">
-                <span class="las la-bars"></span>
+                <span class="las la-user"></span>
             </button>
         </div>
         <PopupMenu
@@ -52,6 +72,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import PopupMenu from '@/components/common/PopupMenu.vue';
+import { CartSimpleModel } from '~/services/CartService';
 @Component({
     name: 'Header',
     components: {
@@ -60,6 +81,16 @@ import PopupMenu from '@/components/common/PopupMenu.vue';
 })
 export default class Header extends Vue {
     private menuOpened = false;
+    private cartCount = 0;
+
+    public async created(): Promise<void> {
+        try {
+            //let cartId = localStorage.getItem('cartId');
+            // let result = await this.$cartService.getCart(cartId);
+        } catch {
+            console.log('error');
+        }
+    }
 
     public toggleMenu(): void {
         this.menuOpened = !this.menuOpened;
@@ -72,6 +103,50 @@ export default class Header extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.search-box {
+    border-radius: 15px;
+    background-color: var(--transparent);
+    box-shadow: var(--shadow10);
+    transition: 0.05s ease-out;
+    display: flex;
+    padding-left: 15px;
+    border: 1px solid var(--grey2);
+    margin: 0 5px;
+}
+
+.search-box:hover {
+    background-color: var(--semitransparent);
+}
+
+.search-box:focus-within {
+    outline: 2px solid var(--orange);
+}
+
+.search-box input {
+    font-family: "Poppins", sans-serif;
+    border: 0;
+    background-color: var(--transparent);
+}
+
+.search-box input:focus {
+    outline: none;
+}
+
+.search-box button {
+    box-shadow: none;
+    border: 0;
+}
+
+.search-box .btn-flat {
+    color: var(--grey3);
+}
+
+.search-box:focus-within .btn-flat {
+    color: var(--orange);
+}
+
+
+
 .page-header {
     background-color: var(--semitransparent);
     padding: 0 15px;
@@ -83,7 +158,7 @@ export default class Header extends Vue {
     width: 100%;
     top: 0;
     display: flex;
-    justify-content: center;
+    justify-content: stretch; 
     @include for-tablet-landscape-up {
         border-radius: 0 0 20px 20px;
         position: static;
@@ -92,7 +167,7 @@ export default class Header extends Vue {
         font-size: 22px;
         font-weight: 900;
         align-self: center;
-        margin-right: auto;
+        margin: 0 10px;
     }
     &__brand-logo-link {
         text-transform: uppercase;
@@ -105,6 +180,11 @@ export default class Header extends Vue {
             align-items: center;
             justify-content: center;
         }
+    }
+    &__logo {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
     &__components-link {
         margin: 3px;
@@ -132,15 +212,33 @@ export default class Header extends Vue {
             }
         }
     }
+    &__components-link:hover {
+        background-color: var(--white);
+        color: var(--gray3)
+    }
+    &__components-link:active {
+        filter: brightness(0.90);
+    }
+
     &__basket {
+        border-radius: 15px;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        align-items: center;
         color: var(--ltblue);
+        box-shadow: var(--shadow10);
         & > sub {
-            font-size: 12.5px;
+            margin-left: 6px;
+            font-size: 15px;
             font-weight: normal;
         }
     }
+    &__basket:hover {
+        background-color: var(--white);
+    }
+    &__basket:active {
+        
+        filter: brightness(0.9);
+    }
+
 }
 </style>

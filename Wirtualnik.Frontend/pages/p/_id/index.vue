@@ -1,52 +1,17 @@
 <template>
     <div>
-        <div
-            v-if="this.showModal === true"
-            id="imageModal"
-            v-on:click="imageModal"
-        >
-            <div class="imageModalContainer" v-on:click.stop>
-                <ImageCarouselFluid :images="product.images">
-                </ImageCarouselFluid>
-                <button
-                    class="btnGreen btnCircle btnBasic"
-                    v-on:click="imageActive"
-                >
-                    <i class="las la-download"></i>Pobierz zdjęcie
-                </button>
-            </div>
-        </div>
+        <ImageCarouselFluid
+            v-if="showModal"
+            :images="product.images"
+            @close="showModal = false"
+        />
         <div class="container">
             <div class="thickColumn">
                 <div class="productCard fullwidth">
-                    <ProductInformation>
-                        <template #image>
-                            <ProductImage :url="product.images"> </ProductImage>
-                        </template>
-                        <template #title>
-                            <h2>{{ product.name }}</h2>
-                        </template>
-                        <template #description>
-                            <p>
-                                {{ product.description }}
-                            </p>
-                        </template>
-                        <template #buttons>
-                            <button class="btnGreen btnCircle btnBasic">
-                                <i class="las la-cart-plus"></i>Dodaj do koszyka
-                            </button>
-                        </template>
-                        <template #red-points>
-                            <h5>123</h5>
-                        </template>
-                        <template #blue-points>
-                            <h5>93</h5>
-                        </template>
-                        <template #gray-points>
-                            <h5>93</h5>
-                        </template>
-                    </ProductInformation>
-
+                    <ProductInformation
+                        :product="product"
+                        @showModal="showModal = true"
+                    />
                     <div class="pricelist fullwidth">
                         <div
                             v-if="
@@ -55,31 +20,20 @@
                             "
                         >
                             <PriceListItem
-                                v-for="(shop, index) in this.orderedShops"
+                                v-for="shop in product.productShopDetails"
                                 :key="shop.name"
-                                :class="{ best: index === 0 }"
-                            >
-                                <template #shop-icon>
-                                    <img :src="shop.image" :alt="shop.name" />
-                                </template>
-                                <template #shop-name>{{ shop.name }}</template>
-                                <template #shop-price>
-                                    {{ shop.price }}
-                                </template>
-                            </PriceListItem>
+                                :shop="shop"
+                            />
                         </div>
                         <div v-else>Produkt niedostępny</div>
                     </div>
 
                     <h3>Specyfikacja</h3>
                     <div class="list col-3">
-                        <ProductSpecificationItem
-                            v-for="prop in product.properties"
-                            :key="prop.key"
-                        >
-                            <template #spec-key>{{ prop.key }}</template>
-                            <template #spec-value>{{ prop.value }}</template>
-                        </ProductSpecificationItem>
+                        <li v-for="prop in product.properties" :key="prop.key">
+                            {{ prop.key }}
+                            <p>{{ prop.value }}</p>
+                        </li>
                     </div>
 
                     <sub
@@ -99,51 +53,8 @@
                         <CommonProduct
                             v-for="commonProduct in commonProducts"
                             :key="commonProduct.publicId"
-                        >
-                            <template #common-product-image>
-                                <nuxt-link :to="`/p/` + commonProduct.publicId">
-                                    <img
-                                        :src="commonProduct.image"
-                                        alt="Zdjęcie produktu"
-                                        loading="lazy"
-                                    />
-                                </nuxt-link>
-                            </template>
-                            <template #common-product-name>
-                                {{ commonProduct.name }}
-                            </template>
-                            <template #common-product-price
-                                >495.00 PLN
-                                <!-- {{ commonProduct.price }} --></template
-                            >
-                            <template #common-product-price-provider>
-                                <img
-                                    :src="
-                                        commonProduct.productShopDetails.image
-                                    "
-                                    alt="Morele.net"
-                            /></template>
-                            <template #common-product-first-prop
-                                >{{ commonProduct.properties[0].key }}
-                                {{
-                                    commonProduct.properties[0].value
-                                }}</template
-                            >
-                            <template #common-product-second-prop
-                                >{{ commonProduct.properties[1].key }}
-                                {{
-                                    commonProduct.properties[1].value
-                                }}</template
-                            >
-                            <template #common-product-third-prop
-                                >{{ commonProduct.properties[2].key }}
-                                {{
-                                    commonProduct.properties[2].value
-                                }}</template
-                            >
-                            <template #common-product-red-points>123</template>
-                            <template #common-product-gray-points>93</template>
-                        </CommonProduct>
+                            :product="commonProduct"
+                        />
                     </div>
                 </div>
             </div>
@@ -156,14 +67,10 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import BreadCrumb from '@/components/navigation/Breadcrumb.vue';
 import ProductInformation from '@/components/common/ProductInformation.vue';
 import PriceListItem from '@/components/common/PriceListItem.vue';
-import ProductSpecificationItem from '@/components/common/ProductSpecificationItem.vue';
 import CommonProduct from '@/components/common/CommonProduct.vue';
 import { Product } from '~/models/Product';
 import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
-import ProductImage from '@/components/common/ProductImage.vue';
-import download from 'downloadjs';
-import $ from 'jquery';
-import _ from 'lodash';
+import Pager from '~/helpers/Pager';
 
 @Component({
     name: 'ProductPage',
@@ -171,30 +78,22 @@ import _ from 'lodash';
         BreadCrumb,
         ProductInformation,
         PriceListItem,
-        ProductSpecificationItem,
         CommonProduct,
-        ImageCarouselFluid,
-        ProductImage
-    },
-    computed: {
-        orderedShops: function () {
-            //Sorting Results by price
-            return _.orderBy(this.product.productShopDetails, 'price');
-        }
-    },
-    methods: {}
+        ImageCarouselFluid
+    }
 })
 export default class ProductPage extends Vue {
     private product: Product = {} as Product;
     private commonProducts: Product[] = [];
     private showModal = false;
-    private imageLink = '';
 
     public get id(): string {
         return this.$route.params.id;
     }
+
     public async created(): Promise<void> {
         await this.loadData();
+
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',
@@ -210,25 +109,15 @@ export default class ProductPage extends Vue {
             }
         ]);
     }
-    private imageModal(): void {
-        if (this.showModal === false) {
-            this.showModal = true;
-        } else {
-            this.showModal = false;
-        }
-    }
-
-    private async imageActive(): Promise<void> {
-        this.imageLink = $('.swiper-slide-active').find('img').attr('src');
-        download(this.imageLink);
-        //window.location.href = this.imageLink;
-    }
 
     private async loadData(): Promise<void> {
         try {
             this.product = await this.$productService.getProduct(this.id);
             this.commonProducts = (
-                await this.$productService.getProductsByCategory('cpu')
+                await this.$productService.getProductsByCategory(
+                    new Pager(1, 20, 'Id', 'asc'),
+                    'cpu'
+                )
             ).items;
         } catch {
             // TODO show popup
@@ -237,7 +126,7 @@ export default class ProductPage extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
 :root {
     --background: #f3f3f3;
@@ -267,15 +156,5 @@ a {
 }
 .btnPrice i {
     font-size: 30px;
-}
-.btnRed {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 30px;
-    padding: 0;
-}
-.btnRed i {
-    margin: 0;
 }
 </style>

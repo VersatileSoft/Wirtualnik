@@ -1,28 +1,43 @@
 <template>
-    <client-only>
-        <swiper class="swiper" :options="swiperOption">
-            <swiper-slide v-for="image in images" v-bind:key="image"
-                ><div class="product-image-carousel-item">
-                    <img :src="image" /></div
-            ></swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
-            <div class="swiper-button-prev" slot="button-prev"></div>
-            <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
-    </client-only>
+    <div id="imageModal">
+        <div class="imageModalContainer">
+            <swiper class="swiper" :options="swiperOption" ref="swiper">
+                <swiper-slide v-for="image in images" :key="image">
+                    <div class="product-image-carousel-item">
+                        <img :src="image" />
+                    </div>
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+                <div class="swiper-button-prev" slot="button-prev"></div>
+                <div class="swiper-button-next" slot="button-next"></div>
+            </swiper>
+
+            <button class="btnGreen btnCircle btnBasic" @click="downloadImg()">
+                <i class="las la-download"></i>Pobierz zdjęcie
+            </button>
+            <button class="btnRed btnCircle btnBasic" @click="$emit('close')">
+                <i class="las la-times"></i>
+            </button>
+        </div>
+    </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
-import $ from 'jquery';
+import SwiperClass from 'node_modules/@types/swiper/index';
+import download from 'downloadjs';
 
 @Component({
-    components: { Swiper, SwiperSlide },
-    props: {
-        images: []
-    }
+    components: { Swiper, SwiperSlide }
 })
 export default class ImageCarouselFluid extends Vue {
+    @Prop({ default: [] })
+    public images: string[];
+
+    public get swiper(): SwiperClass {
+        return this.$refs.swiper?.$swiper;
+    }
+
     private swiperOption = {
         pagination: { el: '.swiper-pagination' },
         navigation: {
@@ -30,6 +45,10 @@ export default class ImageCarouselFluid extends Vue {
             prevEl: '.swiper-button-prev'
         }
     };
+
+    private async downloadImg(): Promise<void> {
+        download(this.images[this.swiper.activeIndex]);
+    }
 }
 </script>
 
@@ -38,7 +57,22 @@ export default class ImageCarouselFluid extends Vue {
 .product-image-carousel-item {
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+.product-image-carousel-item img {
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btnRed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    padding: 0;
+}
+.btnRed i {
+    margin: 0;
 }
 </style>

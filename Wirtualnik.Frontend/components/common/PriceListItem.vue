@@ -1,10 +1,22 @@
 <template>
     <button class="btnPrice">
-        <slot name="shop-icon"></slot>
-        <h4><slot name="shop-name"></slot></h4>
-        <slot name="shop-price"></slot>
+        <img :src="shop.image" :alt="shop.name" />
+        <h4>{{ shop.name }}</h4>
+        {{ shop.price }}
     </button>
 </template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { ProductShopDetails } from '../../models/ProductShopDetails';
+
+@Component({})
+export default class CommonProduct extends Vue {
+    @Prop({ default: null })
+    private shop: ProductShopDetails;
+}
+</script>
+
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient_mobile.css');
 </style>

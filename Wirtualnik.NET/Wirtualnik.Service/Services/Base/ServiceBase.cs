@@ -34,7 +34,7 @@ namespace Wirtualnik.Service.Services.Base
             return entity;
         }
 
-        public virtual async Task<TEntity> UpdateAsync<TEntity>(TEntity entity) where TEntity : EntityBase
+        public virtual async Task<TEntity> UpdateAsync<TEntity>(TEntity entity) where TEntity : class
         {
             if (entity is null)
                 throw new System.Exception();

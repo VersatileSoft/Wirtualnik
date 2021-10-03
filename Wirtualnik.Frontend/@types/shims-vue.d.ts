@@ -1,5 +1,6 @@
 import ProductService from '@/services/ProductService';
 import CartService from '@/services/CartService';
+import { Auth } from '@/services/AuthService';
 
 declare module 'vue/types/vue' {
     // Instance properties (this.) can be declared on the `Vue` interface
@@ -12,6 +13,6 @@ declare module 'vue/types/vue' {
         desktop: boolean;
         $productService: ProductService;
         $cartService: CartService;
+        $auth: Auth;
     }
-    // Global properties (Vue.) can be declared on the `VueConstructor` interface
 }
