@@ -1,23 +1,30 @@
 <template>
     <header class="page-header">
-        <h1 class="page-header__brand-logo">
-            <nuxt-link
-                :to="{ name: 'index' }"
-                class="page-header__brand-logo-link"
-            >
-                Wirtualnik
-            </nuxt-link>
-
-            
-
-        </h1>
-        <div class="page-header__components">
+        <div class="page-header__logo">
             <button class="btn-flat" @click="toggleMenu">
                 <span class="las la-bars"></span>
             </button>
-            <button class="btn-flat" @click="toggleMenu">
-                <span class="las la-search"></span>
-            </button>
+            <h1 class="page-header__brand-logo">
+                <nuxt-link
+                    :to="{ name: 'index' }"
+                    class="page-header__brand-logo-link"
+                  >
+                  Wirtualnik
+                </nuxt-link>
+            </h1>
+            <div class="search-box">
+                <input type="text" placeholder="Szukasz czegoś?">
+
+                <button class="btn-flat" @click="toggleMenu">
+                    <span class="las la-search"></span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="page-header__components">
+            
+            
             <nuxt-link
                 :to="{ name: 'c-category', params: { category: 'cpu' } }"
                 class="page-header__components-link"
@@ -96,6 +103,50 @@ export default class Header extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.search-box {
+    border-radius: 15px;
+    background-color: var(--transparent);
+    box-shadow: var(--shadow10);
+    transition: 0.05s ease-out;
+    display: flex;
+    padding-left: 15px;
+    border: 1px solid var(--grey2);
+    margin: 0 5px;
+}
+
+.search-box:hover {
+    background-color: var(--semitransparent);
+}
+
+.search-box:focus-within {
+    outline: 2px solid var(--orange);
+}
+
+.search-box input {
+    font-family: "Poppins", sans-serif;
+    border: 0;
+    background-color: var(--transparent);
+}
+
+.search-box input:focus {
+    outline: none;
+}
+
+.search-box button {
+    box-shadow: none;
+    border: 0;
+}
+
+.search-box .btn-flat {
+    color: var(--grey3);
+}
+
+.search-box:focus-within .btn-flat {
+    color: var(--orange);
+}
+
+
+
 .page-header {
     background-color: var(--semitransparent);
     padding: 0 15px;
@@ -107,7 +158,7 @@ export default class Header extends Vue {
     width: 100%;
     top: 0;
     display: flex;
-    justify-content: center;
+    justify-content: stretch; 
     @include for-tablet-landscape-up {
         border-radius: 0 0 20px 20px;
         position: static;
@@ -116,7 +167,7 @@ export default class Header extends Vue {
         font-size: 22px;
         font-weight: 900;
         align-self: center;
-        margin-right: auto;
+        margin: 0 10px;
     }
     &__brand-logo-link {
         text-transform: uppercase;
@@ -129,6 +180,11 @@ export default class Header extends Vue {
             align-items: center;
             justify-content: center;
         }
+    }
+    &__logo {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
     &__components-link {
         margin: 3px;

@@ -71,10 +71,9 @@ ul {
   width: 40px;
   text-align: center;
   border-radius: 50%;
-  transition: 0.15s ease-out;
+  transition: 0.1s ease-out;
   overflow: hidden;
   margin-left: 8px;
-  border: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,10 +81,11 @@ ul {
   cursor: pointer;
   background-color: var(--transparent);
   box-shadow: var(--shadow10);
+  border: 1px solid var(--grey2);
 }
 
 .btn-flat:hover {
-  background-color: var(--white);
+  background-color: var(--semitransparent);
 }
 
 .btn-flat:active {
@@ -94,6 +94,7 @@ ul {
 
 
 .btn-circle {
+  
   width: 41px;
   border-radius: 100%;
   background-color: var(--white);
