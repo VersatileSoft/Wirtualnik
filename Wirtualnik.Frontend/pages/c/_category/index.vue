@@ -1,10 +1,5 @@
 <template>
     <div style="display: flex; flex-direction: column; align-items: center">
-        <sliding-pagination
-            :current="pager.getPageIndex()"
-            :total="pager.totalPages"
-            @page-change="pageChangeHandler"
-        ></sliding-pagination>
         <div
             style="
                 display: flex;
@@ -48,6 +43,13 @@
                     </button>
                 </template>
             </ProductCard>
+            <div class="pagination-nav">
+                <sliding-pagination
+                    :current="pager.getPageIndex()"
+                    :total="pager.totalPages"
+                    @page-change="pageChangeHandler"
+                ></sliding-pagination>
+            </div>
             <BottomNavbar />
         </div>
     </div>
@@ -74,7 +76,7 @@ export default class CategoryPage extends Vue {
     private category!: string;
     private currentPage = 1;
     private totalPages = 10;
-    private pager: Pager = new Pager(1, 20, 'Id', 'ASC');
+    private pager: Pager = new Pager(1, 16, 'Id', 'ASC');
 
     public async created(): Promise<void> {
         this.category = this.$route.params.category;
@@ -111,3 +113,37 @@ export default class CategoryPage extends Vue {
     }
 }
 </script>
+
+<style lang="scss">
+.pagination-nav {
+    width: 100%;
+    height: 200px;
+    nav {
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.c-sliding-pagination__list-element {
+    border: var(--gray3) solid 1px;
+    background: #fff;
+    color: var(--gray3);
+    padding: 0;
+}
+.c-sliding-pagination__list-element a {
+    display: block;
+    padding: 0.6em;
+}
+.c-sliding-pagination__list-element:hover {
+    background: var(--gray3);
+    color: #fff;
+}
+.c-sliding-pagination__list-element--active {
+    background: var(--gray3);
+    color: #fff;
+}
+.c-sliding-pagination__page {
+    display: block;
+}
+</style>
