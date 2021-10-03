@@ -1,6 +1,6 @@
 <template>
-    <div id="imageModal">
-        <div class="imageModalContainer">
+    <div id="imageModal" v-on:click="$parent.showModal = false">
+        <div class="imageModalContainer" v-on:click.stop>
             <swiper class="swiper" :options="swiperOption" ref="swiper">
                 <swiper-slide v-for="image in images" :key="image">
                     <div class="product-image-carousel-item">
@@ -14,9 +14,6 @@
 
             <button class="btnGreen btnCircle btnBasic" @click="downloadImg()">
                 <i class="las la-download"></i>Pobierz zdjęcie
-            </button>
-            <button class="btnRed btnCircle btnBasic" @click="$emit('close')">
-                <i class="las la-times"></i>
             </button>
         </div>
     </div>
