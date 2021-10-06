@@ -75,7 +75,7 @@ namespace Wirtualnik.Shared.Models
         private HttpContext? _context;
         public DetailsImagesResolver(IHttpContextAccessor context)
         {
-            _context = context.HttpContext; 
+            _context = context.HttpContext;
         }
 
         public List<string> Resolve(Data.Models.Product source, DetailsModel destination, List<string> destMember, ResolutionContext context)

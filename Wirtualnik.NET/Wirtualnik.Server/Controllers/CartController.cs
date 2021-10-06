@@ -36,7 +36,7 @@ namespace Wirtualnik.Server.Controllers
             return _mapper.Map<DetailsModel>(model);
         }
 
-        
+
         [HttpPost("add/{productId}")]
         [AllowAnonymous]
         public async Task<ActionResult<AddingResultModel>> Add(string productId, string? temporaryId = null)
@@ -44,41 +44,41 @@ namespace Wirtualnik.Server.Controllers
             AddingResultModel result = await _cartService.Add(productId, User, temporaryId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
-        
-        
-/*        [HttpPost("import/{productTypeId}")]
-        public async Task<ActionResult> ExcelImport(string productTypeId, [FromForm] List<IFormFile> file)
-        {
-            await _productService.XlsxImport(file[0], productTypeId);
-            return Ok();
-        }
 
-        [HttpPut("{publicId}")]
-        public async Task<ActionResult> Update(string publicId, CreateModel model)
-        {
-            var entity = await _productService.FetchAsync(publicId);
 
-            if (entity == null)
-                return NotFound();
+        /*        [HttpPost("import/{productTypeId}")]
+                public async Task<ActionResult> ExcelImport(string productTypeId, [FromForm] List<IFormFile> file)
+                {
+                    await _productService.XlsxImport(file[0], productTypeId);
+                    return Ok();
+                }
 
-            var result = _mapper.Map(model, entity);
+                [HttpPut("{publicId}")]
+                public async Task<ActionResult> Update(string publicId, CreateModel model)
+                {
+                    var entity = await _productService.FetchAsync(publicId);
 
-            await _productService.UpdateAsync(result);
+                    if (entity == null)
+                        return NotFound();
 
-            return Accepted();
-        }
+                    var result = _mapper.Map(model, entity);
 
-        [HttpDelete("{publicId}")]
-        public async Task<ActionResult> Delete(string publicId)
-        {
-            var entity = await _productService.FetchAsync(publicId);
+                    await _productService.UpdateAsync(result);
 
-            if (entity == null)
-                return NotFound();
+                    return Accepted();
+                }
 
-            await _productService.RemoveAsync(entity);
+                [HttpDelete("{publicId}")]
+                public async Task<ActionResult> Delete(string publicId)
+                {
+                    var entity = await _productService.FetchAsync(publicId);
 
-            return Accepted();
-        }*/
+                    if (entity == null)
+                        return NotFound();
+
+                    await _productService.RemoveAsync(entity);
+
+                    return Accepted();
+                }*/
     }
 }

@@ -86,7 +86,7 @@ namespace Wirtualnik.Service.Services
             {
                 var cartProduct = Context.CartProducts.Where(cp => cp.CartId == cart.Id && cp.ProductId == product.Id).FirstOrDefault();
 
-                if(cartProduct != null)
+                if (cartProduct != null)
                 {
                     cartProduct.Quantity++;
                     await UpdateAsync(cartProduct);
