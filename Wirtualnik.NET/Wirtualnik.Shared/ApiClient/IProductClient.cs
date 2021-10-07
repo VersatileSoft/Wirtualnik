@@ -22,13 +22,12 @@ namespace Wirtualnik.Shared.ApiClient
         [Put("/{publicId}")]
         public Task Update(string publicId, CreateModel model);
 
+        [Put("attach-images/{publicId}")]
+        [Headers("Authorization: Bearer")]
+        public Task<IApiResponse> AttachImages(string publicId, [Body] List<int> images);
+
         [Headers("Authorization: Bearer")]
         [Delete("/{publicId}")]
         public Task Delete(string publicId);
-
-        [Multipart]
-        [Headers("Authorization: Bearer")]
-        [Post("/import/{productTypeId}")]
-        public Task ExcelImport(string productTypeId, StreamPart file);
     }
 }

@@ -5,7 +5,7 @@ namespace Wirtualnik.Data.Models
     public class Shop : EntityBase
     {
         public string Name { get; set; } = "";
-        public string Logo { get; set; } = "";
+        public int ImageId { get; set; }
         public string ApiLink { get; set; } = "";
         public string ParserName { get; set; } = "";
         public string AdditionalParserInfo { get; set; } = "";

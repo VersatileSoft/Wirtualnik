@@ -6,7 +6,7 @@ namespace Wirtualnik.Shared.Models.Product
     public class ListItemModel
     {
         public string Name { get; set; } = "";
-        public int ProductTypeId { get; set; }
+        public int CategoryId { get; set; }
         public string ProductTypeName { get; set; } = "";
         public string PublicId { get; set; } = "";
         public string EAN { get; set; } = "";

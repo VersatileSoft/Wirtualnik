@@ -25,7 +25,7 @@ namespace Wirtualnik.Service.Services.ShopParsers
         private ProductShop? ParseResponse(string response, string ean)
         {
             XDocument doc = XDocument.Parse(response);
-            var offers = doc.Root.Elements();
+            var offers = doc?.Root?.Elements() ?? new List<XElement>();
 
             var offer = offers.First(offer => 
             offer

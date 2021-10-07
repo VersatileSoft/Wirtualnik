@@ -1,7 +1,12 @@
-﻿namespace Wirtualnik.Data.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Wirtualnik.Shared.Models.Files
 {
-    public class Image : EntityBase
+    public class ImageModel
     {
+        public int Id { get; set; }
         public string FileName { get; set; } = "";
         public int Width { get; set; }
         public int Height { get; set; }

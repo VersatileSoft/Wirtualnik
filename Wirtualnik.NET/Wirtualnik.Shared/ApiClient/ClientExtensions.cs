@@ -28,8 +28,14 @@ namespace Wirtualnik.Shared.ApiClient
             if (delegatingHandler != null)
                 builder.AddHttpMessageHandler(delegatingHandler);
 
-            builder = services.AddRefitClient<IProductTypeClient>()
-           .ConfigureHttpClient(c => c.BaseAddress = new Uri(ApiUrl + "/product/type"));
+            builder = services.AddRefitClient<ICategoryClient>()
+           .ConfigureHttpClient(c => c.BaseAddress = new Uri(ApiUrl + "/product/category"));
+
+            if (delegatingHandler != null)
+                builder.AddHttpMessageHandler(delegatingHandler);
+
+            builder = services.AddRefitClient<IImportClient>()
+           .ConfigureHttpClient(c => c.BaseAddress = new Uri(ApiUrl + "/product/import"));
 
             if (delegatingHandler != null)
                 builder.AddHttpMessageHandler(delegatingHandler);

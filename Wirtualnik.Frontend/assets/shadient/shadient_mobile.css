@@ -1,9 +1,15 @@
 :root {
-  --brightcenter: 90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%;
+  --brightcenter: 90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 100%;
 }
 
-[data-theme="dark"] {
-  --brightcenter: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+[data-theme='dark'] {
+  --brightcenter: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 .dividerForMobile {
@@ -23,10 +29,56 @@
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(50px);
   background-color: var(--semitransparent);
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   animation: fadeIn 0.2s ease-in;
-  z-index: 2
+  z-index: 2;
+}
+
+.btnPrice {
+  font: 400 15px Poppins Devanagari;
+  color: var(--grey6);
+  border: 0;
+  width: 120px;
+  text-align: center;
+  height: 100px;
+  transition: 0.1s ease-out;
+  background-color: var(--white);
+  border-radius: 10px;
+  margin: 5px;
+  border: 1px solid var(--grey2);
+  flex-grow: 1;
+  max-width: 150px;
+  text-decoration: none !important;
+}
+
+.btnPrice:hover {
+  filter: var(--focus);
+}
+
+.btnPrice:active {
+  filter: var(--active);
+}
+
+.btnPrice.best {
+  border: 1px solid var(--ltorange) !important;
+  color: var(--orange);
+}
+
+.btnPrice.best:before {
+  content: 'NAJLEPSZA CENA 👑';
+  display: block;
+  position: absolute;
+  font-size: 12px;
+  margin-top: -28px;
+}
+
+.btnPrice img {
+  max-height: 40px;
+}
+
+.btnPrice h4 {
+  margin: 0;
 }
 
 .sidebar_mobile_space {
@@ -52,18 +104,17 @@
 }
 
 body {
-    padding-top: 40px;
+  padding-top: 40px;
 }
 
 header {
-    position: fixed;
-    top: 0;
-    transition: top 0.2s ease-out;
-
+  position: fixed;
+  top: 0;
+  transition: top 0.2s ease-out;
 }
 
 .nav-up {
-    top: -64px;
+  top: -64px;
 }
 
 .header h1 {
@@ -85,15 +136,13 @@ header {
   font-size: 24px;
 }
 
-
-
 .userMenu {
-max-width: 100%;
-width: calc(100% - 30px);
-transform: translate(5px);
-background-color: var(--ltgrey);
-overflow-x: hidden;
-min-width: calc(100% - 30px);
+  max-width: 100%;
+  width: calc(100% - 30px);
+  transform: translate(5px);
+  background-color: var(--ltgrey);
+  overflow-x: hidden;
+  min-width: calc(100% - 30px);
 }
 
 .productCard {
@@ -112,7 +161,12 @@ min-width: calc(100% - 30px);
 .mobileMenu {
   display: flex;
   justify-content: center;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 20%, var(--grey1) 50%, rgba(255,255,255,0) 80%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 20%,
+    var(--grey1) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
   margin-bottom: 6px;
 }
 
@@ -157,7 +211,7 @@ min-width: calc(100% - 30px);
   background-color: var(--grey1) !important;
 }
 
-.list.col-2 li:not(:nth-child(2n+1)) {
+.list.col-2 li:not(:nth-child(2n + 1)) {
   border-left: none;
 }
 
@@ -170,7 +224,7 @@ min-width: calc(100% - 30px);
   background-color: var(--grey1) !important;
 }
 
-.list.col-3 li:not(:nth-child(3n+1)) {
+.list.col-3 li:not(:nth-child(3n + 1)) {
   border-left: none;
 }
 
@@ -179,9 +233,9 @@ min-width: calc(100% - 30px);
 }
 
 .productCard .productDescription {
-margin-left: 0px;
-margin-right: 0px;
-flex: 1 1 61%;
+  margin-left: 0px;
+  margin-right: 0px;
+  flex: 1 1 61%;
 }
 
 .container.col-2 {

@@ -32,6 +32,7 @@ namespace Wirtualnik.Server.Controllers
                 Name = "Rtv euro agd",
                 ParserName = "tradedoubler",
                 AdditionalParserInfo = "21618",
+                ImageId = 1
             });
 
             await _shopService.CreateAsync(new Shop
@@ -39,6 +40,7 @@ namespace Wirtualnik.Server.Controllers
                 Name = "Neonet",
                 ParserName = "tradedoubler",
                 AdditionalParserInfo = "21986",
+                ImageId = 2
             });
 
             await _shopService.CreateAsync(new Shop
@@ -46,6 +48,7 @@ namespace Wirtualnik.Server.Controllers
                 Name = "Avans",
                 ParserName = "tradedoubler",
                 AdditionalParserInfo = "25545",
+                ImageId = 3
             });
 
             await _shopService.CreateAsync(new Shop
@@ -53,6 +56,7 @@ namespace Wirtualnik.Server.Controllers
                 Name = "OleOle",
                 ParserName = "tradedoubler",
                 AdditionalParserInfo = "17354",
+                ImageId = 4
             });
 
             await _shopService.CreateAsync(new Shop
@@ -60,6 +64,7 @@ namespace Wirtualnik.Server.Controllers
                 Name = "Electro",
                 ParserName = "tradedoubler",
                 AdditionalParserInfo = "23757",
+                ImageId = 5
             });
 
             await _shopService.CreateAsync(new Shop
@@ -67,6 +72,7 @@ namespace Wirtualnik.Server.Controllers
                 Name = "Zadowolenie",
                 ParserName = "tradedoubler",
                 AdditionalParserInfo = "24688",
+                ImageId = 6
             });
 
             return Ok();

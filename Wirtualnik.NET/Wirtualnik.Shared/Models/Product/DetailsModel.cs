@@ -6,7 +6,7 @@ namespace Wirtualnik.Shared.Models.Product
     public class DetailsModel
     {
         public string Name { get; set; } = "";
-        public int ProductTypeId { get; set; }
+        public int CategoryId { get; set; }
         public string ProductTypeName { get; set; } = "";
         public string PublicId { get; set; } = "";
         public string EAN { get; set; } = "";
@@ -15,7 +15,7 @@ namespace Wirtualnik.Shared.Models.Product
         public string Manufacturer { get; set; } = "";
         public string Color { get; set; } = "";
         public List<string> Images { get; set; } = new List<string>();
-        public List<KeyValuePair<string, string>> Properties { get; set; } = new List<KeyValuePair<string, string>>();
+        public List<ProductPropertyModel> Properties { get; set; } = new List<ProductPropertyModel>();
 
         public IEnumerable<ProductShopDetails> ProductShopDetails { get; set; } = new List<ProductShopDetails>();
     }

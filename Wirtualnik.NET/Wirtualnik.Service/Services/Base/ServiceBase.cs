@@ -21,7 +21,7 @@ namespace Wirtualnik.Service.Services.Base
             Mapper = mapper;
         }
 
-        public virtual async Task<TEntity> FindAsync<TEntity>(Guid id) where TEntity : EntityBase
+        public virtual async Task<TEntity> FindAsync<TEntity>(int id) where TEntity : EntityBase
         {
             return await Context.FindAsync<TEntity>(id);
         }

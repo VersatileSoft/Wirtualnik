@@ -31,7 +31,12 @@
                     <h3>Specyfikacja</h3>
                     <div class="list col-3">
                         <li v-for="prop in product.properties" :key="prop.key">
-                            {{ prop.key }}
+                            <div style="display: flex; flex-direction: column">
+                                <p>{{ prop.name }}</p>
+                                <p style="font-size: 12px">
+                                    {{ prop.description }}
+                                </p>
+                            </div>
                             <p>{{ prop.value }}</p>
                         </li>
                     </div>
