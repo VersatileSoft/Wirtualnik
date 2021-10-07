@@ -202,7 +202,8 @@ namespace Wirtualnik.UWP.Admin
 
             try
             {
-                await filesClient.Create(model.PublicId, files);
+                var result = await filesClient.Create(files);
+                await products.AttachImages(model.PublicId, result.Content.Select(i => i.Id).ToList());
             }
             catch (ApiException ex)
             {
@@ -357,7 +358,7 @@ namespace Wirtualnik.UWP.Admin
 
                     if (!prod.IsSuccessStatusCode)
                     {
-                        await ShowContentDialog("Pobieranie", prod?.Error?.Content);
+                        await ShowContentDialog("Pobieranie", prod?.ReasonPhrase);
                         ExcelStatusTextBlock.Text += "Błąd";
                         continue;
                     }

@@ -1,5 +1,6 @@
 ﻿using Refit;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Product;
@@ -22,9 +23,9 @@ namespace Wirtualnik.Shared.ApiClient
         [Put("/{publicId}")]
         public Task Update(string publicId, CreateModel model);
 
-        [Put("attach-images/{publicId}")]
+        [Put("/attach-images/{publicId}")]
         [Headers("Authorization: Bearer")]
-        public Task<IApiResponse> AttachImages(string publicId, [Body] List<int> images);
+        public Task<HttpResponseMessage> AttachImages(string publicId, [Body] List<int> images);
 
         [Headers("Authorization: Bearer")]
         [Delete("/{publicId}")]

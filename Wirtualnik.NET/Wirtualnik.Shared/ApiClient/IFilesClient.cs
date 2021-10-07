@@ -9,14 +9,14 @@ namespace Wirtualnik.Shared.ApiClient
     {
         [Multipart]
         [Headers("Authorization: Bearer")]
-        [Post("/{publicId}")]
-        public Task<IApiResponse<List<ImageModel>>> Create(List<StreamPart> images);
+        [Post("")]
+        public Task<ApiResponse<List<ImageModel>>> Create(List<StreamPart> images);
 
         [Headers("Authorization: Bearer")]
         [Get("/{id}")]
-        public Task<IApiResponse<ImageModel>> Fetch(int id);
+        public Task<ApiResponse<ImageModel>> Fetch(int id);
 
         [Get("/{ids}")]
-        public Task<IApiResponse<List<ImageModel>>> FetchMany(List<int> ids);
+        public Task<ApiResponse<List<ImageModel>>> FetchMany(List<int> ids);
     }
 }

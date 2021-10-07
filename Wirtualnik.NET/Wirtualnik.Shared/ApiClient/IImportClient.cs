@@ -1,6 +1,7 @@
 ﻿using Refit;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,6 @@ namespace Wirtualnik.Shared.ApiClient
         [Multipart]
         [Headers("Authorization: Bearer")]
         [Post("/{productTypeId}")]
-        public Task<IApiResponse> ExcelImport(string productTypeId, StreamPart file);
+        public Task<HttpResponseMessage> ExcelImport(string productTypeId, StreamPart file);
     }
 }
