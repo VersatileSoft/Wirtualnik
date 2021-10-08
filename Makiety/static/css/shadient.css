@@ -23,6 +23,7 @@
   --glowgreen: 0px 2px 10px 0px rgba(0,255,0,0.5);
   --ltgreen: #8fa8b9;
   --shadow20: 0px 5px 15px 0px rgba(0,0,0,0.1);
+  --shadow10: 0px 5px 10px 0px rgba(0, 0, 0, 0.05);
   --shadowcard: 0px 12px 16px 0px rgba(0,0,0,0.06);
   --shadowcardreverse: 0px -16px 16px 0px rgba(0,0,0,0.06);
   --shadowinset: inset 0px 5px 10px 5px rgba(0,0,0,0.2);
@@ -47,7 +48,8 @@
   --red: #E22C2C;
   --ltgrey: #151515;
   --ltblue: #7d8e9a;
-  --shadow20: 0px 5px 15px 0px rgba(0,0,0,0.1);
+  --shadow20: 0px 5px 15px 0px rgba(0,0,0,0.12);
+  --shadow10: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
   --shadowcard: 0px 12px 16px 0px rgba(0,0,0,0.06);
   --shadowinset: inset 0px 5px 10px 5px rgba(0,0,0,0.2);
   --active: brightness(80%);
@@ -131,7 +133,6 @@
 }
 
 .btnFlat {
-  background-color: var(--white);
   color: var(--black);
   font-size: 20px;
   height: 40px;
@@ -145,7 +146,9 @@
   justify-content: center;
   align-items: center;
   user-select:none;
-  border: 0;
+  background-color: var(--transparent);
+  border: 1px solid var(--grey2);
+  box-shadow: var(--shadow10);
 }
 
 .bellRing {
@@ -364,14 +367,16 @@
 }
 
 .btnLight {
-  font: 400 15px Poppins Devanagari;
-  background-color: var(--white);
+  font: 400 14px Poppins Devanagari;
   padding: 5px 10px 5px 10px;
   border-radius: 15px;
   border: 0;
   color: var(--black);
   transition: 0.15s ease-out;
   margin: 2px;
+  background-color: var(--white);
+  border: 1px solid var(--grey2);
+  box-shadow: var(--shadow10);
 }
 
 .btnLight:hover {
@@ -569,15 +574,16 @@
 
 .btnCircle {
   border-radius: 100%;
-  background-color: var(--white);
   color: var(--black);
-  padding: 8px;
+  padding: 7px;
   font-size: 20px;
   text-align: center;
   transition: 0.15s ease-out;
-  border: 1px solid var(--grey2);
   margin-top: 5px;
   margin-bottom: 5px;
+  background-color: var(--white);
+  border: 1px solid var(--grey2);
+  box-shadow: var(--shadow10);
 }
 
 .btnBasic {
@@ -949,9 +955,30 @@
   color: var(--red);
 }
 
-.specifications {
-
+.productComparisonGrid {
+  display: grid;
+  grid-template-columns: 100px 50px 100px;
+  grid-template-rows: 80px auto 80px;
+  column-gap: 10px;
+  row-gap: 15px;
 }
+
+.productComparisonGrid > div {
+  flex: 0 1 350px;
+  background-color: var(--transparent);
+  box-shadow: var(--shadow20);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
 
 .list {
   background-color: var(--white);
@@ -1569,4 +1596,100 @@
 
 .productContainer section {
   display: inherit
+}
+
+
+
+
+
+
+
+.comparisonTable {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.comparisonTable > div {
+  display: flex;
+  flex-direction: row;
+
+  padding: 5px;
+  align-items: center;
+  background-color: var(--white);
+}
+
+.comparisonTable > div:not(:last-child) {
+  border-bottom: 1px solid var(--grey2);
+}
+
+.ProductCell > section > p {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--black) !important;
+}
+
+
+
+.ProductCell > section {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.comparisonTableCell:hover {
+  filter: var(--focus);
+}
+
+.ProductCell:hover {
+  filter: none;
+}
+
+.ProductCellButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ProductCell img {
+  max-width: 50%;
+  margin: 15px 15px;
+}
+
+.comparisonTableCell > h3 {
+  flex-shrink: 0;
+  width: 150px;
+  font-size: 14px;
+}
+
+.comparisonTableCell > h3 > sub {
+  font-weight: 400;
+  display: block;
+
+}
+
+.comparisonTableCell > section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.comparisonTableCell > section > p {
+  min-width: 200px;
+  width: 100%;
+  padding: 10px 10px;
+  margin: 0;
+}
+
+.comparisonTable h3 {
+  padding: 0;
+  margin: 0px;
+}
+
+.comparisonTableItems p {
+  color: var(--black);
+}
+
+.comparisonTableCell.differenceFound > section > p {
+  color: var(--orange);
 }
