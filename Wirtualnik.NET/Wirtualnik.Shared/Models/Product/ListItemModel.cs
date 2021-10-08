@@ -15,6 +15,8 @@ namespace Wirtualnik.Shared.Models.Product
         public string? Image { get; set; } = "";
         public string Manufacturer { get; set; } = "";
         public string Color { get; set; } = "";
+        public bool IsInCart { get; set; }
+        public bool IsInComparison { get; set; }
         public IEnumerable<KeyValuePair<string, string>> Properties { get; set; } = new List<KeyValuePair<string, string>>();
         public IEnumerable<ProductShopDetails> ProductShopDetails { get; set; } = new List<ProductShopDetails>();
     }

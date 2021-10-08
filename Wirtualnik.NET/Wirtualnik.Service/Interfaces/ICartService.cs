@@ -12,7 +12,10 @@ namespace Wirtualnik.Service.Interfaces
 {
     public interface ICartService : IServiceBase
     {
-        Task<AddingResultModel> Add(string productId, ClaimsPrincipal user, string? temporaryId);
+        Task<Cart> CreateCart(ClaimsPrincipal user);
+        Task Add(Product product, Cart cart);
         Task<Cart> FetchAsync(string? temporaryId, ClaimsPrincipal user);
+        Task<Cart> FetchAsync(int cartId);
+        Task<bool> IsInCart(Product product, Cart cart);
     }
 }

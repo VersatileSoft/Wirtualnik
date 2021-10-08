@@ -27,96 +27,49 @@ namespace Wirtualnik.Service.Services
             _productService = productService;
         }
 
-        public async Task<AddingResultModel> Add(string productId, ClaimsPrincipal user, string? temporaryId)
+        public async Task<Cart> CreateCart(ClaimsPrincipal user)
         {
             Cart? cart = null;
-            var result = new AddingResultModel
-            {
-                Success = true
-            };
-
-            var product = await _productService.FetchAsync(productId);
-
-            if (product == null)
-            {
-                result.Errors.Add("Nie znaleziono produktu");
-                return result;
-            }
-
             var currentUser = await _userManager.FindByIdAsync(user.Id());
             if (currentUser != null)
             {
                 cart = await Context.Carts.FirstOrDefaultAsync(c => c.UserId == currentUser.Id);
-
-                if (cart == null)
-                {
-                    cart = await CreateAsync(new Cart
-                    {
-                        CreateDate = DateTime.Now,
-                        UserId = currentUser.Id
-                    });
-                }
             }
-            else if (!string.IsNullOrEmpty(temporaryId))
+
+            return cart ?? await CreateAsync(new Cart
             {
-                cart = await Context.Carts.Include(c => c.Products).Include(c => c.CartProducts).FirstOrDefaultAsync(c => c.TemporaryId == temporaryId);
-                if (cart == null)
-                {
-                    result.Success = false;
-                    result.Errors.Add("Koszyk nie istnieje");
-                }
-                else
-                {
-                    cart.TemporaryId = Guid.NewGuid().ToString();
-                    result.TemporaryId = cart.TemporaryId;
-                    await SaveChangesAsync();
-                }
+                CreateDate = DateTime.Now,
+                TemporaryId = currentUser == null ? Guid.NewGuid().ToString() : null,
+                UserId = currentUser?.Id
+            });
+        }
+
+        public async Task Add(Product product, Cart cart)
+        {
+            var cartProduct = Context.CartProducts.Where(cp => cp.CartId == cart.Id && cp.ProductId == product.Id).FirstOrDefault();
+            if (cartProduct != null)
+            {
+                cartProduct.Quantity++;
+                await UpdateAsync(cartProduct);
             }
             else
             {
-                cart = await CreateAsync(new Cart
+                await CreateAsync(new CartProduct
                 {
-                    TemporaryId = Guid.NewGuid().ToString(),
+                    Cart = cart,
+                    Product = product,
+                    Quantity = 1,
                     CreateDate = DateTime.Now,
                 });
-                result.TemporaryId = cart.TemporaryId;
             }
 
-            if (cart != null)
-            {
-                var cartProduct = Context.CartProducts.Where(cp => cp.CartId == cart.Id && cp.ProductId == product.Id).FirstOrDefault();
-
-                if(cartProduct != null)
-                {
-                    cartProduct.Quantity++;
-                    await UpdateAsync(cartProduct);
-                }
-                else
-                {
-                    await CreateAsync(new CartProduct
-                    {
-                        Cart = cart,
-                        Product = product,
-                        Quantity = 1,
-                        CreateDate = DateTime.Now,
-                    });
-                }
-
-                cart = await Context.Carts.Include(c => c.Products).Include(c => c.CartProducts).FirstOrDefaultAsync(c => c.Id == cart.Id);
-
-                result.Quantity = cart.CartProducts.Sum(p => p.Quantity);
-                result.Products = cart.Products.Select(p => p.PublicId).ToList();
-                return result;
-            }
-
-            result.Errors.Add("Nie udało się utworzyć koszyka");
-            result.Success = false;
-            return result;
+            cart.TemporaryId = Guid.NewGuid().ToString();
+            await UpdateAsync(cart);
         }
 
         public async Task<Cart> FetchAsync(string? temporaryId, ClaimsPrincipal user)
         {
-            var query = Context.Carts.Include(c => c.Products).ThenInclude(p => p.Images);
+            var query = Context.Carts.Include(c => c.Products);
             var id = user.Id();
             var currentUser = await _userManager.FindByIdAsync(id);
             if (currentUser != null)
@@ -124,6 +77,16 @@ namespace Wirtualnik.Service.Services
                 return await query.FirstOrDefaultAsync(c => c.UserId == currentUser.Id);
             }
             return await query.FirstOrDefaultAsync(c => c.TemporaryId == temporaryId);
+        }
+
+        public async Task<Cart> FetchAsync(int id)
+        {
+            return await Context.Carts.Where(c => c.Id == id).Include(c => c.Products).FirstOrDefaultAsync().ConfigureAwait(false);
+        }
+
+        public async Task<bool> IsInCart(Product product, Cart cart)
+        {
+            return (await FetchAsync(cart.Id)).Products.Select(p => p.Id).Contains(product.Id);
         }
     }
 }

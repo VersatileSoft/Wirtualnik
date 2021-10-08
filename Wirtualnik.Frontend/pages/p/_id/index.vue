@@ -11,6 +11,7 @@
                     <ProductInformation
                         :product="product"
                         @showModal="showModal = true"
+                        @reload="loadData()"
                     />
                     <div class="pricelist fullwidth">
                         <div
@@ -97,6 +98,8 @@ export default class ProductPage extends Vue {
     }
 
     public async created(): Promise<void> {
+        await this.$cartService.getCart();
+
         await this.loadData();
 
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [

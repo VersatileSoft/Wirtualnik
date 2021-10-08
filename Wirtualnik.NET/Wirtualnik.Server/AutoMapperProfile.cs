@@ -24,7 +24,8 @@ namespace Wirtualnik.Shared.Models
 
         private void CartMap()
         {
-            CreateMap<Data.Models.Cart, Shared.Models.Cart.DetailsModel>();
+            CreateMap<Data.Models.Cart, Shared.Models.Cart.DetailsModel>()
+                .ForMember(c => c.Quantity, o => o.MapFrom(d => d.Products.Count));
         }
 
         private void ProductMap()
@@ -45,7 +46,8 @@ namespace Wirtualnik.Shared.Models
                 .ForMember(o => o.Properties, k => k.MapFrom(m => m.ProductProperties))
                 .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.Category.Name))
                 .ForMember(o => o.ProductShopDetails, k => k.Ignore())
-                .ForMember(o => o.Images, k => k.Ignore());
+                .ForMember(o => o.Images, k => k.Ignore())
+                .ForMember(o => o.IsInCart, k => k.Ignore());
 
             CreateMap<Data.Models.Category, CategoryModel>()
                 .ReverseMap();
@@ -57,7 +59,9 @@ namespace Wirtualnik.Shared.Models
                .ForMember(o => o.Properties, k => k.MapFrom(m => m.ProductProperties))
                .ForMember(o => o.ProductTypeName, k => k.MapFrom(m => m.Category.Name))
                .ForMember(o => o.ProductShopDetails, k => k.Ignore())
-               .ForMember(o => o.Image, k => k.Ignore());
+               .ForMember(o => o.Image, k => k.Ignore())
+               .ForMember(o => o.IsInCart, k => k.Ignore())
+               .ForMember(o => o.IsInComparison, k => k.Ignore());
 
             CreateMap<KeyValuePair<int, string>, Data.Models.ProductProperty>()
                 .ForMember(o => o.CategoryPropertyId, k => k.MapFrom(m => m.Key))

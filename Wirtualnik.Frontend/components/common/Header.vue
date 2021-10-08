@@ -8,23 +8,20 @@
                 <nuxt-link
                     :to="{ name: 'index' }"
                     class="page-header__brand-logo-link"
-                  >
-                  Wirtualnik
+                >
+                    Wirtualnik
                 </nuxt-link>
             </h1>
             <div class="search-box">
-                <input type="text" placeholder="Szukasz czegoś?">
+                <input type="text" placeholder="Szukasz czegoś?" />
 
                 <button class="btn-flat" @click="toggleMenu">
                     <span class="las la-search"></span>
                 </button>
-
             </div>
         </div>
 
         <div class="page-header__components">
-            
-            
             <nuxt-link
                 :to="{ name: 'c-category', params: { category: 'cpu' } }"
                 class="page-header__components-link"
@@ -51,11 +48,14 @@
                     class="page-header__components-link page-header__basket"
                 >
                     <span class="las la-shopping-cart"></span>
-                    <sub>{{
-                        this.$store.state.cart.currentCart
-                            ? this.$store.state.cart.currentCart.quantity
-                            : 0
-                    }} PLN</sub>
+                    <sub
+                        >{{
+                            this.$store.state.cart.currentCart
+                                ? this.$store.state.cart.currentCart.quantity
+                                : 0
+                        }}
+                        PLN</sub
+                    >
                 </nuxt-link>
             </div>
             <button class="btn-flat" @click="toggleMenu">
@@ -72,7 +72,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import PopupMenu from '@/components/common/PopupMenu.vue';
-import { CartSimpleModel } from '~/services/CartService';
 @Component({
     name: 'Header',
     components: {
@@ -82,15 +81,6 @@ import { CartSimpleModel } from '~/services/CartService';
 export default class Header extends Vue {
     private menuOpened = false;
     private cartCount = 0;
-
-    public async created(): Promise<void> {
-        try {
-            //let cartId = localStorage.getItem('cartId');
-            // let result = await this.$cartService.getCart(cartId);
-        } catch {
-            console.log('error');
-        }
-    }
 
     public toggleMenu(): void {
         this.menuOpened = !this.menuOpened;
@@ -123,7 +113,7 @@ export default class Header extends Vue {
 }
 
 .search-box input {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     border: 0;
     background-color: var(--transparent);
 }
@@ -145,8 +135,6 @@ export default class Header extends Vue {
     color: var(--orange);
 }
 
-
-
 .page-header {
     background-color: var(--semitransparent);
     padding: 0 15px;
@@ -158,7 +146,7 @@ export default class Header extends Vue {
     width: 100%;
     top: 0;
     display: flex;
-    justify-content: stretch; 
+    justify-content: stretch;
     @include for-tablet-landscape-up {
         border-radius: 0 0 20px 20px;
         position: static;
@@ -214,10 +202,10 @@ export default class Header extends Vue {
     }
     &__components-link:hover {
         background-color: var(--white);
-        color: var(--gray3)
+        color: var(--gray3);
     }
     &__components-link:active {
-        filter: brightness(0.90);
+        filter: brightness(0.9);
     }
 
     &__basket {
@@ -236,9 +224,7 @@ export default class Header extends Vue {
         background-color: var(--white);
     }
     &__basket:active {
-        
         filter: brightness(0.9);
     }
-
 }
 </style>

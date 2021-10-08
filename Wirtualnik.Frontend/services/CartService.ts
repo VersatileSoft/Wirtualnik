@@ -8,47 +8,18 @@ export default class CartService {
         this.axios = axios;
     }
 
-    public async getCart(
-        temporaryId: string | null = null
-    ): Promise<DetailsModel> {
-        return (
-            await this.axios.get<DetailsModel>('cart', {
-                params: { temporaryId }
-            })
-        ).data;
+    public async getCart(): Promise<DetailsModel> {
+        return (await this.axios.get<DetailsModel>('cart')).data;
     }
 
-    public async addToCart(
-        productId: string,
-        temporaryId: string | null = null
-    ): Promise<AddingResultModel> {
-        console.log('service');
-        return (
-            await this.axios.post<AddingResultModel>(
-                `cart/add/${productId}`,
-                null,
-                {
-                    params: { temporaryId: temporaryId }
-                }
-            )
-        ).data;
+    public async addToCart(productId: string): Promise<DetailsModel> {
+        return (await this.axios.post<DetailsModel>(`cart/add/${productId}`))
+            .data;
     }
 }
 
 export interface DetailsModel {
-    products: Product[];
-}
-
-export interface CartSimpleModel {
     quantity: number;
     temporaryId: string;
-    products: string[];
-}
-
-export interface AddingResultModel {
-    temporaryId?: string;
-    success: boolean;
-    errors: string[];
-    quantity: number;
-    products: string[];
+    products: Product[];
 }

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
+using Wirtualnik.Server.Extensions.Cart;
 using Wirtualnik.Service.Interfaces;
 using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Product;
@@ -21,12 +21,14 @@ namespace Wirtualnik.Server.Controllers
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
         private readonly IFilesService _filesService;
+        private readonly ICartService _cartService;
 
-        public ProductController(IProductService productService, IMapper mapper, IFilesService filesService)
+        public ProductController(IProductService productService, IMapper mapper, IFilesService filesService, ICartService cartService)
         {
             _productService = productService;
             _mapper = mapper;
             _filesService = filesService;
+            _cartService = cartService;
         }
 
         [HttpGet]
@@ -36,7 +38,7 @@ namespace Wirtualnik.Server.Controllers
             var products = await _productService.GetProductsAsync(pager, filter, dynamicFilter);
             var result = new List<ListItemModel>();
 
-            foreach(var product in products)
+            foreach (var product in products)
             {
                 var model = _mapper.Map<ListItemModel>(product);
                 model.Image = (await _productService.GetProductListItemImage(product));
@@ -48,6 +50,14 @@ namespace Wirtualnik.Server.Controllers
                     Price = p.Price,
                     Image = _filesService.GetImageLink(p.Shop.ImageId).Result
                 });
+
+                if (this.GetCart() != null)
+                {
+                    var cart = await _cartService.FetchAsync(this.GetCart()!.Value);
+                    if (cart != null)
+                        model.IsInCart = await _cartService.IsInCart(product, cart);
+                }
+
                 result.Add(model);
             }
 
@@ -76,7 +86,12 @@ namespace Wirtualnik.Server.Controllers
             var result = _mapper.Map<DetailsModel>(model);
             result.ProductShopDetails = shops;
             result.Images = (await _productService.GetProductDetailsImages(model)).ToList();
-
+            if (this.GetCart() != null)
+            {
+                var cart = await _cartService.FetchAsync(this.GetCart()!.Value);
+                if (cart != null)
+                    result.IsInCart = await _cartService.IsInCart(model, cart);
+            }
             return result;
         }
 

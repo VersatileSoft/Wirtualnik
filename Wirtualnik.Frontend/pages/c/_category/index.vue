@@ -19,6 +19,7 @@
                     </template>
                     <template #title>
                         <h2>{{ item.name }}</h2>
+                        <h6 v-if="item.isInCart">W koszyku</h6>
                     </template>
                     <template #price>
                         <h4>495.00 PLN</h4>
@@ -83,6 +84,8 @@ export default class CategoryPage extends Vue {
     private pager: Pager = new Pager(1, 16, 'Id', 'ASC');
 
     public async created(): Promise<void> {
+        await this.$cartService.getCart();
+
         this.category = this.$route.params.category;
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
