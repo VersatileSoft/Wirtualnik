@@ -1,30 +1,40 @@
 <template>
     <header class="page-header">
         <div class="page-header__logo">
-            <button class="btn-flat" @click="toggleMenu">
+            <button class="btn-flat" @click="toggleMegaMenu">
                 <span class="las la-bars"></span>
             </button>
+            <CategoryMegaMenu
+                :is-mega-menu-opened="megaMenuOpened"
+                @megaMenuClosed="megaMenuOpened = false"
+            />
             <h1 class="page-header__brand-logo">
                 <nuxt-link
                     :to="{ name: 'index' }"
                     class="page-header__brand-logo-link"
-                  >
-                  Wirtualnik
+                >
+                    Wirtualnik
                 </nuxt-link>
             </h1>
             <div class="search-box">
-                <input type="text" placeholder="Szukasz czegoś?">
+                <input
+                    type="text"
+                    placeholder="Szukasz czegoś?"
+                    id="search-box-hints"
+                    @focus="toggleHints"
+                />
 
                 <button class="btn-flat" @click="toggleMenu">
                     <span class="las la-search"></span>
                 </button>
-
+                <SearchBoxHints
+                    :is-hints-opened="hints"
+                    @hintsClosed="hints = false"
+                />
             </div>
         </div>
 
         <div class="page-header__components">
-            
-            
             <nuxt-link
                 :to="{ name: 'c-category', params: { category: 'cpu' } }"
                 class="page-header__components-link"
@@ -51,11 +61,14 @@
                     class="page-header__components-link page-header__basket"
                 >
                     <span class="las la-shopping-cart"></span>
-                    <sub>{{
-                        this.$store.state.cart.currentCart
-                            ? this.$store.state.cart.currentCart.quantity
-                            : 0
-                    }} PLN</sub>
+                    <sub
+                        >{{
+                            this.$store.state.cart.currentCart
+                                ? this.$store.state.cart.currentCart.quantity
+                                : 0
+                        }}
+                        PLN</sub
+                    >
                 </nuxt-link>
             </div>
             <button class="btn-flat" @click="toggleMenu">
@@ -73,14 +86,21 @@
 import { Component, Vue } from 'vue-property-decorator';
 import PopupMenu from '@/components/common/PopupMenu.vue';
 import { CartSimpleModel } from '~/services/CartService';
+import CategoryMegaMenu from '@/components/common/CategoryMegaMenu.vue';
+import SearchBoxHints from '@/components/common/SearchBoxHints.vue';
+
 @Component({
     name: 'Header',
     components: {
-        PopupMenu
+        PopupMenu,
+        CategoryMegaMenu,
+        SearchBoxHints
     }
 })
 export default class Header extends Vue {
     private menuOpened = false;
+    private megaMenuOpened = false;
+    private hints = false;
     private cartCount = 0;
 
     public async created(): Promise<void> {
@@ -98,6 +118,22 @@ export default class Header extends Vue {
 
     public menuClosed(): void {
         this.menuOpened = false;
+    }
+
+    public toggleMegaMenu(): void {
+        this.megaMenuOpened = !this.megaMenuOpened;
+    }
+
+    public megaMenuClosed(): void {
+        this.megaMenuOpened = false;
+    }
+
+    public toggleHints(): void {
+        this.hints = !this.hints;
+    }
+
+    public hintsClosed(): void {
+        this.hints = false;
     }
 }
 </script>
@@ -123,7 +159,7 @@ export default class Header extends Vue {
 }
 
 .search-box input {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     border: 0;
     background-color: var(--transparent);
 }
@@ -145,8 +181,6 @@ export default class Header extends Vue {
     color: var(--orange);
 }
 
-
-
 .page-header {
     background-color: var(--semitransparent);
     padding: 0 15px;
@@ -158,7 +192,7 @@ export default class Header extends Vue {
     width: 100%;
     top: 0;
     display: flex;
-    justify-content: stretch; 
+    justify-content: stretch;
     @include for-tablet-landscape-up {
         border-radius: 0 0 20px 20px;
         position: static;
@@ -214,10 +248,10 @@ export default class Header extends Vue {
     }
     &__components-link:hover {
         background-color: var(--white);
-        color: var(--gray3)
+        color: var(--gray3);
     }
     &__components-link:active {
-        filter: brightness(0.90);
+        filter: brightness(0.9);
     }
 
     &__basket {
@@ -236,9 +270,7 @@ export default class Header extends Vue {
         background-color: var(--white);
     }
     &__basket:active {
-        
         filter: brightness(0.9);
     }
-
 }
 </style>
