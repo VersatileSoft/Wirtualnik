@@ -21,7 +21,7 @@ export default class CommonProduct extends Vue {
 @import url('@//assets/shadient/shadient_mobile.css');
 </style>
 <script>
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator'
 
 export default class PriceListItem extends Vue {}
 </script>
