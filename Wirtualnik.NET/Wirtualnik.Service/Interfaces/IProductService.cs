@@ -12,6 +12,7 @@ namespace Wirtualnik.Service.Interfaces
     {
         Task<IEnumerable<Product>> GetProductsAsync(Pager pager, FilterModel filter, Dictionary<string, string> dynamicFilter);
         Task<Product> FetchAsync(string publicId);
-        Task XlsxImport(IFormFile file, string productTypeId);
+        Task<IEnumerable<string>> GetProductDetailsImages(Product product);
+        Task<string> GetProductListItemImage(Product product);
     }
 }

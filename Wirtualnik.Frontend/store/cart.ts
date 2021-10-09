@@ -1,7 +1,7 @@
-import { CartSimpleModel } from '../services/CartService';
+import { DetailsModel } from '../services/CartService';
 
 export interface CartState {
-    currentCart: CartSimpleModel | null;
+    currentCart: DetailsModel | null;
 }
 
 export const state = (): CartState => ({
@@ -9,7 +9,7 @@ export const state = (): CartState => ({
 });
 
 export const mutations = {
-    setCurrentCart(state: CartState, currentCart: CartSimpleModel): void {
+    setCurrentCart(state: CartState, currentCart: DetailsModel): void {
         state.currentCart = currentCart;
     }
 };

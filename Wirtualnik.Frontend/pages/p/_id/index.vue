@@ -11,6 +11,7 @@
                     <ProductInformation
                         :product="product"
                         @showModal="showModal = true"
+                        @reload="loadData()"
                     />
                     <div class="pricelist fullwidth">
                         <div
@@ -31,7 +32,12 @@
                     <h3>Specyfikacja</h3>
                     <div class="list col-3">
                         <li v-for="prop in product.properties" :key="prop.key">
-                            {{ prop.key }}
+                            <div style="display: flex; flex-direction: column">
+                                <p>{{ prop.name }}</p>
+                                <p style="font-size: 12px">
+                                    {{ prop.description }}
+                                </p>
+                            </div>
                             <p>{{ prop.value }}</p>
                         </li>
                     </div>
@@ -92,6 +98,8 @@ export default class ProductPage extends Vue {
     }
 
     public async created(): Promise<void> {
+        await this.$cartService.getCart();
+
         await this.loadData();
 
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [

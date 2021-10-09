@@ -272,6 +272,78 @@ namespace Wirtualnik.Data.Migrations
                     b.ToTable("CartProducts");
                 });
 
+            modelBuilder.Entity("Wirtualnik.Data.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("PublicId")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Wirtualnik.Data.Models.CategoryProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("ShowInCart")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ShowInCell")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ShowInFilter")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CategoryProperties");
+                });
+
             modelBuilder.Entity("Wirtualnik.Data.Models.Image", b =>
                 {
                     b.Property<int>("Id")
@@ -292,9 +364,6 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<bool>("Main")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -302,8 +371,6 @@ namespace Wirtualnik.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Images");
                 });
@@ -317,6 +384,9 @@ namespace Wirtualnik.Data.Migrations
 
                     b.Property<bool>("Archived")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -341,9 +411,6 @@ namespace Wirtualnik.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ProductTypeId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("PublicId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -355,14 +422,50 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<string>("_images")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductTypeId");
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("PublicId")
                         .IsUnique();
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Wirtualnik.Data.Models.ProductProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CategoryPropertyId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryPropertyId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Properties");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.ProductShop", b =>
@@ -394,106 +497,6 @@ namespace Wirtualnik.Data.Migrations
                     b.ToTable("ProductShops");
                 });
 
-            modelBuilder.Entity("Wirtualnik.Data.Models.ProductType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.HasIndex("PublicId")
-                        .IsUnique();
-
-                    b.ToTable("ProductTypes");
-                });
-
-            modelBuilder.Entity("Wirtualnik.Data.Models.Property", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PropertyTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("PropertyTypeId");
-
-                    b.ToTable("Properties");
-                });
-
-            modelBuilder.Entity("Wirtualnik.Data.Models.PropertyType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ProductTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("ShowInCart")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("ShowInCell")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("ShowInFilter")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductTypeId");
-
-                    b.ToTable("PropertyTypes");
-                });
-
             modelBuilder.Entity("Wirtualnik.Data.Models.Shop", b =>
                 {
                     b.Property<int>("Id")
@@ -512,9 +515,8 @@ namespace Wirtualnik.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Logo")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("ImageId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -611,26 +613,45 @@ namespace Wirtualnik.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Wirtualnik.Data.Models.Image", b =>
+            modelBuilder.Entity("Wirtualnik.Data.Models.CategoryProperty", b =>
                 {
-                    b.HasOne("Wirtualnik.Data.Models.Product", "Product")
-                        .WithMany("Images")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("Wirtualnik.Data.Models.Category", "Category")
+                        .WithMany("CategoryProperties")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Product", b =>
                 {
-                    b.HasOne("Wirtualnik.Data.Models.ProductType", "ProductType")
+                    b.HasOne("Wirtualnik.Data.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("ProductTypeId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductType");
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Wirtualnik.Data.Models.ProductProperty", b =>
+                {
+                    b.HasOne("Wirtualnik.Data.Models.CategoryProperty", "CategoryProperty")
+                        .WithMany()
+                        .HasForeignKey("CategoryPropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wirtualnik.Data.Models.Product", "Product")
+                        .WithMany("ProductProperties")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoryProperty");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.ProductShop", b =>
@@ -652,55 +673,23 @@ namespace Wirtualnik.Data.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Wirtualnik.Data.Models.Property", b =>
-                {
-                    b.HasOne("Wirtualnik.Data.Models.Product", "Product")
-                        .WithMany("Properties")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Wirtualnik.Data.Models.PropertyType", "PropertyType")
-                        .WithMany()
-                        .HasForeignKey("PropertyTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("PropertyType");
-                });
-
-            modelBuilder.Entity("Wirtualnik.Data.Models.PropertyType", b =>
-                {
-                    b.HasOne("Wirtualnik.Data.Models.ProductType", "ProductType")
-                        .WithMany("PropertyTypes")
-                        .HasForeignKey("ProductTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProductType");
-                });
-
             modelBuilder.Entity("Wirtualnik.Data.Models.Cart", b =>
                 {
                     b.Navigation("CartProducts");
+                });
+
+            modelBuilder.Entity("Wirtualnik.Data.Models.Category", b =>
+                {
+                    b.Navigation("CategoryProperties");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Product", b =>
                 {
                     b.Navigation("CartProducts");
 
-                    b.Navigation("Images");
+                    b.Navigation("ProductProperties");
 
                     b.Navigation("ProductShops");
-
-                    b.Navigation("Properties");
-                });
-
-            modelBuilder.Entity("Wirtualnik.Data.Models.ProductType", b =>
-                {
-                    b.Navigation("PropertyTypes");
                 });
 
             modelBuilder.Entity("Wirtualnik.Data.Models.Shop", b =>

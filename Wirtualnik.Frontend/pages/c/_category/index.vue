@@ -8,41 +8,46 @@
                 gap: 1rem;
             "
         >
-            <ProductCard v-for="item in items" :key="item.publicId">
-                <template #image>
-                    <nuxt-link :to="`/p/` + item.publicId">
+            <nuxt-link
+                :to="`/p/` + item.publicId"
+                v-for="item in items"
+                :key="item.publicId"
+            >
+                <ProductCard>
+                    <template #image>
                         <img :src="item.image" />
-                    </nuxt-link>
-                </template>
-                <template #title>
-                    <h2>{{ item.name }}</h2>
-                </template>
-                <template #price>
-                    <h4>495.00 PLN</h4>
-                    <img src="~/assets/images/shop/morele-sygnet.png" />
-                </template>
-                <template #specs>
-                    <p v-for="prop in item.properties" :key="prop.key">
-                        {{ prop.key }}: {{ prop.value }}
-                    </p>
-                </template>
-                <template #red-points>
-                    Gaming
-                    <h5>123</h5>
-                </template>
-                <template #blue-points>
-                    Pro
-                    <h5>93</h5>
-                </template>
-                <template #buttons>
-                    <button class="btn-circle btn-green">
-                        <span class="las la-balance-scale"></span>
-                    </button>
-                    <button class="btn-circle btn-green">
-                        <span class="las la-cart-plus"></span>
-                    </button>
-                </template>
-            </ProductCard>
+                    </template>
+                    <template #title>
+                        <h2>{{ item.name }}</h2>
+                        <h6 v-if="item.isInCart">W koszyku</h6>
+                    </template>
+                    <template #price>
+                        <h4>495.00 PLN</h4>
+                        <img src="~/assets/images/shop/morele-sygnet.png" />
+                    </template>
+                    <template #specs>
+                        <p v-for="prop in item.properties" :key="prop.key">
+                            {{ prop.key }}: {{ prop.value }}
+                        </p>
+                    </template>
+                    <template #red-points>
+                        Gaming
+                        <h5>123</h5>
+                    </template>
+                    <template #blue-points>
+                        Pro
+                        <h5>93</h5>
+                    </template>
+                    <template #buttons>
+                        <button class="btn-circle btn-green">
+                            <span class="las la-balance-scale"></span>
+                        </button>
+                        <button class="btn-circle btn-green">
+                            <span class="las la-cart-plus"></span>
+                        </button>
+                    </template>
+                </ProductCard>
+            </nuxt-link>
             <div class="pagination-nav">
                 <sliding-pagination
                     :current="pager.getPageIndex()"
@@ -79,6 +84,8 @@ export default class CategoryPage extends Vue {
     private pager: Pager = new Pager(1, 16, 'Id', 'ASC');
 
     public async created(): Promise<void> {
+        await this.$cartService.getCart();
+
         this.category = this.$route.params.category;
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {

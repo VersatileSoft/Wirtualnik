@@ -19,7 +19,7 @@
                 >
                     <i class="las la-cart-plus"></i>Dodaj do koszyka
                 </button>
-                <div v-if="isInCart">Produkt w koszyku</div>
+                <div v-if="product.isInCart">Produkt w koszyku</div>
             </div>
         </div>
         <div class="productPoints">
@@ -57,15 +57,11 @@ export default class ProductInformation extends Vue {
     public get currentCart(): CartSimpleModel {
         return this.$store.state.cart?.currentCart ?? null;
     }
-    public get isInCart(): boolean {
-        return this.currentCart?.products?.includes(this.id);
-    }
 
     private async addToCart(): Promise<void> {
         try {
             let result = await this.$cartService.addToCart(
-                this.product.publicId,
-                this.currentCart?.temporaryId ?? ''
+                this.product.publicId
             );
             var model: CartSimpleModel = {
                 temporaryId: result.temporaryId ?? '',
@@ -82,6 +78,7 @@ export default class ProductInformation extends Vue {
             localStorage.removeItem('cartId');
             this.$store.commit('cart/setCurrentCart', null);
         }
+        this.$emit('reload');
     }
 }
 </script>

@@ -11,9 +11,9 @@ namespace Wirtualnik.Data
 
         public virtual DbSet<Shop> Shops => Set<Shop>();
         public virtual DbSet<Product> Products => Set<Product>();
-        public virtual DbSet<Property> Properties => Set<Property>();
-        public virtual DbSet<PropertyType> PropertyTypes => Set<PropertyType>();
-        public virtual DbSet<ProductType> ProductTypes => Set<ProductType>();
+        public virtual DbSet<ProductProperty> Properties => Set<ProductProperty>();
+        public virtual DbSet<CategoryProperty> CategoryProperties => Set<CategoryProperty>();
+        public virtual DbSet<Category> Categories => Set<Category>();
         public virtual DbSet<Image> Images => Set<Image>();
         public virtual DbSet<ProductShop> ProductShops => Set<ProductShop>();
         public virtual DbSet<Cart> Carts => Set<Cart>();
@@ -46,11 +46,11 @@ namespace Wirtualnik.Data
                 .HasIndex(p => p.PublicId)
                 .IsUnique();
 
-            builder.Entity<ProductType>()
+            builder.Entity<Category>()
                 .HasIndex(p => p.PublicId)
                 .IsUnique();
 
-            builder.Entity<ProductType>()
+            builder.Entity<Category>()
                 .HasIndex(p => p.Name)
                 .IsUnique();
         }

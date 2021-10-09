@@ -21,7 +21,7 @@ export default class ProductService {
     ): Promise<Pagination<Product>> {
         return (
             await this.axios.get<Pagination<Product>>('product', {
-                params: merge({ productType: category }, pager.data())
+                params: merge({ category }, pager.data())
             })
         ).data;
     }

@@ -1,9 +1,9 @@
 <template>
-    <button class="btnPrice">
-        <img :src="shop.image" :alt="shop.name" />
+    <a :href="shop.refLink" target="_blank" class="btnPrice">
+        <img v-if="shop.image" :src="shop.image" :alt="shop.name" />
         <h4>{{ shop.name }}</h4>
         {{ shop.price }}
-    </button>
+    </a>
 </template>
 
 <script lang="ts">
@@ -11,7 +11,7 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { ProductShopDetails } from '../../models/ProductShopDetails';
 
 @Component({})
-export default class CommonProduct extends Vue {
+export default class PriceListItem extends Vue {
     @Prop({ default: null })
     private shop: ProductShopDetails;
 }
@@ -20,8 +20,3 @@ export default class CommonProduct extends Vue {
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient_mobile.css');
 </style>
-<script>
-import { Component, Vue } from 'nuxt-property-decorator'
-
-export default class PriceListItem extends Vue {}
-</script>

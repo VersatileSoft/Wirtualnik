@@ -13,4 +13,5 @@ export interface Product {
     images: string[];
     properties: { [key: string]: string };
     productShopDetails: ProductShopDetails;
+    isInCart: boolean;
 }

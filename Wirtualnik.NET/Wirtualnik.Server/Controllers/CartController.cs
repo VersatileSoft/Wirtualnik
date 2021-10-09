@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wirtualnik.Data.Models;
+using Wirtualnik.Server.Extensions.Cart;
 using Wirtualnik.Service.Interfaces;
-using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Cart;
 
 namespace Wirtualnik.Server.Controllers
@@ -18,17 +16,20 @@ namespace Wirtualnik.Server.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ICartService _cartService;
-        public CartController(ICartService cartService, IMapper mapper)
+        private readonly IProductService _productService;
+
+        public CartController(ICartService cartService, IMapper mapper, IProductService productService)
         {
             _cartService = cartService;
             _mapper = mapper;
+            _productService = productService;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<DetailsModel>> FetchCart(string? temporaryId = null)
+        public async Task<ActionResult<DetailsModel>> FetchCart()
         {
-            var model = await _cartService.FetchAsync(temporaryId, User);
+            var model = await _cartService.FetchAsync(this.GetCart() ?? 0);
 
             if (model is null)
                 return NotFound();
@@ -36,49 +37,26 @@ namespace Wirtualnik.Server.Controllers
             return _mapper.Map<DetailsModel>(model);
         }
 
-        
         [HttpPost("add/{productId}")]
         [AllowAnonymous]
-        public async Task<ActionResult<AddingResultModel>> Add(string productId, string? temporaryId = null)
+        public async Task<ActionResult<AddingResultModel>> Add(string productId)
         {
-            AddingResultModel result = await _cartService.Add(productId, User, temporaryId);
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-        
-        
-/*        [HttpPost("import/{productTypeId}")]
-        public async Task<ActionResult> ExcelImport(string productTypeId, [FromForm] List<IFormFile> file)
-        {
-            await _productService.XlsxImport(file[0], productTypeId);
-            return Ok();
-        }
+            Product product = await _productService.FetchAsync(productId);
 
-        [HttpPut("{publicId}")]
-        public async Task<ActionResult> Update(string publicId, CreateModel model)
-        {
-            var entity = await _productService.FetchAsync(publicId);
-
-            if (entity == null)
+            if (product == null)
+            {
                 return NotFound();
+            }
 
-            var result = _mapper.Map(model, entity);
+            Cart cart = this.GetCart().HasValue ? await _cartService.FetchAsync(this.GetCart()!.Value) : await _cartService.CreateCart(User);
+            await _cartService.Add(product, cart);
+            cart = await _cartService.FetchAsync(cart.Id);
 
-            await _productService.UpdateAsync(result);
-
-            return Accepted();
+            return Ok(new DetailsModel
+            {
+                Quantity = cart.Products.Count,
+                TemporaryId = cart.TemporaryId
+            });
         }
-
-        [HttpDelete("{publicId}")]
-        public async Task<ActionResult> Delete(string publicId)
-        {
-            var entity = await _productService.FetchAsync(publicId);
-
-            if (entity == null)
-                return NotFound();
-
-            await _productService.RemoveAsync(entity);
-
-            return Accepted();
-        }*/
     }
 }

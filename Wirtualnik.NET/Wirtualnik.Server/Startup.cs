@@ -81,6 +81,7 @@ namespace Wirtualnik.Server
             app.ConfigureHangfire(Configuration);
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCart();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

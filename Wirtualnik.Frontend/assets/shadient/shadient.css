@@ -1155,52 +1155,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .pricelist h4 {
-  display: block;
+  flex-direction: row;
   margin: 0;
   line-height: 0;
   font: 400 13px Poppins Devanagari;
   color: var(--black);
-}
-
-.btnPrice {
-  font: 400 15px Poppins Devanagari;
-  color: var(--grey6);
-  border: 0;
-  width: 120px;
-  text-align: center;
-  height: 100px;
-  transition: 0.1s ease-out;
-  background-color: var(--white);
-  border-radius: 10px;
-  margin: 5px;
-  border: 1px solid var(--grey2);
-  flex-grow: 1;
-  max-width: 150px;
-}
-
-.btnPrice:hover {
-  filter: var(--focus);
-}
-
-.btnPrice:active {
-  filter: var(--active);
-}
-
-.btnPrice.best {
-  border: 1px solid var(--ltorange) !important;
-  color: var(--orange);
-}
-
-.btnPrice.best:before {
-  content: 'NAJLEPSZA CENA 👑';
-  display: block;
-  position: absolute;
-  font-size: 12px;
-  margin-top: -28px;
-}
-
-.btnPrice img {
-  max-height: 32px;
 }
 
 .btn-miniprice {

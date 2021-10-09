@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Wirtualnik.Shared.ApiClient;
 using Wirtualnik.Shared.Models.Auth;
 using Wirtualnik.Shared.Models.Product;
-using Wirtualnik.Shared.Models.ProductType;
+using Wirtualnik.Shared.Models.Category;
 using Wirtualnik.UWP.Admin.Models;
 
 namespace Wirtualnik.UWP.Admin
@@ -69,7 +69,7 @@ namespace Wirtualnik.UWP.Admin
                 InfoLabel.Foreground = new SolidColorBrush(Color.FromArgb(255, 245, 114, 66));
             }
 
-            var productTypes = (IProductTypeClient)App.Services.GetService(typeof(IProductTypeClient));
+            var productTypes = (ICategoryClient)App.Services.GetService(typeof(ICategoryClient));
             var types = await productTypes.GetAll();
 
             if (!types.IsSuccessStatusCode)
@@ -90,13 +90,13 @@ namespace Wirtualnik.UWP.Admin
 
         private async void AddType_Click(object sender, RoutedEventArgs e)
         {
-            var products = (IProductTypeClient)App.Services.GetService(typeof(IProductTypeClient));
+            var products = (ICategoryClient)App.Services.GetService(typeof(ICategoryClient));
 
-            ProductTypeModel model = new ProductTypeModel();
+            CategoryModel model = new CategoryModel();
 
             model.Name = ProductTypeName.Text;
             model.PublicId = ProductTypePublicId.Text;
-            var propertyTypes = new List<PropertyModel>();
+            var propertyTypes = new List<CategoryPropertyModel>();
             foreach (var niceInput in ProductTypeProps.Children)
             {
                 var stack = niceInput as StackPanel;
@@ -108,7 +108,7 @@ namespace Wirtualnik.UWP.Admin
                 var list = checksStack.Children[0] as CheckBox;
                 var filters = checksStack.Children[1] as CheckBox;
                 var cart = checksStack.Children[2] as CheckBox;
-                propertyTypes.Add(new PropertyModel
+                propertyTypes.Add(new CategoryPropertyModel
                 {
                     Name = name.Text,
                     ShowInCart = cart.IsChecked ?? false,
@@ -116,7 +116,7 @@ namespace Wirtualnik.UWP.Admin
                     ShowInFilter = list.IsChecked ?? false
                 });
             }
-            model.PropertyTypes = propertyTypes;
+            model.CategoryProperties = propertyTypes;
 
             try
             {
@@ -155,7 +155,7 @@ namespace Wirtualnik.UWP.Admin
                 props.Add(new KeyValuePair<int, string>(id, value));
             }
 
-            if ((ProductTypeModel)itemTypesList.SelectedItem is null)
+            if ((CategoryModel)itemTypesList.SelectedItem is null)
             {
                 await ShowContentDialog("Nie wybrano typu produktu", "");
                 return;
@@ -173,7 +173,7 @@ namespace Wirtualnik.UWP.Admin
                 EAN = prodEAN.Text,
                 SKU = prodSKU.Text,
                 Name = prodName.Text,
-                ProductTypeId = ((ProductTypeModel)itemTypesList.SelectedItem).Id,
+                CategoryId = ((CategoryModel)itemTypesList.SelectedItem).Id,
                 PublicId = prodIdPubl.Text,
                 Properties = props,
                 Manufacturer = prodManufacturer.Text,
@@ -202,7 +202,8 @@ namespace Wirtualnik.UWP.Admin
 
             try
             {
-                await filesClient.Create(model.PublicId, files);
+                var result = await filesClient.Create(files);
+                await products.AttachImages(model.PublicId, result.Content.Select(i => i.Id).ToList());
             }
             catch (ApiException ex)
             {
@@ -218,7 +219,7 @@ namespace Wirtualnik.UWP.Admin
 
         private void ItemTypesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var model = (ProductTypeModel)itemTypesList.SelectedItem;
+            var model = (CategoryModel)itemTypesList.SelectedItem;
 
             if (model is null)
             {
@@ -226,7 +227,7 @@ namespace Wirtualnik.UWP.Admin
             }
 
             Props.Children.Clear();
-            foreach (var prop in model.PropertyTypes.OrderBy(p => p.Name))
+            foreach (var prop in model.CategoryProperties.OrderBy(p => p.Name))
             {
                 Props.Children.Add(new TextBox
                 {
@@ -311,11 +312,12 @@ namespace Wirtualnik.UWP.Admin
 
             ExcelStatusTextBlock.Text += "Import produktów z excela... \n";
             var pro = (IProductClient)App.Services.GetService(typeof(IProductClient));
+            var impr = (IImportClient)App.Services.GetService(typeof(IImportClient));
             var filesClient = (IFilesClient)App.Services.GetService(typeof(IFilesClient));
             try
             {
                 var stream = await ExcelImportFile.OpenStreamForReadAsync();
-                await pro.ExcelImport(ImportTypePublicId.Text, new StreamPart(stream, System.IO.Path.GetFileName(ExcelImportFile.Path)));
+                await impr.ExcelImport(ImportTypePublicId.Text, new StreamPart(stream, System.IO.Path.GetFileName(ExcelImportFile.Path)));
             }
             catch (Exception ex)
             {
@@ -343,8 +345,10 @@ namespace Wirtualnik.UWP.Admin
                     }
 
                     ExcelStatusTextBlock.Text += $"\n {Path.GetFileName(folder.Path).ToLower()}: ";
+                    
+                    var uploaded = await filesClient.Create(images);
 
-                    var prod = await pro.Fetch(Path.GetFileName(folder.Path).ToLower());
+                    var prod = await pro.AttachImages(Path.GetFileName(folder.Path).ToLower(), uploaded.Content.Select(i => i.Id).ToList());
 
                     if(prod.StatusCode == HttpStatusCode.NotFound)
                     {
@@ -354,23 +358,12 @@ namespace Wirtualnik.UWP.Admin
 
                     if (!prod.IsSuccessStatusCode)
                     {
-                        await ShowContentDialog("Pobieranie", prod?.Error?.Content);
-                        ExcelStatusTextBlock.Text += "Błąd pobierania produktu";
+                        await ShowContentDialog("Pobieranie", prod?.ReasonPhrase);
+                        ExcelStatusTextBlock.Text += "Błąd";
                         continue;
                     }
 
-                    var k = prod.Content.Images;
-
-                    if(k?.Count > 0)
-                    {
-                        ExcelStatusTextBlock.Text += "Posiada obrazki"; 
-                    }
-                    else
-                    {
-                        await filesClient.Create(Path.GetFileName(folder.Path).ToLower(), images);
-                        ExcelStatusTextBlock.Text += "OK";
-                    }
-
+                    ExcelStatusTextBlock.Text += "OK";
                 }
                 catch(Exception ex)
                 {
