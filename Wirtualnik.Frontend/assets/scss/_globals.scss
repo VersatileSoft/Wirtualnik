@@ -82,6 +82,7 @@ ul {
   background-color: var(--transparent);
   box-shadow: var(--shadow10);
   border: 1px solid var(--grey2);
+  flex-shrink: 0;
 }
 
 .btn-flat:hover {
@@ -169,6 +170,8 @@ ul {
   align-items: center;
   justify-content: flex-end;
   margin-left: auto;
+  flex-shrink: 0;
+  z-index: 9;
 }
 
 .product-card__card-image img,

@@ -19,7 +19,7 @@
             <div class="search-box">
                 <input
                     type="text"
-                    placeholder="Szukasz czegoś?"
+                    placeholder="Szukaj na Wirtualnik.pl"
                     id="search-box-hints"
                     @focus="toggleHints"
                 />
@@ -79,6 +79,7 @@
                     :is-hints-opened="hints"
                     @hintsClosed="hints = false"
                 />
+            </div>
     </header>
     
 </template>
@@ -163,6 +164,7 @@ export default class Header extends Vue {
     font-family: 'Poppins', sans-serif;
     border: 0;
     background-color: var(--transparent);
+    width: 100%;
 }
 
 .search-box input:focus {
@@ -183,10 +185,10 @@ export default class Header extends Vue {
 }
 
 .page-header {
-    background-color: var(--semitransparent);
+    background-color: var(--grayheader);
     padding: 0 15px;
     height: 65px;
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(0px);
     border-bottom: 1px solid var(--gray1);
     margin: 0 0 20px;
     position: fixed;
@@ -194,6 +196,7 @@ export default class Header extends Vue {
     top: 0;
     display: flex;
     justify-content: stretch;
+    z-index: 9;
     @include for-tablet-landscape-up {
         border-radius: 0 0 20px 20px;
         position: static;
@@ -209,6 +212,7 @@ export default class Header extends Vue {
         color: var(--red);
     }
     &__components {
+        z-index: 9;
         display: none;
         @include for-tablet-landscape-up {
             display: flex;
@@ -220,12 +224,16 @@ export default class Header extends Vue {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        z-index: 10;
+    }
+    &__logo button {
+        margin-left: 0px;
     }
     &__components-link {
         margin: 3px;
         font-weight: bold;
         font-size: 24px;
-        padding: 8px;
+        padding: 6px;
         text-align: center;
         border-radius: 10px;
         transition: all 0.1s ease-out;
@@ -260,18 +268,25 @@ export default class Header extends Vue {
         display: flex;
         align-items: center;
         color: var(--ltblue);
-        box-shadow: var(--shadow10);
+        background-color: var(--transparent);
         & > sub {
             margin-left: 6px;
             font-size: 15px;
             font-weight: normal;
         }
     }
-    &__basket:hover {
-        background-color: var(--white);
-    }
-    &__basket:active {
-        filter: brightness(0.9);
-    }
+    
+    
 }
+
+@media screen and (max-width: 720px) {
+    .page-header {
+        padding: 0px 10px;
+    }
+    .page-header__brand-logo {
+        display: none;
+    }
+
+}
+
 </style>
