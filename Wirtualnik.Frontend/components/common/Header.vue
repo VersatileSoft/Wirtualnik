@@ -27,10 +27,6 @@
                 <button class="btn-flat" @click="toggleMenu">
                     <span class="las la-search"></span>
                 </button>
-                <SearchBoxHints
-                    :is-hints-opened="hints"
-                    @hintsClosed="hints = false"
-                />
             </div>
         </div>
 
@@ -79,7 +75,12 @@
             :is-menu-opened="menuOpened"
             @menuClosed="menuOpened = false"
         />
+        <SearchBoxHints
+                    :is-hints-opened="hints"
+                    @hintsClosed="hints = false"
+                />
     </header>
+    
 </template>
 
 <script lang="ts">
