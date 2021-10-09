@@ -159,6 +159,7 @@ export default class CategoryMegaMenu extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import url('@//assets/shadient/shadient.css');
 .mega-menu-opened {
     display: block;
     z-index: 2;

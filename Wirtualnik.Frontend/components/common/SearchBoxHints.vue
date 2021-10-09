@@ -23,6 +23,7 @@ export default class SearchBoxHints extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import url('@//assets/shadient/shadient.css');
 .search-box-hints {
     display: none;
     background: #fff;
