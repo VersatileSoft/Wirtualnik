@@ -122,14 +122,15 @@ export default class PopupMenu extends Vue {
     display: none;
     position: absolute;
     top: 0;
-    z-index: 10;
+    z-index: 11 !important;
     border-radius: 0 0 15px 15px;
     padding: 0 10px 5px;
     background-color: var(--ltgray);
     box-shadow: var(--shadowcard), var(--shadowcard);
     color: var(--black);
-    min-width: 98vw;
-    margin: 0 auto;
+    min-width: 100vw;
+    margin-left: -10px;
+    
     @include for-tablet-landscape-up {
         min-width: 300px;
         max-width: 300px;
