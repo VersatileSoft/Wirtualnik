@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wirtualnik.ArithmeticExpressionParser\Wirtualnik.ArithmeticExpressionParser.csproj" />
     <ProjectReference Include="..\Wirtualnik.Data\Wirtualnik.Data.csproj" />
     <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj" />
   </ItemGroup>

@@ -9,12 +9,21 @@ export default class CartService {
     }
 
     public async getCart(): Promise<DetailsModel> {
-        return (await this.axios.get<DetailsModel>('cart')).data;
+        try {
+            return (await this.axios.get<DetailsModel>('cart')).data;
+        } catch (e) {
+            console.log(e);
+        }
+        return {} as DetailsModel;
     }
 
     public async addToCart(productId: string): Promise<DetailsModel> {
         return (await this.axios.post<DetailsModel>(`cart/add/${productId}`))
             .data;
+    }
+
+    public async getWarnings(): Promise<WarningModel[]> {
+        return (await this.axios.get<WarningModel[]>(`cart/warnings`)).data;
     }
 }
 
@@ -22,4 +31,11 @@ export interface DetailsModel {
     quantity: number;
     temporaryId: string;
     products: Product[];
+}
+
+export interface WarningModel {
+    title: string;
+    message: string;
+    image: number;
+    type: string;
 }

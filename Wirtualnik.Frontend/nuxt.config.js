@@ -126,6 +126,10 @@ module.exports = {
         }
     },
 
+    env: {
+        VUE_APP_API_AUTH_URL: process.env.VUE_APP_API_AUTH_URL
+    },
+
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
         manifest: {

@@ -26,6 +26,13 @@ namespace Wirtualnik.Shared.Models
         {
             CreateMap<Data.Models.Cart, Shared.Models.Cart.DetailsModel>()
                 .ForMember(c => c.Quantity, o => o.MapFrom(d => d.Products.Count));
+
+
+            CreateMap<Data.Models.CartValidator, Shared.Models.Cart.WarningModel>()
+                .ForMember(c => c.Image, o => o.Ignore());
+
+            CreateMap<Data.Models.CartValidator, Shared.Models.CartValidator.CartValidatorModel>()
+                .ReverseMap();
         }
 
         private void ProductMap()

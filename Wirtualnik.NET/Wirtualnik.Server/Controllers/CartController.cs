@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Wirtualnik.ArithmeticExpressionParser;
 using Wirtualnik.Data.Models;
 using Wirtualnik.Server.Extensions.Cart;
 using Wirtualnik.Service.Interfaces;
@@ -35,6 +37,17 @@ namespace Wirtualnik.Server.Controllers
                 return NotFound();
 
             return _mapper.Map<DetailsModel>(model);
+        }
+
+        [HttpGet("warnings")]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<WarningModel>>> GetWarnings()
+        {
+            var cart = await _cartService.FetchAsync(this.GetCart() ?? 0);
+
+            var result = await _cartService.Validate(cart);
+
+            return Ok(_mapper.Map<List<WarningModel>>(result));
         }
 
         [HttpPost("add/{productId}")]

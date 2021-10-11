@@ -17,5 +17,6 @@ namespace Wirtualnik.Service.Interfaces
         Task<Cart> FetchAsync(string? temporaryId, ClaimsPrincipal user);
         Task<Cart> FetchAsync(int cartId);
         Task<bool> IsInCart(Product product, Cart cart);
+        Task<List<CartValidator>> Validate(Cart cart);
     }
 }

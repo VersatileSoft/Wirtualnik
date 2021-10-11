@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Wirtualnik.ArithmeticExpressionParser;
 using Wirtualnik.Data;
 using Wirtualnik.Data.Models;
 using Wirtualnik.Service.Extensions;
@@ -81,12 +83,29 @@ namespace Wirtualnik.Service.Services
 
         public async Task<Cart> FetchAsync(int id)
         {
-            return await Context.Carts.Where(c => c.Id == id).Include(c => c.Products).FirstOrDefaultAsync().ConfigureAwait(false);
+            return await Context.Carts
+                .Where(c => c.Id == id)
+                .Include(c => c.Products)
+                .ThenInclude(c => c.ProductProperties)
+                .ThenInclude(c => c.CategoryProperty)
+                .Include(c => c.Products)
+                .ThenInclude(p => p.Category)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
         }
 
         public async Task<bool> IsInCart(Product product, Cart cart)
         {
             return (await FetchAsync(cart.Id)).Products.Select(p => p.Id).Contains(product.Id);
+        }
+
+        public async Task<List<CartValidator>> Validate(Cart cart)
+        {
+            return (await Context
+                .CartValidators
+                .ToListAsync())
+                .Where(v => Expression.Evaluate(v.ValidationExpression, cart))
+                .ToList();
         }
     }
 }

@@ -98,7 +98,15 @@ export default class ProductPage extends Vue {
     }
 
     public async created(): Promise<void> {
+        // TODO move this call to app init and execute it onlu once per page load
         await this.$cartService.getCart();
+
+        // Test cart warnings, move to cart page after created
+        try {
+            console.log(await this.$cartService.getWarnings());
+        } catch (e) {
+            console.log(e);
+        }
 
         await this.loadData();
 

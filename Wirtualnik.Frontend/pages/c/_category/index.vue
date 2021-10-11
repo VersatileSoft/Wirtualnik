@@ -26,7 +26,10 @@
                         <img src="~/assets/images/shop/morele-sygnet.png" />
                     </template>
                     <template #specs>
-                        <p v-for="prop in item.properties" :key="prop.key">
+                        <p
+                            v-for="prop in item.properties"
+                            :key="prop.key + prop.value"
+                        >
                             {{ prop.key }}: {{ prop.value }}
                         </p>
                     </template>
