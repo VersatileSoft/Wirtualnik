@@ -41,7 +41,6 @@
 
 .product-card.week-best {
     max-width: 100%;
-    background: white;
     margin-bottom: 60px;
 }
 

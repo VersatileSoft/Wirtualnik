@@ -27,6 +27,7 @@
   <ItemGroup>
 	<!-- Enable only when generating api client(slows down inteliSense)-->
 	<!-- <ProjectReference Include="..\ApiClientGenerator\ApiClientGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssemby="false"/> -->
+    <ProjectReference Include="..\Wirtualnik.ArithmeticExpressionParser\Wirtualnik.ArithmeticExpressionParser.csproj" />
     <ProjectReference Include="..\Wirtualnik.Data\Wirtualnik.Data.csproj" />
     <ProjectReference Include="..\Wirtualnik.Service\Wirtualnik.Service.csproj" />
     <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj" />

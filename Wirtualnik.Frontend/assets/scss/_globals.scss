@@ -73,7 +73,7 @@ ul {
   border-radius: 50%;
   transition: 0.1s ease-out;
   overflow: hidden;
-  margin-left: 8px;
+  margin-left: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,6 +82,7 @@ ul {
   background-color: var(--transparent);
   box-shadow: var(--shadow10);
   border: 1px solid var(--grey2);
+  flex-shrink: 0;
 }
 
 .btn-flat:hover {
@@ -119,7 +120,6 @@ ul {
   font-size: 15px;
   font-weight: 400;
   font-family: 'Poppins', sans-serif;
-  background-color: var(--white);
   padding: 5px 10px;
   border-radius: 15px;
   border: 0;
@@ -127,9 +127,16 @@ ul {
   transition: all 0.15s ease-out;
   margin: 2px;
   cursor: pointer;
+  background-color: var(--transparent);
+  box-shadow: var(--shadow10);
+  border: 1px solid var(--grey2);
+
   &:hover {
     box-shadow: var(--shadow20);
-    filter: var(--focus);
+    background-color: var(--white);
+  }
+  &:active {
+    filter: var(--active);
   }
 }
 
@@ -163,6 +170,8 @@ ul {
   align-items: center;
   justify-content: flex-end;
   margin-left: auto;
+  flex-shrink: 0;
+  z-index: 9;
 }
 
 .product-card__card-image img,
@@ -234,7 +243,8 @@ ul {
   --red: #e22c2c;
   --ltgrey: #151515;
   --ltblue: #7d8e9a;
-  --shadow20: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+  --shadow10: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  --shadow20: 0px 5px 14px 0px rgba(0, 0, 0, 0.2);
   --shadowcard: 0px 12px 16px 0px rgba(0, 0, 0, 0.06);
   --shadowinset: inset 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
   --active: brightness(80%);

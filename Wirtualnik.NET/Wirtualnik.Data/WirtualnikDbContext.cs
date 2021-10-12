@@ -18,6 +18,7 @@ namespace Wirtualnik.Data
         public virtual DbSet<ProductShop> ProductShops => Set<ProductShop>();
         public virtual DbSet<Cart> Carts => Set<Cart>();
         public virtual DbSet<CartProduct> CartProducts => Set<CartProduct>();
+        public virtual DbSet<CartValidator> CartValidators => Set<CartValidator>();
 
 
         protected override void OnModelCreating(ModelBuilder builder)

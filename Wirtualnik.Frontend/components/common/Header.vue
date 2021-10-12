@@ -1,9 +1,13 @@
 <template>
     <header class="page-header">
         <div class="page-header__logo">
-            <button class="btn-flat" @click="toggleMenu">
+            <button class="btn-flat" @click="toggleMegaMenu">
                 <span class="las la-bars"></span>
             </button>
+            <CategoryMegaMenu
+                :is-mega-menu-opened="megaMenuOpened"
+                @megaMenuClosed="megaMenuOpened = false"
+            />
             <h1 class="page-header__brand-logo">
                 <nuxt-link
                     :to="{ name: 'index' }"
@@ -13,7 +17,12 @@
                 </nuxt-link>
             </h1>
             <div class="search-box">
-                <input type="text" placeholder="Szukasz czegoś?" />
+                <input
+                    type="text"
+                    placeholder="Szukaj na Wirtualnik.pl"
+                    id="search-box-hints"
+                    @focus="toggleHints"
+                />
 
                 <button class="btn-flat" @click="toggleMenu">
                     <span class="las la-search"></span>
@@ -66,20 +75,34 @@
             :is-menu-opened="menuOpened"
             @menuClosed="menuOpened = false"
         />
+        <SearchBoxHints
+                    :is-hints-opened="hints"
+                    @hintsClosed="hints = false"
+                />
+            </div>
     </header>
+    
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import PopupMenu from '@/components/common/PopupMenu.vue';
+import { CartSimpleModel } from '~/services/CartService';
+import CategoryMegaMenu from '@/components/common/CategoryMegaMenu.vue';
+import SearchBoxHints from '@/components/common/SearchBoxHints.vue';
+
 @Component({
     name: 'Header',
     components: {
-        PopupMenu
+        PopupMenu,
+        CategoryMegaMenu,
+        SearchBoxHints
     }
 })
 export default class Header extends Vue {
     private menuOpened = false;
+    private megaMenuOpened = false;
+    private hints = false;
     private cartCount = 0;
 
     public toggleMenu(): void {
@@ -88,6 +111,22 @@ export default class Header extends Vue {
 
     public menuClosed(): void {
         this.menuOpened = false;
+    }
+
+    public toggleMegaMenu(): void {
+        this.megaMenuOpened = !this.megaMenuOpened;
+    }
+
+    public megaMenuClosed(): void {
+        this.megaMenuOpened = false;
+    }
+
+    public toggleHints(): void {
+        this.hints = !this.hints;
+    }
+
+    public hintsClosed(): void {
+        this.hints = false;
     }
 }
 </script>
@@ -116,6 +155,7 @@ export default class Header extends Vue {
     font-family: 'Poppins', sans-serif;
     border: 0;
     background-color: var(--transparent);
+    width: 100%;
 }
 
 .search-box input:focus {
@@ -136,10 +176,10 @@ export default class Header extends Vue {
 }
 
 .page-header {
-    background-color: var(--semitransparent);
+    background-color: var(--grayheader);
     padding: 0 15px;
     height: 65px;
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(0px);
     border-bottom: 1px solid var(--gray1);
     margin: 0 0 20px;
     position: fixed;
@@ -147,6 +187,7 @@ export default class Header extends Vue {
     top: 0;
     display: flex;
     justify-content: stretch;
+    z-index: 9;
     @include for-tablet-landscape-up {
         border-radius: 0 0 20px 20px;
         position: static;
@@ -162,6 +203,7 @@ export default class Header extends Vue {
         color: var(--red);
     }
     &__components {
+        z-index: 9;
         display: none;
         @include for-tablet-landscape-up {
             display: flex;
@@ -173,12 +215,16 @@ export default class Header extends Vue {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        z-index: 10;
+    }
+    &__logo button {
+        margin-left: 0px;
     }
     &__components-link {
         margin: 3px;
         font-weight: bold;
         font-size: 24px;
-        padding: 8px;
+        padding: 6px;
         text-align: center;
         border-radius: 10px;
         transition: all 0.1s ease-out;
@@ -213,18 +259,24 @@ export default class Header extends Vue {
         display: flex;
         align-items: center;
         color: var(--ltblue);
-        box-shadow: var(--shadow10);
+        background-color: var(--transparent);
         & > sub {
             margin-left: 6px;
             font-size: 15px;
             font-weight: normal;
         }
     }
-    &__basket:hover {
-        background-color: var(--white);
+    
+    
+}
+
+@media screen and (max-width: 720px) {
+    .page-header {
+        padding: 0px 10px;
     }
-    &__basket:active {
-        filter: brightness(0.9);
+    .page-header__brand-logo {
+        display: none;
     }
 }
+
 </style>
