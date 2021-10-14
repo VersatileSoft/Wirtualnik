@@ -23,12 +23,14 @@
   --glowgreen: 0px 2px 10px 0px rgba(0, 255, 0, 0.5);
   --ltgreen: #8fa8b9;
   --shadow20: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+  --shadow10: 0px 5px 10px 0px rgba(0, 0, 0, 0.05);
   --shadowcard: 0px 12px 16px 0px rgba(0, 0, 0, 0.06);
   --shadowcardreverse: 0px -16px 16px 0px rgba(0, 0, 0, 0.06);
   --shadowinset: inset 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
   --active: brightness(85%);
   --focus: brightness(95%);
   --green: #37ca22;
+  --darken: #0000001a;
 }
 
 [data-theme='dark'] {
@@ -47,11 +49,13 @@
   --red: #e22c2c;
   --ltgrey: #151515;
   --ltblue: #7d8e9a;
-  --shadow20: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
-  --shadowcard: 0px 12px 16px 0px rgba(0, 0, 0, 0.06);
+  --shadow20: 0px 5px 15px 0px rgba(0, 0, 0, 0.12);
+  --shadow10: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  --shadowcard: 0px 12px 16px 0px rgba(0, 0, 0, 0.1);
   --shadowinset: inset 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
   --active: brightness(80%);
   --focus: brightness(90%);
+  --darken: #ffffff1a;
 }
 
 *:focus {
@@ -136,7 +140,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 .btnFlat {
-  background-color: var(--white);
   color: var(--black);
   font-size: 20px;
   height: 40px;
@@ -150,7 +153,9 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   user-select: none;
-  border: 0;
+  background-color: var(--transparent);
+  border: 1px solid var(--grey2);
+  box-shadow: var(--shadow10);
 }
 
 .bellRing {
@@ -389,14 +394,16 @@ body::-webkit-scrollbar-thumb {
 }
 
 .btnLight {
-  font: 400 15px Poppins Devanagari;
-  background-color: var(--white);
+  font: 400 14px Poppins Devanagari;
   padding: 5px 10px 5px 10px;
   border-radius: 15px;
   border: 0;
   color: var(--black);
   transition: 0.15s ease-out;
   margin: 2px;
+  background-color: var(--white);
+  border: 1px solid var(--grey2);
+  box-shadow: var(--shadow10);
 }
 
 .btnLight:hover {
@@ -458,7 +465,7 @@ body::-webkit-scrollbar-thumb {
 
 .productCard h4 {
   margin-top: -5px;
-  line-height: 0px;
+  line-height: 1em;
   font-size: 14px;
   font-weight: 400;
   color: var(--grey4);
@@ -611,19 +618,20 @@ body::-webkit-scrollbar-thumb {
 
 .btnCircle {
   border-radius: 100%;
-  background-color: var(--white);
   color: var(--black);
-  padding: 8px;
+  padding: 7px;
   font-size: 20px;
   text-align: center;
   transition: 0.15s ease-out;
-  border: 1px solid var(--grey2);
   margin-top: 5px;
   margin-bottom: 5px;
+  background-color: var(--white);
+  border: 1px solid var(--grey2);
+  box-shadow: var(--shadow10);
 }
 
 .btnBasic {
-  font: 400 15px Poppins Devanagari !important;
+  font: 400 14px Poppins Devanagari !important;
   width: auto;
   border-radius: 10px;
   margin-top: 10px;
@@ -645,6 +653,11 @@ body::-webkit-scrollbar-thumb {
 .btnGreen:active {
   box-shadow: 0px 0px 0px 2px rgba(24, 222, 87, 0.4),
     0px 0px 0px 6px rgba(24, 222, 87, 0.3);
+}
+
+.btnFullGreen {
+  background-color: var(--green);
+  color: var(--white) !important;
 }
 
 .btnRed:hover {
@@ -997,7 +1010,20 @@ body::-webkit-scrollbar-thumb {
   color: var(--red);
 }
 
-.specifications {
+.productComparisonGrid {
+  display: grid;
+  grid-template-columns: 100px 50px 100px;
+  grid-template-rows: 80px auto 80px;
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+.productComparisonGrid > div {
+  flex: 0 1 350px;
+  background-color: var(--transparent);
+  box-shadow: var(--shadow20);
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .list {
@@ -1064,6 +1090,7 @@ body::-webkit-scrollbar-thumb {
   margin: 0;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .list li h4 {
@@ -1131,6 +1158,11 @@ body::-webkit-scrollbar-thumb {
   text-decoration: underline;
   text-decoration-color: var(--grey3);
   transition: 0.1s ease-out;
+  line-height: 1em;
+}
+
+.list a sub {
+  text-decoration-color: var(--black) !important;
 }
 
 .productCard a:hover {
@@ -1155,11 +1187,52 @@ body::-webkit-scrollbar-thumb {
 }
 
 .pricelist h4 {
-  flex-direction: row;
+  display: block;
   margin: 0;
   line-height: 0;
   font: 400 13px Poppins Devanagari;
   color: var(--black);
+}
+
+.btnPrice {
+  font: 400 15px Poppins Devanagari;
+  color: var(--grey6);
+  border: 0;
+  width: 120px;
+  text-align: center;
+  height: 100px;
+  transition: 0.1s ease-out;
+  background-color: var(--white);
+  border-radius: 10px;
+  margin: 5px;
+  border: 1px solid var(--grey2);
+  flex-grow: 1;
+  max-width: 150px;
+}
+
+.btnPrice:hover {
+  filter: var(--focus);
+}
+
+.btnPrice:active {
+  filter: var(--active);
+}
+
+.btnPrice.best {
+  border: 1px solid var(--ltorange) !important;
+  color: var(--orange);
+}
+
+.btnPrice.best:before {
+  content: 'NAJLEPSZA CENA 👑';
+  display: block;
+  position: absolute;
+  font-size: 12px;
+  margin-top: -28px;
+}
+
+.btnPrice img {
+  max-height: 32px;
 }
 
 .btn-miniprice {
@@ -1194,7 +1267,7 @@ body::-webkit-scrollbar-thumb {
 
 .pricelist.fullwidth {
   padding: 30px 5px;
-  width: calc(100% + 24px);
+  width: calc(100% + 14px);
   justify-content: center;
   background-color: var(--grey1);
   margin-left: -12px;
@@ -1273,7 +1346,7 @@ body::-webkit-scrollbar-thumb {
 .cart {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 60px !important;
+  margin-bottom: 30px !important;
 }
 
 .left {
@@ -1289,6 +1362,20 @@ body::-webkit-scrollbar-thumb {
   flex-wrap: wrap;
 }
 
+.bigList {
+  flex-direction: column;
+  min-width: 370px;
+  flex: 1 1 100%;
+}
+
+.bigList i {
+  padding: 0 6px;
+}
+
+.bigList h3 {
+  margin: 5px 15px 15px 15px;
+}
+
 .sidebarList {
   flex-direction: column;
   min-width: 370px;
@@ -1301,10 +1388,18 @@ body::-webkit-scrollbar-thumb {
   padding: 0 6px;
 }
 
+.sidebarList h3 {
+  margin: 10px 15px;
+}
+
+.biggerThumbs img {
+  width: 50px;
+  max-height: 50px;
+}
+
 .userCard {
   display: flex;
   flex-wrap: wrap;
-  border-top: 1px solid var(--grey1);
   padding: 5px;
 }
 
@@ -1318,6 +1413,15 @@ body::-webkit-scrollbar-thumb {
   float: right;
   flex: 1 1 50px;
   min-width: 100px;
+}
+
+.userCard h4 {
+  margin: 10px 0px;
+}
+
+.userCard h5 {
+  font-weight: 400;
+  color: var(--grey4);
 }
 
 .userCard b {
@@ -1380,17 +1484,30 @@ body::-webkit-scrollbar-thumb {
 
 .productExtraInfo {
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  margin: 0 8px;
+  margin: 0px 8px;
   align-items: center;
-  border-bottom: 1px solid var(--grey2);
+}
+
+.productExtraInfo button i {
+  padding: 0;
 }
 
 .productExtraInfo .pcs-controls {
-  border: 1px solid var(--grey2);
+  border: 1px solid var(--darken);
   padding: 8px;
   border-radius: 8px;
   display: block;
+}
+
+.pcs-controls {
+  margin: 10px 0px;
+  user-select: none;
+}
+
+.pcs-controls:hover {
+  background-color: var(--semitransparent);
 }
 
 .pcs-controls i {
@@ -1408,10 +1525,11 @@ body::-webkit-scrollbar-thumb {
   border-radius: 15px;
 }
 
-.pcs-controls p {
+.pcs-controls span {
   display: inline;
   padding: 0px 8px;
 }
+
 .buttonReset {
   background: none;
   color: inherit;
@@ -1493,6 +1611,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #imageModal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -1564,4 +1683,188 @@ body::-webkit-scrollbar-thumb {
 
 .productContainer section {
   display: inherit;
+}
+
+.comparisonTable {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.comparisonTable > div {
+  display: flex;
+  flex-direction: row;
+
+  padding: 5px;
+  align-items: center;
+  background-color: var(--white);
+}
+
+.comparisonTable > div:not(:last-child) {
+  border-bottom: 1px solid var(--grey2);
+}
+
+.ProductCell > section > p {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--black) !important;
+}
+
+.ProductCell > section {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.comparisonTableCell:hover {
+  filter: var(--focus);
+}
+
+.ProductCell:hover {
+  filter: none;
+}
+
+.ProductCellButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ProductCell img {
+  max-width: 50%;
+  margin: 15px 15px;
+}
+
+.comparisonTableCell > h3 {
+  flex-shrink: 0;
+  width: 150px;
+  font-size: 14px;
+}
+
+.comparisonTableCell > h3 > sub {
+  font-weight: 400;
+  display: block;
+}
+
+.comparisonTableCell > section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.comparisonTableCell > section > p {
+  min-width: 200px;
+  width: 100%;
+  padding: 10px 10px;
+  margin: 0;
+}
+
+.comparisonTable h3 {
+  padding: 0;
+  margin: 0px;
+}
+
+.comparisonTableItems p {
+  color: var(--black);
+}
+
+.comparisonTableCell.differenceFound > section > p {
+  color: var(--orange);
+}
+
+.dot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 1rem 0;
+  margin: 0 -5%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.dot-floating {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--grey2);
+  color: #9880ff;
+  animation: dotFloating 3s infinite cubic-bezier(0.15, 0.6, 1, 0.1);
+}
+
+.dot-floating::before,
+.dot-floating::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-floating::before {
+  left: -12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--grey3);
+  color: #9880ff;
+  animation: dotFloatingBefore 3s infinite ease-in-out;
+}
+
+.dot-floating::after {
+  left: -24px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--grey2);
+  color: #9880ff;
+  animation: dotFloatingAfter 3s infinite cubic-bezier(0.3, 0, 1, 1);
+}
+
+@keyframes dotFloating {
+  0% {
+    left: calc(-50% - 5px);
+  }
+  75% {
+    left: calc(50% + 105px);
+  }
+  100% {
+    left: calc(50% + 105px);
+  }
+}
+
+@keyframes dotFloatingBefore {
+  0% {
+    left: -50px;
+  }
+  50% {
+    left: -12px;
+  }
+  75% {
+    left: -50px;
+  }
+  100% {
+    left: -50px;
+  }
+}
+
+@keyframes dotFloatingAfter {
+  0% {
+    left: -100px;
+  }
+  50% {
+    left: -24px;
+  }
+  75% {
+    left: -100px;
+  }
+  100% {
+    left: -100px;
+  }
+}
+
+.dropShadow {
+  box-shadow: var(--shadowcard);
+  margin: -12px -12px 20px -12px;
+  padding: 12px;
 }

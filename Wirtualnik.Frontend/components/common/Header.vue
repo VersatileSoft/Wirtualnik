@@ -53,7 +53,7 @@
         <div class="page-header__extras">
             <div class="page-header__extras-basket">
                 <nuxt-link
-                    to="#"
+                    to="/cart"
                     class="page-header__components-link page-header__basket"
                 >
                     <span class="las la-shopping-cart"></span>
@@ -266,8 +266,7 @@ export default class Header extends Vue {
             font-weight: normal;
         }
     }
-    
-    
+
 }
 
 @media screen and (max-width: 720px) {
