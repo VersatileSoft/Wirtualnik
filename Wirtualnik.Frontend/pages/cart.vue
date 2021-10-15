@@ -3,15 +3,16 @@
         <div
             class="productCard"
             style="max-width: 100%; background: var(--white)"
+            :key="loaded"
         >
-            <CartProduct :items="cartItems">
+            <CartProduct v-if="loaded" :items="cart.products">
                 <template #quantity-in-cart>
-                    Twój koszyk ({{ response.quantity }} przedmiotów)
+                    Twój koszyk ({{ cart.products.length }} przedmiotów)
                 </template>
             </CartProduct>
             <CartProp />
             <!-- Warnings TODO -->
-            <CartWarningList />
+            <CartWarningList v-if="loaded" />
         </div>
         <!-- True discounts -->
     </div>
@@ -22,11 +23,10 @@ import BreadCrumb from '@/components/navigation/Breadcrumb';
 import CartProduct from '@/components/common/CartProduct';
 import CartWarningList from '@/components/common/CartWarningList';
 import CartProp from '@/components/common/CartProp';
-import { CartSimpleModel } from '~/services/CartService';
+import { DetailsModel } from '~/services/CartService';
 import { Product } from '~/models/Product';
 
 @Component({
-    name: 'cart',
     components: {
         CartProduct,
         CartWarningList,
@@ -35,13 +35,16 @@ import { Product } from '~/models/Product';
     }
 })
 export default class Cart extends Vue {
-    private cartId!: string;
-    private response: [] = [];
-    private cartItems: Product[] = [];
+    private loaded = false;
+
+    private get cart(): DetailsModel {
+        return this.$store.state.cart.currentCart;
+    }
 
     public async created(): Promise<void> {
-        await this.loadData();
-        console.log(this.cartItems);
+        await this.$cartService.getCart();
+        this.loaded = true;
+        console.log(this.cart);
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',
@@ -52,11 +55,6 @@ export default class Cart extends Vue {
                 route: '/cart'
             }
         ]);
-    }
-
-    private async loadData(): Promise<void> {
-        this.response = await this.$cartService.getCart();
-        this.cartItems = this.response.products;
     }
 }
 </script>

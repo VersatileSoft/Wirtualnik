@@ -1,38 +1,42 @@
 <template>
     <div class="warninglist">
-        <li class="error">
+        <li
+            v-for="warning in warnings"
+            :key="warning.title"
+            :class="warning.type"
+        >
             <span class="icon-motherboard"></span>
-            <h4>Brak kompatybilności</h4>
+            <h4>{{ warning.title }}</h4>
             <p>
-                Wybrany procesor AMD Ryzen 3 3100 posiada złącze Socket AM4, a
-                płyta główna znajdująca się w tym Wirtualniku obsługuje Socket
-                LGA1200.
+                {{ warning.message }}
             </p>
-        </li>
-        <li class="warning">
-            <span class="icon-case"></span>
-            <h4>Obudowa może być zbyt mała</h4>
-            <p>
-                W obudowie SilentiumPC Signum SG1 TG jest miejsce na karte
-                graficzną o długości maksymalnie 300mm, a wybrana Gigabyte RTX
-                3070 Gaming X ma 298mm.
-            </p>
-        </li>
-        <li class="warning">
-            <span class="icon-gpu"></span>
-            <h4>--</h4>
-            <p>--</p>
-        </li>
-        <li class="warning">
-            <span class="icon-psu"></span>
-            <h4>--</h4>
-            <p>--</p>
         </li>
     </div>
 </template>
 <script lang="ts">
-export default {};
+import { Component, Vue } from 'nuxt-property-decorator';
+import { WarningModel } from '~/services/CartService';
+
+@Component({})
+export default class CartWarningList extends Vue {
+    private warnings: WarningModel[] = [];
+
+    public async created(): Promise<void> {
+        await this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
+        // Test cart warnings, move to cart page after created
+        try {
+            this.warnings = await this.$cartService.getWarnings();
+            console.log();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
 </script>
+
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
 </style>

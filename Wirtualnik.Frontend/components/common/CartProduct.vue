@@ -2,7 +2,7 @@
     <div class="cart">
         <div class="list bigList currency biggerThumbs">
             <h3><slot name="quantity-in-cart"></slot></h3>
-            <li v-for="item in items" :key="item">
+            <li v-for="item in items" :key="item.publicId">
                 <img :src="item.image" /><a :href="'p' + item.publicId">
                     {{ item.name }}<br />
                     <sub>{{ item.productTypeName }}</sub> </a
@@ -36,14 +36,10 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Product } from '~/models/Product';
 
-@Component({
-    name: 'CartProduct',
-    props: {
-        items: []
-    }
-})
+@Component({})
 export default class CartProduct extends Vue {
-    public items: [] = [];
+    @Prop({ default: [] })
+    public items: Product[];
 }
 </script>
 <style lang="scss" scoped>

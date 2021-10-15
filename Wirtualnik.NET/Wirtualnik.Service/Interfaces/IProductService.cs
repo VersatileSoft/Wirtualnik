@@ -14,5 +14,6 @@ namespace Wirtualnik.Service.Interfaces
         Task<Product> FetchAsync(string publicId);
         Task<IEnumerable<string>> GetProductDetailsImages(Product product);
         Task<string> GetProductListItemImage(Product product);
+        Task<string> GetProductListItemImage(string publicId);
     }
 }

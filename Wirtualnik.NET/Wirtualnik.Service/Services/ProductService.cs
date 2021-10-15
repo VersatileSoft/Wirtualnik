@@ -68,6 +68,12 @@ namespace Wirtualnik.Service.Services
                 .FirstOrDefault() ?? "";
         }
 
+        public async Task<string> GetProductListItemImage(string publicId)
+        {
+            var prod = await FetchAsync(publicId);
+            return await GetProductListItemImage(prod);
+        }
+
         private static ExpressionStarter<Product> Filter(FilterModel filter, Dictionary<string, string> dynamicFilter)
         {
             var predicate = PredicateBuilder.New<Product>();

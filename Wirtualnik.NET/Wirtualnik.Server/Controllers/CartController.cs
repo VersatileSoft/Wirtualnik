@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Wirtualnik.ArithmeticExpressionParser;
 using Wirtualnik.Data.Models;
@@ -36,7 +37,14 @@ namespace Wirtualnik.Server.Controllers
             if (model is null)
                 return NotFound();
 
-            return _mapper.Map<DetailsModel>(model);
+            var res = _mapper.Map<DetailsModel>(model);
+
+            foreach(var prod in res.Products)
+            {
+                prod.Image = await _productService.GetProductListItemImage(prod.PublicId);
+            }
+
+            return res;
         }
 
         [HttpGet("warnings")]

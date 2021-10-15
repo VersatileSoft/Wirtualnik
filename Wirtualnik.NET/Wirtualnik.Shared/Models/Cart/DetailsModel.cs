@@ -6,7 +6,7 @@ namespace Wirtualnik.Shared.Models.Cart
 {
     public class DetailsModel
     {
-        public IEnumerable<Product.DetailsModel> Products { get; set; } = new List<Product.DetailsModel>();
+        public IEnumerable<Product.ListItemModel> Products { get; set; } = new List<Product.ListItemModel>();
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public int Quantity { get; set; }
