@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Wirtualnik.ArithmeticExpressionParser.Handlers;
 
 namespace Wirtualnik.ArithmeticExpressionParser
 {
@@ -64,7 +67,7 @@ namespace Wirtualnik.ArithmeticExpressionParser
             int index = 0;
             int depth = 0;
 
-            foreach(var val in value)
+            foreach (var val in value)
             {
                 if (val == '(' || val == '[' || val == '{')
                 {
@@ -141,9 +144,33 @@ namespace Wirtualnik.ArithmeticExpressionParser
             return result.ToArray();
         }
 
+        public static Step[] ConvertSteps(this string[] steps)
+        {
+            return steps.Select(s => new Step(s)).ToArray();
+        }
+
         public static string[] Split(this string value, int index)
         {
             return new string[] { value.Substring(0, index), value.Substring(index + 1, value.Length - index - 1) };
+        }
+
+        public static IHandler FindHandler(string name)
+        {
+            var res = typeof(IHandler).Assembly.GetTypes()
+                .FirstOrDefault(p => typeof(IHandler).IsAssignableFrom(p) && !p.IsAbstract && p.GetCustomAttribute<HandlerAttribute>().Name == name);
+                return res != null ? (IHandler)Activator.CreateInstance(res) : new ValueHandler();
+        }
+
+        public static string GetArgs(this string value, out string name)
+        {
+            var index = value.IndexOf('(');
+            name = value.Remove(index, value.Length - index);
+            return value.Substring(index).RemoveFirstAndLast();
+        }
+
+        public static List<object> AsList(this object value)
+        {
+            return ((IEnumerable)value).Cast<object>().ToList();
         }
     }
 }

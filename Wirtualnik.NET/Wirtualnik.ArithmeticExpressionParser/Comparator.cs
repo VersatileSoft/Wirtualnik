@@ -40,6 +40,11 @@ namespace Wirtualnik.ArithmeticExpressionParser
                 right = new ValueMember(sides[1], expressionObject);
             }
         }
+
+        public static bool Evaluate(string value, object expressionObject)
+        {
+            return new Comparator(value, expressionObject).Evaluate();
+        }
     }
 
     public enum ComparatorType
