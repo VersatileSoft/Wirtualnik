@@ -202,5 +202,123 @@ namespace Wirtualnik.ArithmeticExpressionParser.Tests
 
             Assert.AreEqual(true, res);
         }
+
+        [Test]
+        public void Test5()
+        {
+            Product cpu = new Product
+            {
+                Name = "Intel",
+                Category = new Category
+                {
+                    Name = "cpu",
+                },
+                ProductProperties = new List<ProductProperty>
+                {
+                    new ProductProperty
+                    {
+                        CategoryProperty = new CategoryProperty
+                        {
+                            Name = "socket"
+                        },
+                        Value = "AM4"
+                    }
+                }
+            };
+
+            Product motherboard = new Product
+            {
+                Name = "ASROCK",
+                Category = new Category
+                {
+                    Name = "motherboard",
+                },
+                ProductProperties = new List<ProductProperty>
+                {
+                    new ProductProperty
+                    {
+                        CategoryProperty = new CategoryProperty
+                        {
+                            Name = "socket"
+                        },
+                        Value = "AM4"
+                    }
+                }
+            };
+
+
+            Cart cart = new Cart
+            {
+                Products = new List<Product>
+                {
+                    cpu,
+                    motherboard
+                }
+            };
+
+            var valueMember = new ValueMember("{ Products.where( [ { Category.Name } = { \"cpu\" } ] ).first.Name }".Replace(" ", ""), cart);
+            var res = valueMember.Evaluate();
+
+            Assert.AreEqual("Intel", res);
+        }
+
+        [Test]
+        public void Test6()
+        {
+            Product cpu = new Product
+            {
+                Name = "Intel",
+                Category = new Category
+                {
+                    Name = "cpu",
+                },
+                ProductProperties = new List<ProductProperty>
+                {
+                    new ProductProperty
+                    {
+                        CategoryProperty = new CategoryProperty
+                        {
+                            Name = "socket"
+                        },
+                        Value = "AM4"
+                    }
+                }
+            };
+
+            Product motherboard = new Product
+            {
+                Name = "ASROCK",
+                Category = new Category
+                {
+                    Name = "motherboard",
+                },
+                ProductProperties = new List<ProductProperty>
+                {
+                    new ProductProperty
+                    {
+                        CategoryProperty = new CategoryProperty
+                        {
+                            Name = "socket"
+                        },
+                        Value = "AM4"
+                    }
+                }
+            };
+
+
+            Cart cart = new Cart
+            {
+                Products = new List<Product>
+                {
+                    cpu,
+                    motherboard
+                }
+            };
+
+            var valueMember = new StringParserEvaluator("Some text { Products.where( [ { Category.Name } = { \"cpu\" } ] ).first.Name } some other text { Products.where( [ { Category.Name } = { \"motherboard\" } ] ).first.Name } other text", cart);
+            var res = valueMember.Convert();
+
+            Assert.AreEqual("Some text Intel some other text ASROCK other text", res);
+        }
     }
 }

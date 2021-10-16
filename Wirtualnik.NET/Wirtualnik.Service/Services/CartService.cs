@@ -12,7 +12,6 @@ using Wirtualnik.Data.Models;
 using Wirtualnik.Service.Extensions;
 using Wirtualnik.Service.Interfaces;
 using Wirtualnik.Service.Services.Base;
-using Wirtualnik.Shared.Models.Cart;
 
 namespace Wirtualnik.Service.Services
 {
@@ -107,11 +106,17 @@ namespace Wirtualnik.Service.Services
 
         public async Task<List<CartValidator>> Validate(Cart cart)
         {
-            return (await Context
+            var res = (await Context
                 .CartValidators
                 .ToListAsync())
                 .Where(v => Expression.Evaluate(v.ValidationExpression, cart))
                 .ToList();
+
+            foreach (var p in res)
+            {
+                p.Message = StringParserEvaluator.Evaluate(p.Message, cart);
+            }
+            return res;
         }
     }
 }
