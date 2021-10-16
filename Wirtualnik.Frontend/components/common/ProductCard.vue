@@ -1,37 +1,43 @@
 <template>
-    <div class="product-card">
-        <div class="product-card__card-image product-card__image-glow-orange">
-            <slot name="image"></slot>
-        </div>
-        <div class="product-card__card-title">
-            <slot name="title"></slot>
-        </div>
-        <div class="product-card__product-price">
-            <slot name="price"></slot>
-        </div>
-        <div class="product-card__product-short-specs">
-            <slot name="specs"></slot>
-        </div>
-        <div class="product-card__card-controls">
+    <a>
+        <div class="product-card">
             <div
-                class="
-                    product-card__product-points-red product-card__points-box
-                "
+                class="product-card__card-image product-card__image-glow-orange"
             >
-                <slot name="red-points"></slot>
+                <slot name="image"></slot>
             </div>
-            <div
-                class="
-                    product-card__product-points-blue product-card__points-box
-                "
-            >
-                <slot name="blue-points"></slot>
+            <div class="product-card__card-title">
+                <slot name="title"></slot>
             </div>
-            <div class="product-card__buttons">
-                <slot name="buttons"></slot>
+            <div class="product-card__product-price">
+                <slot name="price"></slot>
+            </div>
+            <div class="product-card__product-short-specs">
+                <slot name="specs"></slot>
+            </div>
+            <div class="product-card__card-controls">
+                <div
+                    class="
+                        product-card__product-points-red
+                        product-card__points-box
+                    "
+                >
+                    <slot name="red-points"></slot>
+                </div>
+                <div
+                    class="
+                        product-card__product-points-blue
+                        product-card__points-box
+                    "
+                >
+                    <slot name="blue-points"></slot>
+                </div>
+                <div class="product-card__buttons">
+                    <slot name="buttons"></slot>
+                </div>
             </div>
         </div>
-    </div>
+    </a>
 </template>
 
 <style lang="scss">
@@ -40,7 +46,7 @@
     min-width: 240px;
     max-width: 269px;
     padding: 12px;
-    background: rgb(255,255,255);
+    background: rgb(255, 255, 255);
     background: linear-gradient(
         0deg,
         var(--white) 0%,
@@ -72,6 +78,9 @@
         h2 {
             font-size: 16px;
             line-height: 18px;
+            a {
+                text-decoration: none;
+            }
         }
     }
     &__product-price {
