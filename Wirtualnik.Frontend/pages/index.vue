@@ -276,8 +276,6 @@ export default class StartingPage extends Vue {
     private imageLink;
 
     public async created(): Promise<void> {
-        await this.$cartService.getCart();
-
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',

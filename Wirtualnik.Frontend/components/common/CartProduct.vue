@@ -1,7 +1,7 @@
 <template>
     <div class="cart">
         <div class="list bigList currency biggerThumbs">
-            <h3><slot name="quantity-in-cart"></slot></h3>
+            <h3>Twój koszyk ({{ items.length }} przedmiotów)</h3>
             <li v-for="item in items" :key="item.publicId">
                 <img :src="item.image" /><a :href="'p' + item.publicId">
                     {{ item.name }}<br />

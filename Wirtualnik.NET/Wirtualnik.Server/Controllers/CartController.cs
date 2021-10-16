@@ -32,7 +32,7 @@ namespace Wirtualnik.Server.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<DetailsModel>> FetchCart()
         {
-            var model = await _cartService.FetchAsync(this.GetCart() ?? 0);
+            var model = await _cartService.FetchAsync(this.GetCartTempId(), User);
 
             if (model is null)
                 return NotFound();
@@ -51,7 +51,7 @@ namespace Wirtualnik.Server.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<List<WarningModel>>> GetWarnings()
         {
-            var cart = await _cartService.FetchAsync(this.GetCart() ?? 0);
+            var cart = await _cartService.FetchAsync(this.GetCartTempId(), User);
 
             var result = await _cartService.Validate(cart);
 
@@ -69,7 +69,7 @@ namespace Wirtualnik.Server.Controllers
                 return NotFound();
             }
 
-            Cart cart = this.GetCart().HasValue ? await _cartService.FetchAsync(this.GetCart()!.Value) : await _cartService.CreateCart(User);
+            Cart cart = !string.IsNullOrEmpty(this.GetCartTempId()) ? await _cartService.FetchAsync(this.GetCartTempId(), User) : await _cartService.CreateCart(User);
             await _cartService.Add(product, cart);
             cart = await _cartService.FetchAsync(cart.Id);
 

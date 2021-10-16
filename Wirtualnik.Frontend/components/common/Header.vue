@@ -75,19 +75,13 @@
             :is-menu-opened="menuOpened"
             @menuClosed="menuOpened = false"
         />
-        <SearchBoxHints
-                    :is-hints-opened="hints"
-                    @hintsClosed="hints = false"
-                />
-            </div>
+        <SearchBoxHints :is-hints-opened="hints" @hintsClosed="hints = false" />
     </header>
-    
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import PopupMenu from '@/components/common/PopupMenu.vue';
-import { CartSimpleModel } from '~/services/CartService';
 import CategoryMegaMenu from '@/components/common/CategoryMegaMenu.vue';
 import SearchBoxHints from '@/components/common/SearchBoxHints.vue';
 
@@ -104,6 +98,14 @@ export default class Header extends Vue {
     private megaMenuOpened = false;
     private hints = false;
     private cartCount = 0;
+
+    public async created(): Promise<void> {
+        try {
+            await this.$cartService.getCart();
+        } catch {
+            console.log('Cart loading error');
+        }
+    }
 
     public toggleMenu(): void {
         this.menuOpened = !this.menuOpened;
@@ -266,7 +268,6 @@ export default class Header extends Vue {
             font-weight: normal;
         }
     }
-
 }
 
 @media screen and (max-width: 720px) {
@@ -277,5 +278,4 @@ export default class Header extends Vue {
         display: none;
     }
 }
-
 </style>

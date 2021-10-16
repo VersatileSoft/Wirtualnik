@@ -71,7 +71,13 @@ namespace Wirtualnik.Service.Services
 
         public async Task<Cart> FetchAsync(string? temporaryId, ClaimsPrincipal user)
         {
-            var query = Context.Carts.Include(c => c.Products);
+            var query = Context.Carts
+                .Include(c => c.Products)
+                .ThenInclude(c => c.ProductProperties)
+                .ThenInclude(c => c.CategoryProperty)
+                .Include(c => c.Products)
+                .ThenInclude(p => p.Category);
+
             var id = user.Id();
             var currentUser = await _userManager.FindByIdAsync(id);
             if (currentUser != null)

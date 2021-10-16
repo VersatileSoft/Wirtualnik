@@ -98,9 +98,6 @@ export default class ProductPage extends Vue {
     }
 
     public async created(): Promise<void> {
-        // TODO move this call to app init and execute it onlu once per page load
-        await this.$cartService.getCart();
-
         await this.loadData();
 
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [

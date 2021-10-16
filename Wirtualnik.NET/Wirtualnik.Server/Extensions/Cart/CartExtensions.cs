@@ -8,9 +8,9 @@ namespace Wirtualnik.Server.Extensions.Cart
 {
     public static class CartExtensions
     {
-        public static int? GetCart(this ControllerBase controllerBase)
+        public static string? GetCartTempId(this ControllerBase controllerBase)
         {
-            return controllerBase.HttpContext.Items["CartId"] as int?;
+            return controllerBase.HttpContext.Items["CartTempId"] as string;
         }
     }
 }

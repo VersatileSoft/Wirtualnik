@@ -51,9 +51,9 @@ namespace Wirtualnik.Server.Controllers
                     Image = _filesService.GetImageLink(p.Shop.ImageId).Result
                 });
 
-                if (this.GetCart() != null)
+                if (!string.IsNullOrEmpty(this.GetCartTempId()))
                 {
-                    var cart = await _cartService.FetchAsync(this.GetCart()!.Value);
+                    var cart = await _cartService.FetchAsync(this.GetCartTempId(), User);
                     if (cart != null)
                         model.IsInCart = await _cartService.IsInCart(product, cart);
                 }
@@ -86,9 +86,9 @@ namespace Wirtualnik.Server.Controllers
             var result = _mapper.Map<DetailsModel>(model);
             result.ProductShopDetails = shops;
             result.Images = (await _productService.GetProductDetailsImages(model)).ToList();
-            if (this.GetCart() != null)
+            if (!string.IsNullOrEmpty(this.GetCartTempId()))
             {
-                var cart = await _cartService.FetchAsync(this.GetCart()!.Value);
+                var cart = await _cartService.FetchAsync(this.GetCartTempId(), User);
                 if (cart != null)
                     result.IsInCart = await _cartService.IsInCart(model, cart);
             }

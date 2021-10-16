@@ -2,49 +2,35 @@
     <div class="container">
         <div
             class="productCard"
-            style="max-width: 100%; background: var(--white)"
-            :key="loaded"
+            style="max-width: 100%; background: var(--white); width: 100rem"
         >
-            <CartProduct v-if="loaded" :items="cart.products">
-                <template #quantity-in-cart>
-                    Twój koszyk ({{ cart.products.length }} przedmiotów)
-                </template>
-            </CartProduct>
-            <CartProp />
-            <!-- Warnings TODO -->
-            <CartWarningList v-if="loaded" />
+            <CartProduct v-if="cart" :items="cart.products" />
+            <div style="height: 100px"></div>
+            <CartWarningList />
         </div>
         <!-- True discounts -->
     </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import BreadCrumb from '@/components/navigation/Breadcrumb';
-import CartProduct from '@/components/common/CartProduct';
-import CartWarningList from '@/components/common/CartWarningList';
-import CartProp from '@/components/common/CartProp';
+import CartProduct from '~/components/common/CartProduct.vue';
+import CartWarningList from '~/components/common/CartWarningList.vue';
+import CartProp from '~/components/common/CartProp.vue';
 import { DetailsModel } from '~/services/CartService';
-import { Product } from '~/models/Product';
 
 @Component({
     components: {
         CartProduct,
         CartWarningList,
-        CartProp,
-        BreadCrumb
+        CartProp
     }
 })
 export default class Cart extends Vue {
-    private loaded = false;
-
     private get cart(): DetailsModel {
         return this.$store.state.cart.currentCart;
     }
 
     public async created(): Promise<void> {
-        await this.$cartService.getCart();
-        this.loaded = true;
-        console.log(this.cart);
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',

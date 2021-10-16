@@ -7,7 +7,8 @@ export default function (context: Context): void {
     if (process.client) {
         const axios = context.$axios as AxiosStatic;
         axios.interceptors.request.use((config) => {
-            config.headers.common['cart-id'] = localStorage.getItem('cartId');
+            config.headers.common['cart-id'] =
+                localStorage.getItem('cartId') ?? '';
             if (Vue.auth.token()) {
                 config.headers.Authorization = `Bearer ${Vue.auth.token()}`;
             }

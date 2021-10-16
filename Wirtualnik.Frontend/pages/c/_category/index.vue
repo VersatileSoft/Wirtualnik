@@ -84,8 +84,6 @@ export default class CategoryPage extends Vue {
     private pager: Pager = new Pager(1, 16, 'Id', 'ASC');
 
     public async created(): Promise<void> {
-        await this.$cartService.getCart();
-
         this.category = this.$route.params.category;
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {

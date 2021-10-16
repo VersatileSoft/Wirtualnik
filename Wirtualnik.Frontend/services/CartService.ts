@@ -9,12 +9,7 @@ export default class CartService {
     }
 
     public async getCart(): Promise<DetailsModel> {
-        try {
-            return (await this.axios.get<DetailsModel>('cart')).data;
-        } catch (e) {
-            console.log(e);
-        }
-        return {} as DetailsModel;
+        return (await this.axios.get<DetailsModel>('cart')).data;
     }
 
     public async addToCart(productId: string): Promise<DetailsModel> {

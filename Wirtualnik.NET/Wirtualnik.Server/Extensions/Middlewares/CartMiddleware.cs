@@ -21,10 +21,7 @@ namespace Wirtualnik.Server.Extensions.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            var cartId = context.Request.Headers["cart-id"].ToString();
-
-            context.Items["CartId"] = (await _cartService.FetchAsync(cartId, context.User))?.Id;
-
+            context.Items["CartTempId"] = context.Request.Headers["cart-id"].ToString();
             await next(context);
         }
     }
