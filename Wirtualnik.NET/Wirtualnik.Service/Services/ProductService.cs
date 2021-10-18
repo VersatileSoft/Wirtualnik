@@ -38,6 +38,7 @@ namespace Wirtualnik.Service.Services
         public async Task<IEnumerable<Product>> GetProductsAsync(Pager pager, FilterModel filter, Dictionary<string, string> dynamicFilter)
         {
             return await Context.Products
+                .AsNoTracking()
                 .Include(p => p.ProductProperties.Where(p => p.CategoryProperty.ShowInCell))
                 .ThenInclude(p => p.CategoryProperty)
                 .Include(p => p.Category)
@@ -82,10 +83,10 @@ namespace Wirtualnik.Service.Services
                 predicate.And(p => p.Category.PublicId == filter.Category);
 
             if (!string.IsNullOrEmpty(filter.Name))
-                predicate.And(p => p.Name.Contains(filter.Name, StringComparison.OrdinalIgnoreCase));
+                predicate.And(p => p.Name.ToLower().Contains(filter.Name.ToLower()));
 
             if (!string.IsNullOrEmpty(filter.Manufacturer))
-                predicate.And(p => p.Manufacturer.Contains(filter.Manufacturer, StringComparison.OrdinalIgnoreCase));
+                predicate.And(p => p.Manufacturer.ToLower().Contains(filter.Manufacturer.ToLower()));
 
             foreach (var property in dynamicFilter)
             {

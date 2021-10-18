@@ -43,40 +43,17 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { Product } from '~/models/Product';
-import { CartSimpleModel } from '~/services/CartService';
 
 @Component({})
 export default class ProductInformation extends Vue {
     @Prop({ default: null })
     public product: Product;
 
-    public get id(): string {
-        return this.product.publicId;
-    }
-
-    public get currentCart(): CartSimpleModel {
-        return this.$store.state.cart?.currentCart ?? null;
-    }
-
     private async addToCart(): Promise<void> {
         try {
-            let result = await this.$cartService.addToCart(
-                this.product.publicId
-            );
-            var model: CartSimpleModel = {
-                temporaryId: result.temporaryId ?? '',
-                quantity: result.quantity,
-                products: result.products
-            };
-
-            this.$store.commit('cart/setCurrentCart', model);
-            localStorage.setItem(
-                'cartId',
-                result.temporaryId?.toString() ?? ''
-            );
+            await this.$cartService.addToCart(this.product.publicId);
         } catch {
-            localStorage.removeItem('cartId');
-            this.$store.commit('cart/setCurrentCart', null);
+            console.log('error');
         }
         this.$emit('reload');
     }

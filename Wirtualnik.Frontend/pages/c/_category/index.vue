@@ -27,7 +27,7 @@
                     <img src="~/assets/images/shop/morele-sygnet.png" />
                 </template>
                 <template #specs>
-                    <p v-for="prop in item.properties" :key="prop.key">
+                    <p v-for="(prop, index) in item.properties" :key="index">
                         {{ prop.key }}: {{ prop.value }}
                     </p>
                 </template>
@@ -43,7 +43,10 @@
                     <button class="btn-circle btn-green">
                         <span class="las la-balance-scale"></span>
                     </button>
-                    <button class="btn-circle btn-green">
+                    <button
+                        class="btn-circle btn-green"
+                        @click="addToCart(item.publicId)"
+                    >
                         <span class="las la-cart-plus"></span>
                     </button>
                 </template>
@@ -110,6 +113,15 @@ export default class CategoryPage extends Vue {
         } catch {
             console.log('error');
         }
+    }
+
+    private async addToCart(publicId: string): Promise<void> {
+        try {
+            await this.$cartService.addToCart(publicId);
+        } catch {
+            console.log('error');
+        }
+        this.loadData();
     }
 
     private async pageChangeHandler(selectedPage: number): Promise<void> {

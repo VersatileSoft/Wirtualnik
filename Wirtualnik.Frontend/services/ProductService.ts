@@ -25,4 +25,15 @@ export default class ProductService {
             })
         ).data;
     }
+
+    public async getProductsByName(
+        pager: Pager,
+        name: string
+    ): Promise<Pagination<Product>> {
+        return (
+            await this.axios.get<Pagination<Product>>('product', {
+                params: merge({ name }, pager.data())
+            })
+        ).data;
+    }
 }

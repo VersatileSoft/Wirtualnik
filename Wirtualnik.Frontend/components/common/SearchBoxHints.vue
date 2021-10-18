@@ -1,64 +1,57 @@
 <template>
-
-    <div class="search-box-position" :class="{ 'hints-opened': isHintsOpened }">
+    <div class="search-box-position hints-opened">
         <div class="search-box-divider"></div>
         <div class="search-box-container">
-            <div class="search-box-product">
-                <img src="https://api.zlcn.pro/static/img/2bc16383-3475-4ea9-ae6f-6eb5f7b24d44.png"></img>
-                <h4>AMD Ryzen 3 3100</h4>
-                <button class="btn-light">💰<br>519.32PLN</button>
-            </div>
-            <div class="search-box-product">
-                <img src="https://api.zlcn.pro/static/img/2bc16383-3475-4ea9-ae6f-6eb5f7b24d44.png"></img>
-                <h4>AMD Ryzen 3 3100</h4>
-                <button class="btn-light">💰<br>519.32PLN</button>
-            </div>
-            <div class="search-box-product">
-                <img src="https://api.zlcn.pro/static/img/2bc16383-3475-4ea9-ae6f-6eb5f7b24d44.png"></img>
-                <h4>Gigabyte GeForce RTX 2060 Gaming OC</h4>
-                <button class="btn-light">💰<br>519.32PLN</button>
-            </div>
-            <div class="search-box-product">
-                <img src="https://api.zlcn.pro/static/img/2bc16383-3475-4ea9-ae6f-6eb5f7b24d44.png"></img>
-                <h4>Gigabyte GeForce RTX 2060 Gaming OC</h4>
-                <button class="btn-light">💰<br>519.32PLN</button>
-            </div>
-            <div class="search-box-product">
-                <img src="https://api.zlcn.pro/static/img/2bc16383-3475-4ea9-ae6f-6eb5f7b24d44.png"></img>
-                <h4>Gigabyte GeForce RTX 2060 Gaming OC</h4>
-                <button class="btn-light">💰<br>519.32PLN</button>
-            </div>
-            <div class="search-box-product">
-                <img src="https://api.zlcn.pro/static/img/2bc16383-3475-4ea9-ae6f-6eb5f7b24d44.png"></img>
-                <h4>Gigabyte GeForce RTX 2060 Gaming OC</h4>
-                <button class="btn-light">💰<br>519.32PLN</button>
+            <div
+                v-for="product in products"
+                :key="product.publicId"
+                class="search-box-product"
+            >
+                <img :src="product.image" />
+                <h4>{{ product.name }}</h4>
+                <button class="btn-light">💰<br />519.32PLN</button>
             </div>
         </div>
-        
-    </div>
     </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator';
+import Debounce from '@/helpers/Debounce';
+import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
+import Pager from '~/helpers/Pager';
+import { Product } from '~/models/Product';
 
 @Component({
     name: 'SearchBoxHints'
 })
 export default class SearchBoxHints extends Vue {
-    @Prop({
-        default: false
-    })
-    private isHintsOpened = false;
+    @Prop({ default: '' })
+    private searchText: string;
+    private products: Product[] = [];
 
-    @Emit('hintsClosed')
-    public closeHints(event: Event): Event {
-        return event;
+    @Watch('searchText')
+    @Debounce(100)
+    private async onSearchTextChanged(value: string): Promise<void> {
+        this.search(value);
+    }
+
+    @Debounce(100)
+    private async search(value: string): Promise<void> {
+        if (!value) {
+            this.products = [];
+            return;
+        }
+
+        this.products = (
+            await this.$productService.getProductsByName(
+                new Pager(1, 12, 'Id', 'ASC'),
+                value
+            )
+        ).items;
     }
 }
 </script>
 <style lang="scss" scoped>
 @import url('@//assets/shadient/shadient.css');
-
 
 .search-box-position {
     display: none; /* ZMIENIC NA NONE!!! */
@@ -129,7 +122,5 @@ export default class SearchBoxHints extends Vue {
     .search-box-position {
         margin-left: -10px;
     }
-
 }
-
 </style>

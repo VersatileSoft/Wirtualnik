@@ -21,7 +21,7 @@
                     type="text"
                     placeholder="Szukaj na Wirtualnik.pl"
                     id="search-box-hints"
-                    @focus="toggleHints"
+                    v-model="searchText"
                 />
 
                 <button class="btn-flat" @click="toggleMenu">
@@ -57,14 +57,7 @@
                     class="page-header__components-link page-header__basket"
                 >
                     <span class="las la-shopping-cart"></span>
-                    <sub
-                        >{{
-                            this.$store.state.cart.currentCart
-                                ? this.$store.state.cart.currentCart.quantity
-                                : 0
-                        }}
-                        PLN</sub
-                    >
+                    <sub>{{ cartQuantity }} PLN</sub>
                 </nuxt-link>
             </div>
             <button class="btn-flat" @click="toggleMenu">
@@ -75,7 +68,7 @@
             :is-menu-opened="menuOpened"
             @menuClosed="menuOpened = false"
         />
-        <SearchBoxHints :is-hints-opened="hints" @hintsClosed="hints = false" />
+        <SearchBoxHints :searchText="searchText" />
     </header>
 </template>
 
@@ -96,8 +89,13 @@ import SearchBoxHints from '@/components/common/SearchBoxHints.vue';
 export default class Header extends Vue {
     private menuOpened = false;
     private megaMenuOpened = false;
-    private hints = false;
-    private cartCount = 0;
+    private searchText = '';
+
+    private get cartQuantity(): number {
+        return this.$store.state.cart.currentCart
+            ? this.$store.state.cart.currentCart.quantity
+            : 0;
+    }
 
     public async created(): Promise<void> {
         try {
@@ -121,14 +119,6 @@ export default class Header extends Vue {
 
     public megaMenuClosed(): void {
         this.megaMenuOpened = false;
-    }
-
-    public toggleHints(): void {
-        this.hints = !this.hints;
-    }
-
-    public hintsClosed(): void {
-        this.hints = false;
     }
 }
 </script>
