@@ -1,20 +1,23 @@
 <template>
     <div class="products-track">
-        <div class="products-track__title">
-            <slot name="title"></slot>
+        <div v-if="title" class="products-track__title">
+            <h2>{{ title }}</h2>
         </div>
         <div class="products-track__cards">
-            <slot name="cards"></slot>
+            <slot></slot>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 @Component({
     name: 'ProductsHorizontalTrack'
 })
-export default class ProductsHorizontalTrack extends Vue {}
+export default class ProductsHorizontalTrack extends Vue {
+    @Prop({ default: null })
+    private title: string;
+}
 </script>
 
 <style lang="scss">

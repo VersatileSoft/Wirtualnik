@@ -4,16 +4,26 @@
             <div
                 class="product-card__card-image product-card__image-glow-orange"
             >
-                <slot name="image"></slot>
+                <nuxt-link :to="`/p/` + item.publicId">
+                    <img :src="item.image" />
+                </nuxt-link>
             </div>
             <div class="product-card__card-title">
-                <slot name="title"></slot>
+                <h2>
+                    <nuxt-link :to="`/p/` + item.publicId">
+                        {{ item.name }}
+                    </nuxt-link>
+                </h2>
+                <h6 v-if="item.isInCart">W koszyku</h6>
             </div>
             <div class="product-card__product-price">
-                <slot name="price"></slot>
+                <h4>495.00 PLN</h4>
+                <img src="~/assets/images/shop/morele-sygnet.png" />
             </div>
             <div class="product-card__product-short-specs">
-                <slot name="specs"></slot>
+                <p v-for="(prop, index) in item.properties" :key="index">
+                    {{ prop.key }}: {{ prop.value }}
+                </p>
             </div>
             <div class="product-card__card-controls">
                 <div
@@ -22,7 +32,8 @@
                         product-card__points-box
                     "
                 >
-                    <slot name="red-points"></slot>
+                    Gaming
+                    <h5>123</h5>
                 </div>
                 <div
                     class="
@@ -30,21 +41,46 @@
                         product-card__points-box
                     "
                 >
-                    <slot name="blue-points"></slot>
+                    Pro
+                    <h5>93</h5>
                 </div>
                 <div class="product-card__buttons">
-                    <slot name="buttons"></slot>
+                    <button class="btn-circle btn-green">
+                        <span class="las la-balance-scale"></span>
+                    </button>
+                    <button class="btn-circle btn-green" @click="addToCart">
+                        <span class="las la-cart-plus"></span>
+                    </button>
                 </div>
             </div>
         </div>
     </a>
 </template>
 
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Product } from '~/models/Product';
+
+@Component({})
+export default class ProductCard extends Vue {
+    @Prop({ default: null })
+    private item: Product;
+
+    private async addToCart(): Promise<void> {
+        try {
+            await this.$cartService.addToCart(this.item.publicId);
+        } catch {
+            console.log('error');
+        }
+        this.$emit('reload');
+    }
+}
+</script>
+
 <style lang="scss">
 .product-card {
     flex: 1 1 41%;
-    min-width: 240px;
-    max-width: 269px;
+    width: 270px;
     padding: 12px;
     background: rgb(255, 255, 255);
     background: linear-gradient(

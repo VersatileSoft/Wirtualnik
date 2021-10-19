@@ -3,6 +3,7 @@ import { Pagination } from '../models/Pagination';
 import { AxiosStatic } from 'axios';
 import Pager from '@/helpers/Pager';
 import merge from 'lodash/merge';
+import { FilterModel } from '@/models/FilterModel';
 
 export default class ProductService {
     private axios: AxiosStatic;
@@ -15,24 +16,13 @@ export default class ProductService {
         return (await this.axios.get<Product>(`product/${id}`)).data;
     }
 
-    public async getProductsByCategory(
+    public async getProducts(
         pager: Pager,
-        category: string
+        filter: FilterModel
     ): Promise<Pagination<Product>> {
         return (
             await this.axios.get<Pagination<Product>>('product', {
-                params: merge({ category }, pager.data())
-            })
-        ).data;
-    }
-
-    public async getProductsByName(
-        pager: Pager,
-        name: string
-    ): Promise<Pagination<Product>> {
-        return (
-            await this.axios.get<Pagination<Product>>('product', {
-                params: merge({ name }, pager.data())
+                params: merge(filter, pager.data())
             })
         ).data;
     }

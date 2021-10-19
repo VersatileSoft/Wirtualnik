@@ -18,6 +18,7 @@
 import Debounce from '@/helpers/Debounce';
 import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
 import Pager from '~/helpers/Pager';
+import { FilterModel } from '~/models/FilterModel';
 import { Product } from '~/models/Product';
 
 @Component({
@@ -42,9 +43,11 @@ export default class SearchBoxHints extends Vue {
         }
 
         this.products = (
-            await this.$productService.getProductsByName(
+            await this.$productService.getProducts(
                 new Pager(1, 12, 'Id', 'ASC'),
-                value
+                {
+                    name: value
+                } as FilterModel
             )
         ).items;
     }

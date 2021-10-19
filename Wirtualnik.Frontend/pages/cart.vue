@@ -5,7 +5,7 @@
             style="max-width: 100%; background: var(--white); width: 100rem"
         >
             <CartProduct v-if="cart" :items="cart.products" />
-            <div style="height: 100px"></div>
+            <br />
             <CartWarningList />
         </div>
         <!-- True discounts -->

@@ -49,22 +49,15 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="productContainer">
-                <div class="productsGridTitle">
-                    <h2><b>Podobne produkty</b></h2>
-                </div>
-                <div class="productsGrid" id="popular_items">
-                    <div class="productsGridSlider">
-                        <CommonProduct
-                            v-for="commonProduct in commonProducts"
-                            :key="commonProduct.publicId"
-                            :product="commonProduct"
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <ProductsTrack :title="'Podobne produkty'">
+            <ProductCard
+                v-for="item in commonProducts"
+                :key="item.publicId"
+                :item="item"
+                @reload="loadData"
+            />
+        </ProductsTrack>
     </div>
 </template>
 
@@ -73,10 +66,12 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import BreadCrumb from '@/components/navigation/Breadcrumb.vue';
 import ProductInformation from '@/components/common/ProductInformation.vue';
 import PriceListItem from '@/components/common/PriceListItem.vue';
-import CommonProduct from '@/components/common/CommonProduct.vue';
+import ProductsTrack from '@/components/common/ProductsTrack.vue';
+import ProductCard from '@/components/common/ProductCard.vue';
 import { Product } from '~/models/Product';
 import ImageCarouselFluid from '@/components/common/ImageCarouselFluid.vue';
 import Pager from '~/helpers/Pager';
+import { FilterModel } from '~/models/FilterModel';
 
 @Component({
     name: 'ProductPage',
@@ -84,8 +79,9 @@ import Pager from '~/helpers/Pager';
         BreadCrumb,
         ProductInformation,
         PriceListItem,
-        CommonProduct,
-        ImageCarouselFluid
+        ImageCarouselFluid,
+        ProductsTrack,
+        ProductCard
     }
 })
 export default class ProductPage extends Vue {
@@ -120,9 +116,11 @@ export default class ProductPage extends Vue {
         try {
             this.product = await this.$productService.getProduct(this.id);
             this.commonProducts = (
-                await this.$productService.getProductsByCategory(
+                await this.$productService.getProducts(
                     new Pager(1, 20, 'Id', 'asc'),
-                    'cpu'
+                    {
+                        category: 'cpu'
+                    } as FilterModel
                 )
             ).items;
         } catch {

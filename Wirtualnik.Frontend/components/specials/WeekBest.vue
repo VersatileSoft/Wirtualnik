@@ -1,19 +1,39 @@
 <template>
     <div class="product-card week-best">
         <div class="week-best__image glow-cyan">
-            <slot name="image"></slot>
+            <img src="~/assets/images/cpu/ryzen_3_3100-box.png" />
         </div>
         <div class="product-card__card-title">
-            <slot name="creator"></slot>
+            <h2>Stworzony przez Kacpra Trynieckiego 🎉🥳</h2>
         </div>
         <div class="product-card__product-price">
-            <slot name="price"></slot>
+            <h4>495.00 PLN</h4>
+            <img src="~/assets/images/shop/morele-sygnet.png" />
         </div>
         <div class="product-card__quote">
-            <slot name="quote"></slot>
+            <p class="quote">
+                Wirtualnik Kacpra został wyróżniony z uwagi na świetny dobór
+                komponentów. Ten komputer zapewni jednocześnie świetną wydajność
+                dziś jak i ogromne możliwości rozbudowy w przeszłości.
+            </p>
         </div>
         <div class="week-best__part-list">
-            <slot name="parts"></slot>
+            <div v-for="item in items" :key="item.publicId">
+                <img :src="item.image" />
+                <nuxt-link
+                    :to="{
+                        name: 'c-category',
+                        params: { category: 'cpu' }
+                    }"
+                >
+                    {{ item.name }}
+                </nuxt-link>
+                <p>
+                    <!-- Price TODO w API-->
+                    {{ item.price }}PLN
+                    <img src="~/assets/images/shop/xkom-sygnet.png" />
+                </p>
+            </div>
         </div>
         <div class="product-card__card-controls">
             <div
@@ -21,26 +41,57 @@
                     product-card__product-points-red product-card__points-box
                 "
             >
-                <slot name="red-points"></slot>
+                FPS CS:GO
+                <h5>123</h5>
             </div>
             <div
                 class="
                     product-card__product-points-blue product-card__points-box
                 "
             >
-                <slot name="blue-points"></slot>
+                FPS GTA:V
+                <h5>93</h5>
             </div>
             <div class="product-card__buttons">
-                <slot name="buttons"></slot>
+                <button class="btn-circle btn-green">
+                    <span class="las la-angle-double-right"></span>
+                </button>
             </div>
         </div>
     </div>
 </template>
 
-<style lang="scss">
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator';
+import { Product } from '~/models/Product';
+import Pager from '~/helpers/Pager';
+import { FilterModel } from '~/models/FilterModel';
 
+@Component({})
+export default class StartingPage extends Vue {
+    private items: Product[] = [];
+
+    // TODO load week best fom api
+    public async created(): Promise<void> {
+        await this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
+        this.items = (
+            await this.$productService.getProducts(
+                new Pager(1, 5, 'Id', 'ASC'),
+                {
+                    category: 'cpu'
+                } as FilterModel
+            )
+        ).items;
+    }
+}
+</script>
+
+<style lang="scss">
 .product-card.week-best {
-    max-width: 100%;
+    width: 99%;
     margin-bottom: 60px;
 }
 
