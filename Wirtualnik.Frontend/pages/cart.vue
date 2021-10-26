@@ -9,11 +9,8 @@
                     Twój koszyk ({{ response.quantity }} przedmiotów)
                 </template>
             </CartProduct>
-            <CartProp />
-            <!-- Warnings TODO -->
             <CartWarningList />
         </div>
-        <!-- True discounts -->
     </div>
 </template>
 <script lang="ts">
@@ -21,7 +18,6 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import BreadCrumb from '@/components/navigation/Breadcrumb';
 import CartProduct from '@/components/common/CartProduct';
 import CartWarningList from '@/components/common/CartWarningList';
-import CartProp from '@/components/common/CartProp';
 import { CartSimpleModel } from '~/services/CartService';
 import { Product } from '~/models/Product';
 
@@ -30,7 +26,6 @@ import { Product } from '~/models/Product';
     components: {
         CartProduct,
         CartWarningList,
-        CartProp,
         BreadCrumb
     }
 })
@@ -41,7 +36,6 @@ export default class Cart extends Vue {
 
     public async created(): Promise<void> {
         await this.loadData();
-        console.log(this.cartItems);
         this.$store.commit('breadcrumb/SET_BREADCRUMBS', [
             {
                 name: 'Wirtualnik.pl',
