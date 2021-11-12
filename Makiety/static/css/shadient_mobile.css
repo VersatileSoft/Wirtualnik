@@ -272,3 +272,8 @@ flex: 1 1 61%;
 .comparisonTableCell p {
   text-align: center;
 }
+
+
+.userDetails {
+  margin-right: 0px;
+}

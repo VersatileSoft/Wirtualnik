@@ -634,7 +634,7 @@
 }
 
 .btnOrange:active {
-  box-shadow: 0px 0px 0px 2px rgba(245,171,53,0.4), 0px 0px 0px 6px rgba(245,171,53,0.3);
+  box-shadow: 0px 0px 0px 2px rgba(245,171,53,0.4), 0px 0px 0px 6px rgba(245,171,53,0.3) !important;
 }
 
 
@@ -843,6 +843,14 @@
   flex: 1 60%;
 }
 
+.thinColumn {
+  display: block;
+  width: 300px;
+  color: var(--black);
+  flex: 1 0 1%;
+  min-width: 300px;
+}
+
 .productCard.fullwidth {
   max-width: 100%;
   background: var(--white);
@@ -892,7 +900,6 @@
 .productDescription img {
   margin-left: 5px;
 }
-
 
 .featuredCart {
   max-width: 100%;
@@ -1856,4 +1863,154 @@
   box-shadow: var(--shadowcard);
   margin: -12px -12px 20px -12px;
   padding: 12px;
+}
+
+.greyContainer {
+  box-shadow: var(--shadowcard);
+  background-color: var(--semitransparent);
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.greyContainer .avatar {
+  height: 150px;
+  width: 150px;
+  border-radius: 75px;
+  margin: 15px 0;
+  overflow: hidden;
+  background-color: var(--transparent);
+}
+
+.avatar img {
+  width: 100%;
+  max-height: 100%;
+}
+
+.greyContainer p, .greyContainer h2 {
+  margin: 0;
+  line-height: 1.3em;
+}
+
+.achievements {
+  font-weight: 700;
+  color: var(--orange);
+}
+
+.userDetails {
+  margin-right: 10px;
+}
+
+
+.userHighlights {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.userHighlights > div {
+
+}
+
+.userHighlightsCard {
+  display: block;
+  min-height: 100px;
+  padding: 10px 10px;
+  border-radius: 20px;
+  background-color: var(--white);
+  box-shadow: var(--shadow10);
+  border: 1px solid var(--grey2);
+  transition: 0.1s ease-out;
+  color: var(--black);
+}
+
+.userHighlightsCard:hover > .userHighlightsCard p:hover {
+  color: var(--red) !important;
+}
+
+.userHighlightsCard p, b {
+  margin: 0;
+  line-height: 1em;
+}
+
+
+.userHighlightsCard b {
+  margin-bottom: 5px;
+}
+
+.userHighlightsCard p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100px;
+  margin: 0;
+}
+
+.userHighlights sub {
+  color: var(--grey4);
+}
+
+
+
+.userHighlightsCard img {
+  max-height: 100px;
+  margin: 0 10px;
+  float: left;
+}
+
+.userActionsOptions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0px;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+.userActionsOptions a {
+  color: var(--grey2);
+  transition: 0.1s ease-out;
+}
+
+.userActionsOptions a:hover {
+  color: var(--grey3);
+}
+
+.userActionsOptions a:active {
+  color: var(--grey4);
+}
+
+.userActionsContainer {
+  display: flex;
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+
+.userActionsContainer span:not(:last-child) {
+  border-bottom: 1px solid var(--grey3);
+}
+
+.userActionsContainer span {
+  display: flex;
+  flex: 100%;
+  padding: 15px 0;
+  align-items: center;
+}
+
+.userActionsContainer p {
+  min-width: 80px;
+
+}
+
+.userActionsContainer sub {
+  color: var(--grey4);
+  display: block;
+
+}
+
+.userActionsContainer a {
+  color: var(--orange);
+}
+
+.userActionsContainer a:hover {
+  text-decoration: underline;
 }
