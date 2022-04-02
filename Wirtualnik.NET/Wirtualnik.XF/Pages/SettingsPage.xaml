@@ -2,8 +2,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cells="clr-namespace:Wirtualnik.XF.Controls.Settings"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:pagemodels="clr-namespace:Wirtualnik.XF.PageModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    ios:Page.UseSafeArea="true"
+    Visual="Material">
 
     <ContentPage.Content>
         <Grid
@@ -11,6 +14,7 @@
             RowDefinitions="46,*"
             RowSpacing="0">
             <Frame
+                Margin="0,-8,0,0"
                 Padding="12,8"
                 BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
                                                   Dark={StaticResource CellBackgroundColorDark}}"

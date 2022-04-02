@@ -1,11 +1,17 @@
 ﻿<mvvm:ShellViewBase x:Class="Wirtualnik.XF.Views.FavoriteListView" x:DataType="viewmodels:FavoriteListViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.XF.Controls"
     xmlns:mvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
     x:TypeArguments="viewmodels:FavoriteListViewModel"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
-                                      Dark={StaticResource BackgroundColorDark}}">
+                                      Dark={StaticResource BackgroundColorDark}}"
+    ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
+    <Shell.TitleView>
+        <controls:WirtualnikTitleView />
+    </Shell.TitleView>
+
     <ContentPage.Content>
         <Grid>
             <Label

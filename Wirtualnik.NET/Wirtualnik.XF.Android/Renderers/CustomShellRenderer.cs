@@ -37,7 +37,7 @@ namespace Wirtualnik.XF.Droid.Renderers
 
     public class CustomShellItemRenderer : ShellItemRenderer
     {
-        BottomNavigationView _bottomView;
+        private BottomNavigationView _bottomView;
 
         public CustomShellItemRenderer(IShellContext shellContext) : base(shellContext)
         {

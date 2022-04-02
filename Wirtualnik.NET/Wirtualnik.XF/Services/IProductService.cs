@@ -7,7 +7,7 @@ namespace Wirtualnik.XF.Services
 {
     public interface IProductService
     {
-        public Task<IEnumerable<ListItemModel>> Search(Pager pager, Dictionary<string, string> filter);
+        public Task<IEnumerable<ListItemModel>> Search(Pager pager, FilterModel filter, Dictionary<string, string> dynamicFilter);
 
         public Task<DetailsModel> Fetch(string publicId);
     }

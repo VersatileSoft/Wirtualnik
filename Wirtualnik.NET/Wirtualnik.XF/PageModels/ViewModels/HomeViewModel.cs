@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Wirtualnik.Extensions;
-using Wirtualnik.XF.PageModels.Base;
+using Wirtualnik.XF.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Wirtualnik.XF.ViewModels
 {
-    public class HomeViewModel : BaseViewModel
+    public class HomeViewModel : BaseTabbarPageViewModel
     {
         public int remainingItemsThreshold { get; set; } = 1;
         public bool IsLoaded { get; set; }
@@ -13,7 +13,7 @@ namespace Wirtualnik.XF.ViewModels
         public SafeObservableCollection<int> ProductList { get; set; }
         public AsyncCommand LoadMoreItemsCommand { get; set; }
 
-        public HomeViewModel()
+        public HomeViewModel(INavigationService navigationService) : base(navigationService)
         {
             ProductList = new SafeObservableCollection<int>();
 

@@ -9,7 +9,7 @@ namespace Wirtualnik.XF.Controls
         public BaseShellTab()
         {
             fontImageSource.FontFamily = "la-solid";
-            fontImageSource.Size = 64;
+            fontImageSource.Size = 32;
             Icon = fontImageSource;
         }
 

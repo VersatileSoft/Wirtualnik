@@ -20,25 +20,30 @@
         </Style>
     </Shell.Resources>
 
-    <TabBar>
+    <TabBar x:Name="TabBar">
         <controls:BaseShellTab Title="Główna" Glyph="{StaticResource HomeIcon}">
-            <ShellContent ContentTemplate="{DataTemplate views:HomeView}" />
+            <!--<ShellContent ContentTemplate="{DataTemplate views:HomeView}" />-->
+            <views:HomeView />
         </controls:BaseShellTab>
 
         <controls:BaseShellTab Title="Stwórz" Glyph="{StaticResource AddIcon}">
-            <ShellContent ContentTemplate="{DataTemplate views:CreateView}" />
+            <!--<ShellContent ContentTemplate="{DataTemplate views:CreateView}" />-->
+            <views:CreateView />
         </controls:BaseShellTab>
 
         <controls:BaseShellTab Title="Polecane" Glyph="{StaticResource LikeIcon}">
-            <ShellContent ContentTemplate="{DataTemplate views:RecommendedListView}" />
+            <!--<ShellContent ContentTemplate="{DataTemplate views:RecommendedListView}" />-->
+            <views:RecommendedListView />
         </controls:BaseShellTab>
 
         <controls:BaseShellTab Title="Polubione" Glyph="{StaticResource HeartIcon}">
-            <ShellContent ContentTemplate="{DataTemplate views:FavoriteListView}" />
+            <!--<ShellContent ContentTemplate="{DataTemplate views:FavoriteListView}" />-->
+            <views:FavoriteListView />
         </controls:BaseShellTab>
 
         <controls:BaseShellTab Title="Porównywarka" Glyph="{StaticResource BalanceLeftIcon}">
-            <ShellContent ContentTemplate="{DataTemplate views:ComparisonView}" />
+            <!--<ShellContent ContentTemplate="{DataTemplate views:ComparisonView}" />-->
+            <views:ComparisonView />
         </controls:BaseShellTab>
     </TabBar>
 </Shell>

@@ -1,7 +1,7 @@
 ﻿<Application x:Class="Wirtualnik.XF.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <!--  xmlns:templates="clr-namespace:Wirtualnik.XF.Controls.Templates"  -->
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:templates="clr-namespace:Wirtualnik.XF.Controls.Templates">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -10,11 +10,7 @@
                 <!--<styles:PageStyle />-->
             </ResourceDictionary.MergedDictionaries>
 
-            <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
-                <Setter Property="NavigationPage.HasNavigationBar" Value="False" />
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
-            </Style>
-            <!--<templates:PageTemplate x:Key="PageTemplate" />-->
+            <templates:ShellTabbedPageTemplate x:Key="ShellTabbedPageTemplate" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

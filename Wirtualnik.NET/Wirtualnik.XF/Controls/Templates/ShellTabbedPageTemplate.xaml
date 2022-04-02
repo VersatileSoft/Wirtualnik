@@ -1,0 +1,8 @@
+﻿<ControlTemplate x:Class="Wirtualnik.XF.Controls.Templates.ShellTabbedPageTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.XF.Controls">
+    <controls:BaseTabbarPage x:Name="BaseTabbarPage">
+        <ContentPresenter />
+    </controls:BaseTabbarPage>
+</ControlTemplate>

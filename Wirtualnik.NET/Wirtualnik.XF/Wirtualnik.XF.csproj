@@ -26,32 +26,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514">
+    <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Polly" Version="7.2.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Polly" Version="7.2.3" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Sentry.Xamarin.Forms" Version="1.2.0" />
+    <PackageReference Include="Refit" Version="6.3.2" />
+    <PackageReference Include="Sentry.Xamarin.Forms" Version="1.3.2" />
     <PackageReference Include="Sharpnado.Shadows" Version="1.2.0" />
-    <PackageReference Include="TinyMvvm.Forms" Version="3.0.1-pre7" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
+    <PackageReference Include="TinyMvvm.Forms" Version="3.0.1" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0-pre1" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2083">
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2401">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj">
-      <TreatAsUsed>true</TreatAsUsed>
-    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -73,16 +69,16 @@
     <EmbeddedResource Update="Controls\Settings\SettingCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\Templates\BaseTabbarPageTemplate.xaml">
+    <EmbeddedResource Update="Controls\BaseTabbarPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\Templates\ShellTabbedPageTemplate.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\AppShellPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\SearchPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Views\BaseTabbarPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Views\ComparisonView.xaml">
@@ -117,6 +113,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\BaseTabbarPage.xaml.cs">
+      <DependentUpon>BaseTabbarPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\Views\CreateView.xaml.cs">
       <DependentUpon>CreateView.xaml</DependentUpon>
     </Compile>
@@ -134,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wirtualnik.Shared\Wirtualnik.Shared.csproj" />
   </ItemGroup>
 
 </Project>

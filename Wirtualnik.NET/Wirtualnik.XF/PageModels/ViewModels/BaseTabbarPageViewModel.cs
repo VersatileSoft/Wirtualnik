@@ -10,11 +10,16 @@ namespace Wirtualnik.XF.ViewModels
 {
     public class BaseTabbarPageViewModel : BaseViewModel
     {
+        public bool IsMenuOpened { get; set; }
+
         private readonly INavigationService navigationService;
 
         public AsyncCommand<Type> NavigateToCommand { get; }
         public AsyncCommand<Type> NavigateToModalCommand { get; }
         public AsyncCommand LogOutCommand { get; }
+
+        private AsyncCommand? openMenuCommand;
+        public AsyncCommand OpenMenuCommand => openMenuCommand ??= new AsyncCommand(() => OpenMenu(), allowsMultipleExecutions: false);
 
         public BaseTabbarPageViewModel(INavigationService navigationService)
         {
@@ -30,6 +35,13 @@ namespace Wirtualnik.XF.ViewModels
         {
             SecureStorage.RemoveAll();
             this.navigationService.SetMainPage<LoginPage>();
+
+            return Task.CompletedTask;
+        }
+
+        private Task OpenMenu()
+        {
+            IsMenuOpened = !IsMenuOpened;
 
             return Task.CompletedTask;
         }

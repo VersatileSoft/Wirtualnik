@@ -2,9 +2,8 @@
 
 namespace Wirtualnik.XF.Controls
 {
-    public partial class ScoreFrameControl : Frame
+    public partial class ScoreFrameControl : ContentView
     {
-        // TODO: check single Label with radial gradient background
         public ScoreFrameControl()
         {
             InitializeComponent();

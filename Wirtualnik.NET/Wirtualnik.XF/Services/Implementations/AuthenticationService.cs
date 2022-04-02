@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Wirtualnik.XF.Pages;
 using Xamarin.Essentials;
@@ -7,7 +8,8 @@ namespace Wirtualnik.XF.Services.Implementations
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private const string authenticationUrl = "https://zlcn.pro/auth/login/";
+        private const string authBaseUrl = "https://api.zlcn.pro/auth/login/";
+        private const string authUrlParam = "?callbackType=mobile";
 
         private readonly INavigationService navigationService;
 
@@ -16,20 +18,20 @@ namespace Wirtualnik.XF.Services.Implementations
             this.navigationService = navigationService;
         }
 
-        public async Task<bool> SignInAsync(string? scheme)
+        public async Task<bool> SignInAsync(string? provider)
         {
             var authToken = string.Empty;
             WebAuthenticatorResult? result = null;
 
             try
             {
-                if (string.IsNullOrEmpty(scheme) || (scheme.Equals("Apple") && DeviceInfo.Platform == DevicePlatform.iOS))
+                if (string.IsNullOrEmpty(provider) || (provider.Equals("Apple") && DeviceInfo.Platform == DevicePlatform.iOS))
                 {
                     result = await AppleSignInAuthenticator.AuthenticateAsync().ConfigureAwait(false);
                 }
                 else
                 {
-                    var authUrl = new Uri(authenticationUrl + scheme);
+                    var authUrl = new Uri(authBaseUrl + provider + authUrlParam);
                     var callbackUrl = new Uri($"{AppInfo.PackageName}://");
 
                     result = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl).ConfigureAwait(false);
@@ -40,6 +42,9 @@ namespace Wirtualnik.XF.Services.Implementations
                 {
                     return false;
                 }
+
+                var handler = new JwtSecurityTokenHandler();
+                var decodedValue = handler.ReadJwtToken(authToken);
 
                 await SecureStorage.SetAsync("oauth_token", authToken).ConfigureAwait(false);
                 this.navigationService.SetMainPage<MainPage>();

@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Sentry;
 using UIKit;
+using Wirtualnik.XF.iOS.Services;
+using Wirtualnik.XF.Services;
 using Xamarin.Forms;
 
 namespace Wirtualnik.XF.iOS
@@ -16,7 +18,7 @@ namespace Wirtualnik.XF.iOS
                 options.Dsn = "https://6d41b18b43a74862b64c0239985b9ee8@o866902.ingest.sentry.io/5823541";
 #if DEBUG
                 options.Debug = true;
-                options.TracesSampleRate = 0;
+                options.TracesSampleRate = 1.0;
 #endif
 #if RELEASE
                 options.TracesSampleRate = 1.0;
@@ -42,6 +44,7 @@ namespace Wirtualnik.XF.iOS
 
         private static void AddPlatformServices(IServiceCollection services)
         {
+            services.AddSingleton<IEnviroment, Enviroment>();
         }
 
         public override bool ContinueUserActivity(UIApplication application, NSUserActivity userActivity, UIApplicationRestorationHandler completionHandler)

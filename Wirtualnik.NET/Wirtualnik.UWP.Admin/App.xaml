@@ -5,9 +5,7 @@
     xmlns:local="using:Wirtualnik.UWP.Admin">
     <Application.Resources>
         <controls:XamlControlsResources>
-            <controls:XamlControlsResources.MergedDictionaries>
-
-            </controls:XamlControlsResources.MergedDictionaries>
+            <controls:XamlControlsResources.MergedDictionaries />
         </controls:XamlControlsResources>
     </Application.Resources>
 </Application>

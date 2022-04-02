@@ -1,5 +1,7 @@
-﻿using Polly;
+﻿using Acr.UserDialogs;
+using Polly;
 using Refit;
+using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace Wirtualnik.XF.Services.Implementations
             this.productClient = productClient;
         }
 
-        public async Task<IEnumerable<ListItemModel>> Search(Pager pager, Dictionary<string, string> filter)
+        public async Task<IEnumerable<ListItemModel>> Search(Pager pager, FilterModel filter, Dictionary<string, string> dynamicFilter)
         {
             // Handle both exceptions and return values in one policy
             HttpStatusCode[] httpStatusCodesWorthRetrying =
@@ -33,11 +35,22 @@ namespace Wirtualnik.XF.Services.Implementations
                 HttpStatusCode.NotFound // 404
             };
 
-            var result = await Policy
-                .Handle<ApiException>(r => httpStatusCodesWorthRetrying.Contains(r.StatusCode))
-                .WaitAndRetry(3, retryAttempt => TimeSpan.FromMilliseconds(1000))
-                .Execute(async () => await this.productClient.Search(pager, filter).ConfigureAwait(false))
-                .ConfigureAwait(false);
+            ApiResponse<Pagination<ListItemModel>> result = null!;
+
+            try
+            {
+                result = await Policy
+                    .Handle<ApiException>()
+                    .OrResult<ApiResponse<Pagination<ListItemModel>>>(r => httpStatusCodesWorthRetrying.Contains(r.StatusCode))
+                    .RetryAsync()
+                    .ExecuteAsync(async () => await this.productClient.Search(pager, filter, dynamicFilter).ConfigureAwait(false))
+                    .ConfigureAwait(false);
+            }
+            catch (ApiException ex)
+            {
+                SentrySdk.CaptureException(ex);
+                await UserDialogs.Instance.AlertAsync(ex.StackTrace, ex.InnerException.Message, "Ok").ConfigureAwait(false);
+            }
 
             //var result = await this.productClient.Search(new Pager(), new Dictionary<string, string>()).ConfigureAwait(false);
 
@@ -45,8 +58,6 @@ namespace Wirtualnik.XF.Services.Implementations
             {
                 return default!;
             }
-
-
 
             return result.Content.Items;
         }

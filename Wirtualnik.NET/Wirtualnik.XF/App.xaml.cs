@@ -32,8 +32,7 @@ namespace Wirtualnik.XF
         {
             string token = await SecureStorage.GetAsync("oauth_token").ConfigureAwait(false);
 
-            // https://github.com/xamarin/Xamarin.Forms/issues/11993
-            MainPage = new AppShellPage(); //new NavigationPage(new MainPage());
+            MainPage = new LoginPage(); //new AppShellPage(); //new NavigationPage(new MainPage());
 
             //if (string.IsNullOrEmpty(token))
             //{
@@ -41,7 +40,6 @@ namespace Wirtualnik.XF
             //}
             //else
             //{
-            //    // https://github.com/xamarin/Xamarin.Forms/issues/11993
             //    MainPage = new NavigationPage(new MainPage());
             //}
 

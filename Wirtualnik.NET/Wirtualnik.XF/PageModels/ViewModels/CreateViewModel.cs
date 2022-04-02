@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Wirtualnik.Extensions;
-using Wirtualnik.Shared.ApiClient;
 using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Product;
-using Wirtualnik.XF.PageModels.Base;
 using Wirtualnik.XF.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace Wirtualnik.XF.ViewModels
 {
@@ -20,18 +20,25 @@ namespace Wirtualnik.XF.ViewModels
 
         public SafeObservableCollection<ListItemModel> ProductList { get; set; }
 
+        #region Commands
         private AsyncCommand? loadMoreItemsCommand;
-        public AsyncCommand LoadMoreItemsCommand => loadMoreItemsCommand ??= new AsyncCommand(async () => await LoadMoreDataAsync().ConfigureAwait(false), allowsMultipleExecutions: false);
-
-        private AsyncCommand? refreshListCommand;
-        public AsyncCommand RefreshListCommand => refreshListCommand ??= new AsyncCommand(async () =>
+        public AsyncCommand LoadMoreItemsCommand => loadMoreItemsCommand ??= new AsyncCommand(async () =>
         {
+            await LoadMoreDataAsync().ConfigureAwait(false);
+        }, allowsMultipleExecutions: false);
+
+        // https://github.com/xamarin/Xamarin.Forms/issues/14350
+        private ICommand? refreshListCommand;
+        public ICommand RefreshListCommand => refreshListCommand ??= new Command(async () =>
+        {
+            IsLoaded = false;
             remainingItemsThreshold = -1;
             pageIndex = 0;
             ProductList.Clear();
-            IsLoaded = false;
             await LoadDataAsync().ConfigureAwait(false);
-        }, allowsMultipleExecutions: false);
+        });
+        #endregion Commands
+
 
         public CreateViewModel(INavigationService navigationService, IProductService productService) : base(navigationService)
         {
@@ -57,17 +64,18 @@ namespace Wirtualnik.XF.ViewModels
             var pager = new Pager();
             pager.PageIndex = 0;
 
-            var result = await this.productService.Search(pager, new Dictionary<string, string>()).ConfigureAwait(false);
+            var result = await this.productService.Search(pager, new FilterModel(), new Dictionary<string, string>()).ConfigureAwait(false);
 
             if (result?.Any() != true)
             {
+                IsLoaded = true;
                 return;
             }
 
             ProductList.AddRange(result);
 
-            IsLoaded = true;
             remainingItemsThreshold = 1;
+            IsLoaded = true;
             return;
         }
 
@@ -82,7 +90,7 @@ namespace Wirtualnik.XF.ViewModels
             var pager = new Pager();
             pager.PageIndex = pageIndex++;
 
-            var result = await this.productService.Search(pager, new Dictionary<string, string>()).ConfigureAwait(false);
+            var result = await this.productService.Search(pager, new FilterModel(), new Dictionary<string, string>()).ConfigureAwait(false);
 
             if (result?.Any() != true)
             {

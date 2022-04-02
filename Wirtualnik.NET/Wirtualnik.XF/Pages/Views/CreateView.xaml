@@ -2,41 +2,34 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cells="clr-namespace:Wirtualnik.XF.Controls.Cells"
+    xmlns:controls="clr-namespace:Wirtualnik.XF.Controls"
+    xmlns:converters="clr-namespace:Wirtualnik.XF.Converters"
     xmlns:models="clr-namespace:Wirtualnik.Shared.Models.Product;assembly=Wirtualnik.Shared"
     xmlns:mvvm="clr-namespace:TinyMvvm.Forms;assembly=TinyMvvm.Forms"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:TypeArguments="viewmodels:CreateViewModel"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
-                                      Dark={StaticResource BackgroundColorDark}}">
-    <Shell.TitleView>
-        <Grid
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"
-            CompressedLayout.IsHeadless="True">
-            <Label
-                Margin="0,3,0,0"
-                HorizontalOptions="Start"
-                VerticalOptions="Center"
-                FontFamily="PoppinsBold"
-                FontSize="22"
-                Text="WIRTUALNIK"
-                TextColor="{AppThemeBinding Light={StaticResource RedAccentColorLight},
-                                            Dark={StaticResource RedAccentColorDark}}" />
-        </Grid>
-    </Shell.TitleView>
-    <!--<ContentView.Resources>
+                                      Dark={StaticResource BackgroundColorDark}}"
+    ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
+    <mvvm:ShellViewBase.Resources>
         <ResourceDictionary>
             <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <converters:ReturnWithDelayConverter x:Key="ReturnWithDelayConverter" />
         </ResourceDictionary>
-    </ContentView.Resources>-->
+    </mvvm:ShellViewBase.Resources>
+    <Shell.TitleView>
+        <controls:WirtualnikTitleView />
+    </Shell.TitleView>
 
-    <!--  RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}"  -->
+    <!--  RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}" IsEnabled="{Binding IsLoaded}"  -->
     <ContentPage.Content>
+        <!--  Refreshing on iOS can jitter due to issue https://github.com/xamarin/Xamarin.Forms/issues/14429  -->
         <RefreshView
-            BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
-                                              Dark={StaticResource CellBackgroundColorDark}}"
+            BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                              Dark={StaticResource BackgroundColorDark}}"
             Command="{Binding RefreshListCommand}"
-            IsEnabled="{Binding IsLoaded}"
+            IsRefreshing="{Binding IsLoaded, Converter={StaticResource InvertedBoolConverter}}"
             RefreshColor="{AppThemeBinding Light={StaticResource RedAccentColorLight},
                                            Dark={StaticResource RedAccentColorDark}}">
             <CollectionView x:Name="collectionView"
@@ -62,11 +55,11 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 
-                <CollectionView.Footer>
+                <!--<CollectionView.Footer>
                     <StackLayout
                         Padding="16"
-                        HorizontalOptions="Center"
-                        IsVisible="{Binding IsLoaded}">
+                        HorizontalOptions="Fill"
+                        IsVisible="{Binding IsLoaded, Converter={StaticResource ReturnWithDelayConverter}}">
                         <ActivityIndicator
                             HorizontalOptions="Center"
                             IsRunning="True"
@@ -79,7 +72,7 @@
                             TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
                                                         Dark={StaticResource ContrastColorDark}}" />
                     </StackLayout>
-                </CollectionView.Footer>
+                </CollectionView.Footer>-->
             </CollectionView>
         </RefreshView>
     </ContentPage.Content>

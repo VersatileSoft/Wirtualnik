@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Acr.UserDialogs;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Wirtualnik.XF.Services.Implementations
 {
