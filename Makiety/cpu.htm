@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+	<title>Wirtualnik.pl - Stwórz swój wymarzony komputer!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/global_mobile.css">
+	<link rel="stylesheet" href="css/icons.css">
+
+	<link rel="stylesheet" href="css/products.css">
+	<link rel="stylesheet" href="css/products_mobile.css">
+  <link rel="stylesheet" href="css/search.css">
+	<link rel="stylesheet" href="css/search_mobile.css">
+
+</head>
+
+<body id="App">
+  <div class="container">
+    <div class="sidebar" style="display:none">
+			<div>
+				<h1 style="color:var(--gray3);font-weight:900">WIRTUALNIK</h1>
+				<div class="categories">
+
+
+
+					<button class="widebutton">
+						<span class="icon-user"></span>
+						<p>Zaloguj</p>
+					</button>
+					<div class="divider"></div>
+					<button class="widebutton">
+						<span class="icon-save"></span>
+						<p>Zapisane</p>
+					</button>
+
+					<button class="widebutton">
+						<span class="icon-like"></span>
+						<p>Polubione</p>
+					</button>
+					<button class="widebutton">
+						<span class="icon-cart"><sub>14</sub></span>
+		        <p>Koszyk</p>
+		      </button>
+					<button class="widebutton" onclick="DarkModeToggle()">
+		        <p>Dark mode off/on</p>
+		      </button>
+				</div>
+	    </div>
+		</div>
+
+
+		<div class="main">
+			<div class="header">
+				<div class="logo">
+					<h1>WIRTUALNIK</h1>
+					<a href="javascript:void(0);" onclick="SearchBoxToggle();document.getElementById('searchBoxInput').focus(); return false;"><span class="icon-search"></span> Szukaj (Ctrl+K)</a>
+				</div>
+				<div class="headerExtras">
+					<a href="javascript:void(0);" onclick="DarkModeToggle()">Tryb nocny/dzienny</a>
+					<button class="headerButton">
+						<span class="icon-user"></span>
+						Twoje konto
+					</button>
+					<button class="headerButton">
+						<span class="icon-cart"></span>
+						2138 PLN
+					</button>
+				</div>
+
+			</div>
+			<div class="searchBox" id="searchBox" style="display:none">
+		    <input type="text" placeholder="Szukaj..." id="searchBoxInput">
+		  </div>
+
+			<div class="content">
+
+				<div class="productlistmain"><div class="categories">
+					<button class="categorybutton active">
+						<span class="icon-cpu"></span><br>
+						Procesory
+					</button>
+
+					<button class="categorybutton">
+						<span class="icon-motherboard"></span><br>
+						Płyty główne
+					</button>
+
+					<button class="categorybutton">
+						<span class="icon-ram"></span><br>
+						Pamięci RAM
+					</button>
+
+					<button class="categorybutton">
+						<span class="icon-gpu"></span><br>
+						Karty graficzne
+					</button>
+
+					<button class="categorybutton">
+						<span class="icon-ssd"></span><br>
+						Dyski SSD
+					</button>
+					<button class="categorybutton">
+						<span class="icon-hdd"></span><br>
+						Dyski HDD
+					</button>
+					<button class="categorybutton">
+						<span class="icon-case"></span><br>
+						Obudowy
+					</button>
+					<button class="categorybutton">
+						<span class="icon-psu"></span><br>
+						Zasilacze
+					</button>
+					<div class="divider-horizontal"></div>
+					<button class="categorybutton">
+						<span class="icon-cooler"></span><br>
+						Chłodzenia
+					</button>
+					<button class="categorybutton">
+						<span class="icon-mouse"></span><br>
+						Myszki
+					</button>
+					<button class="categorybutton">
+						<span class="icon-keyboard"></span><br>
+						Klawiatury
+					</button>
+					<button class="categorybutton">
+						<span class="icon-headphones"></span><br>
+						Słuchawki
+					</button>
+					<button class="categorybutton">
+						<span class="icon-monitor"></span><br>
+						Monitory
+					</button>
+				</div>
+				<div class="products-filter">
+					<div class="products-filter2">
+						<button class="products-filter-item">
+							GT 1030
+						</button>
+						<button class="products-filter-item">
+							GTX 1650
+						</button>
+						<button class="products-filter-item">
+							GTX 1660
+						</button>
+					</div>
+					<div class="products-filter2">
+						<button class="products-filter-item">
+							RTX 3050
+						</button>
+						<button class="products-filter-item">
+							RTX 3060
+						</button>
+						<button class="products-filter-item">
+							RTX 3060 Ti
+						</button>
+						<button class="products-filter-item">
+							RTX 3070
+						</button>
+						<button class="products-filter-item">
+							RTX 3070 Ti
+						</button>
+						<button class="products-filter-item">
+							RTX 3080
+						</button>
+						<button class="products-filter-item">
+							RTX 3080 Ti
+						</button>
+						<button class="products-filter-item">
+							RTX 3090
+						</button>
+					</div>
+					<div class="products-filter2">
+						<button class="products-filter-item">
+							RX 6500 XT
+						</button>
+						<button class="products-filter-item">
+							RX 6600
+						</button>
+						<button class="products-filter-item">
+							RX 6600 XT
+						</button>
+						<button class="products-filter-item">
+							RX 6700
+						</button>
+						<button class="products-filter-item">
+							RX 6700 XT
+						</button>
+					</div>
+				</div>
+					<div class="divider"></div>
+				<div class="products-filter-extra">
+					<div class="products-filter-priceslider">
+						Slider cenowy
+					</div>
+					<div class="products-filter-quickfliters">
+						<button class="products-filter-item color3">
+							Mini ITX
+						</button>
+						<button class="products-filter-item color3 active">
+							Micro ATX
+						</button>
+						<button class="products-filter-item color3">
+							ATX
+						</button>
+
+						<button class="products-filter-item color3">
+							4x RAM
+						</button>
+						<button class="products-filter-item color3 active">
+							2x M.2 NVMe
+						</button>
+						<button class="products-filter-item color3">
+							6+ SATA
+						</button>
+					</div>
+
+					<div class="products-filter-sorting" onclick="DarkModeToggle()">
+						<span class="icon-sort-az"></span><span class="sorting-chosen">Alfabetycznie A-Z</span>
+					</div>
+				</div></div>
+
+
+				<div class="products-grid">
+
+					<div class="product-card"><a href="">
+						<div class="product-card-img">
+							<img src="img/placeholder.png">
+						</div>
+						AMD Ryzen 3 3100</a>
+						<p>
+							AM4, 4 rdzenie, 8 wątków, Zen2<br>
+						</p>
+						<div class="details-grid">
+							<div>
+								<p>KONFIGURACJA</p>
+								<b>4 rdzenie, 8 wątków</b>
+							</div>
+							<div>
+								<p>Takt. typowe / boost</p>
+								<b>3.1GHz / 4GHz</b>
+							</div>
+							<div>
+								<p>Geekbench 5 SC / MC</p>
+								<b>1100 / 3950 </b>
+							</div>
+							<div>
+								<p>TDP</p>
+								<b>65W </b>
+							</div>
+						</div>
+
+						<div class="product-card-buttons">
+							<button class="products-filter-item"><span class="icon-compare"></span></button>
+							<button class="products-filter-item color1"><span class="icon-cartadd"></span> 424.32 PLN</button>
+						</div>
+					</div>
+
+					<div class="product-card"><div class="product-card-img"><img src="img/placeholder.png"></div><h2>AMD Ryzen 3 3100</h2><p>AM4, 4 rdzenie, 8 wątków, Zen2<br></p><div class="details-grid"><div><p>KONFIGURACJA</p><b>4 rdzenie, 8 wątków</b></div><div><p>Takt. typowe / boost</p><b>3.1GHz / 4GHz</b></div><div><p>Geekbench 5 SC / MC</p><b>1100 / 3950 </b></div><div><p>TDP</p><b>65W </b></div></div><div class="product-card-buttons"><button class="products-filter-item"><span class="icon-compare"></span></button><button class="products-filter-item color1"><span class="icon-cartadd"></span> 424.32 PLN</button></div></div>
+
+					<div class="product-card"><div class="product-card-img"><img src="img/placeholder.png"></div><h2>AMD Ryzen 3 3100</h2><p>AM4, 4 rdzenie, 8 wątków, Zen2<br></p><div class="details-grid"><div><p>KONFIGURACJA</p><b>4 rdzenie, 8 wątków</b></div><div><p>Takt. typowe / boost</p><b>3.1GHz / 4GHz</b></div><div><p>Geekbench 5 SC / MC</p><b>1100 / 3950 </b></div><div><p>TDP</p><b>65W </b></div></div><div class="product-card-buttons"><button class="products-filter-item"><span class="icon-compare"></span></button><button class="products-filter-item color1"><span class="icon-cartadd"></span> 424.32 PLN</button></div></div>
+
+					<div class="product-card"><div class="product-card-img"><img src="img/placeholder.png"></div><h2>AMD Ryzen 3 3100</h2><p>AM4, 4 rdzenie, 8 wątków, Zen2<br></p><div class="details-grid"><div><p>KONFIGURACJA</p><b>4 rdzenie, 8 wątków</b></div><div><p>Takt. typowe / boost</p><b>3.1GHz / 4GHz</b></div><div><p>Geekbench 5 SC / MC</p><b>1100 / 3950 </b></div><div><p>TDP</p><b>65W </b></div></div><div class="product-card-buttons"><button class="products-filter-item"><span class="icon-compare"></span></button><button class="products-filter-item color1"><span class="icon-cartadd"></span> 424.32 PLN</button></div></div>
+
+					<div class="product-card"><div class="product-card-img"><img src="img/placeholder.png"></div><h2>AMD Ryzen 3 3100</h2><p>AM4, 4 rdzenie, 8 wątków, Zen2<br></p><div class="details-grid"><div><p>KONFIGURACJA</p><b>4 rdzenie, 8 wątków</b></div><div><p>Takt. typowe / boost</p><b>3.1GHz / 4GHz</b></div><div><p>Geekbench 5 SC / MC</p><b>1100 / 3950 </b></div><div><p>TDP</p><b>65W </b></div></div><div class="product-card-buttons"><button class="products-filter-item"><span class="icon-compare"></span></button><button class="products-filter-item color1"><span class="icon-cartadd"></span> 424.32 PLN</button></div></div>
+
+					<div class="product-card"><div class="product-card-img"><img src="img/placeholder.png"></div><h2>AMD Ryzen 3 3100</h2><p>AM4, 4 rdzenie, 8 wątków, Zen2<br></p><div class="details-grid"><div><p>KONFIGURACJA</p><b>4 rdzenie, 8 wątków</b></div><div><p>Takt. typowe / boost</p><b>3.1GHz / 4GHz</b></div><div><p>Geekbench 5 SC / MC</p><b>1100 / 3950 </b></div><div><p>TDP</p><b>65W </b></div></div><div class="product-card-buttons"><button class="products-filter-item"><span class="icon-compare"></span></button><button class="products-filter-item color1"><span class="icon-cartadd"></span> 424.32 PLN</button></div></div>
+
+
+
+				</div>
+					<br><br><br><br><br><br><br><br><br>
+			</div>
+		</div>
+
+
+
+  </div>
+<script src="js/dark.js"></script>
+</body>
+</html>

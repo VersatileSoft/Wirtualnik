@@ -1,0 +1,133 @@
+@font-face {
+  font-family: 'icomoon';
+  src:
+    url('../fonts/icomoon.ttf?goy4nt') format('truetype'),
+    url('../fonts/icomoon.woff?goy4nt') format('woff'),
+    url('../fonts/icomoon.svg?goy4nt#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 20px;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cartadd:before {
+  content: "\e916";
+}
+.icon-cart:before {
+  content: "\e917";
+}
+.icon-editprofile:before {
+  content: "\e918";
+}
+.icon-user:before {
+  content: "\e919";
+}
+.icon-login:before {
+  content: "\e91a";
+}
+.icon-compare:before {
+  content: "\e91b";
+}
+.icon-love:before {
+  content: "\e913";
+}
+.icon-save:before {
+  content: "\e914";
+}
+.icon-like:before {
+  content: "\e915";
+}
+.icon-more:before {
+  content: "\e91c";
+}
+.icon-sort-desc:before {
+  content: "\e91d";
+}
+.icon-sort-asc:before {
+  content: "\e91e";
+}
+.icon-sort-za:before {
+  content: "\e91f";
+}
+.icon-sort-az:before {
+  content: "\e920";
+}
+.icon-sort:before {
+  content: "\e921";
+}
+.icon-microphone:before {
+  content: "\e90b";
+}
+.icon-headphones:before {
+  content: "\e90c";
+}
+.icon-laptop:before {
+  content: "\e90d";
+}
+.icon-monitor:before {
+  content: "\e90f";
+}
+.icon-keyboard:before {
+  content: "\e911";
+}
+.icon-mouse:before {
+  content: "\e912";
+}
+.icon-intel:before {
+  content: "\e90e";
+}
+.icon-nvidia:before {
+  content: "\e90a";
+  color: #76b900;
+}
+.icon-amd:before {
+  content: "\e910";
+}
+.icon-summary:before {
+  content: "\e909";
+}
+.icon-cooler:before {
+  content: "\e900";
+}
+.icon-cpu:before {
+  content: "\e901";
+}
+.icon-gpu:before {
+  content: "\e902";
+}
+.icon-hdd:before {
+  content: "\e903";
+}
+.icon-motherboard:before {
+  content: "\e904";
+}
+.icon-psu:before {
+  content: "\e905";
+}
+.icon-ram:before {
+  content: "\e906";
+}
+.icon-ssd:before {
+  content: "\e907";
+}
+.icon-case:before {
+  content: "\e908";
+}
+.icon-search:before {
+  content: "\e922";
+}

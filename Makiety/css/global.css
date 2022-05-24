@@ -1,0 +1,210 @@
+@font-face { font-family:'Poppins Devanagari';src:url(../fonts/PoppinsVF.woff2) format("woff2");font-weight:100 800;font-display: fallback}
+
+:root {
+  --transparent: hsla(0,0%,100%,0);
+  --semitransparent: #e8eef185;
+  --divider: #0e10100f;
+  --background: #eff4f7;
+  --gray1: #f4f9fb;
+  --gray2: #eaeff1;
+  --gray3: #c5cbcd;
+  --gray4: #91999d;
+  --white: #fff;
+  --black: #000;
+  --accent: #ffaa16;
+  --accentlight2: #f9ca77;
+  --accentlight: #fff9e2;
+  --shadow20: 0px 5px 15px 0px rgba(0,0,0,0.1);
+  --orange: orange;
+  --orangelight: #fdf0d7;
+  --green: #1fd71f;
+  --greenlight: #dcfbdc;
+  --blue: #3eb4f3;
+  --bluelight: #e0f1f9;
+}
+
+[data-theme="dark"] {
+  --transparent: hsla(0,0%,100%,0);
+  --semitransparent: #2a2b2c85;
+    --divider: #effbff0f;
+    --background: #151718;
+    --gray1: #1b1e20;
+    --gray2: #212426;
+    --gray3: #606568;
+    --gray4: #ababab;
+    --white: #181b1c;
+    --black: #fff;
+    --accent: #ffaa16;
+    --accentlight2: #ffaa16;
+    --accentlight: #fff9e2;
+    --shadow20: 0px 5px 15px 0px rgba(0,0,0,0.1);
+    --orange: orange;
+    --orangelight: #282620;
+    --green: #1fd71f;
+    --greenlight: #dcfbdc;
+    --blue: #3eb4f3;
+    --bluelight: #1f252e;
+}
+
+
+body {
+    background-color:var(--background);
+    color:var(--black);
+    font-family:'Poppins Devanagari',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    min-width:320px;
+    font-size: 15px;
+    margin:    0 auto;
+}
+
+button {
+  font-family:'Poppins Devanagari',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+input {
+  font-family:'Poppins Devanagari',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.container {
+  display: flex;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.main {
+  margin: 10px 0px;
+  flex: 0 1 100%;
+}
+
+.sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  float: left;
+  width: 300px;
+  margin: 0px 10px;
+}
+
+.sidebar > * {
+  position: fixed;
+}
+
+.sidebar > *:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.divider {
+  border-bottom: 1px solid var(--divider);
+  margin: 20px 0px;
+}
+
+.widebutton {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 16px;
+  padding: 10px 10px;
+  color: var(--gray3);
+  background-color: transparent;
+  border: 0;
+  border-radius: 10px;
+}
+
+.widebutton:hover {
+  color: var(--gray4);
+  background-color: var(--gray1);
+}
+
+.widebutton:active {
+  box-shadow: 0px 0px 0px 1px var(--gray3);
+}
+
+.widebutton span sub {
+  font-size: 10px;
+  display: inline-flex;
+  position: absolute;
+  color: var(--white);
+  background-color: var(--accent);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--transparent);
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.header a {
+  color: var(--gray4);
+  text-decoration: none;
+  transition: 0.1s ease-out;
+}
+
+.header a:hover {
+  color: var(--gray5);
+  transition: 0s;
+  text-decoration: underline;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo h1 {
+  margin: 0;
+  display: inline;
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--accent);
+  margin-right: 20px;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  color: var(--gray4);
+}
+
+.logo span {
+  font-size: 16px;
+  margin-right:3px;
+}
+
+.headerExtras {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.headerButton {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 5px 15px;
+  color: var(--accent);
+  background-color: var(--orangelight);
+  border: 1px solid var(--accent);
+  box-shadow: 0px 2px 5px 0px var(--gray2);
+  transition: 0.1s ease-out;
+}
+
+.headerButton:hover {
+  box-shadow: 0px 2px 5px 0px var(--gray2);
+  filter: brightness(1.05);
+  transition: 0s;
+}
+
+.headerButton span {
+  font-size: 15px;
+  margin-right: 5px;
+}

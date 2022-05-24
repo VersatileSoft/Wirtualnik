@@ -1,0 +1,32 @@
+.searchBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 5px;
+
+}
+
+.searchBox input[type="text"] {
+  font-size: 15px;
+  color:var(--black);
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color:var(--white);
+  border: 1px solid var(--gray1);
+  width: 100%;
+  transition: 0.1s ease-out;
+  box-shadow: var(--shadow20);
+}
+
+.searchBox input[type="text"]::placeholder {
+  color:var(--gray4);
+}
+
+.searchBox input[type="text"]:focus {
+  outline: none;
+  box-shadow: var(--shadow20), var(--shadow20);
+}
+
+.searchBox input[type="text"]:focus::placeholder {
+  color:transparent;
+}

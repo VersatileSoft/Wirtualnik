@@ -1,0 +1,55 @@
+@media only screen and (max-width: 1260px) {
+
+
+  .sidebar {
+    display: flex;
+    bottom: 5px;
+    justify-content: center;
+    width: 100%;
+    position: fixed;
+  }
+
+  .sidebar > * {
+    display: block;
+    position: relative;
+    background-color: var(--semitransparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+  }
+
+  .sidebar .widebutton {
+    width: 48px;
+    justify-content: center;
+  }
+
+  .categories {
+    display: flex;
+    padding: 5px;
+  }
+
+  .categories > *:not(:last-child) {
+    margin-bottom: 0px !important;
+  }
+
+
+
+  .sidebar .widebutton p {
+    display: none;
+  }
+
+  .sidebar h1 {
+    display: none;
+  }
+
+  .main {
+        max-width: 100%;
+        margin: 0;
+  }
+
+  .content .categories {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+}

@@ -1,0 +1,29 @@
+@media only screen and (max-width: 1260px) {
+
+  .products-grid {
+    margin-top: 20px;
+  }
+  .product-card {
+    width: 320px;
+    padding: 10px 10px;
+  }
+
+  .product-card-img {
+    float: left;
+    margin-right: 15px;
+  }
+
+  .product-card img {
+    height: 100px;
+  }
+
+
+  .content {
+    padding: 2px 2px;
+    border-radius: 10px;
+  }
+
+
+
+
+}
