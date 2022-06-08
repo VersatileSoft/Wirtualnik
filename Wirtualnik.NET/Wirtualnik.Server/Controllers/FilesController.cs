@@ -41,7 +41,7 @@ namespace Wirtualnik.Server.Controllers
         {
             var result = new List<Image>();
 
-            foreach(var id in ids)
+            foreach (var id in ids)
             {
                 var image = await _filesService.FindAsync<Image>(id);
                 if (image == null)

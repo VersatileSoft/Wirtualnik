@@ -79,7 +79,7 @@ namespace Wirtualnik.Service.Services
             var token = await GenerateToken(user);
             if (token is null)
             {
-                _logger.LogError($"Token generation failed for user: { user.Email }. Provider: Facebook");
+                _logger.LogError($"Token generation failed for user: {user.Email}. Provider: Facebook");
                 return new LoginResult
                 {
                     Success = false,
@@ -116,7 +116,7 @@ namespace Wirtualnik.Service.Services
 
             if (token is null)
             {
-                _logger.LogError($"Token generation failed for user: { user.Email }. Provider: Password login");
+                _logger.LogError($"Token generation failed for user: {user.Email}. Provider: Password login");
             }
 
             return new LoginResult
