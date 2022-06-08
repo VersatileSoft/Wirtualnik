@@ -27,7 +27,7 @@ namespace Wirtualnik.Service.Services.ShopParsers
             XDocument doc = XDocument.Parse(response);
             var offers = doc?.Root?.Elements() ?? new List<XElement>();
 
-            var offer = offers.First(offer => 
+            var offer = offers.First(offer =>
             offer
             .Elements()
             .First(e => e.Name.LocalName == "attrs")
@@ -37,7 +37,7 @@ namespace Wirtualnik.Service.Services.ShopParsers
 
             var url = offer.Attributes().First(a => a.Name == "url").Value;
             var price = offer.Attributes().First(n => n.Name == "price").Value + "f";
-            
+
             return new ProductShop
             {
                 Available = true,

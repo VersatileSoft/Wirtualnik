@@ -51,7 +51,7 @@ namespace Wirtualnik.Service.Services
         public async Task<IEnumerable<string>> GetProductDetailsImages(Product product)
         {
             var images = await _filesService.GetImages(product.Images);
-            
+
             return images
                 .Where(i => i.Width == 200 && i.Height == 200)
                 .OrderByDescending(i => i.Main)

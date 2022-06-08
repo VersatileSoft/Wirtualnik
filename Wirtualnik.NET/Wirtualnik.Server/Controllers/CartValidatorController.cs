@@ -47,7 +47,7 @@ namespace Wirtualnik.Server.Controllers
         public async Task<ActionResult> Create([FromBody] CartValidatorModel model)
         {
             var cartValidator = _mapper.Map<CartValidator>(model);
-            var result =  await _cartValidatorService.CreateAsync(cartValidator);
+            var result = await _cartValidatorService.CreateAsync(cartValidator);
 
             return CreatedAtAction(nameof(this.Fetch), this.GetType().Name.Replace("Controller", ""), new { id = result.Id }, _mapper.Map<CartValidatorModel>(result));
         }
