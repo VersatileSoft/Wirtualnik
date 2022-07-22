@@ -1,0 +1,49 @@
+﻿<Shell x:Class="Wirtualnik.Maui.Pages.AppShellPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
+    xmlns:views="clr-namespace:Wirtualnik.Maui.Views"
+    Shell.BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
+                                            Dark={StaticResource CellBackgroundColorDark}}"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.ForegroundColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                            Dark={StaticResource ContrastColorDark}}"
+    Shell.TitleColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                       Dark={StaticResource ContrastColorDark}}"
+    Visual="Material">
+
+    <Shell.Resources>
+        <Style TargetType="TabBar">
+            <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource CellBackgroundColorLight}, Dark={StaticResource CellBackgroundColorDark}}" />
+            <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource RedAccentColorLight}, Dark={StaticResource RedAccentColorDark}}" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource TabUnselectedColorLight}, Dark={StaticResource TabUnselectedColorDark}}" />
+        </Style>
+    </Shell.Resources>
+
+    <TabBar x:Name="TabBar">
+        <controls:BaseShellTab Title="Główna" Glyph="{StaticResource HomeIcon}">
+            <!--<ShellContent ContentTemplate="{DataTemplate views:HomeView}" />-->
+            <views:HomeView />
+        </controls:BaseShellTab>
+
+        <controls:BaseShellTab Title="Stwórz" Glyph="{StaticResource AddIcon}">
+            <!--<ShellContent ContentTemplate="{DataTemplate views:CreateView}" />-->
+            <views:CreateView />
+        </controls:BaseShellTab>
+
+        <controls:BaseShellTab Title="Polecane" Glyph="{StaticResource LikeIcon}">
+            <!--<ShellContent ContentTemplate="{DataTemplate views:RecommendedListView}" />-->
+            <views:RecommendedListView />
+        </controls:BaseShellTab>
+
+        <controls:BaseShellTab Title="Polubione" Glyph="{StaticResource HeartIcon}">
+            <!--<ShellContent ContentTemplate="{DataTemplate views:FavoriteListView}" />-->
+            <views:FavoriteListView />
+        </controls:BaseShellTab>
+
+        <controls:BaseShellTab Title="Porównywarka" Glyph="{StaticResource BalanceLeftIcon}">
+            <!--<ShellContent ContentTemplate="{DataTemplate views:ComparisonView}" />-->
+            <views:ComparisonView />
+        </controls:BaseShellTab>
+    </TabBar>
+</Shell>

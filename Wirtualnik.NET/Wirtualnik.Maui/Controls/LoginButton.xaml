@@ -1,0 +1,28 @@
+﻿<Frame x:Class="Wirtualnik.Maui.Controls.LoginButton"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    HeightRequest="44"
+    Margin="2"
+    Padding="0"
+    xct:TouchEffect.NativeAnimation="True"
+    CornerRadius="4">
+    <Grid ColumnDefinitions="36,*" ColumnSpacing="0">
+        <Image x:Name="providerLogoImage"
+            Margin="6,4,0,4"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                Dark=White}"
+            Source="apple_logo.xml" />
+
+        <Label x:Name="providerTextLabel"
+            Grid.Column="1"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            FontSize="16"
+            Text="Sign in with Apple"
+            TextColor="{AppThemeBinding Light=Black,
+                                        Dark=White}" />
+    </Grid>
+</Frame>

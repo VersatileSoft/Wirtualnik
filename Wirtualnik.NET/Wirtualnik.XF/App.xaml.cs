@@ -59,8 +59,7 @@ namespace Wirtualnik.XF
 
             ServiceProvider = services.BuildServiceProvider();
 
-            var resolver = new MicrosoftDIResolver(ServiceProvider);
-            Resolver.SetResolver(resolver);
+            Resolver.SetResolver(new MicrosoftDIResolver(ServiceProvider));
         }
     }
 }

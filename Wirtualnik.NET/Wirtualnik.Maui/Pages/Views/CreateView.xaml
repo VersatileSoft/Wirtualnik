@@ -1,0 +1,79 @@
+﻿<mvvm:ShellViewBase x:Class="Wirtualnik.Maui.Views.CreateView" x:DataType="viewmodels:CreateViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cells="clr-namespace:Wirtualnik.Maui.Controls.Cells"
+    xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
+    xmlns:converters="clr-namespace:Wirtualnik.Maui.Converters"
+    xmlns:models="clr-namespace:Wirtualnik.Shared.Models.Product;assembly=Wirtualnik.Shared"
+    xmlns:mvvm="clr-namespace:TinyMvvm.Maui;assembly=TinyMvvm.Maui"
+    xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:TypeArguments="viewmodels:CreateViewModel"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                      Dark={StaticResource BackgroundColorDark}}"
+    ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
+    <mvvm:ShellViewBase.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <converters:ReturnWithDelayConverter x:Key="ReturnWithDelayConverter" />
+        </ResourceDictionary>
+    </mvvm:ShellViewBase.Resources>
+    <Shell.TitleView>
+        <controls:WirtualnikTitleView />
+    </Shell.TitleView>
+
+    <!--  RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}" IsEnabled="{Binding IsLoaded}"  -->
+    <ContentPage.Content>
+        <!--  Refreshing on iOS can jitter due to issue https://github.com/xamarin/Xamarin.Forms/issues/14429  -->
+        <RefreshView
+            BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                              Dark={StaticResource BackgroundColorDark}}"
+            Command="{Binding RefreshListCommand}"
+            IsRefreshing="{Binding IsLoaded, Converter={StaticResource InvertedBoolConverter}}"
+            RefreshColor="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                           Dark={StaticResource RedAccentColorDark}}">
+            <CollectionView x:Name="collectionView"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                ItemSizingStrategy="MeasureFirstItem"
+                ItemsSource="{Binding ProductList}"
+                RemainingItemsThreshold="{Binding remainingItemsThreshold}"
+                RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ListItemModel">
+                        <cells:ProductVerticalCell>
+                            <!--<cells:ProductVerticalCell.GestureRecognizers>
+                            <TapGestureRecognizer x:DataType="{x:Null}"
+                                Command="{Binding BindingContext.NavigateProductCommand, Source={x:Reference collectionView}}"
+                                CommandParameter="{Binding .}" />
+                        </cells:ProductVerticalCell.GestureRecognizers>-->
+                        </cells:ProductVerticalCell>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <!--<CollectionView.Footer>
+                    <StackLayout
+                        Padding="16"
+                        HorizontalOptions="Fill"
+                        IsVisible="{Binding IsLoaded, Converter={StaticResource ReturnWithDelayConverter}}">
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="True"
+                            Color="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                                    Dark={StaticResource RedAccentColorDark}}" />
+                        <Label
+                            HorizontalOptions="Center"
+                            FontFamily="PoppinsRegular"
+                            Text="Ładuję więcej produktów"
+                            TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                                        Dark={StaticResource ContrastColorDark}}" />
+                    </StackLayout>
+                </CollectionView.Footer>-->
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</mvvm:ShellViewBase>

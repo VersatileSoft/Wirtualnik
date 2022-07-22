@@ -1,0 +1,157 @@
+﻿<Grid x:Class="Wirtualnik.Maui.Controls.Cells.ProductVerticalCell" x:DataType="models:ListItemModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
+    xmlns:models="clr-namespace:Wirtualnik.Shared.Models.Product;assembly=Wirtualnik.Shared"
+    xmlns:styles="clr-namespace:Wirtualnik.Maui.Styles"
+    Padding="8,4"
+    CompressedLayout.IsHeadless="True">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:ProductCellStyle />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+
+    <BoxView
+        HeightRequest="24"
+        VerticalOptions="End"
+        CornerRadius="0,0,12,12"
+        Color="Green" />
+
+    <Frame
+        Margin="0,0,0,1"
+        Padding="0"
+        CornerRadius="12">
+        <Frame.Background>
+            <RadialGradientBrush>
+                <GradientStop Offset="0.1" Color="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
+                <GradientStop Offset="0.4" Color="{AppThemeBinding Light={StaticResource CellBackgroundColorLight}, Dark={StaticResource CellBackgroundColorDark}}" />
+            </RadialGradientBrush>
+        </Frame.Background>
+
+        <Grid
+            Padding="8,0"
+            ColumnDefinitions="58,58,*"
+            ColumnSpacing="0"
+            CompressedLayout.IsHeadless="True"
+            RowDefinitions="120,24,16,80,64"
+            RowSpacing="0">
+            <!--  Product Image  -->
+            <!--<BoxView Grid.ColumnSpan="3" BackgroundColor="Pink" />-->
+
+            <ContentView
+                Grid.ColumnSpan="3"
+                Margin="0,0"
+                Padding="0,8"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill">
+                <ContentView.Background>
+                    <RadialGradientBrush Radius="0.35">
+                        <GradientStop Offset="0.1" Color="#26ff9900" />
+                        <GradientStop Offset="1.0" Color="Transparent" />
+                    </RadialGradientBrush>
+                </ContentView.Background>
+
+                <controls:BaseImage
+                    Grid.ColumnSpan="3"
+                    Margin="8"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    Aspect="AspectFit"
+                    IsOpaque="True"
+                    SourceWithHost="{Binding Image}" />
+            </ContentView>
+
+            <!--  Product Description  -->
+            <!--<BoxView
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                BackgroundColor="Plum" />-->
+
+            <Label
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource ProductTitleLabelStyle}"
+                Text="{Binding Name}" />
+
+
+            <!--<BoxView
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
+                BackgroundColor="Bisque" />-->
+
+            <Label
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource ProductPriceLabelStyle}" />
+
+            <!--<BoxView
+                Grid.Row="3"
+                Grid.ColumnSpan="3"
+                BackgroundColor="DarkGoldenrod" />-->
+
+            <Label
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Margin="0,8,0,0"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource ProductSpecLabelStyle}"
+                Text="{Binding Description}" />
+
+            <!--  Product Score  -->
+            <!--<BoxView Grid.Row="4" BackgroundColor="LightPink" />-->
+
+            <controls:ScoreFrameControl
+                Grid.Row="4"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                ScoreColor="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                             Dark={StaticResource RedAccentColorDark}}"
+                ScoreTitle="Gaming"
+                ScoreValue="123" />
+
+            <!--<BoxView
+                Grid.Row="4"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                BackgroundColor="LightBlue" />-->
+
+            <controls:ScoreFrameControl
+                Grid.Row="4"
+                Grid.Column="1"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                ScoreColor="{AppThemeBinding Light={StaticResource BlueAccentColorLight},
+                                             Dark={StaticResource BlueAccentColorDark}}"
+                ScoreTitle="Pro"
+                ScoreValue="93" />
+
+            <!--  Product Buttons  -->
+            <!--<BoxView
+                Grid.Row="3"
+                Grid.Column="2"
+                BackgroundColor="WhiteSmoke" />-->
+
+            <controls:ButtonFrameControl
+                Grid.Row="3"
+                Grid.Column="2"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Glyph="{StaticResource BalanceIcon}" />
+
+            <!--<BoxView
+                Grid.Row="4"
+                Grid.Column="2"
+                BackgroundColor="WhiteSmoke" />-->
+
+            <controls:ButtonFrameControl
+                Grid.Row="4"
+                Grid.Column="2"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Glyph="{StaticResource AddToCartIcon}" />
+        </Grid>
+    </Frame>
+</Grid>

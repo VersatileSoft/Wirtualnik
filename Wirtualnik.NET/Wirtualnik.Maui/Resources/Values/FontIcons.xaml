@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--  Product Cell Icons (la-solid)  -->
+    <x:String x:Key="BalanceIcon">&#xF24E;</x:String>
+    <x:String x:Key="AddToCartIcon">&#xF217;</x:String>
+    <x:String x:Key="DoubleArrowRightIcon">&#xF101;</x:String>
+
+    <!--  MainPage Icons (la-solid)  -->
+    <x:String x:Key="MenuIcon">&#xF0C9;</x:String>
+    <x:String x:Key="CloseIcon">&#xF00D;</x:String>
+    <x:String x:Key="CartIcon">&#xF07A;</x:String>
+    <x:String x:Key="SearchIcon">&#xF002;</x:String>
+
+    <x:String x:Key="BellIcon">&#xF0F3;</x:String>
+    <x:String x:Key="CloudIcon">&#xF0C2;</x:String>
+    <x:String x:Key="SettingsIcon">&#xF013;</x:String>
+    <x:String x:Key="BugIcon">&#xF188;</x:String>
+    <x:String x:Key="LogOutIcon">&#xF2F5;</x:String>
+    <x:String x:Key="HomeIcon">&#xF015;</x:String>
+    <x:String x:Key="AddIcon">&#xF067;</x:String>
+    <x:String x:Key="LikeIcon">&#xF164;</x:String>
+    <x:String x:Key="HeartIcon">&#xF004;</x:String>
+    <x:String x:Key="BalanceLeftIcon">&#xF515;</x:String>
+
+    <!--  SettingsPage Icons (la-solid)  -->
+    <x:String x:Key="ArrowRightIcon">&#xF105;</x:String>
+
+</ResourceDictionary>

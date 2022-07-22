@@ -1,0 +1,36 @@
+﻿<ResourceDictionary x:Class="Wirtualnik.Maui.Styles.ProductCellStyle"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!--<ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources/Values/Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>-->
+
+    <Style x:Key="ProductTitleLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="PoppinsBold" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Text" Value="AMD Ryzen 3 1200" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ContrastColorLight}, Dark={StaticResource ContrastColorDark}}" />
+    </Style>
+
+    <Style x:Key="ProductPriceLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Text" Value="495.00 PLN" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LowContrastColorLight}, Dark={StaticResource LowContrastColorDark}}" />
+    </Style>
+
+    <Style x:Key="ProductSpecLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Text" Value="Socket AM4" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MediumContrastColorLight}, Dark={StaticResource MediumContrastColorDark}}" />
+    </Style>
+
+    <Style x:Key="ProductScoreLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource RedAccentColorLight}, Dark={StaticResource RedAccentColorDark}}" />
+    </Style>
+</ResourceDictionary>

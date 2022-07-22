@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace Wirtualnik.Data.Models
 {
@@ -19,15 +19,15 @@ namespace Wirtualnik.Data.Models
         public string _images { get; set; } = "";
 
         [NotMapped]
-        public List<int> Images
+        public List<int>? Images
         {
             get
             {
-                return JsonConvert.DeserializeObject<List<int>>(_images);
+                return JsonSerializer.Deserialize<List<int>>(_images);
             }
             set
             {
-                _images = JsonConvert.SerializeObject(value);
+                _images = JsonSerializer.Serialize(value);
             }
         }
 

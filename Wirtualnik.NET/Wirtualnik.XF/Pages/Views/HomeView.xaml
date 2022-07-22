@@ -6,9 +6,10 @@
     xmlns:nalesnik="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:styles="clr-namespace:Wirtualnik.XF.Styles"
     xmlns:viewmodels="clr-namespace:Wirtualnik.XF.ViewModels"
-    xmlns:views="clr-namespace:Wirtualnik.XF.Views" BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
-                                      Dark={StaticResource BackgroundColorDark}}"
+    xmlns:views="clr-namespace:Wirtualnik.XF.Views"
     x:TypeArguments="viewmodels:HomeViewModel"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                      Dark={StaticResource BackgroundColorDark}}"
     ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
     <Shell.TitleView>
         <controls:WirtualnikTitleView />

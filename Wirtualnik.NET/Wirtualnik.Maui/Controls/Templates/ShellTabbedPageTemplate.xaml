@@ -1,0 +1,8 @@
+﻿<ControlTemplate x:Class="Wirtualnik.Maui.Controls.Templates.ShellTabbedPageTemplate"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls">
+    <controls:BaseTabbarPage x:Name="BaseTabbarPage">
+        <ContentPresenter />
+    </controls:BaseTabbarPage>
+</ControlTemplate>

@@ -1,0 +1,132 @@
+﻿<mvvm:ShellViewBase x:Class="Wirtualnik.Maui.Views.HomeView" x:DataType="viewmodels:HomeViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
+    xmlns:mvvm="clr-namespace:TinyMvvm.Maui;assembly=TinyMvvm.Maui"
+    xmlns:styles="clr-namespace:Wirtualnik.Maui.Styles"
+    xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels"
+    xmlns:views="clr-namespace:Wirtualnik.Maui.Views"
+    x:TypeArguments="viewmodels:HomeViewModel"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                      Dark={StaticResource BackgroundColorDark}}"
+    ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
+    <Shell.TitleView>
+        <controls:WirtualnikTitleView />
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <CollectionView x:Name="collectionView"
+            HeightRequest="150"
+            Margin="0,24"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            ItemSizingStrategy="MeasureFirstItem"
+            ItemsSource="{Binding ProductList}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="8" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Margin="0"
+                        Padding="0"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        CornerRadius="12">
+                        <Frame.Background>
+                            <LinearGradientBrush>
+                                <GradientStop Offset="0.1" Color="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
+                                <GradientStop Offset="0.4" Color="{AppThemeBinding Light={StaticResource CellBackgroundColorLight}, Dark={StaticResource CellBackgroundColorDark}}" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+
+                        <Grid
+                            HorizontalOptions="FillAndExpand"
+                            ColumnDefinitions="38,38,38,38,38,38,42"
+                            ColumnSpacing="0"
+                            RowDefinitions="80*, 32*"
+                            RowSpacing="0">
+                            <Grid.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <styles:ProductCellStyle />
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </Grid.Resources>
+
+                            <!--<BoxView Grid.ColumnSpan="3" Color="AliceBlue" />-->
+                            <ContentView
+                                Grid.ColumnSpan="3"
+                                Margin="0,0"
+                                Padding="0,8"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill">
+                                <ContentView.Background>
+                                    <RadialGradientBrush Radius="0.47">
+                                        <GradientStop Offset="0.1" Color="#26ff9900" />
+                                        <GradientStop Offset="1.0" Color="Transparent" />
+                                    </RadialGradientBrush>
+                                </ContentView.Background>
+
+                                <Image
+                                    Grid.ColumnSpan="3"
+                                    Margin="0"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"
+                                    Aspect="AspectFit"
+                                    IsOpaque="True"
+                                    Source="https://wirtualnik.pl/static/img/cpu/ryzen_3_3100-box.png" />
+                            </ContentView>
+
+                            <!--<BoxView
+                                    Grid.Column="3"
+                                    Grid.ColumnSpan="4"
+                                    Color="Maroon" />-->
+                            <StackLayout
+                                Grid.Column="3"
+                                Grid.ColumnSpan="4"
+                                Spacing="0">
+                                <Label Style="{StaticResource ProductTitleLabelStyle}" />
+
+
+                                <Label Style="{StaticResource ProductPriceLabelStyle}" />
+
+                                <Label
+                                    Margin="0,2,0,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{StaticResource ProductSpecLabelStyle}"
+                                    Text="4 rdzenie, 4 wątki&#10;Socket AM4&#10;65W" />
+                            </StackLayout>
+
+                            <!--<BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="6"
+                                    Color="Aqua" />-->
+
+                            <!--<BoxView
+                                    Grid.Row="1"
+                                    Grid.Column="6"
+                                    Color="LightPink" />-->
+
+                            <controls:ButtonFrameControl
+                                Grid.Row="0"
+                                Grid.Column="6"
+                                Margin="0,0,0,4"
+                                HorizontalOptions="Center"
+                                VerticalOptions="End"
+                                Glyph="{StaticResource AddToCartIcon}" />
+
+                            <controls:ButtonFrameControl
+                                Grid.Row="1"
+                                Grid.Column="6"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Glyph="{StaticResource DoubleArrowRightIcon}" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
+</mvvm:ShellViewBase>

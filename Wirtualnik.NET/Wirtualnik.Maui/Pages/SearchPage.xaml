@@ -1,0 +1,14 @@
+﻿<ContentPage x:Class="Wirtualnik.Maui.Pages.SearchPage" x:DataType="viewmodels:SearchViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Text="Welcome to SearchPage!" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

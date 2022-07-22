@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.versatilesoftware.wirtualnik" android:installLocation="auto" android:allowBackup="false">
-	<uses-sdk android:minSdkVersion="27" android:targetSdkVersion="31" />
+	<uses-sdk android:minSdkVersion="27" android:targetSdkVersion="32" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<application android:label="Wirtualnik" android:roundIcon="@mipmap/icon_round" android:theme="@style/SplashScreenTheme" />
+	<application android:label="Wirtualnik" android:theme="@style/SplashScreenTheme" />
 	<queries>
 		<intent>
 			<action android:name="android.support.customtabs.action.CustomTabsService" />

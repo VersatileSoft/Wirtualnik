@@ -1,0 +1,157 @@
+﻿<ContentPage x:Class="Wirtualnik.Maui.Pages.LoginPage" x:DataType="viewmodels:LoginViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
+    xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
+                                      Dark={StaticResource CellBackgroundColorDark}}">
+    <!--  https://github.com/xamarin/Essentials/blob/develop/Samples/Samples/ViewModel/WebAuthenticatorViewModel.cs  -->
+
+    <ContentPage.Content>
+        <Grid CompressedLayout.IsHeadless="True" RowDefinitions="20*,80*">
+            <Label
+                Margin="0,2,0,0"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                FontFamily="PoppinsBold"
+                FontSize="42"
+                Text="WIRTUALNIK"
+                TextColor="{AppThemeBinding Light={StaticResource RedAccentColorLight},
+                                            Dark={StaticResource RedAccentColorDark}}" />
+
+            <Frame
+                Grid.Row="1"
+                Margin="32"
+                Padding="16"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
+                                                  Dark={StaticResource BackgroundColorDark}}"
+                CornerRadius="8"
+                HasShadow="True">
+                <!--<nalesnik:PancakeView.Shadow>
+                    <nalesnik:DropShadow BlurRadius="8" Color="Black" />
+                </nalesnik:PancakeView.Shadow>-->
+                <VerticalStackLayout>
+                    <Label
+                        HorizontalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        FontFamily="PoppinsBold"
+                        FontSize="24"
+                        Text="Zaloguj się"
+                        TextColor="{AppThemeBinding Light={StaticResource ContrastColorLight},
+                                                    Dark={StaticResource ContrastColorDark}}" />
+
+                    <Label
+                        Margin="0,12"
+                        HorizontalOptions="Center"
+                        FontFamily="PoppinsRegular"
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        Text="Konto na Wirtualnik.pl zostanie automatycznie utworzone podczas pierwszego logowania"
+                        TextColor="{AppThemeBinding Light={StaticResource MediumContrastColorLight},
+                                                    Dark={StaticResource MediumContrastColorDark}}" />
+
+                    <!--<Frame
+                        HeightRequest="36"
+                        Margin="2"
+                        Padding="8,4"
+                        xct:TouchEffect.NativeAnimation="True"
+                        BackgroundColor="Black"
+                        CornerRadius="26">
+                        <Grid ColumnDefinitions="32,*" ColumnSpacing="0">
+                            <Image
+                                WidthRequest="22"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                xct:IconTintColorEffect.TintColor="White"
+                                Source="apple_logo.xml" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                Text="Sign in with Apple"
+                                TextColor="White" />
+                        </Grid>
+                    </Frame>-->
+
+
+                    <Button
+                        HeightRequest="36"
+                        Margin="2"
+                        Padding="8,4"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Command="{Binding SignInCommand}"
+                        CommandParameter="Facebook" />
+                    <Frame
+                        HeightRequest="36"
+                        Margin="2"
+                        Padding="8,4"
+                        xct:TouchEffect.Command="{Binding SignInCommand}"
+                        xct:TouchEffect.CommandParameter="Facebook"
+                        xct:TouchEffect.NativeAnimation="True"
+                        BackgroundColor="#1877F2"
+                        CornerRadius="26">
+                        <Grid
+                            ColumnDefinitions="32,*"
+                            ColumnSpacing="0"
+                            InputTransparent="True">
+                            <Image
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"
+                                xct:IconTintColorEffect.TintColor="White"
+                                Source="facebook_logo.xml" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                Text="Continue with Facebook"
+                                TextColor="White" />
+                        </Grid>
+                    </Frame>
+
+                    <!--<Frame
+                        HeightRequest="36"
+                        Margin="2"
+                        Padding="8,4"
+                        xct:TouchEffect.NativeAnimation="True"
+                        BackgroundColor="White"
+                        CornerRadius="26">
+                        <Grid ColumnDefinitions="32,*" ColumnSpacing="0">
+                            <Image
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"
+                                IsOpaque="True"
+                                Source="google_logo.xml" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontFamily="RobotoMedium"
+                                FontSize="16"
+                                Text="Sign in with Google"
+                                TextColor="#787a7c" />
+                        </Grid>
+                    </Frame>
+
+                    <controls:LoginButton ButtonStyle="Google" />
+
+                    <controls:LoginButton
+                        xct:TouchEffect.Command="{Binding SignInCommand}"
+                        xct:TouchEffect.CommandParameter="Facebook"
+                        ButtonStyle="Facebook" />
+
+                    <controls:LoginButton ButtonStyle="Apple" />-->
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

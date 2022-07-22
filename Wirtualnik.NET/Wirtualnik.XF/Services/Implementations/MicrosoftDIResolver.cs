@@ -40,7 +40,7 @@ namespace Wirtualnik.XF.Services.Implementations
         {
             resolvedObject = this.serviceProvider.GetService<T>()!;
 
-            return !(resolvedObject is null);
+            return resolvedObject is not null;
         }
 
         public bool TryResolve(Type type, out object resolvedObject)
