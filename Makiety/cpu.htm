@@ -7,15 +7,15 @@
   <link rel="stylesheet" href="css/global.css">
 	<link rel="stylesheet" href="css/global_mobile.css">
 	<link rel="stylesheet" href="css/icons.css">
-
 	<link rel="stylesheet" href="css/products.css">
 	<link rel="stylesheet" href="css/products_mobile.css">
   <link rel="stylesheet" href="css/search.css">
 	<link rel="stylesheet" href="css/search_mobile.css">
-
+	<link rel="stylesheet" href="css/cart_modal.css">
 </head>
 
 <body id="App">
+
   <div class="container">
     <div class="sidebar" style="display:none">
 			<div>
@@ -51,13 +51,15 @@
 
 
 		<div class="main">
+
+
 			<div class="header">
 				<div class="logo">
 					<h1>WIRTUALNIK</h1>
 					<a href="javascript:void(0);" onclick="SearchBoxToggle();document.getElementById('searchBoxInput').focus(); return false;"><span class="icon-search"></span> Szukaj (Ctrl+K)</a>
 				</div>
 				<div class="headerExtras">
-					<a href="javascript:void(0);" onclick="DarkModeToggle()">Tryb nocny/dzienny</a>
+					<a href="javascript:void(0);" onclick="DarkModeToggle()">night</a>
 					<button class="headerButton">
 						<span class="icon-user"></span>
 						Twoje konto
@@ -67,8 +69,35 @@
 						2138 PLN
 					</button>
 				</div>
-
 			</div>
+
+			<div class="headerMobile">
+				<button>
+					<span class="icon-back"></span>
+					Profil
+				</button>
+
+				<button class="activeItem">
+					<span class="icon-cpu"></span>
+					Home
+				</button>
+
+				<button>
+					<span class="icon-search"></span>
+					Profil
+				</button>
+
+				<button>
+					<span class="icon-user"></span>
+					Profil
+				</button>
+
+				<button>
+					<span class="icon-cart"></span>
+					Koszyk
+				</button>
+			</div>
+
 			<div class="searchBox" id="searchBox" style="display:none">
 		    <input type="text" placeholder="Szukaj..." id="searchBoxInput">
 		  </div>
@@ -76,6 +105,12 @@
 			<div class="content">
 
 				<div class="productlistmain"><div class="categories">
+					<button class="categorybutton back">
+						<span class="icon-back"></span>
+					</button>
+
+					<div class="divider-vertical"></div>
+
 					<button class="categorybutton active">
 						<span class="icon-cpu"></span><br>
 						Procesory
@@ -88,7 +123,7 @@
 
 					<button class="categorybutton">
 						<span class="icon-ram"></span><br>
-						Pamięci RAM
+						Pamięć RAM
 					</button>
 
 					<button class="categorybutton">
@@ -112,7 +147,6 @@
 						<span class="icon-psu"></span><br>
 						Zasilacze
 					</button>
-					<div class="divider-horizontal"></div>
 					<button class="categorybutton">
 						<span class="icon-cooler"></span><br>
 						Chłodzenia
@@ -231,24 +265,20 @@
 						</div>
 						AMD Ryzen 3 3100</a>
 						<p>
-							AM4, 4 rdzenie, 8 wątków, Zen2<br>
+							AM4, 4 rdzenie, 8 wątków<br>
 						</p>
 						<div class="details-grid">
 							<div>
-								<p>KONFIGURACJA</p>
-								<b>4 rdzenie, 8 wątków</b>
+								<p>WYDAJNOŚĆ SC</p>
+								<b>1000 pkt. (?)</b>
 							</div>
 							<div>
-								<p>Takt. typowe / boost</p>
-								<b>3.1GHz / 4GHz</b>
+								<p>Wydajność MC</p>
+								<b>3000 pkt. (?)</b>
 							</div>
 							<div>
-								<p>Geekbench 5 SC / MC</p>
-								<b>1100 / 3950 </b>
-							</div>
-							<div>
-								<p>TDP</p>
-								<b>65W </b>
+								<p>Pobór</p>
+								<b>65W</b>
 							</div>
 						</div>
 

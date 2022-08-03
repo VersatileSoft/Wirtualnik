@@ -131,3 +131,7 @@
 .icon-search:before {
   content: "\e922";
 }
+
+.icon-back:before {
+  content: "\e923";
+}

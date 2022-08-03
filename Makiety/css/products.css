@@ -14,6 +14,7 @@
   background: linear-gradient(180deg,var(--transparent) 0px,var(--white) 200px);
   border-radius: 10px;
   padding: 10px 15px;
+  height: 100%;
   max-width: 400px;
   width: 275px;
   flex-grow: 1;
@@ -202,7 +203,7 @@
 .details-grid {
   display: flex;
   flex-wrap: wrap;
-  font-size: 0.7em;
+  font-size: 0.8em;
   border-top: 1px solid var(--background);
   justify-content: space-between;
   margin: 10px 0px;
@@ -220,7 +221,7 @@
 }
 
 .details-grid > div {
-  padding: 10px;
+  padding: 10px 0px;
 }
 
 .products-list {
@@ -239,17 +240,26 @@
 .product-name {
 }
 
+.categories > * {
+    margin-bottom: 10px;
+}
+
 .categories > *:not(:last-child) {
-    margin-bottom: 5px;
+    #margin-bottom: 10px;
+}
+
+.categories {
+  display: flex;
+  gap: 5px
 }
 
 .categorybutton {
   font-size: 16px;
-  padding: 10px 10px;
+  padding: 5px 10px;
   color: var(--gray3);
   background-color: transparent;
   border: 0;
-  border-radius: 10px;
+  border-radius: 8px;
   flex-shrink: 0;
   transition: 0.08s ease-out;
   outline: 0;
@@ -273,9 +283,22 @@
   #background: linear-gradient(25deg,var(--accent),var(--accentlight2));
 }
 
-.divider-horizontal {
-  border-left: 1px solid var(--background);
-  margin-right: 4px;
+.categorybutton.back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  height: 50px;
+  align-self: center;
+}
+
+.categorybutton.back span {
+  font-size: 42px;
+}
+
+.divider-vertical {
+  border-left: 1px solid var(--divider);
   display: inline;
 }
 

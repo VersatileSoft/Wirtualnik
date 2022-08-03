@@ -3,6 +3,7 @@
 :root {
   --transparent: hsla(0,0%,100%,0);
   --semitransparent: #e8eef185;
+  --semitransparent2: #323f4614;
   --divider: #0e10100f;
   --background: #eff4f7;
   --gray1: #f4f9fb;
@@ -12,6 +13,7 @@
   --white: #fff;
   --black: #000;
   --accent: #ffaa16;
+  --accentlight3: #fdf0d7bf;
   --accentlight2: #f9ca77;
   --accentlight: #fff9e2;
   --shadow20: 0px 5px 15px 0px rgba(0,0,0,0.1);
@@ -207,4 +209,60 @@ input {
 .headerButton span {
   font-size: 15px;
   margin-right: 5px;
+}
+
+.headerMobile {
+  display: none;
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    display: none;
+  }
+
+  .headerMobile {
+    display: flex;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+    background-color: var(--semitransparent2);
+    backdrop-filter: blur(15px);
+    gap: 5px;
+    padding: 10px;
+    box-shadow: 0px -10px 20px 0px rgba(0,0,0,0.1);
+  }
+
+  .headerMobile > div {
+    padding: 10px;
+  }
+
+  .headerMobile button {
+    outline: 0;
+    border: 0;
+    width: 43px;
+    border-radius: 21px;
+    font-size: 0;
+    display: flex;
+    align-items: center;
+    background-color: var(--semitransparent2);
+    color: var(--black);
+    transition: 0.1s ease-out;
+    justify-content: center;
+  }
+
+  .headerMobile button:hover {
+    box-shadow: 0px 0px 0px 1px var(--gray3);
+  }
+
+  .headerMobile .activeItem {
+      width: initial;
+      background-color: var(--accentlight3);
+      padding: 10px 15px;
+      color: var(--accent);
+      font-size: inherit;
+  }
+
+  .headerMobile .activeItem {
+      gap: 5px;
+  }
 }
