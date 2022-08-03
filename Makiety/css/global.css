@@ -28,6 +28,7 @@
 [data-theme="dark"] {
   --transparent: hsla(0,0%,100%,0);
   --semitransparent: #2a2b2c85;
+  --semitransparent2: #323f4629;
     --divider: #effbff0f;
     --background: #151718;
     --gray1: #1b1e20;
@@ -37,6 +38,7 @@
     --white: #181b1c;
     --black: #fff;
     --accent: #ffaa16;
+    --accentlight3: #2c2b26b8;
     --accentlight2: #ffaa16;
     --accentlight: #fff9e2;
     --shadow20: 0px 5px 15px 0px rgba(0,0,0,0.1);
