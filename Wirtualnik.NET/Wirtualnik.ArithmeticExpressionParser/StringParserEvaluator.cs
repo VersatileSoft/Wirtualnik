@@ -26,7 +26,7 @@ namespace Wirtualnik.ArithmeticExpressionParser
         private string ConvertInter(string value)
         {
             var res = FindStartAndLen(value);
-            if(res == (0, 0))
+            if (res == (0, 0))
             {
                 return value;
             }
@@ -50,7 +50,7 @@ namespace Wirtualnik.ArithmeticExpressionParser
             {
                 if (n == '{')
                 {
-                    if(depth == 0)
+                    if (depth == 0)
                         startIndex = index;
                     depth++;
                 }
@@ -58,7 +58,7 @@ namespace Wirtualnik.ArithmeticExpressionParser
                 if (n == '}')
                 {
                     depth--;
-                    if(depth == 0)
+                    if (depth == 0)
                     {
                         return (startIndex, index - startIndex + 1);
                     }

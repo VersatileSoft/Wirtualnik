@@ -32,7 +32,7 @@ namespace Wirtualnik.Service.Services
                     .Include(t => t.CategoryProperties)
                     .FirstOrDefaultAsync(t => t.PublicId == productTypeId) ??
                     await CreateCategory(productTypeId, headers); // Creating categories from excel only for tests
-                
+
                 ValidateHeaders(headers, productType);
 
                 var prodType = typeof(Product);

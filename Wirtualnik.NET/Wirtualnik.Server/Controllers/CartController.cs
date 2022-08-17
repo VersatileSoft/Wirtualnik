@@ -39,7 +39,7 @@ namespace Wirtualnik.Server.Controllers
 
             var res = _mapper.Map<DetailsModel>(model);
 
-            foreach(var prod in res.Products)
+            foreach (var prod in res.Products)
             {
                 prod.Image = await _productService.GetProductListItemImage(prod.PublicId);
             }

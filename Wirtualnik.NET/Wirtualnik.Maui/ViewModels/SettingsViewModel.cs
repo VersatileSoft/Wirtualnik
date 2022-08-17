@@ -1,5 +1,5 @@
-﻿using Wirtualnik.Maui.ViewModels.Base;
-using Wirtualnik.Maui.Services;
+﻿using Wirtualnik.Maui.Services;
+using Wirtualnik.Maui.ViewModels.Base;
 
 namespace Wirtualnik.Maui.ViewModels;
 

@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Wirtualnik.Maui.Extensions;
+using Wirtualnik.Maui.Services;
 using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Product;
-using Wirtualnik.Maui.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Wirtualnik.Maui.ViewModels;

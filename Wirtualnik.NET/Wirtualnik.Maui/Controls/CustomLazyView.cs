@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 
 namespace Wirtualnik.Maui.Controls

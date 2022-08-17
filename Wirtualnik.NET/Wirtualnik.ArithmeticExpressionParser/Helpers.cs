@@ -158,7 +158,7 @@ namespace Wirtualnik.ArithmeticExpressionParser
         {
             var res = typeof(IHandler).Assembly.GetTypes()
                 .FirstOrDefault(p => typeof(IHandler).IsAssignableFrom(p) && !p.IsAbstract && p.GetCustomAttribute<HandlerAttribute>().Name == name);
-                return res != null ? (IHandler)Activator.CreateInstance(res) : new ValueHandler();
+            return res != null ? (IHandler)Activator.CreateInstance(res) : new ValueHandler();
         }
 
         public static string GetArgs(this string value, out string name)

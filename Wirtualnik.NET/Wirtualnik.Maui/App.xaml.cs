@@ -24,7 +24,7 @@ public partial class App : Application
     {
         string token = await SecureStorage.GetAsync("oauth_token").ConfigureAwait(false);
 
-         //new AppShellPage(); //new NavigationPage(new MainPage());
+        //new AppShellPage(); //new NavigationPage(new MainPage());
 
         //if (string.IsNullOrEmpty(token))
         //{
