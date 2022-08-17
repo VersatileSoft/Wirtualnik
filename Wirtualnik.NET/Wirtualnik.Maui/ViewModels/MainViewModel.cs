@@ -1,14 +1,14 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Threading.Tasks;
-using Wirtualnik.Maui.Extensions;
 using Wirtualnik.Maui.Controls;
+using Wirtualnik.Maui.Extensions;
 using Wirtualnik.Maui.Pages;
 using Wirtualnik.Maui.Services;
 using Wirtualnik.Maui.ViewModels;
 using Wirtualnik.Maui.Views;
 using Xamarin.CommunityToolkit.UI.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
 namespace Wirtualnik.Maui.ViewModels;
 

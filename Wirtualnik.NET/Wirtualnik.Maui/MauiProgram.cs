@@ -22,7 +22,7 @@ public static partial class MauiProgram
             .UseMauiCommunityToolkit()
             .UseTinyMvvm(currentAssembly, currentAssembly)
             .UsePageResolver()
-            
+
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("icomoon.ttf", "FontIcons");

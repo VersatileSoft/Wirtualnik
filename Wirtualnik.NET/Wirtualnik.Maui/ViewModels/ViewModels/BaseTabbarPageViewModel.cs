@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Wirtualnik.Maui.ViewModels.Base;
 using Wirtualnik.Maui.Pages;
 using Wirtualnik.Maui.Services;
+using Wirtualnik.Maui.ViewModels.Base;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Wirtualnik.Maui.ViewModels;

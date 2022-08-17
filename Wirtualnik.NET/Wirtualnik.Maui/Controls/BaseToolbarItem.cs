@@ -5,7 +5,7 @@ namespace Wirtualnik.Maui.Controls;
 public partial class BaseToolbarItem : ToolbarItem
 {
     private readonly FontImageSource fontImageSource = new();
-    
+
     public BaseToolbarItem()
     {
         fontImageSource.FontFamily = "la-solid";

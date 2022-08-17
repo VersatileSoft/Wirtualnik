@@ -8,7 +8,7 @@ namespace Wirtualnik.Maui.Pages
     public partial class MainPage : ContentPage
     {
         private bool isMenuOpened;
-        
+
         public MainPage()
         {
             InitializeComponent();

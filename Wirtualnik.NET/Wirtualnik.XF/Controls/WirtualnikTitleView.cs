@@ -16,7 +16,7 @@ namespace Wirtualnik.XF.Controls
                 return;
             }
 
-            Margin = new Thickness(0,8,0,0);
+            Margin = new Thickness(0, 8, 0, 0);
             VerticalTextAlignment = TextAlignment.Center;
             FontFamily = "PoppinsBold";
             FontSize = 22;
