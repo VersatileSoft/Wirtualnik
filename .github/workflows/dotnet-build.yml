@@ -37,7 +37,7 @@ jobs:
         
     # We need to use NuGet because Xamarin doesn't like dotnet restore
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.6
+      uses: NuGet/setup-nuget@v1.1.0
       with:
         nuget-api-key: ${{ secrets.NuGetAPIKey }}
         nuget-version: '5.x'
