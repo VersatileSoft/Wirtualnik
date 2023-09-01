@@ -1,12 +1,11 @@
-﻿<mvvm:ShellViewBase x:Class="Wirtualnik.Maui.Views.HomeView" x:DataType="viewmodels:HomeViewModel"
+﻿<mvvm:TinyView x:Class="Wirtualnik.Maui.Views.HomeView" x:DataType="viewmodels:HomeViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
-    xmlns:mvvm="clr-namespace:TinyMvvm.Maui;assembly=TinyMvvm.Maui"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:styles="clr-namespace:Wirtualnik.Maui.Styles"
     xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels"
     xmlns:views="clr-namespace:Wirtualnik.Maui.Views"
-    x:TypeArguments="viewmodels:HomeViewModel"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
                                       Dark={StaticResource BackgroundColorDark}}"
     ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
@@ -129,4 +128,4 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </ContentPage.Content>
-</mvvm:ShellViewBase>
+</mvvm:TinyView>

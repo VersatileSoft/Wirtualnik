@@ -2,7 +2,7 @@
 
 namespace Wirtualnik.Maui.ViewModels.Base;
 
-public class BaseViewModel : ViewModelBase
+public class BaseViewModel : TinyViewModel
 {
     public BaseViewModel()
     {

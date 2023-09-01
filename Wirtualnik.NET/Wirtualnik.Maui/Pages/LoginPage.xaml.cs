@@ -3,13 +3,13 @@
 
 namespace Wirtualnik.Maui.Pages
 {
-    public partial class LoginPage : ContentPage
+    public partial class LoginPage : TinyView
     {
-        public LoginPage()
+        public LoginPage(LoginViewModel loginViewModel)
         {
             InitializeComponent();
 
-            BindingContext = App.GetPageViewModel<LoginViewModel>();
+            BindingContext = loginViewModel;
         }
     }
 }

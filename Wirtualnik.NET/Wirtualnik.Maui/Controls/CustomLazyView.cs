@@ -20,8 +20,8 @@ namespace Wirtualnik.Maui.Controls
             // stupid way to get rid of smoll hangs 
             //await Task.Delay(100);
 
-            ObservableObject? viewModel = App.GetPageViewModel<TViewModel>();
-            Content = new TView { BindingContext = viewModel };
+            //ObservableObject? viewModel = App.GetPageViewModel<TViewModel>();
+            //Content = new TView { BindingContext = viewModel };
 
             SetIsLoaded(true);
             return default;

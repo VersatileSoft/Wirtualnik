@@ -10,10 +10,12 @@ namespace Wirtualnik.Maui.Services.Implementations
         private const string authBaseUrl = "https://api.zlcn.pro/auth/login/";
         private const string authUrlParam = "?callbackType=mobile";
 
+        private readonly MainPage mainPage;
         private readonly INavigationService navigationService;
 
-        public AuthenticationService(INavigationService navigationService)
+        public AuthenticationService(MainPage mainPage, INavigationService navigationService)
         {
+            this.mainPage = mainPage;
             this.navigationService = navigationService;
         }
 
@@ -46,7 +48,7 @@ namespace Wirtualnik.Maui.Services.Implementations
                 var decodedValue = handler.ReadJwtToken(authToken);
 
                 await SecureStorage.SetAsync("oauth_token", authToken).ConfigureAwait(false);
-                this.navigationService.SetMainPage<MainPage>();
+                this.navigationService.SetMainPage(this.mainPage);
                 return true;
             }
             catch (TaskCanceledException ex)

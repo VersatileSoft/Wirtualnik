@@ -11,7 +11,7 @@ public partial class LoginViewModel : ObservableObject
         this.authenticationService = authenticationService;
     }
 
-    [ICommand]
+    [RelayCommand]
     public async Task SignIn(string scheme)
     {
         await this.authenticationService.SignInAsync(scheme).ConfigureAwait(false);

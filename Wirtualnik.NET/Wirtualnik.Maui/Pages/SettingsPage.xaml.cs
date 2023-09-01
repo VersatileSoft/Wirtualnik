@@ -5,11 +5,11 @@ namespace Wirtualnik.Maui.Pages
 {
     public partial class SettingsPage : ContentPage
     {
-        public SettingsPage()
+        public SettingsPage(SettingsViewModel settingsViewModel)
         {
             InitializeComponent();
 
-            BindingContext = App.GetPageViewModel<SettingsViewModel>();
+            BindingContext = settingsViewModel;
         }
     }
 }

@@ -11,6 +11,7 @@ public class BaseTabbarPageViewModel : BaseViewModel
 {
     public bool IsMenuOpened { get; set; }
 
+    private readonly LoginPage loginPage;
     private readonly INavigationService navigationService;
 
     public AsyncCommand<Type> NavigateToCommand { get; }
@@ -20,9 +21,10 @@ public class BaseTabbarPageViewModel : BaseViewModel
     private AsyncCommand? openMenuCommand;
     public AsyncCommand OpenMenuCommand => openMenuCommand ??= new AsyncCommand(() => OpenMenu(), allowsMultipleExecutions: false);
 
-    public BaseTabbarPageViewModel(INavigationService navigationService)
+    public BaseTabbarPageViewModel(LoginPage loginPage, INavigationService navigationService)
     {
         this.navigationService = navigationService;
+        this.loginPage = loginPage;
 
         NavigateToCommand = new AsyncCommand<Type>(async (pageType) => await this.navigationService.NavigateToAsync(pageType), allowsMultipleExecutions: false);
         NavigateToModalCommand = new AsyncCommand<Type>(async (pageType) => await this.navigationService.NavigateToAsModalAsync(pageType), allowsMultipleExecutions: false);
@@ -33,7 +35,7 @@ public class BaseTabbarPageViewModel : BaseViewModel
     private Task LogOutAndClearStorage()
     {
         SecureStorage.RemoveAll();
-        this.navigationService.SetMainPage<LoginPage>();
+        this.navigationService.SetMainPage(this.loginPage);
 
         return Task.CompletedTask;
     }

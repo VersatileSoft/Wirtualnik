@@ -1,7 +1,8 @@
-﻿<Application x:Class="Wirtualnik.Maui.App"
+﻿<mvvm:TinyApplication x:Class="Wirtualnik.Maui.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Wirtualnik.Maui"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:templates="clr-namespace:Wirtualnik.Maui.Controls.Templates">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,4 +14,4 @@
             <templates:ShellTabbedPageTemplate x:Key="ShellTabbedPageTemplate" />
         </ResourceDictionary>
     </Application.Resources>
-</Application>
+</mvvm:TinyApplication>

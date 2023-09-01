@@ -1,23 +1,22 @@
-﻿<mvvm:ShellViewBase x:Class="Wirtualnik.Maui.Views.CreateView" x:DataType="viewmodels:CreateViewModel"
+﻿<mvvm:TinyView x:Class="Wirtualnik.Maui.Views.CreateView" x:DataType="viewmodels:CreateViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cells="clr-namespace:Wirtualnik.Maui.Controls.Cells"
     xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
     xmlns:converters="clr-namespace:Wirtualnik.Maui.Converters"
     xmlns:models="clr-namespace:Wirtualnik.Shared.Models.Product;assembly=Wirtualnik.Shared"
-    xmlns:mvvm="clr-namespace:TinyMvvm.Maui;assembly=TinyMvvm.Maui"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    x:TypeArguments="viewmodels:CreateViewModel"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
                                       Dark={StaticResource BackgroundColorDark}}"
     ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
-    <mvvm:ShellViewBase.Resources>
+    <mvvm:TinyView.Resources>
         <ResourceDictionary>
             <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
             <converters:ReturnWithDelayConverter x:Key="ReturnWithDelayConverter" />
         </ResourceDictionary>
-    </mvvm:ShellViewBase.Resources>
+    </mvvm:TinyView.Resources>
     <Shell.TitleView>
         <controls:WirtualnikTitleView />
     </Shell.TitleView>
@@ -76,4 +75,4 @@
             </CollectionView>
         </RefreshView>
     </ContentPage.Content>
-</mvvm:ShellViewBase>
+</mvvm:TinyView>

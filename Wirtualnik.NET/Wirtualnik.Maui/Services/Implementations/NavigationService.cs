@@ -54,10 +54,10 @@ public class NavigationService : INavigationService
         );
     }
 
-    public void SetMainPage<TPage>() where TPage : Page, new()
+    public void SetMainPage(Page page)
     {
         MainThread.BeginInvokeOnMainThread(() =>
-            App.Current.MainPage = new NavigationPage(new TPage())
+            App.Current.MainPage = new NavigationPage(page)
         );
     }
 

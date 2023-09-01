@@ -14,25 +14,27 @@ namespace Wirtualnik.Maui.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
+    private readonly LoginPage loginPage;
     private readonly INavigationService navigationService;
 
     //public SafeObservableCollection<View> ViewsList { get; set; }
 
-    public MainViewModel(INavigationService navigationService)
+    public MainViewModel(LoginPage loginPage, INavigationService navigationService)
     {
         this.navigationService = navigationService;
+        this.loginPage = loginPage;
 
         //ViewsList = LoadViewsList();
     }
 
-    [ICommand]
+    [RelayCommand]
     private void LogOut()
     {
         SecureStorage.RemoveAll();
-        this.navigationService.SetMainPage<LoginPage>();
+        this.navigationService.SetMainPage(this.loginPage);
     }
 
-    [ICommand]
+    [RelayCommand]
     public async Task CurrentItemChanged(object? lazyViewToLoad)
     {
         if (lazyViewToLoad is null || lazyViewToLoad is not BaseLazyView lazyView || lazyView.IsLoaded)
@@ -45,13 +47,13 @@ public partial class MainViewModel : ObservableObject
         return;
     }
 
-    [ICommand]
+    [RelayCommand]
     public async Task NavigateTo(Type pageType)
     {
         await this.navigationService.NavigateToAsync(pageType);
     }
 
-    [ICommand]
+    [RelayCommand]
     public async Task NavigateToModal(Type pageType)
     {
         await this.navigationService.NavigateToAsModalAsync(pageType);

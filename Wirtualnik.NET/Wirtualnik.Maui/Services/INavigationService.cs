@@ -13,5 +13,5 @@ public interface INavigationService
 
     Task GoBackAsync();
 
-    void SetMainPage<TPage>() where TPage : Page, new();
+    void SetMainPage(Page page);
 }

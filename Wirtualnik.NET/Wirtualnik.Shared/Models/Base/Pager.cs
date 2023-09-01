@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 
@@ -50,7 +49,7 @@ namespace Wirtualnik.Shared.Models.Base
             }
         }
 
-        [BindNever]
+        //[BindNever]
         public int TotalRows
         {
             get
@@ -76,9 +75,9 @@ namespace Wirtualnik.Shared.Models.Base
             // Sort
             if (!string.IsNullOrEmpty(pager.Sort))
             {
-                if (IsOrdered(query))
+                if (IsOrdered(query) && query is IOrderedQueryable<TModel> orderedQuery)
                 {
-                    query = (query as IOrderedQueryable<TModel>).ThenBy($"{pager.Sort} {pager.Order}");
+                    query = orderedQuery.ThenBy($"{pager.Sort} {pager.Order}");
                 }
                 else
                 {

@@ -6,18 +6,17 @@ using Wirtualnik.Shared.ApiClient;
 
 namespace Wirtualnik.Maui;
 
-public partial class App : Application
+public partial class App : TinyApplication
 {
     protected static IServiceProvider? ServiceProvider { get; set; }
 
-    public static ObservableObject? GetPageViewModel<TViewModel>() where TViewModel : ObservableObject => Resolver.Resolve<TViewModel>();
-    //public static ObservableObject? GetViewModel(Type viewModelType) => ServiceProvider?.GetRequiredService(viewModelType) as ObservableObject;
+    public static ObservableObject? GetViewModel(Type viewModelType) => ServiceProvider?.GetRequiredService(viewModelType) as ObservableObject;
 
-    public App()
+    public App(LoginPage loginPage)
     {
         InitializeComponent();
 
-        MainPage = new NavigationPage(new LoginPage());
+        MainPage = loginPage;
     }
 
     protected override async void OnStart()

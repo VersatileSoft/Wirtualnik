@@ -1,7 +1,6 @@
 ﻿using Refit;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,8 +16,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Wirtualnik.Shared.ApiClient;
 using Wirtualnik.Shared.Models.Auth;
-using Wirtualnik.Shared.Models.Product;
 using Wirtualnik.Shared.Models.Category;
+using Wirtualnik.Shared.Models.Product;
 using Wirtualnik.UWP.Admin.Models;
 
 namespace Wirtualnik.UWP.Admin
@@ -203,7 +202,7 @@ namespace Wirtualnik.UWP.Admin
             try
             {
                 var result = await filesClient.Create(files);
-                await products.AttachImages(model.PublicId, result.Content.Select(i => i.Id).ToList());
+                await products.AttachImages(model.PublicId, result.Content.ConvertAll(i => i.Id));
             }
             catch (ApiException ex)
             {
@@ -345,12 +344,12 @@ namespace Wirtualnik.UWP.Admin
                     }
 
                     ExcelStatusTextBlock.Text += $"\n {Path.GetFileName(folder.Path).ToLower()}: ";
-                    
+
                     var uploaded = await filesClient.Create(images);
 
-                    var prod = await pro.AttachImages(Path.GetFileName(folder.Path).ToLower(), uploaded.Content.Select(i => i.Id).ToList());
+                    var prod = await pro.AttachImages(Path.GetFileName(folder.Path).ToLower(), uploaded.Content.ConvertAll(i => i.Id));
 
-                    if(prod.StatusCode == HttpStatusCode.NotFound)
+                    if (prod.StatusCode == HttpStatusCode.NotFound)
                     {
                         ExcelStatusTextBlock.Text += "Produkt nie istnieje w bazie";
                         continue;
@@ -365,7 +364,7 @@ namespace Wirtualnik.UWP.Admin
 
                     ExcelStatusTextBlock.Text += "OK";
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     await ShowContentDialog(ex.Message, ex.InnerException?.Message + "\n" + ex.StackTrace);
 
@@ -435,7 +434,6 @@ namespace Wirtualnik.UWP.Admin
 
         private void AddImportFiles_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

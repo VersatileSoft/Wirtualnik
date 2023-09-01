@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../Targets/Wirtualnik.Dotnet.targets" />
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Wirtualnik.Maui</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -19,13 +19,6 @@
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
-
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -46,16 +39,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
-    <PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="1.0.5" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+      <PackageReference Include="Goldie.MauiPlugins.PageResolver" Version="1.1.1" />
 	  <PackageReference Include="Goldie.MauiPlugins.PageResolver.Autoreg" Version="1.0.5" />
-	  <PackageReference Include="M.BindableProperty.Generator" Version="0.7.0" />
-	  <PackageReference Include="Polly" Version="7.2.3" />
-	  <PackageReference Include="Refit" Version="6.3.2" />
-	  <PackageReference Include="Sentry" Version="3.17.1" />
-	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
-	  <PackageReference Include="TinyMvvm.Maui" Version="4.0.1-pre4" />
+	  <PackageReference Include="M.BindableProperty.Generator" Version="0.11.1" />
+	  <PackageReference Include="Polly" Version="7.2.4" />
+	  <PackageReference Include="Refit" Version="7.0.0" />
+	  <PackageReference Include="Sentry.Maui" Version="3.36.0" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.2" />
+	  <PackageReference Include="TinyMvvm.Maui" Version="4.2.1" />
 	  <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="2.0.2-preview1013" />
 	</ItemGroup>
 

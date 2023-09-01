@@ -1,11 +1,13 @@
-﻿<ContentPage x:Class="Wirtualnik.Maui.Pages.LoginPage" x:DataType="viewmodels:LoginViewModel"
+﻿<mvvm:TinyView x:Class="Wirtualnik.Maui.Pages.LoginPage" x:DataType="viewmodels:LoginViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{AppThemeBinding Light={StaticResource CellBackgroundColorLight},
-                                      Dark={StaticResource CellBackgroundColorDark}}">
+                                      Dark={StaticResource CellBackgroundColorDark}}"
+    Shell.NavBarIsVisible="False">
     <!--  https://github.com/xamarin/Essentials/blob/develop/Samples/Samples/ViewModel/WebAuthenticatorViewModel.cs  -->
 
     <ContentPage.Content>
@@ -30,9 +32,6 @@
                                                   Dark={StaticResource BackgroundColorDark}}"
                 CornerRadius="8"
                 HasShadow="True">
-                <!--<nalesnik:PancakeView.Shadow>
-                    <nalesnik:DropShadow BlurRadius="8" Color="Black" />
-                </nalesnik:PancakeView.Shadow>-->
                 <VerticalStackLayout>
                     <Label
                         HorizontalOptions="Center"
@@ -154,4 +153,4 @@
             </Frame>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</mvvm:TinyView>

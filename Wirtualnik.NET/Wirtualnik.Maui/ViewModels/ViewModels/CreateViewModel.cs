@@ -7,6 +7,7 @@ using Wirtualnik.Shared.Models.Base;
 using Wirtualnik.Shared.Models.Product;
 using Wirtualnik.Maui.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Wirtualnik.Maui.Pages;
 
 namespace Wirtualnik.Maui.ViewModels;
 
@@ -39,18 +40,18 @@ public class CreateViewModel : BaseTabbarPageViewModel
     #endregion Commands
 
 
-    public CreateViewModel(INavigationService navigationService, IProductService productService) : base(navigationService)
+    public CreateViewModel(LoginPage loginPage, INavigationService navigationService, IProductService productService) : base(loginPage, navigationService)
     {
         this.productService = productService;
 
         ProductList = new SafeObservableCollection<ListItemModel>();
     }
 
-    public override async Task Initialize()
+    public override async Task OnAppearing()
     {
         await LoadDataAsync().ConfigureAwait(false);
 
-        return;
+        await base.OnAppearing();
     }
 
     private async Task LoadDataAsync()

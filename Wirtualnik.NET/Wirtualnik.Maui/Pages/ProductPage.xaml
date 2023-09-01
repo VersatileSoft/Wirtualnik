@@ -1,6 +1,7 @@
-﻿<ContentPage x:Class="Wirtualnik.Maui.Pages.ProductPage" x:DataType="viewmodels:ProductViewModel"
+﻿<mvvm:TinyView x:Class="Wirtualnik.Maui.Pages.ProductPage" x:DataType="viewmodels:ProductViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels">
 
     <ContentPage.Content>
@@ -8,4 +9,4 @@
             <Label Text="Hello to ProductPage!" />
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</mvvm:TinyView>

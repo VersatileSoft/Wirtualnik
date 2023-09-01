@@ -1,7 +1,8 @@
-﻿<ContentPage x:Class="Wirtualnik.Maui.Pages.MainPage" x:DataType="viewmodels:MainViewModel"
+﻿<mvvm:TinyView x:Class="Wirtualnik.Maui.Pages.MainPage" x:DataType="viewmodels:MainViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:pages="clr-namespace:Wirtualnik.Maui.Pages"
     xmlns:scg="clr-namespace:System.Collections.Generic;assembly=netstandard"
     xmlns:sh="http://sharpnado.com"
@@ -349,4 +350,4 @@
             </Frame>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</mvvm:TinyView>

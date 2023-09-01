@@ -1,9 +1,7 @@
-﻿using Maui.Plugins.PageResolver;
-using System.Reflection;
+﻿using System.Reflection;
 using Wirtualnik.Shared.ApiClient;
-using Xamarin.CommunityToolkit.Android.Effects;
-using Xamarin.CommunityToolkit.Effects;
-using Resolver = TinyMvvm.Resolver;
+//using Xamarin.CommunityToolkit.Android.Effects;
+//using Xamarin.CommunityToolkit.Effects;
 
 namespace Wirtualnik.Maui;
 
@@ -20,9 +18,7 @@ public static partial class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .UseTinyMvvm(currentAssembly, currentAssembly)
-            .UsePageResolver()
-            
+            .UseTinyMvvm()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("icomoon.ttf", "FontIcons");
@@ -33,18 +29,16 @@ public static partial class MauiProgram
                 fonts.AddFont("Poppins-Light.ttf", "PoppinsLight");
                 fonts.AddFont("Roboto-Medium.ttf", "RobotoMedium");
             })
-            .ConfigureEffects(effects =>
-            {
-                effects.Add<StatusBarEffect, PlatformStatusBarEffect>();
-                effects.Add<TouchEffect, PlatformTouchEffect>();
-                //effects.Add<CornerRadiusEffect, PlatformCornerRadiusEffect>();
-            })
+            //.ConfigureEffects(effects =>
+            //{
+            //    effects.Add<StatusBarEffect, PlatformStatusBarEffect>();
+            //    effects.Add<TouchEffect, PlatformTouchEffect>();
+            //    //effects.Add<CornerRadiusEffect, PlatformCornerRadiusEffect>();
+            //})
             .Services
             .RegisterClients();
 
         var app = builder.Build();
-
-        Resolver.SetResolver(new ServiceProviderResolver(app.Services));
 
         return app;
     }

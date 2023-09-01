@@ -5,11 +5,11 @@ namespace Wirtualnik.Maui.Pages
 {
     public partial class SearchPage : ContentPage
     {
-        public SearchPage()
+        public SearchPage(SearchViewModel searchViewModel)
         {
             InitializeComponent();
 
-            BindingContext = App.GetPageViewModel<SearchViewModel>();
+            BindingContext = searchViewModel;
         }
     }
 }

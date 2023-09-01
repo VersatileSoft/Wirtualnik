@@ -5,15 +5,15 @@ using Xamarin.CommunityToolkit.UI.Views;
 
 namespace Wirtualnik.Maui.Pages
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : TinyView
     {
         private bool isMenuOpened;
         
-        public MainPage()
+        public MainPage(MainViewModel mainViewModel)
         {
             InitializeComponent();
 
-            BindingContext = App.GetPageViewModel<MainViewModel>();
+            BindingContext = mainViewModel;
         }
 
         private void tabView_SelectionChanged(object sender, TabSelectionChangedEventArgs e)

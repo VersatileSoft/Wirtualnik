@@ -1,10 +1,9 @@
-﻿<mvvm:ShellViewBase x:Class="Wirtualnik.Maui.Views.MyZoneView" x:DataType="viewmodels:MyZoneViewModel"
+﻿<mvvm:TinyView x:Class="Wirtualnik.Maui.Views.MyZoneView" x:DataType="viewmodels:MyZoneViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Wirtualnik.Maui.Controls"
-    xmlns:mvvm="clr-namespace:TinyMvvm.Maui;assembly=TinyMvvm.Maui"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodels="clr-namespace:Wirtualnik.Maui.ViewModels"
-    x:TypeArguments="viewmodels:MyZoneViewModel"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight},
                                       Dark={StaticResource BackgroundColorDark}}"
     ControlTemplate="{StaticResource ShellTabbedPageTemplate}">
@@ -20,4 +19,4 @@
                 Text="Welcome to MyZoneView!" />
         </Grid>
     </ContentPage.Content>
-</mvvm:ShellViewBase>
+</mvvm:TinyView>

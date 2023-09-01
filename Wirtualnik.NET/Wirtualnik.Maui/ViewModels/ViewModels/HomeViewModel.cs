@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Wirtualnik.Maui.Extensions;
+using Wirtualnik.Maui.Pages;
 using Wirtualnik.Maui.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
 
@@ -13,18 +14,18 @@ public class HomeViewModel : BaseTabbarPageViewModel
     public SafeObservableCollection<int> ProductList { get; set; }
     public AsyncCommand LoadMoreItemsCommand { get; set; }
 
-    public HomeViewModel(INavigationService navigationService) : base(navigationService)
+    public HomeViewModel(LoginPage loginPage, INavigationService navigationService) : base(loginPage, navigationService)
     {
         ProductList = new SafeObservableCollection<int>();
 
         LoadMoreItemsCommand = new AsyncCommand(() => LoadMoreData(), allowsMultipleExecutions: false);
     }
 
-    public override Task OnFirstAppear()
+    public override Task OnAppearing()
     {
         LoadData();
 
-        return base.OnFirstAppear();
+        return base.OnAppearing();
     }
 
     private Task LoadData()

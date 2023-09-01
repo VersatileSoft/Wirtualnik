@@ -5,8 +5,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/Values/Colors.xaml" />
-                <ResourceDictionary Source="Styles/Values/FontIcons.xaml" />
+                <ResourceDictionary Source="Resources/Values/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Values/FontIcons.xaml" />
                 <!--<styles:PageStyle />-->
             </ResourceDictionary.MergedDictionaries>
 

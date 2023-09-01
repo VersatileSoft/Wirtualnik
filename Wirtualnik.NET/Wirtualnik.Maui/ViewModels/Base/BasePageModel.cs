@@ -20,7 +20,7 @@ public partial class BasePageModel : ObservableObject
         this.navigationService = navigationService;
     }
 
-    [ICommand]
+    [RelayCommand]
     public async Task GoBack()
     {
         await this.navigationService.GoBackAsync().ConfigureAwait(false);

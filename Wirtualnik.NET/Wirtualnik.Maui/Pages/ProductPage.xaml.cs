@@ -3,13 +3,13 @@
 
 namespace Wirtualnik.Maui.Pages
 {
-    public partial class ProductPage : ContentPage
+    public partial class ProductPage : TinyView
     {
-        public ProductPage()
+        public ProductPage(ProductViewModel productViewModel)
         {
             InitializeComponent();
 
-            BindingContext = App.GetPageViewModel<ProductViewModel>();
+            BindingContext = productViewModel;
         }
     }
 }
